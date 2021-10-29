@@ -2,12 +2,9 @@
                 <div class="app-sidebar__overlay" data-toggle="sidebar"></div>
                 <aside class="app-sidebar">
                     <div class="side-header">
-                        <a class="header-brand1" href="{{ url('/' . $page='index') }}">
-                            <img src="{{URL::asset('assets/images/brand/logo.png')}}" class="header-brand-img desktop-logo" alt="logo">
-                            <img src="{{URL::asset('assets/images/brand/logo-1.png')}}"  class="header-brand-img toggle-logo" alt="logo">
-                            <img src="{{URL::asset('assets/images/brand/logo-2.png')}}" class="header-brand-img light-logo" alt="logo">
-                            <img src="{{URL::asset('assets/images/brand/logo-3.png')}}" class="header-brand-img light-logo1" alt="logo">
-                        </a><!-- LOGO -->
+
+                                <h3>Devista Work Log</h3>
+
                         <a aria-label="Hide Sidebar" class="app-sidebar__toggle ml-auto" data-toggle="sidebar" href="#"></a><!-- sidebar-toggle-->
                     </div>
                     <div class="app-sidebar__user">
@@ -48,7 +45,7 @@
                             <a class="side-menu__item" data-toggle="slide" href="#"><i class="side-menu__icon ti-layout-accordion-separated"></i><span class="side-menu__label">Projects</span><i class="angle fa fa-angle-right"></i></a>
                             <ul class="slide-menu">
                                 <li><a href="{{ url('/' . $page='datatable') }}" class="slide-item">Project List</a></li>
-                                <li><a href="{{ url('/' . $page='AddProject') }}" class="slide-item">Add Project</a></li>
+                                <li><a href="{{ url('/' . $page='addproject') }}" class="slide-item">Add Project</a></li>
                             </ul>
                         </li>
                         <li><h3>Elements</h3></li>

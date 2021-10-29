@@ -16,7 +16,7 @@ use App\Http\Controllers\UserController;
 */
 
 Route::get('/', function () {
-    return view('index');
+    return view('login');
 });
 route::get('/index', [UserController::class, 'index']);
 route::get('/calendar2', [UserController::class, 'calendar2']);
@@ -33,5 +33,5 @@ route::get('/register', [UserController::class, 'register']);
 route::get('/tables', [UserController::class, 'tables']);
 route::get('/userslist', [UserController::class, 'userslist']);
 route::get('/verticalmenu', [UserController::class, 'verticalmenu']);
-route::get('/AddProject', [UserController::class, 'projectAdd']);
+route::get('/addproject', [UserController::class, 'addProject']);
 

@@ -1,8 +1,8 @@
 		<!-- FAVICON -->
-		<link rel="shortcut icon" type="image/x-icon" href="{{URL::asset('assets/images/brand/favicon.ico')}}" />
+
 
 		<!-- TITLE -->
-		<title>Volgh –  Bootstrap 4 Responsive Application Admin panel Theme Ui Kit & Premium Dashboard Design Modern Flat HTML Template</title>
+		<title>Devista Work Log</title>
 
 		<!-- BOOTSTRAP CSS -->
 		<link href="{{URL::asset('assets/plugins/bootstrap/css/bootstrap.min.css')}}" rel="stylesheet" />
