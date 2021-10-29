@@ -21,22 +21,17 @@ Route::get('/', function () {
 route::get('/index', [UserController::class, 'index']);
 route::get('/calendar2', [UserController::class, 'calendar2']);
 route::get('/datatable', [UserController::class, 'datatable']);
-route::get('/dropdown', [UserController::class, 'dropdown']);
-route::get('/editprofile', [UserController::class, 'editprofile']); //project table
-route::get('/email', [UserController::class, 'email']);
-route::get('/emailview', [UserController::class, 'emailview']); //?
-route::get('/emailservices', [UserController::class, 'emailservices']);
+route::get('/profile', [UserController::class, 'editprofile']); //project table
 route::get('/empty', [UserController::class, 'empty']);
 route::get('/forgotpassword', [UserController::class, 'forgotpassword']);
 route::get('/index2', [UserController::class, 'index2']);
 route::get('/index3', [UserController::class, 'index3']);
 route::get('/index4', [UserController::class, 'index4']);
 route::get('/index5', [UserController::class, 'index5']);
-route::get('/lockscreen', [UserController::class, 'lockscreen']);
 route::get('/login', [UserController::class, 'login']);
-route::get('/profile', [UserController::class, 'profile']);
 route::get('/register', [UserController::class, 'register']);
 route::get('/tables', [UserController::class, 'tables']);
 route::get('/userslist', [UserController::class, 'userslist']);
-route::get('/widgets', [UserController::class, 'widgets']);
 route::get('/verticalmenu', [UserController::class, 'verticalmenu']);
+route::get('/AddProject', [UserController::class, 'projectAdd']);
+

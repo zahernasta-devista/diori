@@ -23,30 +23,11 @@ class UserController extends Controller
 		return view('datatable');
 	}
 
-	public function dropdown()
-	{
-		return view('dropdown');
-	}
-
 	public function editprofile()
 	{
 		return view('editprofile');
 	}
 
-    public function email()
-	{
-		return view('email');
-	}
-
-    public function emailview()
-	{
-		return view('emailview');
-	}
-
-	public function emailservices()
-	{
-		return view('emailservices');
-	}
 
 	public function empty()
 	{
@@ -81,21 +62,11 @@ class UserController extends Controller
 	}
 
 
-	public function lockscreen()
-	{
-		return view('lockscreen');
-	}
-
 	public function login()
 	{
 		return view('login');
 	}
 
-
-	public function profile()
-	{
-		return view('profile');
-	}
 
 
     public function register()
@@ -113,17 +84,16 @@ class UserController extends Controller
 		return view('userslist');
     }
 
-	public function widgets()
-	{
-		return view('widgets');
-	}
-
 
 	public function verticalmenu()
 	{
 		return view('verticalmenu');
     }
 
+    public function projectAdd()
+    {
+        return view('add-project');
+    }
 
 
 }
