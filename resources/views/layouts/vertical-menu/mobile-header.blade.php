@@ -48,11 +48,6 @@
                                         </a>
                                     </div>
                                 </div>
-                                <div class="dropdown d-md-flex header-settings">
-                                    <a href="#" class="nav-link icon " data-toggle="sidebar-right" data-target=".sidebar-right">
-                                        <i class="fe fe-align-right"></i>
-                                    </a>
-                                </div><!-- SIDE-MENU -->
                             </div>
                         </div>
                     </div>
