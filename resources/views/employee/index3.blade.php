@@ -1,4 +1,4 @@
-@extends('layouts.vertical-menu.master')
+@extends('layouts.vertical-menu-user.master-user')
 @section('css')
 <link href="{{ URL::asset('assets/plugins/morris/morris.css')}}" rel="stylesheet">
 <link href="{{ URL::asset('assets/plugins/rating/rating.css')}}" rel="stylesheet">

@@ -37,9 +37,9 @@
         <li class="slide">
             <a class="side-menu__item" data-toggle="slide" href="#"><i class="side-menu__icon ti-panel"></i><span class="side-menu__label">Elements</span><i class="angle fa fa-angle-right"></i></a>
             <ul class="slide-menu">
-                <li><a href="{{ url('/' . $page='index2') }}" class="slide-item"> Dashboard</a></li>
-                <li><a href="{{ url('/' . $page='empty') }}" class="slide-item"> Work Log</a></li>
-                <li><a href="{{ url('/' . $page='calendar2') }}" class="slide-item"> Calendar</a></li>
+                <li><a href="{{ url('/' . $page='index/employee') }}" class="slide-item"> Dashboard</a></li>
+                <li><a href="{{ url('/' . $page='index3') }}" class="slide-item"> Work Log</a></li>
+                <li><a href="{{ url('/' . $page='index4') }}" class="slide-item"> Calendar</a></li>
             </ul>
         </li>
 

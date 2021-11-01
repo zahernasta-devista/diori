@@ -1,4 +1,4 @@
-@extends('layouts.vertical-menu.master')
+@extends('layouts.vertical-menu-user.master-user')
 @section('css')
 @endsection
 @section('page-header')

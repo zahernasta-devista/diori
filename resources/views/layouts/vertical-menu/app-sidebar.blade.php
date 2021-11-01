@@ -44,14 +44,14 @@
                             <a class="side-menu__item" data-toggle="slide" href="#"><i class="side-menu__icon ti-layout-accordion-separated"></i><span class="side-menu__label">Projects</span><i class="angle fa fa-angle-right"></i></a>
                             <ul class="slide-menu">
                                 <li><a href="{{ url('/' . $page='datatable') }}" class="slide-item">Project List</a></li>
-                                <li><a href="{{ url('/' . $page='AddProject') }}" class="slide-item">Add Project</a></li>
+                                <li><a href="{{ url('/' . $page='addProject') }}" class="slide-item">Add Project</a></li>
                             </ul>
                         </li>
                         <li><h3>Elements</h3></li>
                         <li class="slide">
                             <a class="side-menu__item" data-toggle="slide" href="#"><i class="side-menu__icon ti-panel"></i><span class="side-menu__label">Components</span><i class="angle fa fa-angle-right"></i></a>
                             <ul class="slide-menu">
-                                <li><a href="{{ url('/' . $page='index') }}" class="slide-item"> Dashboard</a></li>
+                                <li><a href="{{ url('/' . $page='index/admin') }}" class="slide-item"> Dashboard</a></li>
                                 <li><a href="{{ url('/' . $page='empty') }}" class="slide-item"> Search by Date</a></li>
 
                             </ul>
