@@ -3,8 +3,7 @@
 <aside class="app-sidebar">
     <div class="side-header">
         <a class="header-brand1" href="{{ url('/' . $page='index2') }}">
-          <h3>Devista Work Log</h3>
-        </a><!-- LOGO -->
+            <h2>Diori</h2>
         <a aria-label="Hide Sidebar" class="app-sidebar__toggle ml-auto" data-toggle="sidebar" href="#"></a><!-- sidebar-toggle-->
     </div>
     <div class="app-sidebar__user">
@@ -20,13 +19,13 @@
     </div>
     <div class="sidebar-navs">
         <ul class="nav  nav-pills-circle">
-            <li class="nav-item" data-toggle="tooltip" data-placement="top" title="Profile">
-                <a class="nav-link text-center m-2">
+            <li class="nav-item" data-toggle="tooltip" data-placement="top" title="Profile" >
+                <a class="nav-link text-center m-2" href="{{ url('/' . $page='profile/employee') }}">
                     <i class="fe fe-user"></i>
                 </a>
             </li>
             <li class="nav-item" data-toggle="tooltip" data-placement="top" title="Logout">
-                <a class="nav-link text-center m-2">
+                <a class="nav-link text-center m-2" href="{{ url('/' . $page='login') }}">
                     <i class="fe fe-power"></i>
                 </a>
             </li>

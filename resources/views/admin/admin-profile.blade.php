@@ -72,10 +72,6 @@
 											<label for="exampleInputEmail1">Email address</label>
 											<h6>alwanmazen@yahoo.com</h6>
 										</div>
-										<div class="card-footer">
-											<a href="#" class="btn btn-success mt-1">Save</a>
-											<a href="#" class="btn btn-danger mt-1">Cancel</a>
-										</div>
 
 									</div>
 								</div>
