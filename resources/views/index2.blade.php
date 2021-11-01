@@ -1,4 +1,4 @@
-@extends('layouts.vertical-menu.master')
+@extends('layouts.vertical-menu-user.master-user')
 @section('css')
 <link href="{{ URL::asset('assets/plugins/ion.rangeSlider/css/ion.rangeSlider.css')}}" rel="stylesheet">
 <link href="{{ URL::asset('assets/plugins/ion.rangeSlider/css/ion.rangeSlider.skinSimple.css')}}" rel="stylesheet">
@@ -6,10 +6,10 @@
 @section('page-header')
 						<!-- PAGE-HEADER -->
 							<div>
-								<h1 class="page-title">Dashboard 02</h1>
+								<h1 class="page-title">Dashboard</h1>
 								<ol class="breadcrumb">
 									<li class="breadcrumb-item"><a href="#">Home</a></li>
-									<li class="breadcrumb-item active" aria-current="page">Dashboard 02</li>
+									<li class="breadcrumb-item active" aria-current="page">Dashboard</li>
 								</ol>
 							</div>
 						<!-- PAGE-HEADER END -->
