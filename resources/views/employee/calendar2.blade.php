@@ -1,4 +1,4 @@
-@extends('layouts.vertical-menu-user.master-user')
+@extends('layouts.vertical-menu-employee.master-employee')
 @section('css')
 <link href="{{ URL::asset('assets/plugins/fullcalendar/fullcalendar.css')}}" rel="stylesheet">
 <link href="{{ URL::asset('assets/plugins/fullcalendar/fullcalendar.print.min.css')}}" rel="stylesheet" media='print'>

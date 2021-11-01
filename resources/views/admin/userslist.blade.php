@@ -42,7 +42,9 @@
 {{--									<td class="text-center align-middle">--}}
 {{--										<div class="btn-group align-top">--}}
 {{--											<a class="btn btn-sm btn-primary badge" href="{{'/employee/'.$employee->id}}" type="button">Edit</a>--}}
-{{--											<a class="btn btn-sm btn-primary badge" href="{{ route('delete' ,$employee->id) }}" type="button"><i class="fa fa-trash"></i></a>--}}
+{{--											<a class="btn btn-sm btn-primary badge" href="{{ route('delete' ,$employee->id) }}" type="button"><i class="fa fa-trash"></i></a>-
+												<a class="btn btn-sm btn-primary badge" href="{{ change to admin }}" type="button">Admin</a>
+-}}
 {{--										</div>--}}
 {{--									</td>--}}
 {{--								</tr>--}}

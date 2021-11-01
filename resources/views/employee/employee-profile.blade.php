@@ -1,4 +1,4 @@
-@extends('layouts.vertical-menu.master')
+@extends('layouts.vertical-menu-employee.master-employee')
 @section('css')
 <link href="{{ URL::asset('assets/plugins/ion.rangeSlider/css/ion.rangeSlider.css')}}" rel="stylesheet">
 <link href="{{ URL::asset('assets/plugins/ion.rangeSlider/css/ion.rangeSlider.skinSimple.css')}}" rel="stylesheet">

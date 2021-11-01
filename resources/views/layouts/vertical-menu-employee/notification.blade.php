@@ -19,7 +19,7 @@
 											</div>
 										</div>
 										<div class="dropdown-divider m-0"></div>
-										<a class="dropdown-item" href="{{ url('/' . $page='profile') }}">
+										<a class="dropdown-item" href="{{ url('/' . $page='profile/employee') }}">
 											<i class="dropdown-icon mdi mdi-account-outline"></i> Profile
 										</a>
 

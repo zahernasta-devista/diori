@@ -1,4 +1,4 @@
-@extends('layouts.vertical-menu-user.master-user')
+@extends('layouts.vertical-menu-employee.master-employee')
 @section('css')
 <link href="{{ URL::asset('assets/plugins/morris/morris.css')}}" rel="stylesheet">
 @endsection

@@ -17,10 +17,6 @@ class UserController extends Controller
 	{
 		return view('user.register');
 	}
-    public function editprofile()
-    {
-        return view('user.editprofile');
-    }
     public function forgotpassword()
     {
         return view('user.forgotpassword');

@@ -16,9 +16,9 @@ class EmployeeController extends Controller
     {
         return view('employee.index2');
     }
-    public function index3()
+    public function workLog()
     {
-        return view('employee.index3');
+        return view('employee.work-log');
     }
     public function index4()
     {
@@ -27,5 +27,9 @@ class EmployeeController extends Controller
     public function index5()
     {
         return view('employee.index5');
+    }
+    public function employeeProfile()
+    {
+        return view('employee.employee-profile');
     }
 }

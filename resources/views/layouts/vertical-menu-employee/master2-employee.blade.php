@@ -9,7 +9,7 @@
     <meta name="author" content="Spruko Technologies Private Limited">
     <meta name="keywords" content="dashboard, admin, dashboard template, admin template, laravel, php laravel, laravel bootstrap, laravel admin template, bootstrap laravel, bootstrap in laravel, laravel dashboard template, laravel admin, laravel dashboard, laravel blade template, php admin">
 
-    @include('layouts.vertical-menu-user.head')
+    @include('layouts.vertical-menu-employee.head')
 
 </head>
 
@@ -17,7 +17,7 @@
 
 @yield('content')
 
-@include('layouts.vertical-menu-user.footer-scripts')
+@include('layouts.vertical-menu-employee.footer-scripts')
 
 </body>
 </html>

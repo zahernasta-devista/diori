@@ -24,7 +24,6 @@ Route::get('/', function () {
     return view('login');
 });
 //all Users
-    route::get('/profile', [UserController::class, 'editprofile']); //project table
     route::get('/forgotpassword', [UserController::class, 'forgotpassword']);
     route::get('/register', [UserController::class, 'register']);
     route::get('/login', [UserController::class, 'login']);
@@ -36,6 +35,7 @@ Route::get('/', function () {
     route::get('/tables', [AdminController::class, 'tables']);
     route::get('/userslist', [AdminController::class, 'userslist']);
     route::get('/verticalmenu', [AdminController::class, 'verticalmenu']);
+    route::get('/profile/admin', [AdminController::class, 'adminProfile']); //project table
 
 //project-admin
     route::get('/addProject', [ProjectController::class, 'addProject']);
@@ -44,7 +44,8 @@ Route::get('/', function () {
 //employee side
     route::get('/calendar2', [EmployeeController::class, 'calendar2']);
     route::get('/index/employee', [EmployeeController::class, 'index2']);
-    route::get('/index3', [EmployeeController::class, 'index3']);
+    route::get('/worklog', [EmployeeController::class, 'workLog']);
     route::get('/index4', [EmployeeController::class, 'index4']);
     route::get('/index5', [EmployeeController::class, 'index5']);
+    route::get('profile/employee', [EmployeeController::class, 'employeeProfile']);
 
