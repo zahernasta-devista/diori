@@ -5,16 +5,16 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Project extends Model
+class Customer extends Model
 {
     use HasFactory;
 
     protected $fillable = [
         'name',
-        'start_date'
+        'email',
     ];
 
-    public function customer(){
-        return $this->hasOne('App\Models\Customer');
+    public function projects(){
+        return $this->hasMany('App\Models\Project');
     }
 }
