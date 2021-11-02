@@ -24,7 +24,7 @@
 					<div class="container-login100">
 						<div class="row">
 							<div class="col col-login mx-auto">
-								<form class="card shadow-none" method="post">
+								<form class="card shadow-none" action="{{ route('password.email') }}" method="post">
 									<div class="card-body p-6">
 										<h3 class="text-center card-title">Forgot password</h3>
 											<div class="wrap-input100 validate-input" data-validate = "Valid email is required: ex@abc.xyz">

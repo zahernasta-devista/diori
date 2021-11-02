@@ -17,6 +17,8 @@
                             </div>
                         </div>
                     </div>
+                    <form method="POST" action="{{ route('logout') }}">
+                        {{ csrf_field() }}
                     <div class="sidebar-navs">
                         <ul class="nav  nav-pills-circle">
                             <li class="nav-item" data-toggle="tooltip" data-placement="top" title="Profile">
@@ -25,12 +27,13 @@
                                 </a>
                             </li>
                             <li class="nav-item" data-toggle="tooltip" data-placement="top" title="Logout">
-                                <a class="nav-link text-center m-2" href="{{ url('/' . $page='login') }}">
+                                <button class="nav-link text-center m-2" type="submit" href="{{ route('logout') }}">
                                     <i class="fe fe-power"></i>
-                                </a>
+                                </button>
                             </li>
                         </ul>
                     </div>
+                    </form>
                     <ul class="side-menu">
                         <li><h3>Main</h3></li>
                         <li class="slide">
