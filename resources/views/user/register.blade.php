@@ -11,7 +11,7 @@
 				<!-- CONTAINER OPEN -->
 				<div class="container-login100">
 					<div class="wrap-login100 p-6">
-						<form class="login100-form validate-form" action="" method="POST">
+						<form class="login100-form validate-form" action="{{ route('register') }}" method="POST">
 							@csrf
 							<span class="login100-form-title">
 									Add New Employee

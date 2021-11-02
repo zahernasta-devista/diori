@@ -21,12 +21,13 @@ use App\Http\Controllers\ProjectController;
 */
 
 Route::get('/', function () {
-    return view('user.login');
+    return view('auth.login');
 });
-//all Users
-    route::get('/forgotpassword', [UserController::class, 'forgotpassword']);
-    route::get('/register', [UserController::class, 'register']);
-    route::get('/login', [UserController::class, 'login']);
+
+Route::get('/dashboard', [AdminController::class, 'index'])->middleware(['auth'])->name('dashboard');
+
+require __DIR__ . '/auth.php';
+
 
 //admin side
     route::get('/index/admin', [AdminController::class, 'index']);
@@ -48,4 +49,8 @@ Route::get('/', function () {
     route::get('/index4', [EmployeeController::class, 'index4']);
     route::get('/index5', [EmployeeController::class, 'index5']);
     route::get('profile/employee', [EmployeeController::class, 'employeeProfile']);
+
+
+
+
 
