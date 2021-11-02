@@ -41,7 +41,7 @@
 									</span>
                         </div>
                         <div class="wrap-input100 validate-input" data-validate = "Organization is required">
-                            <input class="input100" type="text" name="startdate" placeholder="YYYY-MM-DD">
+                            <input class="input100" type="date" name="startdate" placeholder="YYYY-MM-DD">
                             <span class="focus-input100"></span>
                             <span class="symbol-input100">
 										<i class="zmdi zmdi-view-day" aria-hidden="true"></i>

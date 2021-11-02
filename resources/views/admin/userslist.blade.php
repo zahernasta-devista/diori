@@ -12,35 +12,39 @@
 			<li class="breadcrumb-item active" aria-current="page">Projects</li>
 		</ol>
 	</div>
+	<!-- PAGE-HEADER END -->
 @endsection
 @section('content')
+	<!-- ROW-1 OPEN -->
 	<div class="row">
 		<div class="col-md-12 col-lg-12">
 			<div class="card">
 				<div class="card-header">
-					<h3 class="card-title">Project Table</h3>
+					<h3 class="card-title">Your Employees</h3>
 				</div>
 				<div class="card-body">
 					<div class="table-responsive">
 						<table id="example" class="table table-striped table-bordered text-nowrap w-100">
 							<thead>
 							<tr>
-								<th class="wd-15p">Project name</th>
-								<th class="wd-15p">Customer</th>
-								<th class="wd-10p">Start date</th>
+								<th class="wd-15p">Name</th>
+								<th class="wd-15p">Position</th>
+								<th class="wd-10p">Email</th>
 								<th class="text-center">Actions</th>
 							</tr>
 							</thead>
 							<tbody>
-{{--							@foreach($projects as $project)--}}
+{{--							@foreach($employees as $employee)--}}
 {{--								<tr>--}}
-{{--									<td>{{$project->name}}</td>--}}
-{{--									<td>{{$project->customer}}</td>--}}
-{{--									<td>{{$project->startdate}}</td>--}}
+{{--									<td>{{$employee->name}}</td>--}}
+{{--									<td>{{$employee->position}}</td>--}}
+{{--									<td>{{$employee->email}}</td>--}}
 {{--									<td class="text-center align-middle">--}}
 {{--										<div class="btn-group align-top">--}}
-{{--											<a class="btn btn-sm btn-primary badge" href="{{'/project/'.$project->id}}" type="button">Edit</a>--}}
-{{--											<a class="btn btn-sm btn-primary badge" href="{{ route('deleteProject',$project->id) }}" type="button"><i class="fa fa-trash"></i></a>--}}
+{{--											<a class="btn btn-sm btn-primary badge" href="{{'/employee/'.$employee->id}}" type="button">Edit</a>--}}
+{{--											<a class="btn btn-sm btn-primary badge" href="{{ route('delete' ,$employee->id) }}" type="button"><i class="fa fa-trash"></i></a>-
+												<a class="btn btn-sm btn-primary badge" href="{{ change to admin }}" type="button">Admin</a>
+-}}
 {{--										</div>--}}
 {{--									</td>--}}
 {{--								</tr>--}}
@@ -49,6 +53,7 @@
 						</table>
 					</div>
 				</div>
+				<!-- CONTAINER CLOSED -->
 			</div>
 		</div>
 	</div>

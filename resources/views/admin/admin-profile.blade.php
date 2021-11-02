@@ -64,17 +64,13 @@
 											<div class="col-lg-6 col-md-12">
 												<div class="form-group">
 													<label for="exampleInputname1">Position</label>
-													<h6>Intern</h6>
+													<h6>admin</h6>
 												</div>
 											</div>
 										</div>
 										<div class="form-group">
 											<label for="exampleInputEmail1">Email address</label>
 											<h6>alwanmazen@yahoo.com</h6>
-										</div>
-										<div class="card-footer">
-											<a href="#" class="btn btn-success mt-1">Save</a>
-											<a href="#" class="btn btn-danger mt-1">Cancel</a>
 										</div>
 
 									</div>
@@ -84,7 +80,7 @@
 
 						<!-- ROW-1 CLOSED -->
 
-						<!-- ROW-2 OPEN -->
+{{--						<!-- ROW-2 OPEN -->--}}
 {{--						<div class="row">--}}
 {{--							<div class="col-12">--}}
 {{--								<div class="card">--}}
