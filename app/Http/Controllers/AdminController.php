@@ -38,7 +38,14 @@ class AdminController extends Controller
     {
         return view('admin.verticalmenu');
     }
-
+    public function register()
+    {
+        return view('admin.register');
+    }
+    public function searchByDate()
+    {
+        return view('admin.search-date');
+    }
 
 
 }

@@ -13,10 +13,7 @@ class UserController extends Controller
 	{
 		return view('user.login');
 	}
-    public function register()
-	{
-		return view('user.register');
-	}
+
     public function forgotpassword()
     {
         return view('user.forgotpassword');

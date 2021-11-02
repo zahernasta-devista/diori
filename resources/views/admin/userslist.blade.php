@@ -6,34 +6,58 @@
 @section('page-header')
 	<!-- PAGE-HEADER -->
 	<div>
-		<h1 class="page-title">Projects</h1>
+		<h1 class="page-title">Employees</h1>
 		<ol class="breadcrumb">
 			<li class="breadcrumb-item"><a href="#">Tables</a></li>
-			<li class="breadcrumb-item active" aria-current="page">Projects</li>
+			<li class="breadcrumb-item active" aria-current="page">Employees</li>
 		</ol>
 	</div>
 	<!-- PAGE-HEADER END -->
 @endsection
 @section('content')
-	<!-- ROW-1 OPEN -->
 	<div class="row">
-		<div class="col-md-12 col-lg-12">
+		<div class="col-12">
 			<div class="card">
-				<div class="card-header">
-					<h3 class="card-title">Your Employees</h3>
+				<div class="card-header ">
+					<h3 class="card-title ">Employees</h3>
+					<div class="card-options">
+						<a href="{{ url('/' . $page='register') }}" class="btn btn-md btn-primary " type="button">Add a new Employee</a>
+					</div>
 				</div>
 				<div class="card-body">
 					<div class="table-responsive">
 						<table id="example" class="table table-striped table-bordered text-nowrap w-100">
+
 							<thead>
 							<tr>
-								<th class="wd-15p">Name</th>
-								<th class="wd-15p">Position</th>
-								<th class="wd-10p">Email</th>
-								<th class="text-center">Actions</th>
+								<th scope="col">Name</th>
+								<th scope="col">Position</th>
+								<th scope="col">Email</th>
+								<th scope="col">Edit Project Details </th>
+								<th scope="col">list info</th>
 							</tr>
 							</thead>
 							<tbody>
+							<tr>
+								<td>Alwan Mazen</td>
+								<td>Intern</td>
+								<td>Mazen@devista.ro</td>
+								<td>
+									<a class="btn btn-sm btn-primary" href="#"><i class="fa fa-edit"></i> Edit</a>
+									<a class="btn btn-sm btn-danger" href="#"><i class="fa fa-trash"></i> Delete</a>
+								</td>
+								<td><a class="btn btn-sm btn-secondary" href="#"><i class="fa fa-info-circle"></i> Details</a> </td>
+							</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- ROW-1 OPEN -->
+
 {{--							@foreach($employees as $employee)--}}
 {{--								<tr>--}}
 {{--									<td>{{$employee->name}}</td>--}}
@@ -49,14 +73,7 @@
 {{--									</td>--}}
 {{--								</tr>--}}
 {{--							@endforeach--}}
-							</tbody>
-						</table>
-					</div>
-				</div>
-				<!-- CONTAINER CLOSED -->
-			</div>
-		</div>
-	</div>
+
 @endsection
 @section('js')
 	<script src="{{ URL::asset('assets/plugins/datatable/jquery.dataTables.min.js') }}"></script>

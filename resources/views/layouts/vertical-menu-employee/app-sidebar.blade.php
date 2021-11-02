@@ -2,7 +2,7 @@
 <div class="app-sidebar__overlay" data-toggle="sidebar"></div>
 <aside class="app-sidebar">
     <div class="side-header">
-        <a class="header-brand1" href="{{ url('/' . $page='index2') }}">
+        <a class="header-brand1" href="{{ url('/' . $page='index/employee') }}">
             <h2>Diori</h2>
         <a aria-label="Hide Sidebar" class="app-sidebar__toggle ml-auto" data-toggle="sidebar" href="#"></a><!-- sidebar-toggle-->
     </div>
@@ -38,7 +38,7 @@
             <ul class="slide-menu">
                 <li><a href="{{ url('/' . $page='index/employee') }}" class="slide-item"> Dashboard</a></li>
                 <li><a href="{{ url('/' . $page='worklog') }}" class="slide-item"> Work Log</a></li>
-                <li><a href="{{ url('/' . $page='calendar2') }}" class="slide-item"> Calendar</a></li>
+                <li><a href="{{ url('/' . $page='calendar') }}" class="slide-item"> Calendar</a></li>
             </ul>
         </li>
 

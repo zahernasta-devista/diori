@@ -24,7 +24,7 @@
 									Login
 								</span>
 							<div class="wrap-input100 validate-input" data-validate = "Valid email is required: ex@abc.xyz">
-								<input class="input100" type="text" name="email" placeholder="Email">
+								<input class="input100" type="email" name="email" placeholder="Email">
 								<span class="focus-input100"></span>
 								<span class="symbol-input100">
 										<i class="zmdi zmdi-email" aria-hidden="true"></i>
@@ -38,7 +38,7 @@
 									</span>
 							</div>
 							<div class="text-right pt-1">
-								<p class="mb-0"><a href="forgot-password.html" class="text-primary ml-1">Forgot Password?</a></p>
+								<p class="mb-0"><a href="forgotpassword" class="text-primary ml-1">Forgot Password?</a></p>
 							</div>
 							<div class="container-login100-form-btn">
 								<button  class="login100-form-btn btn-primary">
