@@ -80,7 +80,7 @@
 
 						<!-- ROW-1 CLOSED -->
 
-						<!-- ROW-2 OPEN -->
+{{--						<!-- ROW-2 OPEN -->--}}
 {{--						<div class="row">--}}
 {{--							<div class="col-12">--}}
 {{--								<div class="card">--}}

@@ -35,7 +35,7 @@
 {{--							@foreach($projects as $project)--}}
 {{--								<tr>--}}
 {{--									<td>{{$project->name}}</td>--}}
-{{--									<td>{{$project->customer}}</td>--}}
+{{--									<td>{{$project->customer->name}}</td>--}}
 {{--									<td>{{$project->startdate}}</td>--}}
 {{--									<td class="text-center align-middle">--}}
 {{--										<div class="btn-group align-top">--}}

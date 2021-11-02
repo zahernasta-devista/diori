@@ -21,7 +21,7 @@ use App\Http\Controllers\ProjectController;
 */
 
 Route::get('/', function () {
-    return view('login');
+    return view('user.login');
 });
 //all Users
     route::get('/forgotpassword', [UserController::class, 'forgotpassword']);

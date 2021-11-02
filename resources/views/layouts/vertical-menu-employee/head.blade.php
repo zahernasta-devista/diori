@@ -1,5 +1,5 @@
 		<!-- TITLE -->
-		<title>Devista Work Log</title>
+		<title>Diori</title>
 
 		<!-- BOOTSTRAP CSS -->
 		<link href="{{URL::asset('assets/plugins/bootstrap/css/bootstrap.min.css')}}" rel="stylesheet" />
