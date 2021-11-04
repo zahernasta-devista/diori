@@ -45,7 +45,7 @@
 									</span>
                             </div>
                             <div class="container-login100-form-btn">
-                                <button  class="login100-form-btn btn-primary">
+                                <button type="submit"  class="login100-form-btn btn-primary">
                                     {{ __('Add Employee') }}
                                 </button>
                             </div>
