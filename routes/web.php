@@ -38,7 +38,7 @@ require __DIR__ . '/auth.php';
 
 
 //admin side
-Route::group(['middleware' => 'auth'], function() {
+Route::group(['middleware' => 'role:admin'], function() {
     Route::get('/dashboard', [AdminController::class, 'index'])->name('dashboard');
     route::get('/index/admin', [AdminController::class, 'index']);
     route::get('/datatable', [AdminController::class, 'datatable']);
