@@ -18,37 +18,49 @@ use App\Http\Controllers\ProjectController;
 | routes are loaded by the RouteServiceProvider within a group which
 | contains the "web" middleware group. Now create something great!
 |
+|--------------------------------------------------------------------------
+| Routing Convention
+|--------------------------------------------------------------------------
+| To create a route in the correct way, it has to follow the following convention:
+| /(name_of_model_plural_form)/(method_to_do)/(id)
+| Real-life Example for adding a new employee:
+| /employees/add
+| Real-life example for updating an employee:
+| /employees/edit/1
 */
 
 Route::get('/', function () {
     return view('auth.login');
 });
 
-Route::get('/dashboard', [AdminController::class, 'index'])->middleware(['auth'])->name('dashboard');
 
 require __DIR__ . '/auth.php';
 
 
 //admin side
+Route::group(['middleware' => 'auth'], function() {
+    Route::get('/dashboard', [AdminController::class, 'index'])->name('dashboard');
     route::get('/index/admin', [AdminController::class, 'index']);
     route::get('/datatable', [AdminController::class, 'datatable']);
     route::get('/empty', [AdminController::class, 'empty']);
     route::get('/tables', [AdminController::class, 'tables']);
-    route::get('/userslist', [AdminController::class, 'userslist']);
-    route::get('/verticalmenu', [AdminController::class, 'verticalmenu']);
+    route::get('/userslist', [AdminController::class, 'userslist']); //TODO: Refactor naming to the convention (See the comments above)
+    route::get('/vertical-menu', [AdminController::class, 'verticalmenu']); //TODO: Refactor naming
     route::get('/profile/admin', [AdminController::class, 'adminProfile']); //project table
+    route::get('/addProject', [ProjectController::class, 'addProject']); //TODO: Refactor to the convention (See the comments above)
+
+});
 
 //project-admin
-    route::get('/addProject', [ProjectController::class, 'addProject']);
 
 
 //employee side
-    route::get('/calendar2', [EmployeeController::class, 'calendar2']);
-    route::get('/index/employee', [EmployeeController::class, 'index2']);
-    route::get('/worklog', [EmployeeController::class, 'workLog']);
-    route::get('/index4', [EmployeeController::class, 'index4']);
-    route::get('/index5', [EmployeeController::class, 'index5']);
-    route::get('profile/employee', [EmployeeController::class, 'employeeProfile']);
+//    route::get('/calendar2', [EmployeeController::class, 'calendar2']);
+//    route::get('/index/employee', [EmployeeController::class, 'index2']);
+//    route::get('/worklog', [EmployeeController::class, 'workLog']);
+//    route::get('/index4', [EmployeeController::class, 'index4']);
+//    route::get('/index5', [EmployeeController::class, 'index5']);
+//    route::get('profile/employee', [EmployeeController::class, 'employeeProfile']);
 
 
 
