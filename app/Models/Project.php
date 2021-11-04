@@ -17,4 +17,8 @@ class Project extends Model
     public function customer(){
         return $this->hasOne('App\Models\Customer');
     }
+
+    public function users() {
+        return $this->belongsToMany(User::class, 'users_projects');
+    }
 }

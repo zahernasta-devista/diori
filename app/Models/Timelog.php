@@ -14,4 +14,8 @@ class Timelog extends Model
         'date'
     ];
 
+    public function user() {
+        return $this->hasOne('App\Models\User');
+    }
+
 }
