@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Middleware\Admin;
-use App\models\User;
+use App\Models\User;
 use App\models\Organization;
 use Illuminate\Http\Request;
 use Illuminate\Auth\Events\Registered;
