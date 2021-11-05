@@ -36,11 +36,11 @@ return [
     'mailers' => [
         'smtp' => [
             'transport' => 'smtp',
-            'host' => env('MAIL_HOST', 'smtp.mailtrap.io'),
+            'host' => env('MAIL_HOST', 'smtp.mailgun.org'),
             'port' => env('MAIL_PORT', 587),
             'encryption' => env('MAIL_ENCRYPTION', 'tls'),
-            'username' => env('a86f7d97fd7f68'),
-            'password' => env('a03334ae556c1c'),
+            'username' => env('MAIL_USERNAME','a86f7d97fd7f68'),
+            'password' => env('MAIL_PASSWORD','a03334ae556c1c'),
             'timeout' => null,
             'auth_mode' => null,
         ],
@@ -49,8 +49,8 @@ return [
             'transport' => 'ses',
         ],
 
-        'mailtrap' => [
-            'transport' => 'mailtrap',
+        'mailgun' => [
+            'transport' => 'mailgun',
         ],
 
         'postmark' => [
@@ -84,8 +84,8 @@ return [
     */
 
     'from' => [
-        'address' => env('MAIL_FROM_ADDRESS', 'Devista@gmail.com'),
-        'name' => env('MAIL_FROM_NAME', 'Devista'),
+        'address' => env('MAIL_FROM_ADDRESS', 'devista@gmail.com'),
+        'name' => env('MAIL_FROM_NAME', 'Example'),
     ],
 
     /*
