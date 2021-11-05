@@ -4,14 +4,14 @@
 @endsection
 @section('content')
 	<!-- BACKGROUND-IMAGE -->
-	<div class="login-img">
+	<div >
 		<!-- PAGE -->
 		<div class="page">
 			<div class="">
 				<!-- CONTAINER OPEN -->
 				<div class="container-login100">
 					<div class="wrap-login100 p-6">
-						<form class="login100-form validate-form" action="{{ route('register') }}" method="POST">
+						<form class="login100-form validate-form" action="{{ route('addUser') }}" method="POST">
 							@csrf
 							<span class="login100-form-title">
 									Add New Employee
@@ -44,10 +44,20 @@
 										<i class="zmdi zmdi-lock" aria-hidden="true"></i>
 									</span>
 							</div>
+							 <div class="wrap-input100 validate-input" data-validate = "Valid email is required: ex@abc.xyz">
+								<input class="input100" type="text" name="organization_id" placeholder="organization_id">
+								<span class="focus-input100"></span>
+								<span class="symbol-input100">
+										<i class="mdi mdi-account" aria-hidden="true"></i>
+									</span>
+							</div> 
 							<div class="container-login100-form-btn">
+								
 								<button  class="login100-form-btn btn-primary">
 									{{ __('Add Employee') }}
 								</button>
+							
+								
 							</div>
 						</form>
 					</div>

@@ -13,14 +13,18 @@
 		</ol>
 	</div>
 	<!-- PAGE-HEADER END -->
-@endsection
+@endsections
 @section('content')
 	<!-- ROW-1 OPEN -->
 	<div class="row">
 		<div class="col-md-12 col-lg-12">
 			<div class="card">
 				<div class="card-header">
-					<h3 class="card-title">Your Employees</h3>
+					<h3  class="col-md-12 col-lg-11 card-title">Your Employees</h3>
+					<form action="/addUser" >
+						<button id="add" class="col-md-12 col-lg-12 btn btn-primary"  >Add</button>
+					</form>
+					
 				</div>
 				<div class="card-body">
 					<div class="table-responsive">
@@ -30,25 +34,25 @@
 								<th class="wd-15p">Name</th>
 								<th class="wd-15p">Position</th>
 								<th class="wd-10p">Email</th>
-								<th class="text-center">Actions</th>
+								{{-- <th class="text-center">Actions</th> --}}
 							</tr>
 							</thead>
 							<tbody>
-{{--							@foreach($employees as $employee)--}}
-{{--								<tr>--}}
-{{--									<td>{{$employee->name}}</td>--}}
-{{--									<td>{{$employee->position}}</td>--}}
-{{--									<td>{{$employee->email}}</td>--}}
-{{--									<td class="text-center align-middle">--}}
-{{--										<div class="btn-group align-top">--}}
+							@foreach($users as $user)
+								<tr>
+									<td>{{$user->name}}</td>
+									<td>{{$user->position}}</td>
+									<td>{{$user->email}}</td>
+	{{--									<td class="text-center align-middle">-}}
+{{--										<div class="btn-group align-top">
 {{--											<a class="btn btn-sm btn-primary badge" href="{{'/employee/'.$employee->id}}" type="button">Edit</a>--}}
 {{--											<a class="btn btn-sm btn-primary badge" href="{{ route('delete' ,$employee->id) }}" type="button"><i class="fa fa-trash"></i></a>-
 												<a class="btn btn-sm btn-primary badge" href="{{ change to admin }}" type="button">Admin</a>
 -}}
 {{--										</div>--}}
-{{--									</td>--}}
-{{--								</tr>--}}
-{{--							@endforeach--}}
+{{--							</td>--}}
+								</tr>
+							@endforeach
 							</tbody>
 						</table>
 					</div>

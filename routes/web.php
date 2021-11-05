@@ -6,6 +6,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\ProjectController;
+use App\Http\Controllers\Auth\RegisteredUserController;
 
 
 
@@ -44,11 +45,18 @@ Route::group(['middleware' => 'role:admin'], function() {
     route::get('/datatable', [AdminController::class, 'datatable']);
     route::get('/empty', [AdminController::class, 'empty']);
     route::get('/tables', [AdminController::class, 'tables']);
-    route::get('/userslist', [AdminController::class, 'userslist']); //TODO: Refactor naming to the convention (See the comments above)
+    route::get('/users', [AdminController::class, 'getUser']);//TODO: Refactor naming to the convention (See the comments above)
     route::get('/vertical-menu', [AdminController::class, 'verticalmenu']); //TODO: Refactor naming
     route::get('/profile/admin', [AdminController::class, 'adminProfile']); //project table
     route::get('/addProject', [ProjectController::class, 'addProject']); //TODO: Refactor to the convention (See the comments above)
+    Route::post('/addUser', [AdminController::class, 'store']);
+    Route::get('/addUser', [AdminController::class, 'create'])
+     ->name('addUser');
 
+    
+    
+    
+                
 });
 
 //project-admin

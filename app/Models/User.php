@@ -8,6 +8,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Spatie\Permission\Traits\HasRoles;
 
+
 class User extends Authenticatable
 {
     use HasFactory, Notifiable, HasRoles;
@@ -22,6 +23,7 @@ class User extends Authenticatable
         'email',
         'position',
         'password',
+        'organization_id'
     ];
 
     /**
