@@ -38,7 +38,7 @@
                                         <a href="#" class="btn btn-primary btn-block">Send</a>
                                     </div>
                                     <div class="text-center text-muted mt-3 ">
-                                        Forget it, <a href="login.html">send me back</a> to the sign in screen.
+                                        Forget it, <a href="login">send me back</a> to the sign in screen.
                                     </div>
                                 </div>
                             </form>

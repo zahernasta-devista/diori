@@ -22,14 +22,14 @@
     <div class="sidebar-navs">
         <ul class="nav  nav-pills-circle">
             <li class="nav-item" data-toggle="tooltip" data-placement="top" title="Profile" >
-                <a class="nav-link text-center m-2" href="{{ url('/' . $page='profile/employee') }}">
+                <a class="nav-link text-center m-2"  href="{{ url('/' . $page='profile/employee') }}">
                     <i class="fe fe-user"></i>
                 </a>
             </li>
             <li class="nav-item" data-toggle="tooltip" data-placement="top" title="Logout">
-                <a class="nav-link text-center m-2" href="{{ route('logout')}}">
+                <button class="nav-link text-center m-2"  href="{{ route('logout') }}">
                     <i class="fe fe-power"></i>
-                </a>
+                </button>
             </li>
         </ul>
     </div>
