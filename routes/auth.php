@@ -65,8 +65,5 @@ Route::post('/logout', [AuthenticatedSessionController::class, 'destroy'])
                 ->middleware('auth')
                 ->name('logout');
 
-//Route::get('/change-password', [UserController::class, 'changePassword'])->name('change');
-//
-//Route::post('/change-password', [ChangePasswordController::class, 'store'])
-//    ->name('password.change');
+
 

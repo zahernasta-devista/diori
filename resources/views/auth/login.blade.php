@@ -51,7 +51,7 @@
                                 <p class="mb-0"><a href="forgot-password" class="text-primary ml-1">Forgot Password?</a></p>
                             </div>
                             <div class="container-login100-form-btn">
-                                <button id="demo" class="login100-form-btn btn-primary" >
+                                <button  class="login100-form-btn btn-primary" >
                                     {{ __('login') }}
                                 </button>
                             </div>
