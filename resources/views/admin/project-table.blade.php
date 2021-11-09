@@ -20,39 +20,37 @@
 				<div class="card-header">
 					<h3 class="card-title">Project Table</h3>
 						<div class="card-options">
-							<a type="button" href="{{ url('/' . $page='addProject') }}" class="btn btn-md btn-primary " ><i class="fa fa-plus"></i> Add a new Project</a>
+							<a type="button" href="{{ route('add-project-page') }}" class="btn btn-md btn-primary " ><i class="fa fa-plus"></i> Add a new Project</a>
 						</div>
 				</div>
 				<div class="card-body">
 					<div class="table-responsive">
 						<table id="example" class="table table-striped table-bordered text-nowrap w-100">
 							<thead>
-							<tr>
+							<tr>`
 								<th scope="col">Project Name</th>
 								<th scope="col">Backend</th>
 								<th scope="col">start date</th>
+								<th scope="col">Customer</th>
 								<th scope="col">Edit Project Details </th>
 								<th scope="col">list info</th>
 							</tr>
 							</thead>
 							<tbody>
+							@foreach($projects as $project)
 							<tr>
-								<td>Diori Work Log</td>
-								<td>Laravel</td>
-								<td>17/10/2021</td>
+								<td>{{$project->name}}</td>
+								<td>{{$project->backend}}</td>
+								<td>{{$project->start_date}}</td>
+								<td>{{$project->customer->name}}</td>
 								<td>
 									<a class="btn btn-sm btn-primary" href="#"><i class="fa fa-edit"></i> Edit</a>
 									<a class="btn btn-sm btn-danger" href="#"><i class="fa fa-trash"></i> Delete</a>
 								</td>
 								<td><a class="btn btn-sm btn-secondary" href="#"><i class="fa fa-info-circle"></i> Details</a> </td>
 							</tr>
-							</tbody>
-						</table>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
+							@endforeach
+
 							</tbody>
 						</table>
 					</div>

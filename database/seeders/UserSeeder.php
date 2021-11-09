@@ -22,7 +22,8 @@ class UserSeeder extends Seeder
             'email' => 'test@admin.ro',
             'password' => Hash::make('password'),
             'position' => "Admin",
-            "organization_id" => 1
+            "organization_id" => 1,
+            "first_time_login" => 0
         ]);
 
         $role = Role::create(['name' => 'admin']);

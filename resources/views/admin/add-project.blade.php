@@ -21,27 +21,39 @@
             <!-- CONTAINER OPEN -->
             <div class="container-login100">
                 <div class="wrap-login100 p-6">
-                    <form class="login100-form validate-form" action="" method="POST">
+                    <form class="login100-form validate-form" action="{{route('add-project')}}" method="POST">
                         @csrf
                         <span class="login100-form-title">
 									New Project
 								</span>
                         <div class="wrap-input100 validate-input" >
-                            <input class="input100" type="text" name="name" placeholder="Project Name">
+                            <input class="input100" type="text" name="name" placeholder="Project Name" required>
                             <span class="focus-input100"></span>
                             <span class="symbol-input100">
 										<i class="zmdi zmdi-eye" aria-hidden="true"></i>
 									</span>
                         </div>
-                        <div class="wrap-input100 validate-input" data-validate = "Organization is required">
-                            <input class="input100" type="text" name="customer" placeholder="Customer">
+                        <div class="wrap-input100 validate-input" >
+                            <input class="input100" type="text" name="backend" placeholder="Backend" required>
+                            <span class="focus-input100"></span>
+                            <span class="symbol-input100">
+										<i class="zmdi zmdi-directions-run" aria-hidden="true"></i>
+									</span>
+                        </div>
+                        <div class="wrap-input100 validate-input">
+                            <select class="input100" type="text" name="customer" placeholder="Customer">
+                                <option value="" selected disabled hidden>Choose Your Customer</option>
+                                @foreach($customers as $customer)
+                                    <option value="{{$customer->id}}">{{$customer->name}}</option>
+                                @endforeach
+                            </select>
                             <span class="focus-input100"></span>
                             <span class="symbol-input100">
 										<i class="zmdi zmdi-card" aria-hidden="true"></i>
 									</span>
                         </div>
-                        <div class="wrap-input100 validate-input" data-validate = "Organization is required">
-                            <input class="input100" type="date" name="startdate" placeholder="YYYY-MM-DD">
+                        <div class="wrap-input100 validate-input" >
+                            <input class="input100" type="date" name="start_date" placeholder="YYYY-MM-DD" required>
                             <span class="focus-input100"></span>
                             <span class="symbol-input100">
 										<i class="zmdi zmdi-view-day" aria-hidden="true"></i>
@@ -49,7 +61,7 @@
                         </div>
                         <div class="container-login100-form-btn">
                             <button  class="login100-form-btn btn-primary">
-                                {{ __('Sumbit') }}
+                                {{ __('Add a New Project') }}
                             </button>
                         </div>
                     </form>
