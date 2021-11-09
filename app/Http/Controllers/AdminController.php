@@ -26,17 +26,17 @@ class AdminController extends Controller
         return view('admin.tables');
     }
 
-    public function userslist()
+    public function usersList()
     {
-        return view('admin.userslist');
+        return view('admin.users-list');
     }
     public function datatable()
     {
         return view('admin.datatable');
     }
-    public function verticalmenu()
+    public function verticalMenu()
     {
-        return view('admin.verticalmenu');
+        return view('admin.vertical-menu');
     }
 
 

@@ -19,20 +19,20 @@
                     </div>
                     <form method="POST" action="{{ route('logout') }}">
                         {{ csrf_field() }}
-                    <div class="sidebar-navs">
-                        <ul class="nav  nav-pills-circle">
-                            <li class="nav-item" data-toggle="tooltip" data-placement="top" title="Profile">
-                                <a class="nav-link text-center m-2"  href="{{ url('/' . $page='profile/admin') }}">
-                                    <i class="fe fe-user"></i>
-                                </a>
-                            </li>
-                            <li class="nav-item" data-toggle="tooltip" data-placement="top" title="Logout">
-                                <button class="nav-link text-center m-2"  href="{{ route('logout') }}">
-                                    <i class="fe fe-power"></i>
-                                </button>
-                            </li>
-                        </ul>
-                    </div>
+                        <div class="sidebar-navs">
+                            <ul class="nav  nav-pills-circle">
+                                <li class="nav-item" data-toggle="tooltip" data-placement="top" title="Profile" >
+                                    <a class="nav-link text-center m-2"  href="{{ route('admin-profile') }}">
+                                        <i class="fe fe-user"></i>
+                                    </a>
+                                </li>
+                                <li class="nav-item" data-toggle="tooltip" data-placement="top" title="Logout">
+                                    <button class="nav-link text-center m-2"  href="{{ route('logout') }}">
+                                        <i class="fe fe-power"></i>
+                                    </button>
+                                </li>
+                            </ul>
+                        </div>
                     </form>
                     <ul class="side-menu">
                         <li><h3>Main</h3></li>
@@ -43,14 +43,14 @@
                                 <li><a class="slide-item" href="{{ url('/' . $page='register') }}"><span>Add Employee</span></a></li>
                             </ul>
                         </li>
-                            <a class="side-menu__item"  href="{{ url('/' . $page='datatable') }}"><i class="side-menu__icon ti-layout-accordion-separated"></i><span class="side-menu__label">Projects</span></a>
+                            <a class="side-menu__item"  href="{{ route('projects') }}"><i class="side-menu__icon ti-layout-accordion-separated"></i><span class="side-menu__label">Projects</span></a>
 
                         <li><h3>Elements</h3></li>
                         <li class="slide">
-                            <a class="side-menu__item" data-toggle="slide" href="#"><i class="side-menu__icon ti-panel"></i><span class="side-menu__label">Components</span><i class="angle fa fa-angle-right"></i></a>
+                            <a class="side-menu__item" data-toggle="slide" ><i class="side-menu__icon ti-panel"></i><span class="side-menu__label">Components</span><i class="angle fa fa-angle-right"></i></a>
                             <ul class="slide-menu">
-                                <li><a href="{{ url('/' . $page='index/admin') }}" class="slide-item"> Dashboard</a></li>
-                                <li><a href="{{ url('/' . $page='empty') }}" class="slide-item"> Search by Date</a></li>
+                                <li><a href="{{route('dashboard') }}" class="slide-item"> Dashboard</a></li>
+                                <li><a href="{{ route('empty') }}" class="slide-item"> Search by Date</a></li>
 
                             </ul>
                         </li>

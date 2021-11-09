@@ -37,23 +37,42 @@ Route::get('/', function () {
 require __DIR__ . '/auth.php';
 
 Route::group(['middleware' => ['role:admin','first.time.login']], function() {
-    Route::get('/dashboard', [AdminController::class, 'index'])->name('dashboard');
-    route::get('/datatable', [AdminController::class, 'datatable']);
-    route::get('/empty', [AdminController::class, 'empty']);
+    Route::get('/dashboard', [AdminController::class, 'index'])
+        ->name('dashboard');
+
+    route::get('/empty', [AdminController::class, 'empty'])
+        ->name('empty');
+
     route::get('/tables', [AdminController::class, 'tables']);
-    route::get('/userslist', [AdminController::class, 'userslist']); //TODO: Refactor naming to the convention (See the comments above)
-    route::get('/vertical-menu', [AdminController::class, 'verticalmenu']); //TODO: Refactor naming
-    route::get('/profile/admin', [AdminController::class, 'adminProfile']);
-    route::get('/addProject', [ProjectController::class, 'addProject']); //TODO: Refactor to the convention (See the comments above)
+    route::get('/users/list', [AdminController::class, 'usersList']);
+    route::get('/vertical-menu', [AdminController::class, 'verticalMenu']);
+
+    route::get('/profile/admin', [AdminController::class, 'adminProfile'])
+    ->name('admin-profile');
+
+    route::get('/projects/add', [ProjectController::class, 'addProjectPage'])
+    ->name('add-project-page');
+
+    route::get('/projects', [ProjectController::class, 'getProjects'])
+        ->name('projects');
+
+    route::post('/projects/add', [ProjectController::class, 'addProjects'])
+        ->name('add-project');
+
 });
 
 Route::group(['middleware' => ['role:employee','first.time.login']], function() {
-    route::get('/calendar2', [EmployeeController::class, 'calendar2']);
-    route::get('/index/employee', [EmployeeController::class, 'index2']);
-    route::get('/worklog', [EmployeeController::class, 'workLog']);
-    route::get('/index4', [EmployeeController::class, 'index4']);
-    route::get('/index5', [EmployeeController::class, 'index5']);
-    route::get('profile/employee', [EmployeeController::class, 'employeeProfile']);
+    route::get('/calendar', [EmployeeController::class, 'calendar'])
+    ->name('calendar');
+
+    route::get('/dashboard/employee', [EmployeeController::class, 'dashboardEmployee'])
+    ->name('dashboard-employee');
+
+    route::get('/worklog', [EmployeeController::class, 'workLog'])
+    ->name('work-log');
+
+    route::get('profile/employee', [EmployeeController::class, 'employeeProfile'])
+    ->name('employee-profile');
 });
 
 
