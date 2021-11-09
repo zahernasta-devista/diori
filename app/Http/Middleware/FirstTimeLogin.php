@@ -18,10 +18,15 @@ class FirstTimeLogin
      */
     public function handle(Request $request, Closure $next)
     {
-        if (Auth::user()->first_time_login == true)
+        if (Auth::user()->first_time_login == 1)
         {
             Password::sendResetLink(['email'=>Auth::user()->email]);
-            return redirect('/login');
+            $request->session()->invalidate();
+            $request->session()->regenerateToken();
+
+            return redirect('/login')->withErrors('Check Your Email To Change Your Password,after that you can login!');
+
+
         }
 
         return $next($request);

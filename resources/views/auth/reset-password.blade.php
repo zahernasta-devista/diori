@@ -1,7 +1,9 @@
 <x-guest-layout>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
     <x-auth-card>
         <x-slot name="logo">
-         <h1>Reset Your Password!</h1>
+         <h3>Reset Your Password!</h3>
         </x-slot>
 
         <!-- Validation Errors -->
@@ -17,12 +19,12 @@
             <div>
                 <x-label for="email" :value="__('Email')" />
 
-                <x-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email', $request->email)" required autofocus />
+                <x-input id="email" class="block mt-1 w-full border border-white" type="email" name="email" :value="old('email', $request->email)" required autofocus readonly/>
             </div>
 
             <!-- Password -->
             <div class="mt-4">
-                <x-label for="password" :value="__('Password')" />
+                <x-label for="password" :value="__('New Password')" />
 
                 <x-input id="password" class="block mt-1 w-full" type="password" name="password" required />
             </div>

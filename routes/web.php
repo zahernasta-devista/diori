@@ -38,7 +38,6 @@ require __DIR__ . '/auth.php';
 
 Route::group(['middleware' => ['role:admin','first.time.login']], function() {
     Route::get('/dashboard', [AdminController::class, 'index'])->name('dashboard');
-    route::get('/index/admin', [AdminController::class, 'index']);
     route::get('/datatable', [AdminController::class, 'datatable']);
     route::get('/empty', [AdminController::class, 'empty']);
     route::get('/tables', [AdminController::class, 'tables']);
@@ -48,9 +47,9 @@ Route::group(['middleware' => ['role:admin','first.time.login']], function() {
     route::get('/addProject', [ProjectController::class, 'addProject']); //TODO: Refactor to the convention (See the comments above)
 });
 
-Route::group(['middleware' => 'role:employee'], function() {
+Route::group(['middleware' => ['role:employee','first.time.login']], function() {
     route::get('/calendar2', [EmployeeController::class, 'calendar2']);
-    route::get('/index/employee', [EmployeeController::class, 'index2'])->middleware('first.time.login');
+    route::get('/index/employee', [EmployeeController::class, 'index2']);
     route::get('/worklog', [EmployeeController::class, 'workLog']);
     route::get('/index4', [EmployeeController::class, 'index4']);
     route::get('/index5', [EmployeeController::class, 'index5']);

@@ -5,21 +5,9 @@
 @section('content')
     <!-- BACKGROUND-IMAGE -->
     <div class="login-img">
-
-        <!-- GLOABAL LOADER -->
-        <div id="global-loader">
-            {{--				<img src="{{URL::asset('assets/images/loader.svg')}}" class="loader-img" alt="Loader">--}}
-        </div>
-        <!-- End GLOABAL LOADER -->
-
         <!-- PAGE -->
         <div class="page">
             <div class="">
-                <div class="col col-login mx-auto">
-                    <div class="text-center">
-                        {{--							<img src="{{URL::asset('assets/images/brand/logo.png')}}" class="header-brand-img" alt="">--}}
-                    </div>
-                </div>
                 <!-- CONTAINER OPEN -->
                 <div class="container-login100">
                     <div class="row">
