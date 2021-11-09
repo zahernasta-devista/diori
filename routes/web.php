@@ -36,33 +36,24 @@ Route::get('/', function () {
 
 require __DIR__ . '/auth.php';
 
-
-//admin side
-Route::group(['middleware' => 'role:admin'], function() {
+Route::group(['middleware' => ['role:admin','first.time.login']], function() {
     Route::get('/dashboard', [AdminController::class, 'index'])->name('dashboard');
-    route::get('/index/admin', [AdminController::class, 'index']);
     route::get('/datatable', [AdminController::class, 'datatable']);
     route::get('/empty', [AdminController::class, 'empty']);
     route::get('/tables', [AdminController::class, 'tables']);
     route::get('/userslist', [AdminController::class, 'userslist']); //TODO: Refactor naming to the convention (See the comments above)
     route::get('/vertical-menu', [AdminController::class, 'verticalmenu']); //TODO: Refactor naming
-    route::get('/profile/admin', [AdminController::class, 'adminProfile']); //project table
+    route::get('/profile/admin', [AdminController::class, 'adminProfile']);
     route::get('/addProject', [ProjectController::class, 'addProject']); //TODO: Refactor to the convention (See the comments above)
-
 });
 
-//project-admin
-
-
-//employee side
-//    route::get('/calendar2', [EmployeeController::class, 'calendar2']);
-//    route::get('/index/employee', [EmployeeController::class, 'index2']);
-//    route::get('/worklog', [EmployeeController::class, 'workLog']);
-//    route::get('/index4', [EmployeeController::class, 'index4']);
-//    route::get('/index5', [EmployeeController::class, 'index5']);
-//    route::get('profile/employee', [EmployeeController::class, 'employeeProfile']);
-
-
-
+Route::group(['middleware' => ['role:employee','first.time.login']], function() {
+    route::get('/calendar2', [EmployeeController::class, 'calendar2']);
+    route::get('/index/employee', [EmployeeController::class, 'index2']);
+    route::get('/worklog', [EmployeeController::class, 'workLog']);
+    route::get('/index4', [EmployeeController::class, 'index4']);
+    route::get('/index5', [EmployeeController::class, 'index5']);
+    route::get('profile/employee', [EmployeeController::class, 'employeeProfile']);
+});
 
 
