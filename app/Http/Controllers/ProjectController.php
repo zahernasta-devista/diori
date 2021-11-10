@@ -17,6 +17,8 @@ class ProjectController extends Controller
         return view('admin.add-project',['customers' => $customers]);
     }
 
+
+
     public function getProjects(){
         $projects = Project::get();
         return view('admin.project-table',['projects' => $projects]);
@@ -42,6 +44,15 @@ class ProjectController extends Controller
         Log::info('created');
         event(new Registered($project));
 
-        return redirect('/datatable');
+        return redirect('/projects');
+    }
+
+
+
+
+    public function deleteProject(Request $request) {
+        $project = Project::findorfail($request->route('id'));
+        $project->delete();
+        return redirect()->to('/projects');
     }
 }

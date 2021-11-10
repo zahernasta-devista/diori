@@ -38,18 +38,18 @@ require __DIR__ . '/auth.php';
 
 Route::group(['middleware' => ['role:admin','first.time.login']], function() {
     Route::get('/dashboard', [AdminController::class, 'index'])
-        ->name('dashboard');
+        ->name('dashboard')
+    ;
+    route::get('/users/list', [AdminController::class, 'usersList']);
+    route::get('/vertical-menu', [AdminController::class, 'verticalMenu']);
 
     route::get('/empty', [AdminController::class, 'empty'])
         ->name('empty');
 
-    route::get('/tables', [AdminController::class, 'tables']);
-    route::get('/users/list', [AdminController::class, 'usersList']);
-    route::get('/vertical-menu', [AdminController::class, 'verticalMenu']);
-
     route::get('/profile/admin', [AdminController::class, 'adminProfile'])
     ->name('admin-profile');
 
+//project side
     route::get('/projects/add', [ProjectController::class, 'addProjectPage'])
     ->name('add-project-page');
 
@@ -58,6 +58,16 @@ Route::group(['middleware' => ['role:admin','first.time.login']], function() {
 
     route::post('/projects/add', [ProjectController::class, 'addProjects'])
         ->name('add-project');
+
+    route::get('/project/delete/{id}', [ProjectController::class, 'deleteProject'])
+    ->name('delete-project');
+
+
+
+
+
+
+
 
 });
 
