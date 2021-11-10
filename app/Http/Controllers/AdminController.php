@@ -21,11 +21,6 @@ class AdminController extends Controller
         return view('admin.empty');
     }
 
-    public function tables()
-    {
-        return view('admin.tables');
-    }
-
     public function usersList()
     {
         return view('admin.users-list');
