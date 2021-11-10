@@ -44,4 +44,22 @@ class ProjectController extends Controller
 
         return redirect('/datatable');
     }
+    public function editProjectPage(Request $request)
+    {
+        $project = Project::get()->where('id',$request->route('id'))->first();
+        $customers = Customer::get();
+
+        return view('admin.edit-project', ['project'=> $project],['customers' => $customers]);
+    }
+
+    public function editProject(Request $request){
+        $project = Project::findorfail($request->route('id'));
+        $project->name = request()->input('name');
+        $project->backend = request()->input('backend');
+        $project->start_date = request()->input('start_date');
+        $project->customer->name = request()->input('customer_id');
+        $project->save();
+
+        return redirect()->to('/projects');
+    }
 }
