@@ -2,11 +2,49 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Middleware\Admin;
+use App\Models\Organization;
 use Illuminate\Http\Request;
+use Illuminate\Auth\Events\Registered;
+use Illuminate\Support\Facades\Hash;
+use App\Models\User;
 
 class AdminController extends Controller
 {
-    //
+  
+
+    public function getUser(){
+        $users = User::get()
+        ->where('organization_id', 1);
+        return view('admin.users',['users' => $users]); 
+    }
+      public function create()
+     {
+         return view('admin.addUser');
+     }
+
+    
+    public function store(Request $request)
+    {
+        $request->validate([
+            'name' => ['required', 'string', 'max:255'],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            'position' => ['required', 'string', 'max:255'],
+            'password' => ['required '],
+        ]);
+    
+        $user = User::create([
+            'name' => $request->name,
+            'email' => $request->email,
+            'position' => $request->position,
+            'password' => Hash::make($request->password),
+            'organization_id' => auth()->user()->organization_id,
+        ]);
+
+        //event(new Registered($user));
+        return redirect('/users');
+    }
+
     public function adminProfile()
     {
         return view('admin.admin-profile');
@@ -25,6 +63,7 @@ class AdminController extends Controller
     {
         return view('admin.users-list');
     }
+  
     public function datatable()
     {
         return view('admin.datatable');
@@ -33,7 +72,5 @@ class AdminController extends Controller
     {
         return view('admin.vertical-menu');
     }
-
-
 
 }

@@ -1,4 +1,6 @@
 <!--APP-SIDEBAR-->
+
+
                 <div class="app-sidebar__overlay" data-toggle="sidebar"></div>
                 <aside class="app-sidebar">
                     <div class="side-header">
@@ -12,8 +14,8 @@
                                 <img src="{{URL::asset('assets/images/users/10.jpg')}}" alt="user-img" class="avatar-xl rounded-circle">
                             </div>
                             <div class="user-info">
-                                <h6 class=" mb-0 text-dark">Alwan Mazen</h6>
-                                <span class="text-muted app-sidebar__user-name text-sm">admin</span>
+                                <h6 class=" mb-0 text-dark">{{Auth::User()->email}}</h6>
+                                <span class="text-muted app-sidebar__user-name text-sm">BOSS</span>
                             </div>
                         </div>
                     </div>
@@ -37,11 +39,7 @@
                     <ul class="side-menu">
                         <li><h3>Main</h3></li>
                         <li class="slide">
-                            <a class="side-menu__item"  data-toggle="slide" href="#"><i class="side-menu__icon ti-home"></i><span class="side-menu__label">Employee</span><i class="angle fa fa-angle-right"></i></a>
-                            <ul class="slide-menu">
-                                <li><a class="slide-item" href="{{ url('/' . $page='userslist') }}"><span>Employee List</span></a></li>
-                                <li><a class="slide-item" href="{{ url('/' . $page='register') }}"><span>Add Employee</span></a></li>
-                            </ul>
+                           <a class="side-menu__item" href="{{ url('/' . $page='users') }}" ><i class="side-menu__icon ti-home"></i><span class="side-menu__label">Users</span></a>
                         </li>
                             <a class="side-menu__item"  href="{{ route('projects') }}"><i class="side-menu__icon ti-layout-accordion-separated"></i><span class="side-menu__label">Projects</span></a>
 

@@ -6,6 +6,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\ProjectController;
+use App\Http\Controllers\Auth\RegisteredUserController;
 
 
 
@@ -38,10 +39,15 @@ require __DIR__ . '/auth.php';
 
 Route::group(['middleware' => ['role:admin','first.time.login']], function() {
     Route::get('/dashboard', [AdminController::class, 'index'])
-        ->name('dashboard')
-    ;
+        ->name('dashboard');
+  
+    //users-routes
     route::get('/users/list', [AdminController::class, 'usersList']);
     route::get('/vertical-menu', [AdminController::class, 'verticalMenu']);
+    Route::post('/users/add', [AdminController::class, 'store']);
+    Route::get('/users/add', [AdminController::class, 'create'])
+     ->name('add-user');
+
 
     route::get('/empty', [AdminController::class, 'empty'])
         ->name('empty');
@@ -49,7 +55,7 @@ Route::group(['middleware' => ['role:admin','first.time.login']], function() {
     route::get('/profile/admin', [AdminController::class, 'adminProfile'])
     ->name('admin-profile');
 
-//project side
+    //project side
     route::get('/projects/add', [ProjectController::class, 'addProjectPage'])
     ->name('add-project-page');
 
@@ -61,13 +67,6 @@ Route::group(['middleware' => ['role:admin','first.time.login']], function() {
 
     route::get('/project/delete/{id}', [ProjectController::class, 'deleteProject'])
     ->name('delete-project');
-
-
-
-
-
-
-
 
 });
 
