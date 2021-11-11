@@ -45,6 +45,39 @@ class AdminController extends Controller
         //event(new Registered($user));
         return redirect('/users');
     }
+    public function getEdit(Request $request) {
+
+        Log::info('test');
+
+        $users = User::get()->where('id',$request->route('id'))->first();
+
+
+
+        return view('admin.edit-user', ['users'=> $users]);
+
+
+
+    }
+
+    public function editUsers(Request $request): \Illuminate\Http\RedirectResponse
+
+    {
+
+        $users = User::findorfail($request->route('id'));
+
+        $users->name = request()->input('name');
+
+        $users->position = request()->input('position');
+
+        $users->email = request()->input('email');
+
+        $users->save();
+
+
+
+        return redirect()->to('users');
+
+    }
 
     public function deleteUser(Request $request): \Illuminate\Http\RedirectResponse
     {
