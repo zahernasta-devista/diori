@@ -40,12 +40,12 @@ require __DIR__ . '/auth.php';
 Route::group(['middleware' => ['role:admin','first.time.login']], function() {
     Route::get('/dashboard', [AdminController::class, 'index'])
         ->name('dashboard');
+    route::get('/vertical-menu', [AdminController::class, 'verticalMenu']);
   
     //users-routes
-    route::get('/users/list', [AdminController::class, 'usersList']);
-    route::get('/vertical-menu', [AdminController::class, 'verticalMenu']);
+    route::get('/users', [AdminController::class, 'showUsersList']);
     Route::post('/users/add', [AdminController::class, 'store']);
-    Route::get('/users/add', [AdminController::class, 'create'])
+    Route::get('/users/add', [AdminController::class, 'showAddUser'])
      ->name('add-user');
 
 

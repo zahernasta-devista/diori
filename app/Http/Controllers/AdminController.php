@@ -13,12 +13,12 @@ class AdminController extends Controller
 {
   
 
-    public function getUser(){
+    public function showUsersList(){
         $users = User::get()
         ->where('organization_id', 1);
         return view('admin.users',['users' => $users]); 
     }
-      public function create()
+      public function showAddUser()
      {
          return view('admin.addUser');
      }
