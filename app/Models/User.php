@@ -23,7 +23,7 @@ class User extends Authenticatable
         'email',
         'position',
         'password',
-        'organization_id'
+        'organization_id',
         'first_time_login'
     ];
 
