@@ -37,38 +37,51 @@ Route::get('/', function () {
 
 require __DIR__ . '/auth.php';
 
-
-//admin side
-Route::group(['middleware' => 'role:admin'], function() {
-    Route::get('/dashboard', [AdminController::class, 'index'])->name('dashboard');
-    route::get('/index/admin', [AdminController::class, 'index']);
-    route::get('/datatable', [AdminController::class, 'datatable']);
-    route::get('/empty', [AdminController::class, 'empty']);
-    route::get('/tables', [AdminController::class, 'tables']);
-    route::get('/users', [AdminController::class, 'getUser']);//TODO: Refactor naming to the convention (See the comments above)
-    route::get('/vertical-menu', [AdminController::class, 'verticalmenu']); //TODO: Refactor naming
-    route::get('/profile/admin', [AdminController::class, 'adminProfile']); //project table
-    route::get('/addProject', [ProjectController::class, 'addProject']); //TODO: Refactor to the convention (See the comments above)
-
+Route::group(['middleware' => ['role:admin','first.time.login']], function() {
+    Route::get('/dashboard', [AdminController::class, 'index'])
+        ->name('dashboard');
+  
+    //users-routes
+    route::get('/users/list', [AdminController::class, 'usersList']);
+    route::get('/vertical-menu', [AdminController::class, 'verticalMenu']);
     Route::post('/users/add', [AdminController::class, 'store']);
     Route::get('/users/add', [AdminController::class, 'create'])
      ->name('add-user');
 
-                
+
+    route::get('/empty', [AdminController::class, 'empty'])
+        ->name('empty');
+
+    route::get('/profile/admin', [AdminController::class, 'adminProfile'])
+    ->name('admin-profile');
+
+    //project side
+    route::get('/projects/add', [ProjectController::class, 'addProjectPage'])
+    ->name('add-project-page');
+
+    route::get('/projects', [ProjectController::class, 'getProjects'])
+        ->name('projects');
+
+    route::post('/projects/add', [ProjectController::class, 'addProjects'])
+        ->name('add-project');
+
+    route::get('/project/delete/{id}', [ProjectController::class, 'deleteProject'])
+    ->name('delete-project');
+
 });
 
-//project-admin
+Route::group(['middleware' => ['role:employee','first.time.login']], function() {
+    route::get('/calendar', [EmployeeController::class, 'calendar'])
+    ->name('calendar');
 
+    route::get('/dashboard/employee', [EmployeeController::class, 'dashboardEmployee'])
+    ->name('dashboard-employee');
 
-//employee side
-//    route::get('/calendar2', [EmployeeController::class, 'calendar2']);
-//    route::get('/index/employee', [EmployeeController::class, 'index2']);
-//    route::get('/worklog', [EmployeeController::class, 'workLog']);
-//    route::get('/index4', [EmployeeController::class, 'index4']);
-//    route::get('/index5', [EmployeeController::class, 'index5']);
-//    route::get('profile/employee', [EmployeeController::class, 'employeeProfile']);
+    route::get('/worklog', [EmployeeController::class, 'workLog'])
+    ->name('work-log');
 
-
-
+    route::get('profile/employee', [EmployeeController::class, 'employeeProfile'])
+    ->name('employee-profile');
+});
 
 

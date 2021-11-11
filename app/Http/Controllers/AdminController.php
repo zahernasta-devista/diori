@@ -59,18 +59,18 @@ class AdminController extends Controller
         return view('admin.empty');
     }
 
-    public function tables()
+    public function usersList()
     {
-        return view('admin.tables');
+        return view('admin.users-list');
     }
-
+  
     public function datatable()
     {
         return view('admin.datatable');
     }
-    public function verticalmenu()
+    public function verticalMenu()
     {
-        return view('admin.verticalmenu');
+        return view('admin.vertical-menu');
     }
 
 }

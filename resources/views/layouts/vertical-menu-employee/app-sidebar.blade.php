@@ -22,14 +22,14 @@
     <div class="sidebar-navs">
         <ul class="nav  nav-pills-circle">
             <li class="nav-item" data-toggle="tooltip" data-placement="top" title="Profile" >
-                <a class="nav-link text-center m-2" href="{{ url('/' . $page='profile/employee') }}">
+                <a class="nav-link text-center m-2"  href="{{ route('employee-profile') }}">
                     <i class="fe fe-user"></i>
                 </a>
             </li>
             <li class="nav-item" data-toggle="tooltip" data-placement="top" title="Logout">
-                <a class="nav-link text-center m-2" href="{{ route('logout')}}">
+                <button class="nav-link text-center m-2"  href="{{ route('logout') }}">
                     <i class="fe fe-power"></i>
-                </a>
+                </button>
             </li>
         </ul>
     </div>
@@ -39,9 +39,9 @@
         <li class="slide">
             <a class="side-menu__item" data-toggle="slide" href="#"><i class="side-menu__icon ti-panel"></i><span class="side-menu__label">Elements</span><i class="angle fa fa-angle-right"></i></a>
             <ul class="slide-menu">
-                <li><a href="{{ url('/' . $page='index/employee') }}" class="slide-item"> Dashboard</a></li>
-                <li><a href="{{ url('/' . $page='worklog') }}" class="slide-item"> Work Log</a></li>
-                <li><a href="{{ url('/' . $page='calendar2') }}" class="slide-item"> Calendar</a></li>
+                <li><a href="{{ route('dashboard-employee') }}" class="slide-item"> Dashboard</a></li>
+                <li><a href="{{ route('work-log') }}" class="slide-item"> Work Log</a></li>
+                <li><a href="{{ route('calendar') }}" class="slide-item"> Calendar</a></li>
             </ul>
         </li>
 

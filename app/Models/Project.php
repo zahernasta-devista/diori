@@ -11,11 +11,13 @@ class Project extends Model
 
     protected $fillable = [
         'name',
-        'start_date'
+        'backend',
+        'start_date',
+        'customer_id'
     ];
 
     public function customer(){
-        return $this->hasOne('App\Models\Customer');
+        return $this->belongsTo('App\Models\Customer');
     }
 
     public function users() {
