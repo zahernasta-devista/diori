@@ -3,22 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Http\Middleware\Admin;
-<<<<<<< Updated upstream
-use App\models\User;
 use App\models\Organization;
 use Illuminate\Http\Request;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Support\Facades\Hash;
-=======
 use App\Models\User;
-use App\Models\Organization;
-use Illuminate\Http\Request;
-use Illuminate\Auth\Events\Registered;
-use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Log;
-
-
->>>>>>> Stashed changes
 
 class AdminController extends Controller
 {
@@ -42,11 +31,6 @@ class AdminController extends Controller
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'position' => ['required', 'string', 'max:255'],
             'password' => ['required '],
-<<<<<<< Updated upstream
-            'organization_id' => ['required ']
-=======
-           
->>>>>>> Stashed changes
         ]);
     
         $user = User::create([
@@ -54,27 +38,13 @@ class AdminController extends Controller
             'email' => $request->email,
             'position' => $request->position,
             'password' => Hash::make($request->password),
-<<<<<<< Updated upstream
-            //'organization_id' => auth()->id()
-            'organization_id' => $request->organization_id,
-=======
             'organization_id' => auth()->user()->organization_id,
-            
->>>>>>> Stashed changes
-
-            
-           
         ]);
 
         //event(new Registered($user));
         return redirect('/users');
     }
-<<<<<<< Updated upstream
-=======
 
-
-    
->>>>>>> Stashed changes
     public function adminProfile()
     {
         return view('admin.admin-profile');
@@ -94,10 +64,6 @@ class AdminController extends Controller
         return view('admin.tables');
     }
 
-    // public function userslist()
-    // {
-    //     return view('admin.userslist');
-    // }
     public function datatable()
     {
         return view('admin.datatable');
@@ -106,7 +72,5 @@ class AdminController extends Controller
     {
         return view('admin.verticalmenu');
     }
-
-
 
 }

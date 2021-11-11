@@ -13,7 +13,7 @@
 		</ol>
 	</div>
 	<!-- PAGE-HEADER END -->
-@endsections
+@endsection
 @section('content')
 	<!-- ROW-1 OPEN -->
 	<div class="row">
@@ -21,7 +21,7 @@
 			<div class="card">
 				<div class="card-header">
 					<h3  class="col-md-12 col-lg-11 card-title">Your Employees</h3>
-					<form action="/addUser" >
+					<form action="{{route('add-user')}}" >
 						<button id="add" class="col-md-12 col-lg-12 btn btn-primary"  >Add</button>
 					</form>
 					

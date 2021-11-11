@@ -39,17 +39,7 @@
                     <ul class="side-menu">
                         <li><h3>Main</h3></li>
                         <li class="slide">
-<<<<<<< Updated upstream
-                           <a class="side-menu__item" href="{{ url('/' . $page='users') }}" ><i class="side-menu__icon ti-home"></i><span>Users</span></a>
-                            {{-- <a class="side-menu__item"  data-toggle="slide" href="#"><i class="side-menu__icon ti-home"></i><span class="side-menu__label">Employee</span><i class="angle fa fa-angle-right"></i></a>
-                            <ul class="slide-menu">
-                                <li><a class="slide-item" href="{{ url('/' . $page='userslist') }}"><span>Employee List</span></a></li>
-                                <li><a class="slide-item" href="{{ url('/' . $page='register') }}"><span>Add Employee</span></a></li>
-                            </ul> --}}
-=======
                            <a class="side-menu__item" href="{{ url('/' . $page='users') }}" ><i class="side-menu__icon ti-home"></i><span class="side-menu__label">Users</span></a>
-                           
->>>>>>> Stashed changes
                         </li>
                         <li class="slide">
                             <a class="side-menu__item" data-toggle="slide" href="#"><i class="side-menu__icon ti-layout-accordion-separated"></i><span class="side-menu__label">Projects</span><i class="angle fa fa-angle-right"></i></a>

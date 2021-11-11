@@ -49,21 +49,11 @@ Route::group(['middleware' => 'role:admin'], function() {
     route::get('/vertical-menu', [AdminController::class, 'verticalmenu']); //TODO: Refactor naming
     route::get('/profile/admin', [AdminController::class, 'adminProfile']); //project table
     route::get('/addProject', [ProjectController::class, 'addProject']); //TODO: Refactor to the convention (See the comments above)
-<<<<<<< Updated upstream
-    Route::post('/addUser', [AdminController::class, 'store']);
-    Route::get('/addUser', [AdminController::class, 'create'])
-     ->name('addUser');
 
-=======
     Route::post('/users/add', [AdminController::class, 'store']);
     Route::get('/users/add', [AdminController::class, 'create'])
      ->name('add-user');
 
-   
->>>>>>> Stashed changes
-    
-    
-    
                 
 });
 
