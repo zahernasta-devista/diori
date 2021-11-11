@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Support\Facades\Hash;
 use App\Models\User;
+use Illuminate\Support\Facades\Log;
 
 class AdminController extends Controller
 {
@@ -43,6 +44,14 @@ class AdminController extends Controller
 
         //event(new Registered($user));
         return redirect('/users');
+    }
+
+    public function deleteUser(Request $request): \Illuminate\Http\RedirectResponse
+    {
+        Log::info('test');
+        $user = User::findorfail($request->route('id'));
+        $user->delete();
+        return redirect()->to('users');
     }
 
     public function adminProfile()

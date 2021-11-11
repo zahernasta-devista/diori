@@ -49,6 +49,9 @@ Route::group(['middleware' => ['role:admin','first.time.login']], function() {
      ->name('add-user');
 
 
+     route::get('/users/delete/{id}', [AdminController::class, 'deleteUser'])
+     ->name('delete-user');
+
     route::get('/empty', [AdminController::class, 'empty'])
         ->name('empty');
 
@@ -67,6 +70,8 @@ Route::group(['middleware' => ['role:admin','first.time.login']], function() {
 
     route::get('/project/delete/{id}', [ProjectController::class, 'deleteProject'])
     ->name('delete-project');
+
+    
 
 });
 
