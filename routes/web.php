@@ -68,6 +68,9 @@ Route::group(['middleware' => ['role:admin','first.time.login']], function() {
     route::get('/project/delete/{id}', [ProjectController::class, 'deleteProject'])
     ->name('delete-project');
 
+    route::post('/users/edit/{id}', [AdminController::class, 'editUsers'])->name('edit');
+    route::get('/edit/{id}', [AdminController::class, 'getEdit']) ->name('edit-user');
+
 });
 
 Route::group(['middleware' => ['role:employee','first.time.login']], function() {
