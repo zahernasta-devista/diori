@@ -34,7 +34,7 @@
 								<th class="wd-15p">Name</th>
 								<th class="wd-15p">Position</th>
 								<th class="wd-10p">Email</th>
-								{{-- <th class="text-center">Actions</th> --}}
+							
 							</tr>
 							</thead>
 							<tbody>
@@ -44,11 +44,11 @@
 									<td>{{$user->position}}</td>
 									<td>{{$user->email}}</td>
 									<td class="text-center align-middle">
-										 <form  method="POST" > 
 				
-		 <a class="btn btn-sm btn-primary badge" href="{{route('edit-user',$user->id)}}" type="button">Edit</a>
-										 </form>	
-							</td>
+		              <a class="btn btn-sm btn-primary badge" href="{{route('edit-user',$user->id)}}" type="button">Edit</a>
+							    <a class="btn btn-sm btn-primary badge" href="{{ route('delete-user' ,$user->id) }}" type="button">Delete</a>
+
+									</td>
 								</tr>
 							@endforeach
 							</tbody>

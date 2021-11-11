@@ -79,6 +79,14 @@ class AdminController extends Controller
 
     }
 
+    public function deleteUser(Request $request): \Illuminate\Http\RedirectResponse
+    {
+        Log::info('test');
+        $user = User::findorfail($request->route('id'));
+        $user->delete();
+        return redirect()->to('users');
+    }
+
     public function adminProfile()
     {
         return view('admin.admin-profile');
