@@ -44,7 +44,7 @@
 								<td>{{$project->start_date}}</td>
 								<td>{{$project->customer->name}}</td>
 								<td>
-									<a class="btn btn-sm btn-primary" href="{{'/project/'.$project->id}}"><i class="fa fa-edit"></i> Edit</a>
+									<a class="btn btn-sm btn-primary" href="{{'/project/edit/'.$project->id}}"><i class="fa fa-edit"></i> Edit</a>
 									<a class="btn btn-sm btn-danger" href="{{route('delete-project',$project->id)}}"><i class="fa fa-trash"></i> Delete</a>
 								</td>
 								<td><a class="btn btn-sm btn-secondary" href="#"><i class="fa fa-info-circle"></i> Details</a> </td>
