@@ -12,49 +12,50 @@
 			<li class="breadcrumb-item active" aria-current="page">Projects</li>
 		</ol>
 	</div>
+	<!-- PAGE-HEADER END -->
 @endsection
 @section('content')
+	<!-- ROW-1 OPEN -->
 	<div class="row">
 		<div class="col-md-12 col-lg-12">
 			<div class="card">
 				<div class="card-header">
-					<h3 class="card-title">Project Table</h3>
-						<div class="card-options">
-							<a type="button" href="{{ route('add-project-page') }}" class="btn btn-md btn-primary " ><i class="fa fa-plus"></i> Add a new Project</a>
-						</div>
+					<h3  class="col-md-12 col-lg-11 card-title">Your Employees</h3>
+					<form action="{{route('add-user')}}" >
+						<button id="add" class="col-md-12 col-lg-12 btn btn-primary"  >Add</button>
+					</form>
+					
 				</div>
 				<div class="card-body">
 					<div class="table-responsive">
 						<table id="example" class="table table-striped table-bordered text-nowrap w-100">
 							<thead>
-							<tr>`
-								<th scope="col">Project Name</th>
-								<th scope="col">Backend</th>
-								<th scope="col">start date</th>
-								<th scope="col">Customer</th>
-								<th scope="col">Edit Project Details </th>
-								<th scope="col">list info</th>
+							<tr>
+								<th class="wd-15p">Name</th>
+								<th class="wd-15p">Position</th>
+								<th class="wd-10p">Email</th>
+							
 							</tr>
 							</thead>
 							<tbody>
-							@foreach($projects as $project)
-							<tr>
-								<td>{{$project->name}}</td>
-								<td>{{$project->backend}}</td>
-								<td>{{$project->start_date}}</td>
-								<td>{{$project->customer->name}}</td>
-								<td>
-									<a class="btn btn-sm btn-primary" href="{{'/project/'.$project->id}}"><i class="fa fa-edit"></i> Edit</a>
-									<a class="btn btn-sm btn-danger" href="{{route('delete-project',$project->id)}}"><i class="fa fa-trash"></i> Delete</a>
-								</td>
-								<td><a class="btn btn-sm btn-secondary" href="#"><i class="fa fa-info-circle"></i> Details</a> </td>
-							</tr>
-							@endforeach
+							@foreach($users as $user)
+								<tr>
+									<td>{{$user->name}}</td>
+									<td>{{$user->position}}</td>
+									<td>{{$user->email}}</td>
+									<td class="text-center align-middle">
+				
+		              <a class="btn btn-sm btn-primary badge" href="{{route('edit-user',$user->id)}}" type="button">Edit</a>
+							    <a class="btn btn-sm btn-primary badge" href="{{ route('delete-user' ,$user->id) }}" type="button">Delete</a>
 
+									</td>
+								</tr>
+							@endforeach
 							</tbody>
 						</table>
 					</div>
 				</div>
+				<!-- CONTAINER CLOSED -->
 			</div>
 		</div>
 	</div>

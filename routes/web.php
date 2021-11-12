@@ -6,6 +6,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\ProjectController;
+use App\Http\Controllers\Auth\RegisteredUserController;
 
 
 
@@ -39,6 +40,17 @@ require __DIR__ . '/auth.php';
 Route::group(['middleware' => ['role:admin','first.time.login']], function() {
     Route::get('/dashboard', [AdminController::class, 'index'])
         ->name('dashboard');
+    route::get('/vertical-menu', [AdminController::class, 'verticalMenu']);
+
+    //users-routes
+    route::get('/users', [AdminController::class, 'showUsersList']);
+    Route::post('/users/add', [AdminController::class, 'store']);
+    Route::get('/users/add', [AdminController::class, 'showAddUser'])
+     ->name('add-user');
+    route::get('/users/delete/{id}', [AdminController::class, 'deleteUser'])
+     ->name('delete-user');
+    route::post('/users/edit/{id}', [AdminController::class, 'editUsers'])->name('edit');
+    route::get('/edit/{id}', [AdminController::class, 'getEdit']) ->name('edit-user');
 
     route::get('/empty', [AdminController::class, 'empty'])
         ->name('empty');
@@ -50,6 +62,7 @@ Route::group(['middleware' => ['role:admin','first.time.login']], function() {
     route::get('/profile/admin', [AdminController::class, 'adminProfile'])
     ->name('admin-profile');
 
+    //project side
     route::get('/projects/add', [ProjectController::class, 'addProjectPage'])
     ->name('add-project-page');
 
@@ -64,6 +77,12 @@ Route::group(['middleware' => ['role:admin','first.time.login']], function() {
 
     route::get('/project/edit/{id}', [ProjectController::class, 'editProjectPage'])
         ->name('edit-projects-page');
+
+    route::get('/project/delete/{id}', [ProjectController::class, 'deleteProject'])
+    ->name('delete-project');
+
+
+
 
 });
 
