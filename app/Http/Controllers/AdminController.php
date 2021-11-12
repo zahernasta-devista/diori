@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Support\Facades\Hash;
 use App\Models\User;
+use App\Models\Customer;
 use Illuminate\Support\Facades\Log;
 
 class AdminController extends Controller
@@ -86,6 +87,13 @@ class AdminController extends Controller
         $user->delete();
         return redirect()->to('users');
     }
+
+    public function showCostumersList(){
+        $customers = Customer::get();
+        return view('admin.customers',['customers' => $customers]); 
+    }
+     
+
 
     public function adminProfile()
     {
