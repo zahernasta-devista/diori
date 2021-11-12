@@ -10,7 +10,6 @@ use Illuminate\Support\Facades\Hash;
 use App\Models\User;
 use App\Models\Customer;
 use Illuminate\Support\Facades\Log;
-use App\Models\Customer;
 class AdminController extends Controller
 {
   
@@ -117,13 +116,36 @@ class AdminController extends Controller
        //event(new Registered($user));
        return redirect('/customers');
    }
+   public function getCustomer(Request $request) {
 
-    public function showCostumersList(){
-        $customers = Customer::get();
-        return view('admin.customers',['customers' => $customers]); 
-    }
-     
 
+    $customers = Customer::get()->where('id',$request->route('id'))->first();
+
+
+
+    return view('admin.edit-customer-page', ['customers'=> $customers]);
+
+
+
+}
+
+public function editCustomers(Request $request): \Illuminate\Http\RedirectResponse
+
+{
+
+    $customers = Customer::findorfail($request->route('id'));
+
+    $customers->name = request()->input('name');
+
+    $customers->email = request()->input('email');
+
+    $customers->save();
+
+
+
+    return redirect()->to('customers');
+
+}
 
     public function adminProfile()
     {
