@@ -62,7 +62,7 @@ Route::group(['middleware' => ['role:admin','first.time.login']], function() {
     route::post('/project/edit/{id}', [ProjectController::class, 'editProject'])
         ->name('edit-project');
 
-    route::get('/project/{id}', [ProjectController::class, 'editProjectPage'])
+    route::get('/project/edit/{id}', [ProjectController::class, 'editProjectPage'])
         ->name('edit-projects-page');
 
 });
