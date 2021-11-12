@@ -42,7 +42,7 @@
                            <a class="side-menu__item" href="{{ url('/' . $page='users') }}" ><i class="side-menu__icon ti-home"></i><span class="side-menu__label">Users</span></a>
                         </li>
                             <a class="side-menu__item"  href="{{ route('projects') }}"><i class="side-menu__icon ti-layout-accordion-separated"></i><span class="side-menu__label">Projects</span></a>
-
+                            <a class="side-menu__item"  href="{{ route('customers') }}"><i class="side-menu__icon ti-layout-accordion-separated"></i><span class="side-menu__label">Customers</span></a>
                         <li><h3>Elements</h3></li>
                         <li class="slide">
                             <a class="side-menu__item" data-toggle="slide" ><i class="side-menu__icon ti-panel"></i><span class="side-menu__label">Components</span><i class="angle fa fa-angle-right"></i></a>
