@@ -81,7 +81,8 @@ Route::group(['middleware' => ['role:admin','first.time.login']], function() {
     route::get('/project/delete/{id}', [ProjectController::class, 'deleteProject'])
     ->name('delete-project');
 
-
+    //customer side
+    route::get('/customers', [AdminController::class, 'showCostumersList'])->name('customers');
 
 
 });
