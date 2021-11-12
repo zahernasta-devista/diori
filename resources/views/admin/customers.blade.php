@@ -20,7 +20,11 @@
 				<div class="card-header">
 					<h3 class="card-title">Customers Table</h3>
 						<div class="card-options">
+
+							<a type="button" href="{{ route('add-customers') }}" class="btn btn-md btn-primary " ><i class="fa fa-plus"></i> Add </a>
+
 							<a type="button" href="{{ route('add-project-page') }}" class="btn btn-md btn-primary " ><i class="fa fa-plus"></i> Add </a>
+
 						</div>
 				</div>
 				<div class="card-body">
@@ -39,6 +43,13 @@
 							<tr>
 								<td>{{$customer->name}}</td>
 								<td>{{$customer->email}}</td>
+
+								{{-- <td>
+									<a class="btn btn-sm btn-primary" href="{{'/project/edit/'.$project->id}}"><i class="fa fa-edit"></i> Edit</a>
+									<a class="btn btn-sm btn-danger" href="{{route('delete-project',$project->id)}}"><i class="fa fa-trash"></i> Delete</a>
+								</td>
+								<td><a class="btn btn-sm btn-secondary" href="#"><i class="fa fa-info-circle"></i> Details</a> </td> --}}
+
 							</tr>
 							@endforeach
 

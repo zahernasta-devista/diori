@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Hash;
 use App\Models\User;
 use App\Models\Customer;
 use Illuminate\Support\Facades\Log;
-
+use App\Models\Customer;
 class AdminController extends Controller
 {
   
@@ -87,6 +87,36 @@ class AdminController extends Controller
         $user->delete();
         return redirect()->to('users');
     }
+    public function showCostumersList(){
+
+        $customers = Customer::get();
+
+        return view('admin.customers',['customers' => $customers]);
+
+    }
+    public function showAddCustomer()
+    {
+        return view('admin.add-customers');
+    }
+
+   
+   public function storeCustomer(Request $request)
+   {
+       $request->validate([
+           'name' => ['required', 'string', 'max:255'],
+           'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+           
+       ]);
+   
+       $customers = Customer::create([
+           'name' => $request->name,
+           'email' => $request->email,
+        
+       ]);
+
+       //event(new Registered($user));
+       return redirect('/customers');
+   }
 
     public function showCostumersList(){
         $customers = Customer::get();
