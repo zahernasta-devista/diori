@@ -86,7 +86,9 @@ Route::group(['middleware' => ['role:admin','first.time.login']], function() {
     Route::post('/customers/add', [AdminController::class, 'storeCustomer']);
     Route::get('/customers/add', [AdminController::class, 'showAddCustomer'])
     ->name('add-customers');
-
+    Route::get('/customers/delete/{id}', [AdminController::class, 'deleteCustomer'])
+    ->name('delete-customers');
+    
 
 
 });

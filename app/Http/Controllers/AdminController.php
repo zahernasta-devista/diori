@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Hash;
 use App\Models\User;
 use App\Models\Customer;
 use Illuminate\Support\Facades\Log;
-use App\Models\Customer;
+
 class AdminController extends Controller
 {
   
@@ -114,16 +114,18 @@ class AdminController extends Controller
         
        ]);
 
-       //event(new Registered($user));
+       
        return redirect('/customers');
    }
 
-    public function showCostumersList(){
-        $customers = Customer::get();
-        return view('admin.customers',['customers' => $customers]); 
-    }
-     
-
+   public function deleteCustomer(Request $request): \Illuminate\Http\RedirectResponse
+   {
+       
+       $customers = Customer::findorfail($request->route('id'));
+       $customers->delete();
+       return redirect()->to('customers');
+   }
+   
 
     public function adminProfile()
     {
