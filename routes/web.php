@@ -90,6 +90,13 @@ Route::group(['middleware' => ['role:admin','first.time.login']], function() {
     route::post('/projects/assgin/{user_id}',[AdminController::class,'assignEmployeeToProject'])
         ->name('assign-employee-project');
 
+//customer
+    route::get('/customers', [AdminController::class, 'showCostumersList'])->name('customers');
+    Route::post('/customers/add', [AdminController::class, 'storeCustomer']);
+    Route::get('/customers/add', [AdminController::class, 'showAddCustomer'])
+    ->name('add-customers');
+
+
     route::post('/projects/unassign/{user_id}/{project_id}',[AdminController::class,'unassignProject'])
         ->name('unassign-employee-project');
 
