@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Customer;
 use App\Models\Project;
+use App\Models\User;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
@@ -41,7 +42,6 @@ class ProjectController extends Controller
             'customer_id'=>$request->customer
         ]);
 
-        Log::info('created');
         event(new Registered($project));
 
         return redirect('/projects');

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Middleware\Admin;
 use App\Models\Organization;
+use App\Models\Project;
 use Illuminate\Http\Request;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Support\Facades\Hash;
@@ -81,11 +82,47 @@ class AdminController extends Controller
 
     public function deleteUser(Request $request): \Illuminate\Http\RedirectResponse
     {
-        Log::info('test');
         $user = User::findorfail($request->route('id'));
         $user->delete();
         return redirect()->to('users');
     }
+
+
+    public function assignProjectToPage(Request $request){
+        $projects= Project::get();
+        $user = User::get()->where('id' , $request->route('id'))->first();
+        return view('admin.assign-project-to', ['projects'=> $projects],['user' => $user]);
+    }
+
+    public function employeeProjectsAssignedPage(Request $request){
+        $user = User::get()->where('id' , $request->route('id'))->first();
+        $projects= $user->projects()->get();
+        return view('admin.employee-projects-assigned', ['projects'=> $projects],['user' => $user]);
+    }
+
+
+
+
+    public function assignEmployeeToProject(Request $request){
+        $user = User::findorfail($request->route('user_id'));
+        $project = Project::findorfail($request->project);
+        $user->projects()->syncWithoutDetaching($project);
+        $user->save();
+
+    return redirect('/employee/projects/'.$request->route('user_id'));
+    }
+
+    public function unassignProject(Request $request){
+        $user = User::findorfail($request->route('user_id'));
+        $project = Project::findorfail($request->route('project_id'));
+        $user->projects()->detach($project);
+
+        return redirect()->back() ;
+    }
+
+
+
+
 
     public function adminProfile()
     {
@@ -101,18 +138,11 @@ class AdminController extends Controller
         return view('admin.empty');
     }
 
-    public function usersList()
-    {
-        return view('admin.users-list');
-    }
-  
-    public function datatable()
-    {
-        return view('admin.datatable');
-    }
+
     public function verticalMenu()
     {
         return view('admin.vertical-menu');
     }
+
 
 }
