@@ -33,7 +33,6 @@
 								<th scope="col">start date</th>
 								<th scope="col">Customer</th>
 								<th scope="col">Edit Project Details </th>
-								<th scope="col">list info</th>
 							</tr>
 							</thead>
 							<tbody>
@@ -47,7 +46,6 @@
 									<a class="btn btn-sm btn-primary" href="{{route('edit-project',$project->id)}}"><i class="fa fa-edit"></i> Edit</a>
 									<a class="btn btn-sm btn-danger" href="{{route('delete-project',$project->id)}}"><i class="fa fa-trash"></i> Delete</a>
 								</td>
-								<td><a class="btn btn-sm btn-secondary" href="#"><i class="fa fa-info-circle"></i> Details</a> </td>
 							</tr>
 							@endforeach
 
