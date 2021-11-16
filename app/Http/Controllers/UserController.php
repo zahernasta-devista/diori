@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Customer;
 use App\Models\Project;
 use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -21,9 +22,13 @@ class UserController extends Controller
 
     }
     public function dashboard(){
+        $date = carbon::now()->format('d-m-y');
         $user = User::role('employee')->get()->count();
         $project =  Project::count();
         $customer =  Customer::count();
+        $projects = auth()->user()->projects;
+//        $projectSlice = array_slice($projects,0);
+        $projectCount = auth()->user()->projects->count();
 
 
         if(Auth::user()->getRoleNames()[0] == "admin" ){
@@ -31,7 +36,7 @@ class UserController extends Controller
         }
 
         elseif(Auth::user()->getRoleNames()[0] == "employee"){
-            return view('employee.dashboard-employee');
+            return view('employee.dashboard-employee',['date'=>$date,'projectCount'=>$projectCount],compact('projects'));
         }
 
     }
