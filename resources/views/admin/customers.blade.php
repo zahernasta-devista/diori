@@ -43,10 +43,11 @@
 								<td>{{$customer->email}}</td>
 
                                 <td>
-			
+
                                     <a class="btn btn btn-sm btn-primary" href="{{route('edit-customer-page',$customer->id)}}" type="button"><i class="fa fa-edit"></i>Edit</a>
+								<td>
+									<a class="btn btn-sm btn-danger" href="{{route('delete-customers',$customer->id)}}"><i class="fa fa-trash"></i> Delete</a>
 								</td>
-								<td><a class="btn btn-sm btn-secondary" href="#"><i class="fa fa-info-circle"></i> Details</a> </td> 
 
 							</tr>
 							@endforeach

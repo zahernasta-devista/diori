@@ -113,7 +113,7 @@ class AdminController extends Controller
         
        ]);
 
-       //event(new Registered($user));
+
        return redirect('/customers');
    }
    public function getCustomer(Request $request) {
@@ -128,11 +128,18 @@ class AdminController extends Controller
 
 
 }
+    public function deleteCustomer(Request $request): \Illuminate\Http\RedirectResponse
+    {
+
+        $customers = Customer::findorfail($request->route('id'));
+        $customers->delete();
+        return redirect()->to('customers');
+    }
+
 
 public function editCustomers(Request $request): \Illuminate\Http\RedirectResponse
 
 {
-
     $customers = Customer::findorfail($request->route('id'));
 
     $customers->name = request()->input('name');
@@ -141,10 +148,7 @@ public function editCustomers(Request $request): \Illuminate\Http\RedirectRespon
 
     $customers->save();
 
-
-
     return redirect()->to('customers');
-
 }
 
     public function adminProfile()
