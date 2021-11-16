@@ -51,8 +51,10 @@ Route::group(['middleware' => ['role:admin','first.time.login']], function() {
      ->name('add-user');
     route::get('/users/delete/{id}', [AdminController::class, 'deleteUser'])
      ->name('delete-user');
-    route::post('/users/edit/{id}', [AdminController::class, 'editUsers'])->name('edit');
-    route::get('/edit/{id}', [AdminController::class, 'getEdit']) ->name('edit-user');
+
+    route::get('/users/edit/{id}', [AdminController::class, 'getEdit'])->name('edit-user');
+
+    route::post('users/edit/{id}', [AdminController::class, 'editUsers']) ->name('edit-user');
 
     route::get('/empty', [AdminController::class, 'empty'])
         ->name('empty');
@@ -107,7 +109,7 @@ Route::group(['middleware' => ['role:admin','first.time.login']], function() {
 
 
     route::post('/customers/edit/{id}', [AdminController::class, 'editCustomers'])->name('edit-customer');
-    route::get('/edit/{id}', [AdminController::class, 'getCustomer']) ->name('edit-customer-page');
+    route::get('customers/edit/{id}', [AdminController::class, 'getCustomer']) ->name('edit-customer-page');
 
 });
 

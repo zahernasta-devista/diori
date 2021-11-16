@@ -43,16 +43,15 @@ class AdminController extends Controller
             'organization_id' => auth()->user()->organization_id,
         ]);
 
-        //event(new Registered($user));
+        $user->assignRole([2]);
+
+        event(new Registered($user));
         return redirect('/users');
     }
     public function getEdit(Request $request) {
 
-        Log::info('test');
 
         $users = User::get()->where('id',$request->route('id'))->first();
-
-
 
         return view('admin.edit-user', ['users'=> $users]);
 
