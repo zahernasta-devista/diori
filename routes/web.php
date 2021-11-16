@@ -96,12 +96,18 @@ Route::group(['middleware' => ['role:admin','first.time.login']], function() {
     Route::get('/customers/add', [AdminController::class, 'showAddCustomer'])
     ->name('add-customers');
 
+    Route::get('/customers/delete/{id}', [AdminController::class, 'deleteCustomer'])
+    ->name('delete-customers');
 
     route::post('/projects/unassign/{user_id}/{project_id}',[AdminController::class,'unassignProject'])
         ->name('unassign-employee-project');
 
     route::get('/employee/projects/{id}',[AdminController::class,'employeeProjectsAssignedPage'])
         ->name('employee-project-page');
+
+
+    route::post('/customers/edit/{id}', [AdminController::class, 'editCustomers'])->name('edit-customer');
+    route::get('/edit/{id}', [AdminController::class, 'getCustomer']) ->name('edit-customer-page');
 
 });
 
