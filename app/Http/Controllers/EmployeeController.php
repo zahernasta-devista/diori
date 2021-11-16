@@ -12,10 +12,6 @@ class EmployeeController extends Controller
         return view('employee.calendar');
     }
 
-    public function dashboardEmployee()
-    {
-        return view('employee.dashboard-employee');
-    }
     public function workLog()
     {
         $projects = auth()->user()->projects;

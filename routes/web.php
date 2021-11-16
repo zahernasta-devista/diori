@@ -39,12 +39,12 @@ Route::get('/', function () {
 
 require __DIR__ . '/auth.php';
 
-Route::group(['middleware' => ['role:admin','first.time.login']], function() {
-    Route::get('/dashboard', [AdminController::class, 'index'])
+Route::get('/dashboard', [UserController::class, 'dashboard'])
         ->name('dashboard');
-    route::get('/vertical-menu', [AdminController::class, 'verticalMenu']);
 
-    //users-routes
+Route::group(['middleware' => ['role:admin','first.time.login']], function() {
+
+    route::get('/vertical-menu', [AdminController::class, 'verticalMenu']);
     route::get('/users', [AdminController::class, 'showUsersList']);
     Route::post('/users/add', [AdminController::class, 'store']);
     Route::get('/users/add', [AdminController::class, 'showAddUser'])
@@ -116,9 +116,6 @@ Route::group(['middleware' => ['role:admin','first.time.login']], function() {
 Route::group(['middleware' => ['role:employee','first.time.login']], function() {
     route::get('/calendar', [EmployeeController::class, 'calendar'])
     ->name('calendar');
-
-    route::get('/dashboard/employee', [EmployeeController::class, 'dashboardEmployee'])
-    ->name('dashboard-employee');
 
     route::get('/worklog', [EmployeeController::class, 'workLog'])
     ->name('work-log');
