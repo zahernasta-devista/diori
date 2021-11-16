@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\UsersProjectController;
 use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\UserController;
@@ -32,7 +33,8 @@ use App\Http\Controllers\Auth\RegisteredUserController;
 
 Route::get('/', function () {
     return view('auth.login');
-});
+})->middleware('guest');
+
 
 
 require __DIR__ . '/auth.php';
@@ -56,11 +58,12 @@ Route::group(['middleware' => ['role:admin','first.time.login']], function() {
         ->name('empty');
 
     route::get('/tables', [AdminController::class, 'tables']);
-    route::get('/users/list', [AdminController::class, 'usersList']);
     route::get('/vertical-menu', [AdminController::class, 'verticalMenu']);
 
     route::get('/profile/admin', [AdminController::class, 'adminProfile'])
     ->name('admin-profile');
+
+
 
     //project side
     route::get('/projects/add', [ProjectController::class, 'addProjectPage'])
@@ -81,6 +84,12 @@ Route::group(['middleware' => ['role:admin','first.time.login']], function() {
     route::get('/project/delete/{id}', [ProjectController::class, 'deleteProject'])
     ->name('delete-project');
 
+    route::get('/projects/assign/{id}',[AdminController::class,'assignProjectToPage'])
+        ->name('assign-project-page');
+
+    route::post('/projects/assgin/{user_id}',[AdminController::class,'assignEmployeeToProject'])
+        ->name('assign-employee-project');
+
 //customer
     route::get('/customers', [AdminController::class, 'showCostumersList'])->name('customers');
     Route::post('/customers/add', [AdminController::class, 'storeCustomer']);
@@ -90,6 +99,11 @@ Route::group(['middleware' => ['role:admin','first.time.login']], function() {
     Route::get('/customers/delete/{id}', [AdminController::class, 'deleteCustomer'])
     ->name('delete-customers');
 
+    route::post('/projects/unassign/{user_id}/{project_id}',[AdminController::class,'unassignProject'])
+        ->name('unassign-employee-project');
+
+    route::get('/employee/projects/{id}',[AdminController::class,'employeeProjectsAssignedPage'])
+        ->name('employee-project-page');
 
 
     route::post('/customers/edit/{id}', [AdminController::class, 'editCustomers'])->name('edit-customer');

@@ -18,7 +18,9 @@ class EmployeeController extends Controller
     }
     public function workLog()
     {
-        return view('employee.work-log');
+        $projects = auth()->user()->projects;
+
+        return view('employee.work-log',compact('projects'));
     }
 
 

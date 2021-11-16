@@ -38,10 +38,11 @@
 											</div>
 											<div class="wrap-input100 validate-input" data-validate = "Project is required">
 												<select class="input100" type="text" name="project" >
-												<option value="select">Select a Project</option>
-													<option value="dwl">Devista Work Log</option>
-													<option value="b&b">B&B</option>
-													<option value="Gave">Gave Universet</option>
+															<option  selected disabled hidden>Choose Your Project</option>
+													@foreach($projects as $project)
+													<option>{{$project->name}}</option>
+													@endforeach
+
 												</select>
 												<span class="focus-input100"></span>
 												<span class="symbol-input100">

@@ -14,8 +14,8 @@
 									<div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
 										<div class="drop-heading">
 											<div class="text-center">
-												<h5 class="text-dark mb-0">Alwan Mazun</h5>
-												<small class="text-muted">admin</small>
+												<h5 class="text-dark mb-0">{{Auth::user()->name}}</h5>
+												<small class="text-muted">{{Auth::user()->poisition}}</small>
 											</div>
 										</div>
 										<div class="dropdown-divider m-0"></div>

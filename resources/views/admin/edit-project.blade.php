@@ -1,12 +1,3 @@
-
-
-
-
-
-
-
-
-
 @extends('layouts.vertical-menu.master')
 @section('css')
     <link href="{{ URL::asset('assets/plugins/single-page/css/main.css')}}" rel="stylesheet">
