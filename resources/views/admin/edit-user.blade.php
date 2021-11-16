@@ -21,7 +21,7 @@
             <!-- CONTAINER OPEN -->
             <div class="container-login100">
                 <div class="wrap-login100 p-6">
-                    <form class="login100-form validate-form" action="{{route('edit',$users->id)}}" method="POST">
+                    <form class="login100-form validate-form" action="{{route('edit-user',$users->id)}}" method="POST">
                         @csrf
                         <span class="login100-form-title">
 									Edit The Credentials of Your Employees

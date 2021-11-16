@@ -21,7 +21,7 @@
 					<h3 class="card-title">Customers Table</h3>
 						<div class="card-options">
 
-							<a type="button" href="{{ route('add-customers') }}" class="btn btn-md btn-primary " ><i class="fa fa-plus"></i> Add </a>
+							<a type="button" href="{{ route('add-customers') }}" class="btn btn-md btn-primary " ><i class="fa fa-plus"></i>Customers</a>
 
 						</div>
 				</div>
@@ -32,8 +32,7 @@
 							<tr>
 								<th scope="col">Name</th>
 								<th scope="col">Email</th>
-								<th scope="col">Edit Customer Details </th>
-								<th scope="col">List Info</th>
+								<th scope="col" class="text-center">Actions </th>
 							</tr>
 							</thead>
 							<tbody>
@@ -42,13 +41,10 @@
 								<td>{{$customer->name}}</td>
 								<td>{{$customer->email}}</td>
 
-                                <td>
-
+                                <td class="text-center">
                                     <a class="btn btn btn-sm btn-primary" href="{{route('edit-customer-page',$customer->id)}}" type="button"><i class="fa fa-edit"></i>Edit</a>
-								<td>
 									<a class="btn btn-sm btn-danger" href="{{route('delete-customers',$customer->id)}}"><i class="fa fa-trash"></i> Delete</a>
 								</td>
-
 							</tr>
 							@endforeach
 
