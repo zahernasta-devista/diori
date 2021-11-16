@@ -87,7 +87,7 @@
                             </div>
                         </div>
                         <div class="progress mt-2 h-1">
-                            <div class="progress-bar  bg-primary w-75"></div>
+                            <div class="progress-bar  bg-primary w-100"></div>
                         </div>
                     </div>
                     <div class="mt-5">
@@ -100,7 +100,7 @@
                             </div>
                         </div>
                         <div class="progress mt-2 h-1">
-                            <div class="progress-bar  bg-secondary w-75"></div>
+                            <div class="progress-bar  bg-secondary w-100"></div>
                         </div>
                     </div>
                     <div class="mt-5 mb-4">
@@ -113,7 +113,7 @@
                             </div>
                         </div>
                         <div class="progress mt-2 h-1">
-                            <div class="progress-bar bg-success w-75"></div>
+                            <div class="progress-bar bg-success w-100"></div>
                         </div>
                     </div>
                 </div>
