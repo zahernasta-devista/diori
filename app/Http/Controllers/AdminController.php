@@ -50,7 +50,6 @@ class AdminController extends Controller
     }
     public function getEdit(Request $request) {
 
-
         $users = User::get()->where('id',$request->route('id'))->first();
 
         return view('admin.edit-user', ['users'=> $users]);
@@ -116,12 +115,7 @@ class AdminController extends Controller
        return redirect('/customers');
    }
    public function getCustomer(Request $request) {
-
-
     $customers = Customer::get()->where('id',$request->route('id'))->first();
-
-
-
     return view('admin.edit-customer-page', ['customers'=> $customers]);
 
 
@@ -188,10 +182,6 @@ public function editCustomers(Request $request): \Illuminate\Http\RedirectRespon
     public function adminProfile()
     {
         return view('admin.admin-profile');
-    }
-    public function index()
-    {
-        return view('admin.index');
     }
 
     public function empty()
