@@ -27,7 +27,6 @@ class UserController extends Controller
         $project =  Project::count();
         $customer =  Customer::count();
         $projects = auth()->user()->projects;
-//        $projectSlice = array_slice($projects,0);
         $projectCount = auth()->user()->projects->count();
 
 
