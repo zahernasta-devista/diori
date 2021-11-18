@@ -27,7 +27,7 @@
 					<div class="table-responsive">
 						<table id="example" class="table table-striped table-bordered text-nowrap w-100">
 							<thead>
-							<tr>`
+							<tr>
 								<th scope="col">Project Name</th>
 								<th scope="col">Backend</th>
 								<th scope="col">start date</th>

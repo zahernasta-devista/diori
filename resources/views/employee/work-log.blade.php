@@ -30,7 +30,7 @@
 										Add Work Log
 								</span>
 											<div class="wrap-input100 validate-input" >
-												<input class="input100" type="number" name="Hours" placeholder="12 hours max" min="1" max="12">
+												<input class="input100" type="number" name="time" placeholder="12 hours max" min="1" max="12">
 												<span class="focus-input100"></span>
 												<span class="symbol-input100">
 										<i class="zmdi zmdi-eye" aria-hidden="true"></i>

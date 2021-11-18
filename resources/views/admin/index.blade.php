@@ -87,7 +87,7 @@
                             </div>
                         </div>
                         <div class="progress mt-2 h-1">
-                            <div class="progress-bar  bg-primary w-75"></div>
+                            <div class="progress-bar  bg-primary w-100"></div>
                         </div>
                     </div>
                     <div class="mt-5">
@@ -100,7 +100,7 @@
                             </div>
                         </div>
                         <div class="progress mt-2 h-1">
-                            <div class="progress-bar  bg-secondary w-75"></div>
+                            <div class="progress-bar  bg-secondary w-100"></div>
                         </div>
                     </div>
                     <div class="mt-5 mb-4">
@@ -113,7 +113,7 @@
                             </div>
                         </div>
                         <div class="progress mt-2 h-1">
-                            <div class="progress-bar bg-success w-75"></div>
+                            <div class="progress-bar bg-success w-100"></div>
                         </div>
                     </div>
                 </div>
@@ -132,7 +132,7 @@
                     <h6 class=""><span class="text-primary"><i class="fe fe-file-text mr-2 fs-20 text-primary-shadow"></i></span>Total Projects</h6>
                     <h3 class="text-dark counter mt-0 mb-3 number-font">{{$project}}</h3>
                     <div class="progress h-1 mt-0 mb-2">
-                        <div class="progress-bar progress-bar-striped bg-primary w-70" role="progressbar"></div>
+                        <div class="progress-bar progress-bar-striped bg-primary w-100" role="progressbar"></div>
                     </div>
                 </div>
             </div>
@@ -143,7 +143,7 @@
                     <h6 class=""><span class="text-secondary"><i class="fe fe-users mr-2 fs-20 text-secondary-shadow"></i></span>Total Employees</h6>
                     <h3 class="text-dark counter mt-0 mb-3 number-font">{{$user}}</h3>
                     <div class="progress h-1 mt-0 mb-2">
-                        <div class="progress-bar progress-bar-striped  bg-secondary w-50" role="progressbar"></div>
+                        <div class="progress-bar progress-bar-striped  bg-secondary w-100" role="progressbar"></div>
                     </div>
                 </div>
             </div>
@@ -154,7 +154,7 @@
                     <h6 class=""><span class="text-success"><i class="fe fe-award mr-2 fs-20 text-success-shadow"></i></span>Pull Requests</h6>
                     <h3 class="text-dark counter mt-0 mb-3 number-font">0</h3>
                     <div class="progress h-1 mt-0 mb-2">
-                        <div class="progress-bar progress-bar-striped  bg-success w-60" role="progressbar"></div>
+                        <div class="progress-bar progress-bar-striped  bg-success w-100" role="progressbar"></div>
                     </div>
                 </div>
             </div>
@@ -165,7 +165,7 @@
                     <h6 class=""><span class="text-info"><i class="fe fe-tag mr-2 fs-20 text-info-shadow"></i></span>Total Tasks</h6>
                     <h3 class="text-dark counter mt-0 mb-3 number-font">0</h3>
                     <div class="progress h-1 mt-0 mb-2">
-                        <div class="progress-bar progress-bar-striped progress-bar-animated bg-info w-40" role="progressbar"></div>
+                        <div class="progress-bar progress-bar-striped progress-bar-animated bg-info w-100" role="progressbar"></div>
                     </div>
                 </div>
             </div>
