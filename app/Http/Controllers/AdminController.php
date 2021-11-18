@@ -31,8 +31,9 @@ class AdminController extends Controller
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'position' => ['required', 'string', 'max:255'],
-            'password' => ['required '],
+            'password' => ['required','string','min:8','regex:/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/'],
         ]);
+      
     
         $user = User::create([
             'name' => $request->name,
@@ -47,6 +48,7 @@ class AdminController extends Controller
         event(new Registered($user));
         return redirect('/users');
     }
+    
 
     public function getEdit(Request $request) {
 

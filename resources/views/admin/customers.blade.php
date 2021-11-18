@@ -21,7 +21,7 @@
 					<h3 class="card-title">Customers Table</h3>
 						<div class="card-options">
 
-							<a type="button" href="{{ route('add-customers') }}" class="btn btn-md btn-primary " ><i class="fa fa-plus"></i>Customers</a>
+							<a type="button" href="{{ route('add-customers') }}" class="btn btn-md btn-primary " ><i class="fa fa-plus"></i> Customers</a>
 
 						</div>
 				</div>
@@ -43,7 +43,7 @@
 
                                 <td class="text-center">
                                     <a class="btn btn btn-sm btn-primary" href="{{route('edit-customer-page',$customer->id)}}" type="button"><i class="fa fa-edit"></i>Edit</a>
-									<a class="btn btn-sm btn-danger" href="{{route('delete-customers',$customer->id)}}"><i class="fa fa-trash"></i> Delete</a>
+									<a class="btn btn-sm btn-danger" onclick="return confirm('Are you sure?')" href="{{route('delete-customers',$customer->id)}}"><i class="fa fa-trash"></i> Delete</a>
 								    <a class="btn btn-sm btn-success" href="{{route('customer-projects-page',$customer->id)}}" type="button"><i class="fa fa-edit"></i>Detail</a>
 								</td>
 							</tr>

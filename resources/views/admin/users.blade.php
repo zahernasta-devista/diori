@@ -23,7 +23,7 @@
 				<div class="card-header">
 					<h3  class="col-md-12 col-lg-11 card-title">Your Employees</h3>
 					<form action="{{route('add-user')}}"  >
-						<button id="add" class="btn btn-md btn-primary mx-auto" ><i class="fa fa-plus"></i>Employees</button>
+						<button id="add" class="btn btn-md btn-primary mx-auto" ><i class="fa fa-plus"> </i> Employees</button>
 					</form>
 				</div>
 				<div class="card-body">
@@ -46,7 +46,7 @@
 									<td>{{$user->email}}</td>
 									<td class="text-center align-middle">
 										<a class="btn btn-sm btn-primary badge" href="{{route('edit-user',$user->id)}}" type="button"><i class="fa fa-edit"></i>Edit</a>
-										<a class="btn btn-sm btn-danger" href="{{ route('delete-user' ,$user->id) }}" type="button"><i class="fa fa-trash"></i>Delete</a>
+										<a class="btn btn-sm btn-danger" onclick="return confirm('Are you sure?')" href="{{ route('delete-user' ,$user->id) }}" type="button"><i class="fa fa-trash"></i>Delete</a>
 										<a class="btn btn-sm btn-success" href="{{route('employee-project-page',$user->id)}}" type="button"><i class="fa fa-edit"></i>Assign</a>
 									</td>
 								</tr>
