@@ -24,14 +24,14 @@
                         <div class="sidebar-navs">
                             <ul class="nav  nav-pills-circle">
                                 <li class="nav-item" data-toggle="tooltip" data-placement="top" title="Profile" >
-                                    <a class="nav-link text-center m-2 btn btn-primary btn-sm rounded-pill" href="{{ route('admin-profile') }}">
+                                    <a class="nav-link text-center ml-8 mr-5 btn btn-primary btn-sm rounded-pill" href="{{ route('admin-profile') }}">
                                         <i class="fe fe-user text-white"></i>
                                     </a>
                                 </li>
                                 <li class="nav-item" data-toggle="tooltip" data-placement="top" title="Logout">
-                                    <button class="nav-link text-center m-2 btn btn-primary btn-sm rounded-pill" action="{{ route('logout') }}">
-                                        <i class="fe fe-power"></i>
-                                    </button>
+                                    <a class="nav-link text-center btn btn-primary btn-sm rounded-pill" action="{{ route('logout') }}">
+                                        <i class="fe fe-power text-white"></i>
+                                    </a>
                                 </li>
                             </ul>
                         </div>
