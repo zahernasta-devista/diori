@@ -39,7 +39,7 @@
 							</thead>
 							<tbody>
 							@foreach($users as $user)
-								@if($user->getRoleNames()[0] !== "admin")
+								@if($user->getRoleNames()[0] !== "admin") 
 									<tr>
 									<td>{{$user->name}}</td>
 									<td>{{$user->position}}</td>
@@ -50,7 +50,7 @@
 										<a class="btn btn-sm btn-success" href="{{route('employee-project-page',$user->id)}}" type="button"><i class="fa fa-edit"></i>Assign</a>
 									</td>
 								</tr>
-								@endif
+							    @endif
 							@endforeach
 							</tbody>
 						</table>
