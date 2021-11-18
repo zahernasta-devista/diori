@@ -161,9 +161,13 @@ class AdminController extends Controller
         return redirect()->back() ;
     }
 
+    public function customersProjectsAssignedPage(Request $request){
+        $customers = Customer::get()->where('id' , $request->route('id'))->first();
+        $projects= $customers->projects()->get();
+        return view('admin.customer-projects-page', ['projects'=> $projects],['customers' => $customers]);
 
-
-
+    }
+    
 public function editCustomers(Request $request): \Illuminate\Http\RedirectResponse
 
 {
