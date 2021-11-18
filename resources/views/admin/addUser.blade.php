@@ -14,7 +14,15 @@
 	<!-- PAGE-HEADER END -->
 @endsection
 @section('content')
-	<!-- BACKGROUND-IMAGE -->
+@if ($errors->any())
+    <div class="alert alert-danger">
+        <ul>
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+@endif
 	<div >
 		<!-- PAGE -->
 		<div class="page">

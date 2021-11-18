@@ -42,9 +42,10 @@
 								<td>{{$project->backend}}</td>
 								<td>{{$project->start_date}}</td>
 								<td>{{$project->customer->name}}</td>
-								<td>
-									<a class="btn btn-sm btn-primary" href="{{route('edit-project',$project->id)}}"><i class="fa fa-edit"></i> Edit</a>
-									<a class="btn btn-sm btn-danger" href="{{route('delete-project',$project->id)}}"><i class="fa fa-trash"></i> Delete</a>
+								<td class="text-center">
+                                    <a class="btn btn btn-sm btn-primary"   href="{{route('edit-project',$project->id)}}" type="button"><i class="fa fa-edit"></i>Edit</a>
+									<a class="btn btn-sm btn-danger"  onclick="return confirm('Are you sure?')" href="{{route('delete-project',$project->id)}}"><i class="fa fa-trash"></i> Delete</a>
+								    
 								</td>
 							</tr>
 							@endforeach
