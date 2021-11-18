@@ -13,21 +13,20 @@ use App\Models\Customer;
 use Illuminate\Support\Facades\Log;
 class AdminController extends Controller
 {
-  
 
-    public function showUsersList(){
+    public function showUsersList() {
         $users = User::get()
         ->where('organization_id', 1);
         return view('admin.users',['users' => $users]); 
     }
-      public function showAddUser()
-     {
+    
+    public function showAddUser() {
          return view('admin.addUser');
-     }
+    }
 
     
-    public function store(Request $request)
-    {
+    public function store(Request $request) {
+        
         $request->validate([
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
@@ -48,57 +47,49 @@ class AdminController extends Controller
         event(new Registered($user));
         return redirect('/users');
     }
+
     public function getEdit(Request $request) {
 
         $users = User::get()->where('id',$request->route('id'))->first();
 
         return view('admin.edit-user', ['users'=> $users]);
-
-
-
     }
 
-    public function editUsers(Request $request): \Illuminate\Http\RedirectResponse
-
-    {
+    public function editUsers(Request $request): \Illuminate\Http\RedirectResponse {
 
         $users = User::findorfail($request->route('id'));
-
         $users->name = request()->input('name');
-
         $users->position = request()->input('position');
-
         $users->email = request()->input('email');
 
         $users->save();
 
-
-
         return redirect()->to('users');
 
     }
 
-    public function deleteUser(Request $request): \Illuminate\Http\RedirectResponse
-    {
+    public function deleteUser(Request $request): \Illuminate\Http\RedirectResponse {
         $user = User::findorfail($request->route('id'));
         $user->delete();
         return redirect()->to('users');
     }
-    public function showCostumersList(){
+
+    public function showCostumersList() {
 
         $customers = Customer::get();
 
         return view('admin.customers',['customers' => $customers]);
 
     }
-    public function showAddCustomer()
-    {
+
+    public function showAddCustomer() {
+
         return view('admin.add-customers');
     }
 
    
-   public function storeCustomer(Request $request)
-   {
+   public function storeCustomer(Request $request) {
+
        $request->validate([
            'name' => ['required', 'string', 'max:255'],
            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
@@ -114,46 +105,51 @@ class AdminController extends Controller
 
        return redirect('/customers');
    }
+
    public function getCustomer(Request $request) {
-    $customers = Customer::get()->where('id',$request->route('id'))->first();
-    return view('admin.edit-customer-page', ['customers'=> $customers]);
 
+        $customers = Customer::get()->where('id',$request->route('id'))->first();
+        
+        return view('admin.edit-customer-page', ['customers'=> $customers]);
+    }
 
-
-    } 
-    public function deleteCustomer(Request $request): \Illuminate\Http\RedirectResponse
-    {
+    public function deleteCustomer(Request $request): \Illuminate\Http\RedirectResponse {
 
         $customers = Customer::findorfail($request->route('id'));
         $customers->delete();
+
         return redirect()->to('customers');
     }
 
     public function assignProjectToPage(Request $request){
+
         $projects= Project::get();
         $user = User::get()->where('id' , $request->route('id'))->first();
+        
         return view('admin.assign-project-to', ['projects'=> $projects],['user' => $user]);
     }
 
     public function employeeProjectsAssignedPage(Request $request){
+
         $user = User::get()->where('id' , $request->route('id'))->first();
         $projects= $user->projects()->get();
+
         return view('admin.employee-projects-assigned', ['projects'=> $projects],['user' => $user]);
     }
 
-
-
-
     public function assignEmployeeToProject(Request $request){
+
         $user = User::findorfail($request->route('user_id'));
         $project = Project::findorfail($request->project);
         $user->projects()->syncWithoutDetaching($project);
+
         $user->save();
 
-    return redirect('/employee/projects/'.$request->route('user_id'));
+        return redirect('/employee/projects/'.$request->route('user_id'));
     }
 
     public function unassignProject(Request $request){
+
         $user = User::findorfail($request->route('user_id'));
         $project = Project::findorfail($request->route('project_id'));
         $user->projects()->detach($project);
@@ -161,26 +157,25 @@ class AdminController extends Controller
         return redirect()->back() ;
     }
 
+    public function editCustomers(Request $request): \Illuminate\Http\RedirectResponse {
+
+        $customers = Customer::findorfail($request->route('id'));
+        $customers->name = request()->input('name');
+        $customers->email = request()->input('email');
+        
+        $customers->save();
+
+        return redirect()->to('customers');
+    }
+  
     public function customersProjectsAssignedPage(Request $request){
+  
         $customers = Customer::get()->where('id' , $request->route('id'))->first();
         $projects= $customers->projects()->get();
+  
         return view('admin.customer-projects-page', ['projects'=> $projects],['customers' => $customers]);
-
     }
     
-public function editCustomers(Request $request): \Illuminate\Http\RedirectResponse
-
-{
-    $customers = Customer::findorfail($request->route('id'));
-
-    $customers->name = request()->input('name');
-
-    $customers->email = request()->input('email');
-
-    $customers->save();
-
-    return redirect()->to('customers');
-}
 
 
     public function adminProfile()
