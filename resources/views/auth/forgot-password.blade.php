@@ -16,6 +16,15 @@
                                 @csrf
                                 <div class="card-body p-6">
                                     <h3 class="text-center card-title">Forgot password</h3>
+                                    @if ($errors->any())
+                                        <div class="alert alert-primary">
+                                            <ul>
+                                                @foreach ($errors->all() as $error)
+                                                    <li>{{ $error }}</li>
+                                                @endforeach
+                                            </ul>
+                                        </div>
+                                    @endif
                                     <div class="wrap-input100 validate-input" data-validate = "Valid email is required: ex@abc.xyz">
                                         <input class="input100" type="text" name="email" placeholder="Email">
                                         <span class="focus-input100"></span>
