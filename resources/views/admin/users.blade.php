@@ -21,10 +21,10 @@
 		<div class="col-md-12 col-lg-12">
 			<div class="card">
 				<div class="card-header">
-					<h3  class="col-md-12 col-lg-11 card-title">Your Employees</h3>
-					<form action="{{route('add-user')}}"  >
-						<button id="add" class="btn btn-md btn-primary mx-auto" ><i class="fa fa-plus"> </i> Employees</button>
-					</form>
+					<h3  class="card-title">Your Employees</h3>
+						<div class="card-options">
+							<a type="button" href="{{route('add-user')}}" class="btn btn-md btn-primary " ><i class="fa fa-plus"></i> Add a new Employee</a>
+						</div>
 				</div>
 				<div class="card-body">
 					<div class="table-responsive">

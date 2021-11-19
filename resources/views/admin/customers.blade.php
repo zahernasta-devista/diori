@@ -21,7 +21,7 @@
 					<h3 class="card-title">Customers Table</h3>
 						<div class="card-options">
 
-							<a type="button" href="{{ route('add-customers') }}" class="btn btn-md btn-primary " ><i class="fa fa-plus"></i> Customers</a>
+							<a type="button" href="{{ route('add-customers') }}" class="btn btn-md btn-primary " ><i class="fa fa-plus"></i> Add a New Customer</a>
 
 						</div>
 				</div>

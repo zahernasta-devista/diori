@@ -9,7 +9,7 @@
 								<h1 class="page-title">Dashboard</h1>
 								<ol class="breadcrumb">
 									<li class="breadcrumb-item"><a href="#">Home</a></li>
-									<li class="breadcrumb-item active" aria-current="page">Hello {{Auth::user()->name}}, Have A Productive Day</li>
+									<li class="breadcrumb-item active" aria-current="page">Hello {{Auth::user()->name}}, Have A Productive Day!</li>
 									<li class="breadcrumb-item active" aria-current="page">{{$date}}</li>
 
 								</ol>
