@@ -58,19 +58,19 @@
 											<div class="col-lg-6 col-md-12">
 												<div class="form-group">
 													<label for="exampleInputname"> Name</label>
-													<h6>Mazen</h6>
+													<h6>{{Auth::user()->name}}</h6>
 												</div>
 											</div>
 											<div class="col-lg-6 col-md-12">
 												<div class="form-group">
 													<label for="exampleInputname1">Position</label>
-													<h6>admin</h6>
+													<h6>{{Auth::user()->position}}</h6>
 												</div>
 											</div>
 										</div>
 										<div class="form-group">
 											<label for="exampleInputEmail1">Email address</label>
-											<h6>alwanmazen@yahoo.com</h6>
+											<h6>{{Auth::user()->email}}</h6>
 										</div>
 
 									</div>
