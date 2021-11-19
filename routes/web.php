@@ -40,7 +40,7 @@ Route::get('/', function () {
 require __DIR__ . '/auth.php';
 
 Route::get('/dashboard', [UserController::class, 'dashboard'])
-        ->name('dashboard');
+        ->name('dashboard')->middleware('first.time.login');
 
 Route::group(['middleware' => ['role:admin','first.time.login']], function() {
 

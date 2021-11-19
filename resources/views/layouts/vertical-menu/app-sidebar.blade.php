@@ -1,8 +1,6 @@
 <!--APP-SIDEBAR-->
-
-
                 <div class="app-sidebar__overlay" data-toggle="sidebar"></div>
-                <aside class="app-sidebar">
+                <aside class="app-sidebar" >
                     <div class="side-header">
                         <a class="header-brand1" href="{{ url('/' . $page='index') }}">
                             <h2>Diori</h2>
