@@ -47,7 +47,7 @@
                     <div class="d-flex">
                         <div class="text-white">
                             <h2 class="mb-0 number-font">0</h2>
-                            <p class="text-white mb-0">Target This Month</p>
+                            <p class="text-white mb-0">Total Target This Month At Devista</p>
                         </div>
                         <div class="ml-auto"> <i class="fa fa-dollar text-white fs-30 mr-2 mt-2"></i> </div>
                     </div>

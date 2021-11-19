@@ -20,7 +20,7 @@
 				<div class="card-header">
 					<h3 class="card-title">Project Table</h3>
 						<div class="card-options">
-							<a type="button" href="{{ route('add-project-page') }}" class="btn btn-md btn-primary " ><i class="fa fa-plus"></i> Add a new Project</a>
+							<a type="button" href="{{ route('add-project-page') }}" class="btn btn-md btn-primary " ><i class="fa fa-plus"></i> Add a New Project</a>
 						</div>
 				</div>
 				<div class="card-body">

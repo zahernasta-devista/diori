@@ -28,6 +28,7 @@
 
                 @include('layouts.vertical-menu.app-sidebar')
 
+
                 @include('layouts.vertical-menu.mobile-header')
 
                 <div class="app-content">
