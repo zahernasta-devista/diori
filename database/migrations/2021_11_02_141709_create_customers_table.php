@@ -21,7 +21,7 @@ class CreateCustomersTable extends Migration
         });
 
         Schema::table('projects',function (Blueprint $table){
-            $table->foreignId('customer_id')->constrained('customers');
+            $table->foreignId('customer_id')->constrained('customers')->onDelete('cascade')->onUpdate('cascade');
         });
     }
 

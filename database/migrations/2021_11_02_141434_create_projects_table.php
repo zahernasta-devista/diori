@@ -22,7 +22,7 @@ class CreateProjectsTable extends Migration
         });
 
         Schema::table('timelogs',function (Blueprint  $table){
-            $table->foreignId('project_id')->constrained('projects');
+            $table->foreignId('project_id')->constrained('projects')->onDelete('cascade')->onUpdate('cascade');
         });
     }
 

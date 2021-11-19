@@ -17,8 +17,8 @@ class CreateUsersProjectsTable extends Migration
             $table->id();
             $table->timestamps();
 
-            $table->foreignId('user_id')->constrained('users');
-            $table->foreignId('project_id')->constrained('projects');
+            $table->foreignId('user_id')->constrained('users')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreignId('project_id')->constrained('projects')->onDelete('cascade')->onUpdate('cascade');
         });
     }
 
