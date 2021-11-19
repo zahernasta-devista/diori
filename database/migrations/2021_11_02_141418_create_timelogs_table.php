@@ -19,7 +19,7 @@ class CreateTimelogsTable extends Migration
             $table->date('date');
             $table->timestamps();
 
-            $table->foreignId('user_id')->constrained('users');
+            $table->foreignId('user_id')->constrained('users')->onDelete('cascade')->onUpdate('cascade');
         });
     }
 

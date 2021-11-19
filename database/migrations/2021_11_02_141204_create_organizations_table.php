@@ -22,7 +22,7 @@ class CreateOrganizationsTable extends Migration
         });
 
         Schema::table('users', function(Blueprint $table) {
-           $table->foreignId('organization_id')->constrained('organizations');
+           $table->foreignId('organization_id')->constrained('organizations')->onDelete('cascade')->onUpdate('cascade');
         });
     }
 
