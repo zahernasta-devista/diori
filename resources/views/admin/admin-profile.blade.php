@@ -51,7 +51,7 @@
 							<div class="col-lg-8 col-xl-8 col-md-12 col-sm-12">
 								<div class="card">
 									<div class="card-header">
-										<h3 class="card-title">Edit Profile</h3>
+										<h3 class="card-title">Credentials</h3>
 									</div>
 									<div class="card-body">
 										<div class="row">

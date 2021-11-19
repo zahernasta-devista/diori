@@ -51,26 +51,26 @@
 							<div class="col-lg-8 col-xl-8 col-md-12 col-sm-12">
 								<div class="card">
 									<div class="card-header">
-										<h3 class="card-title">Edit Profile</h3>
+										<h3 class="card-title">Credentials</h3>
 									</div>
 									<div class="card-body">
 										<div class="row">
 											<div class="col-lg-6 col-md-12">
 												<div class="form-group">
 													<label for="exampleInputname"> Name</label>
-													<h6>Mazen</h6>
+													<h6>{{Auth::user()->name}}</h6>
 												</div>
 											</div>
 											<div class="col-lg-6 col-md-12">
 												<div class="form-group">
 													<label for="exampleInputname1">Position</label>
-													<h6>Intern</h6>
+													<h6>{{Auth::user()->position}}</h6>
 												</div>
 											</div>
 										</div>
 										<div class="form-group">
 											<label for="exampleInputEmail1">Email address</label>
-											<h6>alwanmazen@yahoo.com</h6>
+											<h6>{{Auth::user()->email}}</h6>
 										</div>
 
 									</div>
