@@ -39,7 +39,7 @@
 							</thead>
 							<tbody>
 							@foreach($users as $user)
-								@if($user->getRoleNames()[0] !== "admin") 
+								@if($user->getRoleNames()[0] !== "admin")
 									<tr>
 									<td>{{$user->name}}</td>
 									<td>{{$user->position}}</td>
