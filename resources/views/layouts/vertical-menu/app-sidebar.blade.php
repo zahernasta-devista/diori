@@ -33,12 +33,15 @@
 
                                 </li>
 
+                                
+                                
                                 <li class="nav-item" data-toggle="tooltip" data-placement="top" title="Logout">
-                                    <a class="nav-link text-center m-2 btn btn-primary btn-sm rounded-pill" href="{{ route('logout') }}">
+
+                                    <button  class="nav-link text-center m-2 btn btn-primary btn-sm rounded-pill py-3 px-3">
 
                                         <i class="fe fe-power text-white"></i>
 
-                                    </a>
+                                    </button>
 
                                 </li>
 
