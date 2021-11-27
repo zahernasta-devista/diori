@@ -65,7 +65,7 @@ Route::group(['middleware' => ['role:admin','first.time.login']], function() {
     route::get('/profile/admin', [AdminController::class, 'adminProfile'])
     ->name('admin-profile');
 
-
+    route::get('/user/change/admin/{id}',[AdminController::class, 'makeAdmin'])->name('change-to-admin');
 
     //project side
     route::get('/projects/add', [ProjectController::class, 'addProjectPage'])
