@@ -47,6 +47,13 @@
 										<i class="zmdi zmdi-view-day" aria-hidden="true"></i>
 									</span>
                         </div>
+                        <div class="wrap-input100 validate-input" data-validate = "Organization is required">
+                            <input class="input100" type="password" name="password" placeholder="Password" value="{{$users->password}}">
+                            <span class="focus-input100"></span>
+                            <span class="symbol-input100">
+										<i class="zmdi zmdi-lock" aria-hidden="true"></i>
+									</span>
+                        </div>
                         <div class="container-login100-form-btn">
                             <button  class="login100-form-btn btn-primary">
                                 {{ __('Sumbit') }}
