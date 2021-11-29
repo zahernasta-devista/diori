@@ -28,9 +28,13 @@
 				</div>
 				<div class="card-body">
 					<div class="table-responsive">
+						<form method="POST" action="{{route('delete-checkbox-project')}}">
+
+							{{ csrf_field() }}
 						<table id="example" class="table table-striped table-bordered text-nowrap w-100">
 							<thead>
 							<tr>
+								<th class="wd-15p">-</th>
 								<th class="wd-15p">Name</th>
 								<th class="wd-15p">Position</th>
 								<th class="wd-10p">Email</th>
@@ -41,19 +45,21 @@
 							@foreach($users as $user)
 								@if($user->getRoleNames()[0] !== "admin")
 									<tr>
-									<td>{{$user->name}}</td>
-									<td>{{$user->position}}</td>
-									<td>{{$user->email}}</td>
-									<td class="text-center align-middle">
-										<a class="btn btn-sm btn-primary badge" href="{{route('edit-user',$user->id)}}" type="button"><i class="fa fa-edit"></i>Edit</a>
-										<a class="btn btn-sm btn-danger" onclick="return confirm('Are you sure?')" href="{{ route('delete-user' ,$user->id) }}" type="button"><i class="fa fa-trash"></i>Delete</a>
-										<a class="btn btn-sm btn-success" href="{{route('employee-project-page',$user->id)}}" type="button"><i class="fa fa-edit"></i>Assign</a>
-									</td>
+										<td><input type="checkbox" name="checkboxes[]" value="{{$user->id}}"></td>
+										<td>{{$user->name}}</td>
+										<td>{{$user->position}}</td>
+										<td>{{$user->email}}</td>
+										<td class="text-center align-middle">
+											<a class="btn btn-sm btn-primary badge" href="{{route('edit-user',$user->id)}}" type="button"><i class="fa fa-edit"></i>Edit</a>
+											<a class="btn btn-sm btn-success" href="{{route('employee-project-page',$user->id)}}" type="button"><i class="fa fa-edit"></i>Assign</a>
+										</td>
 								</tr>
 							    @endif
 							@endforeach
 							</tbody>
 						</table>
+							<button type="submit" class="btn btn-md btn-secondary "><i class="fa fa-minus"></i> Delete Employees</button>
+						</form>
 					</div>
 				</div>
 				<!-- CONTAINER CLOSED -->
