@@ -5,40 +5,17 @@ $(function(e) {
         type: 'GET',
         url: url,
         success: function(response) {
+            let responseData = response.response;
             let events = [];
-            let endHour = 9;
-            let pastDate = null;
-            let date = response.response[0].date;
+            let time = {
+                endHour: 9,
+                pastDate: null
+            }
 
-            response.response.forEach(element => {
-                let availableHours = 12;
-                let sameDates = response.response.filter(object => object.date === element.date);
-                sameDates.forEach(object => {
-                    availableHours -= object.time;
-                })
+            responseData.forEach(element => {
+                let object = createCalendarElements(responseData, element, time);
 
-                if(pastDate != null && new Date(pastDate) < new Date(element.date)) {
-                    endHour = 9;
-                }
-
-                let object = {};
-                let startHour = endHour;
-                endHour += element.time;
-
-                let startHourString = startHour < 10 ? "0" + startHour : startHour;
-                let endHourString = endHour < 10 ? "0" + endHour : endHour;
-
-                object.id = element.id;
-                object.comment = element.comment;
-                object.title = element.projectName + " • " + element.time + " hours." + " • " + element.comment + ".";
-                object.start = element.date + "T" + startHourString + ":00:00" ;
-                object.end = element.date + "T" + endHourString + ":00:00" ;
-                object.projectInput = element.projectName;
-                object.availableHours = availableHours;
-
-                pastDate = element.date;
                 events.push(object);
-
             });
 
             $('#calendar').fullCalendar({
@@ -47,8 +24,6 @@ $(function(e) {
                     center: 'title',
                     right: 'listDay,listWeek,month'
                 },
-                // customize the button names,
-                // otherwise they'd all just say "list"
                 views: {
                     listDay: {
                         buttonText: 'Daily'
@@ -70,16 +45,132 @@ $(function(e) {
                     //Verify if the time sum is less than 12 hours
                     //Max value will be the difference between both times
                     let time = (new Date(info.end) - new Date(info.start)) / 1000 / 60 / 60 ;
+                    let maxHours = time + info.availableHours;
+
                     $('#myModal').modal('show');
                     $("#time").val(time);
                     $("#id").val(info.id);
                     $("#comment").val(info.comment);
                     $("#project").val(info.projectInput);
-                    $("#time").attr({'max': time + info.availableHours});
+                    $("#time").attr({'max': maxHours});
+
+                    $("#time").keydown(function () {
+                        // Save old value.
+                        if (!$(this).val() || (parseInt($(this).val()) <= maxHours && parseInt($(this).val()) >= 1))
+                            $(this).data("old", $(this).val());
+                    });
+                    $("#time").keyup(function () {
+                        // Check correct, else revert back to old value.
+                        if (!$(this).val() || (parseInt($(this).val()) <= maxHours && parseInt($(this).val()) >= 1)) ;
+                        else
+                            $(this).val($(this).data("old"));
+                    });
                 }
             });
         }
     });
 });
+
+
+document.querySelector('#editTimeLog').addEventListener('click', function(e) {
+    e.preventDefault();
+
+    let time = $('#time').val() ;
+    let comment = $('#comment').val() ;
+    let id = $('#id').val();
+
+    $.ajax({
+        type: 'POST',
+        url: editUrl,
+        headers: {
+            'X-CSRF-TOKEN': csrfToken
+        },
+        data: {time: time, id: id,comment: comment},
+        success: function(response) {
+            location.reload();
+        },
+        error: function(error) {
+            console.log(error);
+        }
+    });
+}, false);
+
+document.querySelector('#deleteTimeLog').addEventListener('click', function(e) {
+    e.preventDefault();
+
+    let id = $('#id').val();
+
+    $.ajax({
+        type: 'POST',
+        url: deleteUrl,
+        headers: {
+            'X-CSRF-TOKEN': csrfToken
+        },
+        data:{id:id},
+        success:function(response){
+            location.reload();
+        },
+        error: function(error) {
+            console.log(error);
+        },
+    });
+}, false);
+
+
+function createCalendarElements(responseData, element, time, date) {
+
+    let availableHours = getAvailableHours(responseData, element);
+
+    if(time.pastDate != null && new Date(time.pastDate) < new Date(element.date)) {
+        time.endHour = 9;
+    }
+
+    let startHour = time.endHour;
+    //Passed by reference to keep the modifications inside the function
+    time.endHour += element.time;
+
+    let startHourString = generateHourString(startHour);
+    let endHourString = generateHourString(time.endHour);
+
+    //Passed by reference to keep the modifications inside the function
+    time.pastDate = element.date;
+
+    return createCalendarObject(element, startHourString, endHourString, availableHours);
+}
+
+function getAvailableHours(responseData, element) {
+    let availableHours = 12;
+    let sameDates = responseData.filter(object => object.date === element.date);
+    sameDates.forEach(object => {
+        availableHours -= object.time;
+    })
+
+
+    return availableHours;
+}
+
+function createCalendarObject(element, startHourString, endHourString, availableHours) {
+    let object = {};
+
+    object.id = element.id;
+    object.comment = element.comment;
+    object.title = element.projectName + " • " + element.time + " hours." + " • " + element.comment + ".";
+    object.start = element.date + "T" + startHourString + ":00:00" ;
+    object.end = element.date + "T" + endHourString + ":00:00" ;
+    object.projectInput = element.projectName;
+    object.availableHours = availableHours;
+
+    return object;
+
+}
+
+function generateHourString(hour) {
+    return hour < 10 ? "0" + hour : hour;
+}
+
+
+
+
+
 
 

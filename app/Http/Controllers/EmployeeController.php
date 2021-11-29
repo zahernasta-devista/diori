@@ -49,6 +49,7 @@ class EmployeeController extends Controller
     {
         $timeLog = Timelog::where('id', intval($request->id))->update(['time' => intval($request->time),'comment'=>$request->comment]);
 
+
          return response()->json(['response' => "Successfully updated the time log"]);
     }
 

@@ -47,13 +47,18 @@
 						<div class="modal-body">
 							<form>
 							@csrf
+								@if($errors->any())
+									<div class="alert alert-primary">
+										{{$errors->first()}}
+									</div>
+								@endif
 							<div class="form-group-addon wrap-input100 validate-input">
 								<input class="text-center input100 border-white bg-light" type="text" name="project" id="project" readonly>
 								<span class="focus-input100"></span>
 								<span class="symbol-input100"><i class="mdi mdi-note-plus" aria-hidden="true" >Project Name:</i></span>
 							</div>
 							<div class="form-group-addon wrap-input100 validate-input">
-								<input class="text-center input100 border-white bg-light" type="number" name="time" id="time" min="1">
+								<input class="text-center input100 border-white bg-light" type="number" id="time">
 								<span class="focus-input100"></span>
 								<span class="symbol-input100"><i class="mdi mdi-timer" aria-hidden="true" >Hours Worked : </i></span>
 							</div>
@@ -66,8 +71,8 @@
 
 						</div>
 						<div class="modal-footer">
-							<button type="button" class="btn btn-primary" onClick="editTimeLog()">Update Time Log</button>
-							<button type="button" class="btn btn-danger" onClick="deleteTimeLog()">Delete Time Log</button>
+							<button id="editTimeLog" type="button" class="btn btn-primary" >Update Time Log</button>
+							<button id="deleteTimeLog" type="button" class="btn btn-danger">Delete Time Log</button>
 							<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
 						</div>
 						</form>
@@ -83,49 +88,8 @@
 <script>
 	let url = "{{route('timesheet-response')}}";
 	let editUrl = "{{route('timesheet-update')}}";
-	let deleteUrl = "{{route('timesheet-delete')}}"
-	function editTimeLog(e) {
-
-		let time = $('#time').val() ;
-		let comment = $('#comment').val() ;
-		let id = $('#id').val();
-
-		$.ajax({
-			type: 'POST',
-			url: editUrl,
-			headers: {
-				'X-CSRF-TOKEN': '{{csrf_token()}}'
-			},
-			data: {time: time, id: id,comment: comment},
-			success: function(response) {
-				console.log(response);
-				location.reload();
-			},
-			error: function(error) {
-				console.log(error);
-			}
-		});
-
-	}
-	function deleteTimeLog(e){
-		let id = $('#id').val();
-
-		$.ajax({
-			type: 'POST',
-			url: deleteUrl,
-			headers: {
-				'X-CSRF-TOKEN': '{{csrf_token()}}'
-			},
-			data:{id:id},
-			success:function(response){
-				console.log(response);
-				location.reload();
-			},
-			error: function(error) {
-				console.log(error);
-			},
-		});
-	}
+	let deleteUrl = "{{route('timesheet-delete')}}";
+	let csrfToken = "{{csrf_token()}}";
 </script>
 <script src="{{ URL::asset('assets/js/fullcalendar.js') }}"></script>
 @endsection
