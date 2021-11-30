@@ -64,6 +64,10 @@ Route::group(['middleware' => ['role:admin','first.time.login']], function() {
 
     route::post('admin/edit/{id}', [AdminController::class, 'editAdmin']) ->name('edit-admin');
 
+    route::get('/admin/list', [AdminController::class, 'adminList'])
+        ->name('admins');
+
+    route::get('/user/change/admin/{id}',[AdminController::class, 'makeAdmin'])->name('change-to-admin');
 
     route::get('/empty', [AdminController::class, 'empty'])
         ->name('empty');
@@ -74,10 +78,9 @@ Route::group(['middleware' => ['role:admin','first.time.login']], function() {
     route::get('/profile/admin', [AdminController::class, 'adminProfile'])
     ->name('admin-profile');
 
-    route::get('/admin/list', [AdminController::class, 'adminList'])
-        ->name('admins');
-
-    route::get('/user/change/admin/{id}',[AdminController::class, 'makeAdmin'])->name('change-to-admin');
+    route::post('/projects/delete/checkbox', [AdminController::class, 'deleteUsingCheckBoxesProjects'])->name('delete-checkbox-project');
+    route::post('/employee/delete/checkbox', [AdminController::class, 'deleteUsingCheckBoxesEmployees'])->name('delete-checkbox-employee');
+    route::post('/customer/delete/checkbox', [AdminController::class, 'deleteUsingCheckBoxesCustomer'])->name('delete-checkbox-customer');
 
     //project side
     route::get('/projects/add', [ProjectController::class, 'addProjectPage'])
