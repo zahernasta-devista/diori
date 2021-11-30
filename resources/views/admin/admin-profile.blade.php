@@ -22,6 +22,13 @@
 									<div class="card-header">
 										<div class="card-title">Edit Password</div>
 									</div>
+									<form method="POST" action="{{route('profile-change-password')}}">
+										@csrf
+										@foreach ($errors->all() as $error)
+											<div class="alert alert-primary">
+												{{$errors->first()}}
+											</div>
+										@endforeach
 									<div class="card-body">
 										<div class="d-flex mb-3">
 											<img alt="User Avatar" class="rounded-circle avatar-lg mr-2" src="{{URL::asset('assets/images/users/10.jpg')}}">
@@ -31,21 +38,21 @@
 										</div>
 										<div class="form-group">
 											<label class="form-label">Current Password</label>
-											<input type="password" class="form-control" value="password">
+											<input type="password" class="form-control"  name="current_password" id="current_password">
 										</div>
 										<div class="form-group">
 											<label class="form-label">New Password</label>
-											<input type="password" class="form-control" value="password">
+											<input type="password" class="form-control"  name="new_password" id="new_password">
 										</div>
 										<div class="form-group">
 											<label class="form-label">Confirm Password</label>
-											<input type="password" class="form-control" value="password">
+											<input type="password" class="form-control" name="new_confirm_password" id="new_confirm_password">
 										</div>
 									</div>
 									<div class="card-footer text-right">
-										<a href="#" class="btn btn-primary">Update</a>
-										<a href="#" class="btn btn-danger">Cancel</a>
+										<button type="submit" class="btn btn-success">Update Password</button>
 									</div>
+									</form>
 								</div>
 							</div>
 							<div class="col-lg-8 col-xl-8 col-md-12 col-sm-12">
