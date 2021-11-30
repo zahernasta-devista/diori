@@ -70,7 +70,7 @@
 					<h3 class="card-title">Notes/To Do List:</h3><br>
 				</div>
 					<div class="card-body">
-					<textarea  name="todolist" rows="4" cols="50"></textarea>
+					<textarea  name="todolist" rows="3" cols="56"></textarea>
 					</div>
 			</div>
 		</div>
