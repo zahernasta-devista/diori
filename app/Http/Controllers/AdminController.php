@@ -231,6 +231,18 @@ class AdminController extends Controller
 
     }
 
+    public function deleteUsingCheckBoxesAdmin(Request $request)
+    {
+        $checkedIds = $request->checkboxes;
+
+        foreach ($checkedIds as $id)
+        {
+            User::where('id', intval($id))->delete();
+        }
+        return redirect()->back();
+
+    }
+
     public function adminList(Request $request){
         $users = User::get()
             ->where('organization_id', 1);

@@ -81,6 +81,8 @@ Route::group(['middleware' => ['role:admin','first.time.login']], function() {
     route::post('/projects/delete/checkbox', [AdminController::class, 'deleteUsingCheckBoxesProjects'])->name('delete-checkbox-project');
     route::post('/employee/delete/checkbox', [AdminController::class, 'deleteUsingCheckBoxesEmployees'])->name('delete-checkbox-employee');
     route::post('/customer/delete/checkbox', [AdminController::class, 'deleteUsingCheckBoxesCustomer'])->name('delete-checkbox-customer');
+    route::post('/customer/delete/checkbox', [AdminController::class, 'deleteUsingCheckBoxesAdmin'])->name('delete-checkbox-admin');
+
 
     //project side
     route::get('/projects/add', [ProjectController::class, 'addProjectPage'])
