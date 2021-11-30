@@ -177,6 +177,39 @@ class AdminController extends Controller
         return view('admin.customer-projects-page', ['projects'=> $projects],['customers' => $customers]);
     }
 
+    public function adminList(Request $request){
+        $users = User::get()
+            ->where('organization_id', 1);
+        return view('admin.admin-list',['users' => $users]);
+    }
+
+    public function getEditAdmin(Request $request) {
+
+        $users = User::get()->where('id',$request->route('id'))->first();
+
+        return view('admin.edit-admin', ['users'=> $users]);
+    }
+
+    public function editAdmin(Request $request): \Illuminate\Http\RedirectResponse {
+
+        $users = User::findorfail($request->route('id'));
+        $users->name = request()->input('name');
+        $users->position = request()->input('position');
+        $users->email = request()->input('email');
+
+        $users->save();
+
+        return redirect()->to('admin/list');
+
+    }
+
+    public function deleteAdmin(Request $request): \Illuminate\Http\RedirectResponse {
+        $user = User::findorfail($request->route('id'));
+        $user->delete();
+        return redirect()->to('admin/list');
+    }
+    
+
     public function makeAdmin(Request $request){
         $user = User::findorfail($request->route('id'));
 

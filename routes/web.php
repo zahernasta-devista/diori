@@ -49,12 +49,21 @@ Route::group(['middleware' => ['role:admin','first.time.login']], function() {
     Route::post('/users/add', [AdminController::class, 'store']);
     Route::get('/users/add', [AdminController::class, 'showAddUser'])
      ->name('add-user');
-    route::get('/users/delete/{id}', [AdminController::class, 'deleteUser'])
-     ->name('delete-user');
+
+    route::get('/users/delete/{id}', [AdminController::class, 'deleteUser'])->name('delete-user');
 
     route::get('/users/edit/{id}', [AdminController::class, 'getEdit'])->name('edit-user');
 
     route::post('users/edit/{id}', [AdminController::class, 'editUsers']) ->name('edit-user');
+
+
+    route::get('/admin/delete/{id}', [AdminController::class, 'deleteAdmin'])->name('delete-admin');
+
+    route::get('/admin/edit/{id}', [AdminController::class, 'getEditAdmin'])->name('edit-admin');
+
+
+    route::post('admin/edit/{id}', [AdminController::class, 'editAdmin']) ->name('edit-admin');
+
 
     route::get('/empty', [AdminController::class, 'empty'])
         ->name('empty');
@@ -64,6 +73,9 @@ Route::group(['middleware' => ['role:admin','first.time.login']], function() {
 
     route::get('/profile/admin', [AdminController::class, 'adminProfile'])
     ->name('admin-profile');
+
+    route::get('/admin/list', [AdminController::class, 'adminList'])
+        ->name('admins');
 
     route::get('/user/change/admin/{id}',[AdminController::class, 'makeAdmin'])->name('change-to-admin');
 
