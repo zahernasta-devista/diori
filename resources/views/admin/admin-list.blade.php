@@ -20,12 +20,17 @@
     <div class="row">
         <div class="col-md-12 col-lg-12">
             <div class="card">
+                        <form method="POST" action="{{route('delete-checkbox-admin')}}">
                 <div class="card-header">
                     <h3 class="card-title">Admins</h3>
+                    <div class="card-options">
+                        <button type="submit" class="btn btn-md btn-secondary "><i class="fa fa-minus"></i> Delete
+                            Admins
+                        </button>
+                    </div>
                 </div>
                 <div class="card-body">
                     <div class="table-responsive">
-                        <form method="POST" action="{{route('delete-checkbox-admin')}}">
                             <table id="example" class="table table-striped table-bordered text-nowrap w-100">
 
                                 {{ csrf_field() }}
@@ -56,12 +61,10 @@
                                 @endforeach
                                 </tbody>
                             </table>
-                            <button type="submit" class="btn btn-md btn-secondary "><i class="fa fa-minus"></i> Delete
-                                Admins
-                            </button>
-                        </form>
+
                     </div>
                 </div>
+                        </form>
                 <!-- CONTAINER CLOSED -->
             </div>
         </div>

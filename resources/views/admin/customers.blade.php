@@ -17,17 +17,19 @@
 	<div class="row">
 		<div class="col-md-12 col-lg-12">
 			<div class="card">
+						<form method="POST" action="{{route('delete-checkbox-customer')}}">
 				<div class="card-header">
 					<h3 class="card-title">Customers Table</h3>
 						<div class="card-options">
 
 							<a type="button" href="{{ route('add-customers') }}" class="btn btn-md btn-primary " ><i class="fa fa-plus"></i> Add a New Customer</a>
+							<button type="submit" class="btn btn-md btn-secondary "><i class="fa fa-minus"></i> Delete Customers</button>
+
 
 						</div>
 				</div>
 				<div class="card-body">
 					<div class="table-responsive">
-						<form method="POST" action="{{route('delete-checkbox-customer')}}">
 
 							{{ csrf_field() }}
 						<table id="example" class="table table-striped table-bordered text-nowrap w-100">
@@ -55,10 +57,9 @@
 
 							</tbody>
 						</table>
-							<button type="submit" class="btn btn-md btn-secondary "><i class="fa fa-minus"></i> Delete Customers</button>
-						</form>
 					</div>
 				</div>
+						</form>
 			</div>
 		</div>
 	</div>

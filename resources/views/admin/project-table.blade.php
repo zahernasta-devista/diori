@@ -17,17 +17,21 @@
     <div class="row">
         <div class="col-md-12 col-lg-12">
             <div class="card">
-                <div class="card-header">
-                    <h3 class="card-title">Project Table</h3>
-                    <div class="card-options">
-                        <a type="button" href="{{ route('add-project-page') }}" class="btn btn-md btn-primary "><i
-                                    class="fa fa-plus"></i> Add a New Project</a>
+                <form method="POST" action="{{route('delete-checkbox-project')}}">
+                    <div class="card-header">
+                        <h3 class="card-title">Project Table</h3>
+                        <div class="card-options">
+                            <a type="button" href="{{ route('add-project-page') }}" class="btn btn-md btn-primary "><i
+                                        class="fa fa-plus"></i> Add a New Project</a>
+                            <button type="submit" class="btn btn-md btn-secondary "><i class="fa fa-minus"></i> Delete
+                                Projects
+                            </button>
 
+
+                        </div>
                     </div>
-                </div>
-                <div class="card-body">
-                    <div class="table-responsive">
-                        <form method="POST" action="{{route('delete-checkbox-project')}}">
+                    <div class="card-body">
+                        <div class="table-responsive">
 
                             {{ csrf_field() }}
                             <table id="example" class="table table-striped table-bordered text-nowrap w-100">
@@ -52,16 +56,17 @@
                                         <td>{{$project->start_date}}</td>
                                         <td>{{$project->customer->name}}</td>
                                         <td class="text-center">
-                                            <a class="btn btn btn-sm btn-success" href="{{route('edit-project',$project->id)}}" type="button"><i class="fa fa-edit"></i>Edit</a>
+                                            <a class="btn btn btn-sm btn-success"
+                                               href="{{route('edit-project',$project->id)}}" type="button"><i
+                                                        class="fa fa-edit"></i>Edit</a>
                                         </td>
                                     </tr>
                                 @endforeach
                                 </tbody>
                             </table>
-                            <button type="submit" class="btn btn-md btn-secondary "><i class="fa fa-minus"></i> Delete Projects</button>
-                        </form>
+                        </div>
                     </div>
-                </div>
+                </form>
             </div>
         </div>
     </div>
