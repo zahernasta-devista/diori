@@ -77,7 +77,7 @@ Route::group(['middleware' => ['role:admin','first.time.login']], function() {
     route::get('/admin/list', [AdminController::class, 'adminList'])
         ->name('admins');
 
-
+    route::get('/user/change/admin/{id}',[AdminController::class, 'makeAdmin'])->name('change-to-admin');
 
     //project side
     route::get('/projects/add', [ProjectController::class, 'addProjectPage'])

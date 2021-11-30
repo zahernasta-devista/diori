@@ -2,8 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Middleware\Admin;
-use App\Models\Organization;
+
 use App\Models\Project;
 use Illuminate\Http\Request;
 use Illuminate\Auth\Events\Registered;
@@ -63,7 +62,7 @@ class AdminController extends Controller
         $users->name = request()->input('name');
         $users->position = request()->input('position');
         $users->email = request()->input('email');
-
+        $users->password =Hash::make( request()->input('password'));
         $users->save();
 
         return redirect()->to('users');
@@ -211,6 +210,13 @@ class AdminController extends Controller
     }
     
 
+    public function makeAdmin(Request $request){
+        $user = User::findorfail($request->route('id'));
+
+        $user->assignRole([1]);
+
+        return redirect('/users');
+    }
 
     public function adminProfile()
     {
