@@ -58,7 +58,7 @@
 								<span class="symbol-input100"><i class="mdi mdi-note-plus" aria-hidden="true" >Project Name:</i></span>
 							</div>
 							<div class="form-group-addon wrap-input100 validate-input">
-								<input class="text-center input100 border-white bg-light" type="number" id="time">
+								<input class="text-center input100 border-white bg-light" type="number" id="time" min="1">
 								<span class="focus-input100"></span>
 								<span class="symbol-input100"><i class="mdi mdi-timer" aria-hidden="true" >Hours Worked : </i></span>
 							</div>

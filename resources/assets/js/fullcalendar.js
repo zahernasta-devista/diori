@@ -55,15 +55,19 @@ $(function(e) {
                     $("#time").attr({'max': maxHours});
 
                     $("#time").keydown(function () {
-                        // Save old value.
                         if (!$(this).val() || (parseInt($(this).val()) <= maxHours && parseInt($(this).val()) >= 1))
+                        {
                             $(this).data("old", $(this).val());
+                        }
+
                     });
                     $("#time").keyup(function () {
-                        // Check correct, else revert back to old value.
                         if (!$(this).val() || (parseInt($(this).val()) <= maxHours && parseInt($(this).val()) >= 1)) ;
                         else
+                        {
                             $(this).val($(this).data("old"));
+                        }
+
                     });
                 }
             });
