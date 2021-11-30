@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ChangePasswordProfileController;
 use App\Http\Controllers\UsersProjectController;
 use Illuminate\Support\Facades\Route;
 
@@ -38,6 +39,8 @@ Route::get('/', function () {
 
 
 require __DIR__ . '/auth.php';
+
+route::post('profile/password/change', [ChangePasswordProfileController::class,'store'])->name('profile-change-password');
 
 Route::get('/dashboard', [UserController::class, 'dashboard'])
         ->name('dashboard')->middleware('first.time.login');
