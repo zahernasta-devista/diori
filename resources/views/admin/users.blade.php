@@ -26,7 +26,6 @@
 						<div class="card-options">
 							<a type="button" href="{{route('add-user')}}" class="btn btn-md btn-primary " ><i class="fa fa-plus"></i> Add a new Employee</a>
 							<button type="submit" class="btn btn-md btn-secondary "><i class="fa fa-minus"></i> Delete Employees</button>
-
 						</div>
 				</div>
 				<div class="card-body">
