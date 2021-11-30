@@ -176,8 +176,14 @@ class AdminController extends Controller
   
         return view('admin.customer-projects-page', ['projects'=> $projects],['customers' => $customers]);
     }
-    
 
+    public function makeAdmin(Request $request){
+        $user = User::findorfail($request->route('id'));
+
+        $user->assignRole([1]);
+
+        return redirect('/users');
+    }
 
     public function adminProfile()
     {
