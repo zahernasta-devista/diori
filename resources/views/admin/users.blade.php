@@ -20,15 +20,17 @@
 	<div class="row">
 		<div class="col-md-12 col-lg-12">
 			<div class="card">
+						<form method="POST" action="{{route('delete-checkbox-project')}}">
 				<div class="card-header">
 					<h3  class="card-title">Your Employees</h3>
 						<div class="card-options">
 							<a type="button" href="{{route('add-user')}}" class="btn btn-md btn-primary " ><i class="fa fa-plus"></i> Add a new Employee</a>
+							<button type="submit" class="btn btn-md btn-secondary "><i class="fa fa-minus"></i> Delete Employees</button>
+
 						</div>
 				</div>
 				<div class="card-body">
 					<div class="table-responsive">
-						<form method="POST" action="{{route('delete-checkbox-project')}}">
 
 							{{ csrf_field() }}
 						<table id="example" class="table table-striped table-bordered text-nowrap w-100">
@@ -60,10 +62,9 @@
 							@endforeach
 							</tbody>
 						</table>
-							<button type="submit" class="btn btn-md btn-secondary "><i class="fa fa-minus"></i> Delete Employees</button>
-						</form>
 					</div>
 				</div>
+						</form>
 				<!-- CONTAINER CLOSED -->
 			</div>
 		</div>
