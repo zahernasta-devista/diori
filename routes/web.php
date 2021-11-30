@@ -134,6 +134,15 @@ Route::group(['middleware' => ['role:employee','first.time.login']], function() 
     route::get('/calendar', [EmployeeController::class, 'calendar'])
     ->name('calendar');
 
+    route::get('/timesheet-response', [EmployeeController::class, 'timeSheetResponse'])
+        ->name('timesheet-response');
+
+    route::post('/timesheet/update', [EmployeeController::class, 'timeSheetUpdate'])
+        ->name('timesheet-update');
+
+    route::post('/timesheet/delete', [EmployeeController::class, 'timeSheetDelete'])
+        ->name('timesheet-delete');
+
     route::get('/worklog', [EmployeeController::class, 'workLog'])
     ->name('work-log');
 

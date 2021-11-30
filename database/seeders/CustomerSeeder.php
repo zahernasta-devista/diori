@@ -16,8 +16,12 @@ class CustomerSeeder extends Seeder
     public function run()
     {
         DB::table('customers')->insert([
-            'name' => 'oday',
-            'email' => 'messi@oday.com'
+            'name' => 'Messi',
+            'email' => 'messi@gmail.com'
+        ]);
+        DB::table('customers')->insert([
+            'name' => 'Katherine',
+            'email' => 'Katherine@yahoo.com'
         ]);
     }
 }
