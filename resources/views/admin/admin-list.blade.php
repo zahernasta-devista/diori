@@ -21,35 +21,45 @@
         <div class="col-md-12 col-lg-12">
             <div class="card">
                 <div class="card-header">
-                    <h3  class="card-title">Admins</h3>
+                    <h3 class="card-title">Admins</h3>
                 </div>
                 <div class="card-body">
                     <div class="table-responsive">
-                        <table id="example" class="table table-striped table-bordered text-nowrap w-100">
-                            <thead>
-                            <tr>
-                                <th class="wd-15p">Name</th>
-                                <th class="wd-15p">Position</th>
-                                <th class="wd-10p">Email</th>
-                                <th class="wd-10p text-center">Actions</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            @foreach($users as $user)
-                                @if($user->getRoleNames()[0] !== "employee")
-                                    <tr>
-                                        <td>{{$user->name}}</td>
-                                        <td>{{$user->position}}</td>
-                                        <td>{{$user->email}}</td>
-                                        <td class="text-center align-middle">
-                                            <a class="btn btn-sm btn-primary badge" href="{{route('edit-admin',$user->id)}}" type="button"><i class="fa fa-edit"></i>Edit</a>
-                                            <a class="btn btn-sm btn-danger" onclick="return confirm('Are you sure?')" href="{{ route('delete-admin' ,$user->id) }}" type="button"><i class="fa fa-trash"></i>Delete</a>
-                                        </td>
-                                    </tr>
-                                @endif
-                            @endforeach
-                            </tbody>
-                        </table>
+                        <form method="POST" action="{{route('delete-checkbox-admin')}}">
+                            <table id="example" class="table table-striped table-bordered text-nowrap w-100">
+
+                                {{ csrf_field() }}
+                                <thead>
+                                <tr>
+                                    <th class="wd-15p">-</th>
+                                    <th class="wd-15p">Name</th>
+                                    <th class="wd-15p">Position</th>
+                                    <th class="wd-10p">Email</th>
+                                    <th class="wd-10p text-center">Actions</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                @foreach($users as $user)
+                                    @if($user->getRoleNames()[0] !== "employee")
+                                        <tr>
+                                            <td><input type="checkbox" name="checkboxes[]" value="{{$user->id}}"></td>
+                                            <td>{{$user->name}}</td>
+                                            <td>{{$user->position}}</td>
+                                            <td>{{$user->email}}</td>
+                                            <td class="text-center align-middle">
+                                                <a class="btn btn-sm btn-success badge"
+                                                   href="{{route('edit-admin',$user->id)}}" type="button"><i
+                                                            class="fa fa-edit"></i>Edit</a>
+                                            </td>
+                                        </tr>
+                                    @endif
+                                @endforeach
+                                </tbody>
+                            </table>
+                            <button type="submit" class="btn btn-md btn-secondary "><i class="fa fa-minus"></i> Delete
+                                Admins
+                            </button>
+                        </form>
                     </div>
                 </div>
                 <!-- CONTAINER CLOSED -->
