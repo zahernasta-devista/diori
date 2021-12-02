@@ -23,14 +23,22 @@
             <!-- CONTAINER OPEN -->
             <div class="container-login100">
                 <div class="wrap-login100 p-6">
+                    @if ($errors->any())
+                        <div class="alert alert-danger">
+                            <ul>
+                                @foreach ($errors->all() as $error)
+                                    <li>{{ $error }}</li>
+                                @endforeach
+                            </ul>
+                        </div>
+                    @endif
                     <form class="login100-form validate-form" method="POST" action="{{ route('worklog-add') }}">
                         @csrf
                         <span class="login100-form-title">
                             Add Work Log
                         </span>
                         <div class="wrap-input100 validate-input">
-                            <input class="input100" type="number" name="time" pattern="[0-12]"
-                                placeholder="12 hours max" min="1" max="12">
+                            <input class="input100" id="time" type="number" name="time" placeholder="12 hours max">
                             <span class="focus-input100"></span>
                             <span class="symbol-input100">
                                 <i class="zmdi zmdi-eye" aria-hidden="true"></i>
@@ -86,8 +94,8 @@
     <script src="{{ URL::asset('assets/plugins/rating/jquery.barrating.js') }}"></script>
     <script src="{{ URL::asset('assets/plugins/rating/ratings.js') }}"></script>
     <script>
-		let url = "{{ route('get-one-project', ':id') }}";
-   		url = url.replace(':id', projectId);
+        let url = "{{ route('get-one-project', ':id') }}";
+        url = url.replace(':id', projectId);
     </script>
-	<script src="{{URL::asset('assets/js/service.js')}}"></script>
+    <script src="{{ URL::asset('assets/js/service.js') }}"></script>
 @endsection
