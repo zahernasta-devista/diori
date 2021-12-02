@@ -170,12 +170,18 @@ Route::group(['middleware' => ['role:employee', 'first.time.login']], function (
 
     route::post('/timesheet/delete', [EmployeeController::class, 'timeSheetDelete'])
         ->name('timesheet-delete');
+  
+    Route::get('/worklog', [EmployeeController::class, 'workLog'])
+    ->name('work-log');
 
-    route::get('/worklog', [EmployeeController::class, 'workLog'])
-        ->name('work-log');
+    Route::get('profile/employee', [EmployeeController::class, 'employeeProfile'])
+    ->name('employee-profile');
+    
+    Route::get('/project/{id}', [ProjectController::class, 'getProjectById'])
+    ->name('get-one-project');
+    
+    Route::post('/worklog/add', [EmployeeController::class, 'worklogstore'])->name('worklog-add');
 
-    route::get('profile/employee', [EmployeeController::class, 'employeeProfile'])
-        ->name('employee-profile');
 });
 
 

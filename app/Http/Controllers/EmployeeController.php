@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Timelog;
 use Illuminate\Http\Request;
+use App\Models\Timelog;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\View;
 use Ramsey\Uuid\Type\Time;
@@ -15,11 +16,35 @@ class EmployeeController extends Controller
         return view('employee.calendar');
     }
 
-    public function workLog()
+    public function workLog(Request $request)
     {
         $projects = auth()->user()->projects;
+        return view('employee.work-log', compact('projects'));
+    }
 
-        return view('employee.work-log',compact('projects'));
+
+
+
+    public function worklogstore(Request $request)
+    {
+        $request->validate([
+            'time' => ['required'],
+            'project_id' => ['required'],
+            'date' => ['required'],
+
+        ]);
+
+        $Timelog = Timelog::create([
+            'user_id' => auth()->user()->id,
+            'time' => $request->time,
+            'project_id' => $request->project_id,
+            'date' => $request->date,
+
+
+        ]);
+
+        $Timelog->save();
+        return redirect('/worklog');
     }
 
 
