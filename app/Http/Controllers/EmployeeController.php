@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Models\Timelog;
 use Illuminate\Http\Request;
-use App\Models\Timelog;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\View;
 use Ramsey\Uuid\Type\Time;
