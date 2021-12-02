@@ -35,7 +35,8 @@ class UserSeeder extends Seeder
             'email' => 'test@employee.ro',
             'password' => Hash::make('password'),
             'position' => "Intern",
-            "organization_id" => 1
+            "organization_id" => 1,
+            "first_time_login" => 0
         ]);
 
         $roleEmployee = Role::create(['name' => 'employee']);

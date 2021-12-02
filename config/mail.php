@@ -1,7 +1,5 @@
 <?php
-
 return [
-
     /*
     |--------------------------------------------------------------------------
     | Default Mailer
@@ -12,9 +10,7 @@ return [
     | and used as needed; however, this mailer will be used by default.
     |
     */
-
     'default' => env('MAIL_MAILER', 'smtp'),
-
     /*
     |--------------------------------------------------------------------------
     | Mailer Configurations
@@ -32,46 +28,38 @@ return [
     |            "postmark", "log", "array"
     |
     */
-
     'mailers' => [
         'smtp' => [
             'transport' => 'smtp',
             'host' => env('MAIL_HOST', 'smtp.mailtrap.org'),
-            'port' => env('MAIL_PORT', 587),
+            'port' => env('MAIL_PORT', 2525),
             'encryption' => env('MAIL_ENCRYPTION', 'tls'),
-            'username' => env('MAIL_USERNAME','a86f7d97fd7f68'),
-            'password' => env('MAIL_PASSWORD','a03334ae556c1c'),
+            'username' => env('MAIL_USERNAME','6925b9e750d8ab'),
+            'password' => env('MAIL_PASSWORD','ed1d47525f6c9c'),
             'timeout' => null,
             'auth_mode' => null,
         ],
-
         'ses' => [
             'transport' => 'ses',
         ],
-
         'mailgun' => [
             'transport' => 'mailgun',
         ],
-
         'postmark' => [
             'transport' => 'postmark',
         ],
-
         'sendmail' => [
             'transport' => 'sendmail',
             'path' => '/usr/sbin/sendmail -bs',
         ],
-
         'log' => [
             'transport' => 'log',
             'channel' => env('MAIL_LOG_CHANNEL'),
         ],
-
         'array' => [
             'transport' => 'array',
         ],
     ],
-
     /*
     |--------------------------------------------------------------------------
     | Global "From" Address
@@ -82,12 +70,10 @@ return [
     | used globally for all e-mails that are sent by your application.
     |
     */
-
     'from' => [
-        'address' => env('MAIL_FROM_ADDRESS', 'alwanmazen@yahoo.com'),
+        'address' => env('MAIL_FROM_ADDRESS', 'aljafaridana@yahoo.com'),
         'name' => env('MAIL_FROM_NAME', 'Diori'),
     ],
-
     /*
     |--------------------------------------------------------------------------
     | Markdown Mail Settings
@@ -98,13 +84,10 @@ return [
     | of the emails. Or, you may simply stick with the Laravel defaults!
     |
     */
-
     'markdown' => [
         'theme' => 'default',
-
         'paths' => [
             resource_path('views/vendor/mail'),
         ],
     ],
-
 ];

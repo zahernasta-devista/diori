@@ -3,30 +3,10 @@
 <link href="{{ URL::asset('assets/plugins/fullcalendar/fullcalendar.css')}}" rel="stylesheet">
 <link href="{{ URL::asset('assets/plugins/fullcalendar/fullcalendar.print.min.css')}}" rel="stylesheet" media='print'>
 @endsection
-@section('page-header')
-						<!-- PAGE-HEADER -->
-							<div>
-								<h1 class="page-title">Full Calendar</h1>
-								<ol class="breadcrumb">
-									<li class="breadcrumb-item"><a href="#">Components</a></li>
-									<li class="breadcrumb-item active" aria-current="page">Full Calendar</li>
-								</ol>
-							</div>
-						<!-- PAGE-HEADER END -->
-@endsection
+
+
 @section('content')
-						<!-- ROW OPEN -->
-						<div class="row">
-							<div class="col-md-12">
-								<div class="card">
-									<div class="card-header">
-										<h3 class="card-title">Default Calendar</h3>
-									</div>
-									<div class="card-body">
-										<div id='calendar1'></div>
-									</div>
-								</div>
-							</div>
+				
 							<div class="col-md-12">
 								<div class="card">
 									<div class="card-header">
