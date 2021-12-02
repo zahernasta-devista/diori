@@ -17,19 +17,25 @@
 	<div class="row">
 		<div class="col-md-12 col-lg-12">
 			<div class="card">
+						<form method="POST" action="{{route('delete-checkbox-customer')}}">
 				<div class="card-header">
 					<h3 class="card-title">Customers Table</h3>
 						<div class="card-options">
 
 							<a type="button" href="{{ route('add-customers') }}" class="btn btn-md btn-primary " ><i class="fa fa-plus"></i> Add a New Customer</a>
+							<button type="submit" class="btn btn-md btn-secondary "><i class="fa fa-minus"></i> Delete Customers</button>
+
 
 						</div>
 				</div>
 				<div class="card-body">
 					<div class="table-responsive">
+
+							{{ csrf_field() }}
 						<table id="example" class="table table-striped table-bordered text-nowrap w-100">
 							<thead>
 							<tr>
+								<th scope="col">-</th>
 								<th scope="col">Name</th>
 								<th scope="col">Email</th>
 								<th scope="col" class="text-center">Actions </th>
@@ -38,12 +44,12 @@
 							<tbody>
 							@foreach($customers as $customer)
 							<tr>
+								<td><input type="checkbox" name="checkboxes[]" value="{{$customer->id}}"></td>
 								<td>{{$customer->name}}</td>
 								<td>{{$customer->email}}</td>
 
                                 <td class="text-center">
                                     <a class="btn btn btn-sm btn-primary" href="{{route('edit-customer-page',$customer->id)}}" type="button"><i class="fa fa-edit"></i>Edit</a>
-									<a class="btn btn-sm btn-danger" onclick="return confirm('Are you sure?')" href="{{route('delete-customers',$customer->id)}}"><i class="fa fa-trash"></i> Delete</a>
 								    <a class="btn btn-sm btn-success" href="{{route('customer-projects-page',$customer->id)}}" type="button"><i class="fa fa-edit"></i>Detail</a>
 								</td>
 							</tr>
@@ -53,6 +59,7 @@
 						</table>
 					</div>
 				</div>
+						</form>
 			</div>
 		</div>
 	</div>

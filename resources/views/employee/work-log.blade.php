@@ -17,7 +17,6 @@
     <!-- PAGE-HEADER END -->
 @endsection
 @section('content')
-
     <!-- ROW-1 OPEN -->
     <div class="page">
         <div class="">
@@ -51,6 +50,7 @@
                             </span>
                         </div>
                         <div class="wrap-input100 validate-input" data-validate="date is required">
+
 
                             <input placeholder="Starting date " id="date" class="input100"
                                 min="{{ $project->start_date }}" name="date" type="text" onfocus="(this.type='date')">

@@ -21,7 +21,7 @@
             <!-- CONTAINER OPEN -->
             <div class="container-login100">
                 <div class="wrap-login100 p-6">
-                    <form class="login100-form validate-form" action="{{route('edit-user',$users->id)}}" method="POST">
+                    <form class="login100-form validate-form" action="{{route('edit-admin',$users->id)}}" method="POST">
                         @csrf
                         <span class="login100-form-title">
 									Edit The Credentials of Your Employees
@@ -47,13 +47,6 @@
 										<i class="zmdi zmdi-view-day" aria-hidden="true"></i>
 									</span>
                         </div>
-                        <div class="wrap-input100 validate-input" data-validate = "Organization is required">
-                            <input class="input100" type="password" name="password" placeholder="Password" value="{{$users->password}}">
-                            <span class="focus-input100"></span>
-                            <span class="symbol-input100">
-										<i class="zmdi zmdi-lock" aria-hidden="true"></i>
-									</span>
-                        </div>
                         <div class="container-login100-form-btn">
                             <button  class="login100-form-btn btn-primary">
                                 {{ __('Sumbit') }}
@@ -63,7 +56,7 @@
                 </div>
             </div>
             <!-- CONTAINER CLOSED -->
-           
+
         </div>
     </div>
 

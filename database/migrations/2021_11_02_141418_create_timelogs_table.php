@@ -17,6 +17,7 @@ class CreateTimelogsTable extends Migration
             $table->id();
             $table->integer('time');
             $table->date('date');
+            $table->string('comment');
             $table->timestamps();
 
             $table->foreignId('user_id')->constrained('users')->onDelete('cascade')->onUpdate('cascade');

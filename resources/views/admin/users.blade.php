@@ -20,17 +20,22 @@
 	<div class="row">
 		<div class="col-md-12 col-lg-12">
 			<div class="card">
+						<form method="POST" action="{{route('delete-checkbox-project')}}">
 				<div class="card-header">
 					<h3  class="card-title">Your Employees</h3>
 						<div class="card-options">
 							<a type="button" href="{{route('add-user')}}" class="btn btn-md btn-primary " ><i class="fa fa-plus"></i> Add a new Employee</a>
+							<button type="submit" class="btn btn-md btn-secondary "><i class="fa fa-minus"></i> Delete Employees</button>
 						</div>
 				</div>
 				<div class="card-body">
 					<div class="table-responsive">
+
+							{{ csrf_field() }}
 						<table id="example" class="table table-striped table-bordered text-nowrap w-100">
 							<thead>
 							<tr>
+								<th class="wd-15p">-</th>
 								<th class="wd-15p">Name</th>
 								<th class="wd-15p">Position</th>
 								<th class="wd-10p">Email</th>
@@ -41,14 +46,16 @@
 							@foreach($users as $user)
 								@if($user->getRoleNames()[0] !== "admin")
 									<tr>
-									<td>{{$user->name}}</td>
-									<td>{{$user->position}}</td>
-									<td>{{$user->email}}</td>
-									<td class="text-center align-middle">
-										<a class="btn btn-sm btn-primary badge" href="{{route('edit-user',$user->id)}}" type="button"><i class="fa fa-edit"></i>Edit</a>
-										<a class="btn btn-sm btn-danger" onclick="return confirm('Are you sure?')" href="{{ route('delete-user' ,$user->id) }}" type="button"><i class="fa fa-trash"></i>Delete</a>
-										<a class="btn btn-sm btn-success" href="{{route('employee-project-page',$user->id)}}" type="button"><i class="fa fa-edit"></i>Assign</a>
-									</td>
+										<td><input type="checkbox" name="checkboxes[]" value="{{$user->id}}"></td>
+										<td>{{$user->name}}</td>
+										<td>{{$user->position}}</td>
+										<td>{{$user->email}}</td>
+										<td class="text-center align-middle">
+											<a class="btn btn-sm btn-azure badge" href="{{route('edit-user',$user->id)}}" type="button"><i class="fa fa-edit"></i>Edit</a>
+											<a class="btn btn-sm btn-success" href="{{route('employee-project-page',$user->id)}}" type="button"><i class="fa fa-edit"></i>Assign</a>
+											<a class="btn btn-sm btn-azure" href="{{route('change-to-admin',$user->id)}}" type="button"><i class="fa fa-dashboard"></i>Admin</a>
+
+										</td>
 								</tr>
 							    @endif
 							@endforeach
@@ -56,6 +63,7 @@
 						</table>
 					</div>
 				</div>
+						</form>
 				<!-- CONTAINER CLOSED -->
 			</div>
 		</div>
