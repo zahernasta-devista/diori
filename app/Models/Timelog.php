@@ -11,11 +11,15 @@ class Timelog extends Model
 
     protected $fillable = [
         'time',
-        'date'
+        'date',
+        'user_id',
+        'project_id'
     ];
 
     public function user() {
-        return $this->hasOne('App\Models\User');
+        return $this->belongsTo('App\Models\User');
     }
-
+public function  project(){
+    return $this->belongsTo('App\Models\projects');
+}
 }

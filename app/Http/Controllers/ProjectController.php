@@ -73,4 +73,12 @@ class ProjectController extends Controller
 
         return redirect()->to('/projects');
     }
+
+    public function getProjectById(Request $request) {
+    
+        $project = Project::findorfail($request->route('id'));
+        
+        return response()->json(['project'=>$project]);
+        
+    }
 }

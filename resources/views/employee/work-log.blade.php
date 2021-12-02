@@ -24,25 +24,24 @@
 								<!-- CONTAINER OPEN -->
 								<div class="container-login100">
 									<div class="wrap-login100 p-6">
-										<form class="login100-form validate-form" action="" method="POST">
+										<form class="login100-form validate-form" method="POST" action="{{route('worklog-add')}}" >
 											@csrf
 											<span class="login100-form-title">
 										Add Work Log
 								</span>
 											<div class="wrap-input100 validate-input" >
-												<input class="input100" type="number" name="time" placeholder="12 hours max" min="1" max="12">
+												<input class="input100" type="number" name="time" pattern="[0-12]" placeholder="12 hours max" min="1" max="12">
 												<span class="focus-input100"></span>
 												<span class="symbol-input100">
 										<i class="zmdi zmdi-eye" aria-hidden="true"></i>
 									</span>
 											</div>
 											<div class="wrap-input100 validate-input" data-validate = "Project is required">
-												<select class="input100" type="text" name="project" >
-															<option  selected disabled hidden>Choose Your Project</option>
+												<select class="input100" type="text" id="mySelect" name="project_id" onchange="getProject(this)" >
+													<option  >Choose Your Project</option>
 													@foreach($projects as $project)
-													<option>{{$project->name}}</option>
+													<option value="{{$project->id}}" >{{$project->name}} </option>
 													@endforeach
-
 												</select>
 												<span class="focus-input100"></span>
 												<span class="symbol-input100">
@@ -50,15 +49,20 @@
 									</span>
 											</div>
 											<div class="wrap-input100 validate-input" data-validate = "date is required">
-												<input class="input100" type="date" name="date" >
+												
+												<input placeholder="Starting date " id="date" class="input100"   min="{{$project->start_date}}" name="date" type="text"  onfocus="(this.type='date')" >
+									          
+												 
 												<span class="focus-input100"></span>
 												<span class="symbol-input100">
 										<i class="zmdi zmdi-view-day" aria-hidden="true"></i>
 									</span>
+									
 											</div>
+											
 											<div class="container-login100-form-btn">
 												<button  class="login100-form-btn btn-primary">
-													{{ __('Begin') }}
+													{{ __('Confirm') }}
 												</button>
 											</div>
 										</form>
@@ -78,4 +82,25 @@
 <script src="{{ URL::asset('assets/plugins/peitychart/peitychart.init.js') }}"></script>
 <script src="{{ URL::asset('assets/plugins/rating/jquery.barrating.js') }}"></script>
 <script src="{{ URL::asset('assets/plugins/rating/ratings.js') }}"></script>
+<script>
+	function getProject(selectedProject) {
+
+		let projectId = selectedProject.value;
+		let url = "{{route('get-one-project',":id")}}";
+		url = url.replace(':id',projectId);
+		
+		$.ajax({
+			url: url , 
+			success: function(result){
+				console.log(result.project.start_date);
+				let projectStartDate = result.project.start_date;
+				$("#date").attr({   
+
+      				"min" :  projectStartDate,
+     
+   			 	 });
+ 		 }});
+	}
+ 
+</script>
 @endsection

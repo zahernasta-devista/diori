@@ -119,11 +119,17 @@ Route::group(['middleware' => ['role:employee','first.time.login']], function() 
     route::get('/calendar', [EmployeeController::class, 'calendar'])
     ->name('calendar');
 
-    route::get('/worklog', [EmployeeController::class, 'workLog'])
+    Route::get('/worklog', [EmployeeController::class, 'workLog'])
     ->name('work-log');
 
-    route::get('profile/employee', [EmployeeController::class, 'employeeProfile'])
+    Route::get('profile/employee', [EmployeeController::class, 'employeeProfile'])
     ->name('employee-profile');
+    
+    Route::get('/project/{id}', [ProjectController::class, 'getProjectById'])
+    ->name('get-one-project');
+    
+    Route::post('/worklog/add', [EmployeeController::class, 'worklogstore'])->name('worklog-add');
+
 });
 
 
