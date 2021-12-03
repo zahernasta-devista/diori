@@ -71,6 +71,13 @@
 
                         </div>
 
+                        <div class="wrap-input100 validate-input" >
+                            <textarea class="input100" type="text" name="comment" placeholder="Insert a Comment!" rows="4" cols="50" ></textarea>
+                            <span class="focus-input100"></span>
+                            <span class="symbol-input100">
+                                <i class="zmdi zmdi-comment" aria-hidden="true"></i>
+                            </span>
+
                         <div class="container-login100-form-btn">
                             <button class="login100-form-btn btn-primary">
                                 {{ __('Confirm') }}
