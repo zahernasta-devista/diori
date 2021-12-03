@@ -15,14 +15,14 @@ class ProjectController extends Controller
     public function addProjectPage()
     {
         $customers = Customer::get();
-        return view('admin.add-project',['customers' => $customers]);
+        return view('admin.add-project', ['customers' => $customers]);
     }
 
 
-
-    public function getProjects(){
+    public function getProjects()
+    {
         $projects = Project::get();
-        return view('admin.project-table',['projects' => $projects]);
+        return view('admin.project-table', ['projects' => $projects]);
     }
 
     public function addProjects(Request $request)
@@ -31,15 +31,15 @@ class ProjectController extends Controller
         $request->validate([
             'name' => ['required', 'string', 'max:255'],
             'backend' => ['required', 'string', 'max:255'],
-            'start_date'=>['required','date']
+            'start_date' => ['required', 'date']
 
         ]);
 
-        $project= Project::create([
+        $project = Project::create([
             'name' => $request->name,
             'backend' => $request->backend,
-            'start_date'=> $request->start_date,
-            'customer_id'=>$request->customer
+            'start_date' => $request->start_date,
+            'customer_id' => $request->customer
         ]);
 
         event(new Registered($project));
@@ -48,22 +48,23 @@ class ProjectController extends Controller
     }
 
 
-
-
-    public function deleteProject(Request $request) {
+    public function deleteProject(Request $request)
+    {
         $project = Project::findorfail($request->route('id'));
         $project->delete();
         return redirect()->to('/projects');
     }
+
     public function editProjectPage(Request $request)
     {
-        $project = Project::get()->where('id',$request->route('id'))->first();
+        $project = Project::get()->where('id', $request->route('id'))->first();
         $customers = Customer::get();
 
-        return view('admin.edit-project', ['project'=> $project],['customers' => $customers]);
+        return view('admin.edit-project', ['project' => $project], ['customers' => $customers]);
     }
 
-    public function editProject(Request $request){
+    public function editProject(Request $request)
+    {
         $project = Project::findorfail($request->route('id'));
         $project->name = request()->input('name');
         $project->backend = request()->input('backend');
@@ -72,5 +73,13 @@ class ProjectController extends Controller
         $project->save();
 
         return redirect()->to('/projects');
+    }
+
+    public function getProjectById(Request $request) {
+    
+        $project = Project::findorfail($request->route('id'));
+        
+        return response()->json(['project'=>$project]);
+        
     }
 }

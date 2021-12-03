@@ -1,14 +1,11 @@
 <?php
 
-use App\Http\Controllers\UsersProjectController;
+use App\Http\Controllers\ChangePasswordProfileController;
 use Illuminate\Support\Facades\Route;
-
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\ProjectController;
-use App\Http\Controllers\Auth\RegisteredUserController;
-
 
 
 /*
@@ -36,40 +33,79 @@ Route::get('/', function () {
 })->middleware('guest');
 
 
-
 require __DIR__ . '/auth.php';
 
-Route::get('/dashboard', [UserController::class, 'dashboard'])
-        ->name('dashboard')->middleware('first.time.login');
+route::post('profile/password/change', [ChangePasswordProfileController::class, 'store'])
+    ->name('profile-change-password');
 
-Route::group(['middleware' => ['role:admin','first.time.login']], function() {
+Route::get('/dashboard', [UserController::class, 'dashboard'])
+    ->name('dashboard')
+    ->middleware('first.time.login');
+
+//middleware role admin
+Route::group(['middleware' => ['role:admin', 'first.time.login']], function () {
 
     route::get('/vertical-menu', [AdminController::class, 'verticalMenu']);
-    route::get('/users', [AdminController::class, 'showUsersList']);
-    Route::post('/users/add', [AdminController::class, 'store']);
-    Route::get('/users/add', [AdminController::class, 'showAddUser'])
-     ->name('add-user');
-    route::get('/users/delete/{id}', [AdminController::class, 'deleteUser'])
-     ->name('delete-user');
-
-    route::get('/users/edit/{id}', [AdminController::class, 'getEdit'])->name('edit-user');
-
-    route::post('users/edit/{id}', [AdminController::class, 'editUsers']) ->name('edit-user');
 
     route::get('/empty', [AdminController::class, 'empty'])
         ->name('empty');
 
     route::get('/tables', [AdminController::class, 'tables']);
-    route::get('/vertical-menu', [AdminController::class, 'verticalMenu']);
 
     route::get('/profile/admin', [AdminController::class, 'adminProfile'])
-    ->name('admin-profile');
+        ->name('admin-profile');
+
+//employees
+    route::get('/users', [AdminController::class, 'showUsersList']);
+
+    Route::post('/users/add', [AdminController::class, 'store']);
+
+    Route::get('/users/add', [AdminController::class, 'showAddUser'])
+        ->name('add-user');
+
+    route::get('/users/delete/{id}', [AdminController::class, 'deleteUser'])
+        ->name('delete-user');
+
+    route::get('/users/edit/{id}', [AdminController::class, 'getEdit'])
+        ->name('edit-user');
+
+    route::post('users/edit/{id}', [AdminController::class, 'editUsers'])
+        ->name('edit-user');
+
+//admin
+    route::get('/admin/delete/{id}', [AdminController::class, 'deleteAdmin'])
+        ->name('delete-admin');
+
+    route::get('/admin/edit/{id}', [AdminController::class, 'getEditAdmin'])
+        ->name('edit-admin');
 
 
+    route::post('admin/edit/{id}', [AdminController::class, 'editAdmin'])
+        ->name('edit-admin');
 
-    //project side
+    route::get('/admin/list', [AdminController::class, 'adminList'])
+        ->name('admins');
+
+    route::get('/user/change/admin/{id}', [AdminController::class, 'makeAdmin'])
+        ->name('change-to-admin');
+
+//checkbox
+    route::post('/projects/delete/checkbox', [AdminController::class, 'deleteUsingCheckBoxesProjects'])
+        ->name('delete-checkbox-project');
+
+    route::post('/employee/delete/checkbox', [AdminController::class, 'deleteUsingCheckBoxesEmployees'])
+        ->name('delete-checkbox-employee');
+
+    route::post('/customer/delete/checkbox', [AdminController::class, 'deleteUsingCheckBoxesCustomer'])
+        ->name('delete-checkbox-customer');
+
+    route::post('/admin/delete/checkbox', [AdminController::class, 'deleteUsingCheckBoxesAdmin'])
+        ->name('delete-checkbox-admin');
+
+
+//project side
     route::get('/projects/add', [ProjectController::class, 'addProjectPage'])
-    ->name('add-project-page');
+        ->name('add-project-page');
 
     route::get('/projects', [ProjectController::class, 'getProjects'])
         ->name('projects');
@@ -84,46 +120,68 @@ Route::group(['middleware' => ['role:admin','first.time.login']], function() {
         ->name('edit-projects-page');
 
     route::get('/project/delete/{id}', [ProjectController::class, 'deleteProject'])
-    ->name('delete-project');
+        ->name('delete-project');
 
-    route::get('/projects/assign/{id}',[AdminController::class,'assignProjectToPage'])
+    route::get('/projects/assign/{id}', [AdminController::class, 'assignProjectToPage'])
         ->name('assign-project-page');
 
-    route::post('/projects/assgin/{user_id}',[AdminController::class,'assignEmployeeToProject'])
+    route::post('/projects/assgin/{user_id}', [AdminController::class, 'assignEmployeeToProject'])
         ->name('assign-employee-project');
 
 //customer
-    route::get('/customers', [AdminController::class, 'showCostumersList'])->name('customers');
+    route::get('/customers', [AdminController::class, 'showCostumersList'])
+        ->name('customers');
+
     Route::post('/customers/add', [AdminController::class, 'storeCustomer']);
+
     Route::get('/customers/add', [AdminController::class, 'showAddCustomer'])
-    ->name('add-customers');
+        ->name('add-customers');
 
     Route::get('/customers/delete/{id}', [AdminController::class, 'deleteCustomer'])
-    ->name('delete-customers');
+        ->name('delete-customers');
 
-    route::post('/projects/unassign/{user_id}/{project_id}',[AdminController::class,'unassignProject'])
+    route::post('/customers/edit/{id}', [AdminController::class, 'editCustomers'])
+        ->name('edit-customer');
+
+    route::get('customers/edit/{id}', [AdminController::class, 'getCustomer'])
+        ->name('edit-customer-page');
+
+//assign projects to employees
+    route::post('/projects/unassign/{user_id}/{project_id}', [AdminController::class, 'unassignProject'])
         ->name('unassign-employee-project');
 
-    route::get('/employee/projects/{id}',[AdminController::class,'employeeProjectsAssignedPage'])
+    route::get('/employee/projects/{id}', [AdminController::class, 'employeeProjectsAssignedPage'])
         ->name('employee-project-page');
 
-
-    route::post('/customers/edit/{id}', [AdminController::class, 'editCustomers'])->name('edit-customer');
-    route::get('customers/edit/{id}', [AdminController::class, 'getCustomer']) ->name('edit-customer-page');
-  
-    route::get('/customers/projects/{id}',[AdminController::class,'customersProjectsAssignedPage'])
+    route::get('/customers/projects/{id}', [AdminController::class, 'customersProjectsAssignedPage'])
         ->name('customer-projects-page');
 });
 
-Route::group(['middleware' => ['role:employee','first.time.login']], function() {
+//middleware role employee
+Route::group(['middleware' => ['role:employee', 'first.time.login']], function () {
     route::get('/calendar', [EmployeeController::class, 'calendar'])
-    ->name('calendar');
+        ->name('calendar');
 
-    route::get('/worklog', [EmployeeController::class, 'workLog'])
+    route::get('/timesheet-response', [EmployeeController::class, 'timeSheetResponse'])
+        ->name('timesheet-response');
+
+    route::post('/timesheet/update', [EmployeeController::class, 'timeSheetUpdate'])
+        ->name('timesheet-update');
+
+    route::post('/timesheet/delete', [EmployeeController::class, 'timeSheetDelete'])
+        ->name('timesheet-delete');
+  
+    Route::get('/worklog', [EmployeeController::class, 'workLog'])
     ->name('work-log');
 
-    route::get('profile/employee', [EmployeeController::class, 'employeeProfile'])
+    Route::get('profile/employee', [EmployeeController::class, 'employeeProfile'])
     ->name('employee-profile');
+    
+    Route::get('/project/{id}', [ProjectController::class, 'getProjectById'])
+    ->name('get-one-project');
+    
+    Route::post('/worklog/add', [EmployeeController::class, 'worklogstore'])->name('worklog-add');
+
 });
 
 

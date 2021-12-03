@@ -34,8 +34,8 @@ return [
             'host' => env('MAIL_HOST', 'smtp.mailtrap.org'),
             'port' => env('MAIL_PORT', 2525),
             'encryption' => env('MAIL_ENCRYPTION', 'tls'),
-            'username' => env('MAIL_USERNAME','6925b9e750d8ab'),
-            'password' => env('MAIL_PASSWORD','ed1d47525f6c9c'),
+            'username' => env('MAIL_USERNAME','415a6075d7e4a0'),
+            'password' => env('MAIL_PASSWORD','92d44c0f7f3ac4'),
             'timeout' => null,
             'auth_mode' => null,
         ],
@@ -71,7 +71,7 @@ return [
     |
     */
     'from' => [
-        'address' => env('MAIL_FROM_ADDRESS', 'aljafaridana@yahoo.com'),
+        'address' => env('MAIL_FROM_ADDRESS', 'shamalokeh@gmail.com'),
         'name' => env('MAIL_FROM_NAME', 'Diori'),
     ],
     /*

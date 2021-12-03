@@ -37,13 +37,9 @@
     <ul class="side-menu">
         <li><h3>Menu</h3></li>
         <li class="slide">
-            <a class="side-menu__item" data-toggle="slide" href="#"><i class="side-menu__icon ti-panel"></i><span class="side-menu__label">Elements</span><i class="angle fa fa-angle-right"></i></a>
-            <ul class="slide-menu">
-                <li><a href="{{ route('dashboard') }}" class="slide-item"> Dashboard</a></li>
-                <li><a href="{{ route('work-log') }}" class="slide-item"> Work Log</a></li>
-                <li><a href="{{ route('calendar') }}" class="slide-item"> Calendar</a></li>
-            </ul>
-        </li>
+            <a class="side-menu__item" data-toggle="slide" href="{{ route('dashboard') }}"><i class="side-menu__icon ti-dashboard"></i><span class="side-menu__label">Dashboard</span></a>
+            <a class="side-menu__item" data-toggle="slide" href="{{ route('work-log') }}"><i class="side-menu__icon ti-timer"></i><span class="side-menu__label">Work Log</span></a>
+            <a class="side-menu__item" data-toggle="slide" href="{{ route('calendar') }}"><i class="side-menu__icon ti-calendar"></i><span class="side-menu__label">Calendar</span></a>
 
     </ul>
 </aside>

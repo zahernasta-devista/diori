@@ -48,7 +48,6 @@
                             <div>
                                 @foreach ($timelogs as $timelog)
 									• {{ $timelog->project->name }} -> {{ $timelog->time }} Hours
-
                                 @endforeach
                             </div>
                         </div>
@@ -57,6 +56,7 @@
             </div>
         </div>
     </div>
+
 @endsection
 @section('js')
     <script src="{{ URL::asset('assets/js/index2.js') }}"></script>
