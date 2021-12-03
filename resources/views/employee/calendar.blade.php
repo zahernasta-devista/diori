@@ -4,6 +4,7 @@
     <link href="{{ URL::asset('assets/plugins/fullcalendar/fullcalendar.print.min.css') }}" rel="stylesheet" media='print'>
     <link href="{{ URL::asset('assets/plugins/single-page/css/main.css') }}" rel="stylesheet">
 @endsection
+
 @section('page-header')
     <!-- PAGE-HEADER -->
     <div>
@@ -69,7 +70,6 @@
                             <span class="symbol-input100"><i class="mdi mdi-comment" aria-hidden="true"></i></span>
                         </div>
                         <input id="id" name="id" type="hidden" class="input-lg" />
-
                 </div>
                 <div class="modal-footer">
                     <button id="editTimeLog" type="button" class="btn btn-primary">Update Time Log</button>

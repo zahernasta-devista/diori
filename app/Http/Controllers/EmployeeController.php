@@ -30,7 +30,7 @@ class EmployeeController extends Controller
             'time' => ['required','numeric','between:1, 12'],
             'project_id' => ['required'],
             'date' => ['required'],
-
+            'comment' => ['required']
         ]);
 
         $Timelog = Timelog::create([
@@ -38,7 +38,7 @@ class EmployeeController extends Controller
             'time' => $request->time,
             'project_id' => $request->project_id,
             'date' => $request->date,
-
+            'comment' => $request->comment,
 
         ]);
 

@@ -61,8 +61,9 @@
                         <div class="wrap-input100 validate-input" data-validate="date is required">
 
 
-                            <input placeholder="Starting date " id="date" class="input100"
-                            min="{{ $project->start_date }}" name="date" type="text" onfocus="(this.type='date')">
+
+                            <input placeholder="Starting date " id="date" class="input100" name="date" type="text"
+                                onfocus="(this.type='date')">
 
 
                             <span class="focus-input100"></span>
@@ -70,6 +71,15 @@
                                 <i class="zmdi zmdi-view-day" aria-hidden="true"></i>
                             </span>
 
+                        </div>
+
+                        <div class="wrap-input100 validate-input">
+                            <textarea class="input100" type="text" name="comment" placeholder="Insert a Comment!"
+                                rows="4" cols="50"></textarea>
+                            <span class="focus-input100"></span>
+                            <span class="symbol-input100">
+                                <i class="zmdi zmdi-comment" aria-hidden="true"></i>
+                            </span>
                         </div>
 
                         <div class="container-login100-form-btn">
@@ -95,8 +105,27 @@
     <script src="{{ URL::asset('assets/plugins/rating/jquery.barrating.js') }}"></script>
     <script src="{{ URL::asset('assets/plugins/rating/ratings.js') }}"></script>
     <script>
-        let url = "{{ route('get-one-project', ':id') }}";
-        url = url.replace(':id', projectId);
+
+
+
+        function getProject(selectedProject) {
+            let projectId = selectedProject.value;
+            
+            let url = "{{ route('get-one-project', ':id') }}";
+            url = url.replace(':id', projectId);
+
+            $.ajax({
+                url: url,
+                success: function(result) {
+                    let projectStartDate = result.project.start_date;
+                    $("#date").attr({
+
+                        "min": projectStartDate,
+
+                    });
+                }
+            });
+        }
     </script>
     <script src="{{ URL::asset('assets/js/service.js') }}"></script>
 @endsection
