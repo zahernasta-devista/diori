@@ -23,7 +23,6 @@ class EmployeeController extends Controller
 
 
 
-
     public function worklogstore(Request $request)
     {
         $validation = $request->validate([
@@ -43,7 +42,7 @@ class EmployeeController extends Controller
         ]);
 
         $Timelog->save();
-        return redirect('/worklog');
+        return redirect('/calendar');
     }
 
 
