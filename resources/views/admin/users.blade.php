@@ -25,7 +25,7 @@
 					<h3  class="card-title">Your Employees</h3>
 						<div class="card-options">
 							<a type="button" href="{{route('add-user')}}" class="btn btn-md btn-primary " ><i class="fa fa-plus"></i> Add a new Employee</a>
-							<button type="submit" class="btn btn-md btn-secondary "><i class="fa fa-minus"></i> Delete Employees</button>
+							<button type="submit" class="btn btn-md btn-danger "><i class="fa fa-minus"></i> Delete Employees</button>
 						</div>
 				</div>
 				<div class="card-body">
@@ -51,7 +51,7 @@
 										<td>{{$user->position}}</td>
 										<td>{{$user->email}}</td>
 										<td class="text-center align-middle">
-											<a class="btn btn-sm btn-azure badge" href="{{route('edit-user',$user->id)}}" type="button"><i class="fa fa-edit"></i>Edit</a>
+											<a class="btn btn-sm btn-secondary" href="{{route('edit-user',$user->id)}}" type="button"><i class="fa fa-edit"></i>Edit</a>
 											<a class="btn btn-sm btn-success" href="{{route('employee-project-page',$user->id)}}" type="button"><i class="fa fa-edit"></i>Assign</a>
 											<a class="btn btn-sm btn-azure" href="{{route('change-to-admin',$user->id)}}" type="button"><i class="fa fa-dashboard"></i>Admin</a>
 											<a class="btn btn-sm btn-blue" href="{{route('employee-detail',$user->id)}}" type="button"><i class="fa fa-dashboard"></i>Detail</a>

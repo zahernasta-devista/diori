@@ -39,7 +39,7 @@
                                 <tr>
                                     <th scope="col">-</th>
                                     <th scope="col">Project Name</th>
-                                    <th scope="col">Backend</th>
+                                    <th scope="col">Technology </th>
                                     <th scope="col">start date</th>
                                     <th scope="col">Customer</th>
                                     <th scope="col">Action</th>
