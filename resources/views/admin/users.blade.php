@@ -54,7 +54,7 @@
 											<a class="btn btn-sm btn-azure badge" href="{{route('edit-user',$user->id)}}" type="button"><i class="fa fa-edit"></i>Edit</a>
 											<a class="btn btn-sm btn-success" href="{{route('employee-project-page',$user->id)}}" type="button"><i class="fa fa-edit"></i>Assign</a>
 											<a class="btn btn-sm btn-azure" href="{{route('change-to-admin',$user->id)}}" type="button"><i class="fa fa-dashboard"></i>Admin</a>
-
+											<a class="btn btn-sm btn-blue" href="{{route('employee-detail',$user->id)}}" type="button"><i class="fa fa-dashboard"></i>Detail</a>
 										</td>
 								</tr>
 							    @endif

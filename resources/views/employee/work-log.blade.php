@@ -44,6 +44,7 @@
                                 <i class="zmdi zmdi-eye" aria-hidden="true"></i>
                             </span>
                         </div>
+                        
                         <div class="wrap-input100 validate-input" data-validate="Project is required">
                             <select class="input100" type="text" id="mySelect" name="project_id"
                                 onchange="getProject(this)">
@@ -58,6 +59,7 @@
                             </span>
                         </div>
                         <div class="wrap-input100 validate-input" data-validate="date is required">
+
 
 
                             <input placeholder="Starting date " id="date" class="input100" name="date" type="text"
