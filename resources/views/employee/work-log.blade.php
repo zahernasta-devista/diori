@@ -77,6 +77,7 @@
                             <span class="symbol-input100">
                                 <i class="zmdi zmdi-comment" aria-hidden="true"></i>
                             </span>
+                        </div>
 
                         <div class="container-login100-form-btn">
                             <button class="login100-form-btn btn-primary">
