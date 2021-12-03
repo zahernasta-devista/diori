@@ -59,13 +59,8 @@
                             </span>
                         </div>
                         <div class="wrap-input100 validate-input" data-validate="date is required">
-
-
-
                             <input placeholder="Starting date " id="date" class="input100" name="date" type="text"
                                 onfocus="(this.type='date')">
-
-
                             <span class="focus-input100"></span>
                             <span class="symbol-input100">
                                 <i class="zmdi zmdi-view-day" aria-hidden="true"></i>

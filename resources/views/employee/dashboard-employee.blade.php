@@ -18,44 +18,55 @@
     <!-- PAGE-HEADER END -->
 @endsection
 @section('content')
-
     <div class="row">
-        <div class="col-lg-12">
-
-            <div class="row">
-                <div class="col-lg-6 ">
-                    <div class="card">
-                        <div class="card-body text-center statistics-info">
-                            <div class="counter-icon bg-primary mb-0 box-primary-shadow">
-                                <i class="fe fe-trending-up text-white"></i>
-                            </div>
-                            <h6 class="mt-4 mb-1">You Worked </h6>
-
-                            <h2> {{ $timeSum }}</h2>
-
-                            <h5 class="text-muted">Hours This month</h5>
+        <div class="col-sm-12 col-md-6 ">
+            <div class="card bg-primary img-card box-primary-shadow">
+                <div class="card-body">
+                    <div class="d-flex">
+                        <div class="text-white">
+                            <h2 class="mb-0 number-font">{{ $timeSum }}</h2>
+                            <p class="text-white mb-0">Total Hours Worked This Month!</p>
                         </div>
-                    </div>
-                </div>
-                <div class="col-lg-6">
-                    <div class="card">
-                        <div class="card-body text-center statistics-info">
-                            <div class="counter-icon bg-green mb-0 box-secondary-shadow">
-                                <i class="fe fe-clock text-white"></i>
-                            </div>
-                            <h6 class="mt-4 mb-1">Work Log For The Day</h6>
-                            <h2 class="mb-4 mb-5">{{ $timedaySum }}</h2>
-                            <div>
-                                @foreach ($timelogs as $timelog)
-									• {{ $timelog->project->name }} -> {{ $timelog->time }} Hours
-                                @endforeach
-                            </div>
-                        </div>
+                        <div class="ml-auto"> <i class="fa fa-send-o text-white fs-30 mr-2 mt-2"></i> </div>
                     </div>
                 </div>
             </div>
-        </div>
+        </div><!-- COL END -->
+        <div class="col-sm-12 col-md-6 ">
+            <div class="card bg-secondary img-card box-secondary-shadow">
+                <div class="card-body">
+                    <div class="d-flex">
+                        <div class="text-white">
+                            <h2 class="mb-0 number-font">{{ $timedaySum }} Clocked Today</h2>
+                            <p class="text-white mb-0"> @foreach ($timelogs as $timelog)
+                                    • {{ $timelog->project->name }} -> {{ $timelog->time }} Hours
+                                @endforeach</p>
+                        </div>
+                        <div class="ml-auto"> <i class="fa fa-bar-chart text-white fs-30 mr-2 mt-2"></i> </div>
+                    </div>
+                </div>
+            </div>
+        </div><!-- COL END -->
     </div>
+<div class="row">
+    <div class="col-sm-12 col-md-12 ">
+        <div class="card bg-success img-card box-primary-shadow">
+            <div class="card-body">
+                <div class="d-flex">
+                    <div class="text-white">
+                        <h2 class="mb-0 number-font">You Can Work On {{$projectCount}} Projects</h2>
+                        <p class="text-white mb-0">
+                            Just To Name A Few:<br>
+                            • @foreach ($projects->slice(0, 3) as $project){{ $project['name'] }} / @endforeach
+                        </p>
+                    </div>
+                    <div class="ml-auto"> <i class="fa fa-address-book text-white fs-30 mr-2 mt-2"></i> </div>
+                </div>
+            </div>
+        </div>
+    </div><!-- COL END -->
+</div>
+
 
 @endsection
 @section('js')
