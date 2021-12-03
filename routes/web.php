@@ -72,17 +72,6 @@ Route::group(['middleware' => ['role:admin', 'first.time.login']], function () {
     route::post('users/edit/{id}', [AdminController::class, 'editUsers'])
         ->name('edit-user');
 
-    route::get('/users/detail/{id}', [AdminController::class, 'getEmployeeDetail'])
-        ->name('employee-detail');
-
-        
-    route::get('/users/detail/{id}', [AdminController::class, 'EmployeeDetail'])
-        ->name('employee-detail');
-    
-   
-
-       
-        
 
 //admin
     route::get('/admin/delete/{id}', [AdminController::class, 'deleteAdmin'])
@@ -103,10 +92,10 @@ Route::group(['middleware' => ['role:admin', 'first.time.login']], function () {
 
     route::get('/calendar', [AdminController::class, 'calendar'])
         ->name('calendar');
-        route::get('/timesheet-response', [AdminController::class, 'timeSheetResponse'])
+    route::get('/timesheet-response', [AdminController::class, 'timeSheetResponse'])
         ->name('timesheet-response');
 
-   
+
 //checkbox
     route::post('/projects/delete/checkbox', [AdminController::class, 'deleteUsingCheckBoxesProjects'])
         ->name('delete-checkbox-project');
@@ -173,6 +162,13 @@ Route::group(['middleware' => ['role:admin', 'first.time.login']], function () {
 
     route::get('/customers/projects/{id}', [AdminController::class, 'customersProjectsAssignedPage'])
         ->name('customer-projects-page');
+//detail page for employee
+
+    route::get('/users/detail/{id}', [AdminController::class, 'EmployeeDetail'])
+        ->name('employee-detail');
+    route::get('/response/detail/{id}', [AdminController::class, 'responseDetail'])
+        ->name('response-detail');
+
 });
 
 //middleware role employee
@@ -188,19 +184,18 @@ Route::group(['middleware' => ['role:employee', 'first.time.login']], function (
 
     route::post('/timesheet/delete', [EmployeeController::class, 'timeSheetDelete'])
         ->name('timesheet-delete');
-  
+
     Route::get('/worklog', [EmployeeController::class, 'workLog'])
-    ->name('work-log');
+        ->name('work-log');
 
     Route::get('profile/employee', [EmployeeController::class, 'employeeProfile'])
-    ->name('employee-profile');
-    
+        ->name('employee-profile');
+
     Route::get('/project/{id}', [ProjectController::class, 'getProjectById'])
-    ->name('get-one-project');
-    
+        ->name('get-one-project');
+
     Route::post('/worklog/add', [EmployeeController::class, 'worklogstore'])->name('worklog-add');
 
-    
 
 });
 

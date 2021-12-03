@@ -57,32 +57,44 @@ class AdminController extends Controller
         return redirect('/users');
     }
 
-    public function getEmployeeDetail(Request $request)
-    {
-
-        $users = User::get()->where('id', $request->route('id'))->first();
-
-        return view('admin.employee-detail', ['users' => $users]);
-    }
 
     public function EmployeeDetail(Request $request)
     {
-        
+        $users = User::get()->where('id', $request->route('id'))->first();
         $date = Carbon::now()->format('d-m-y');
         $user = User::role('employee')->get()->count();
         $project = Project::count();
-        $timeSum = DB::table('timelogs')->where('user_id', $request->route('id'))->whereMonth('date',Carbon::now()->month)->sum('time');
+        $timeSum = DB::table('timelogs')->where('user_id', $request->route('id'))->whereMonth('date', Carbon::now()->month)->sum('time');
         $customer = Customer::count();
         $projects = User::get()->where('id', $request->route('id'))->first()->projects;
-        $projects = User::get()->where('id', $request->route('id'))->first()->projects;
         $projectCount = User::get()->where('id', $request->route('id'))->first()->projects->count();
+        $timeLogs = Timelog::get()->where('user_id', $request->route('id'))->all();
 
-       
-        return view('admin.employee-detail', ['date' => $date, 'projectCount' => $projectCount, 'project' => $project, 'customer' => $customer, 'user' => $user,'projects' => $projects,'timeSum'=>$timeSum],compact('projects'));
-    
 
+        return view('admin.employee-detail', ['users' => $users, 'date' => $date, 'projectCount' => $projectCount, 'project' => $project, 'customer' => $customer, 'user' => $user, 'projects' => $projects, 'timeSum' => $timeSum], compact('projects'));
 
     }
+
+    public function responseDetail(Request $request)
+    {
+        $users = User::get()->where('id', $request->route('id'))->first();
+        $timeLogs = Timelog::get()->where('user_id', $request->route('id'))->all();
+        $project = [];
+        foreach($timeLogs as $timeLog){
+            $object = new \stdClass();
+
+            $object->time = $timeLog->time;
+            $object->date = $timeLog->date;
+            $object->comment = $timeLog->comment;
+            $object->project = $timeLog->project->name;
+                $project[] = $object;
+//                dd($timeLog->project->name);
+        }
+        return response()->json(['response' => $project, 'users'=> $users]);
+    }
+
+
+
     public function getEdit(Request $request)
     {
 
@@ -99,7 +111,7 @@ class AdminController extends Controller
         $users->name = request()->input('name');
         $users->position = request()->input('position');
         $users->email = request()->input('email');
-        $users->password =Hash::make( request()->input('password'));
+        $users->password = Hash::make(request()->input('password'));
         $users->save();
 
         return redirect()->to('users');
@@ -230,8 +242,7 @@ class AdminController extends Controller
     {
         $checkedIds = $request->checkboxes;
 
-        foreach ($checkedIds as $id)
-        {
+        foreach ($checkedIds as $id) {
             Project::where('id', intval($id))->delete();
         }
         return redirect()->back();
@@ -242,19 +253,18 @@ class AdminController extends Controller
     {
         $checkedIds = $request->checkboxes;
 
-        foreach ($checkedIds as $id)
-        {
+        foreach ($checkedIds as $id) {
             User::where('id', intval($id))->delete();
         }
         return redirect()->back();
 
     }
+
     public function deleteUsingCheckBoxesCustomer(Request $request)
     {
         $checkedIds = $request->checkboxes;
 
-        foreach ($checkedIds as $id)
-        {
+        foreach ($checkedIds as $id) {
             Customer::where('id', intval($id))->delete();
         }
         return redirect()->back();
@@ -265,28 +275,30 @@ class AdminController extends Controller
     {
         $checkedIds = $request->checkboxes;
 
-        foreach ($checkedIds as $id)
-        {
+        foreach ($checkedIds as $id) {
             User::where('id', intval($id))->delete();
         }
         return redirect()->back();
 
     }
 
-    public function adminList(Request $request){
+    public function adminList(Request $request)
+    {
         $users = User::get()
             ->where('organization_id', 1);
-        return view('admin.admin-list',['users' => $users]);
+        return view('admin.admin-list', ['users' => $users]);
     }
 
-    public function getEditAdmin(Request $request) {
+    public function getEditAdmin(Request $request)
+    {
 
-        $users = User::get()->where('id',$request->route('id'))->first();
+        $users = User::get()->where('id', $request->route('id'))->first();
 
-        return view('admin.edit-admin', ['users'=> $users]);
+        return view('admin.edit-admin', ['users' => $users]);
     }
 
-    public function editAdmin(Request $request): \Illuminate\Http\RedirectResponse {
+    public function editAdmin(Request $request): \Illuminate\Http\RedirectResponse
+    {
 
         $users = User::findorfail($request->route('id'));
         $users->name = request()->input('name');
@@ -299,14 +311,15 @@ class AdminController extends Controller
 
     }
 
-    public function deleteAdmin(Request $request): \Illuminate\Http\RedirectResponse {
+    public function deleteAdmin(Request $request): \Illuminate\Http\RedirectResponse
+    {
         $user = User::findorfail($request->route('id'));
         $user->delete();
         return redirect()->to('admin/list');
     }
 
-
-    public function makeAdmin(Request $request){
+    public function makeAdmin(Request $request)
+    {
         $user = User::findorfail($request->route('id'));
 
         $user->assignRole([1]);
@@ -330,9 +343,6 @@ class AdminController extends Controller
         return view('admin.vertical-menu');
     }
 
-  
-    
 
-    
 }
 

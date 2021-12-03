@@ -5,6 +5,7 @@ $(function(e) {
         type: 'GET',
         url: url,
         success: function(response) {
+            console.log('Done');
             let responseData = response.response;
             let events = [];
             let time = {
