@@ -10,7 +10,11 @@ use Illuminate\Auth\Events\Registered;
 use Illuminate\Support\Facades\Hash;
 use App\Models\User;
 use App\Models\Customer;
-use Illuminate\Support\Facades\Log;
+use Carbon\Carbon;
+use App\Models\Timelog;
+
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\DB as FacadesDB;
 
 class AdminController extends Controller
 {
@@ -53,7 +57,32 @@ class AdminController extends Controller
         return redirect('/users');
     }
 
+    public function getEmployeeDetail(Request $request)
+    {
 
+        $users = User::get()->where('id', $request->route('id'))->first();
+
+        return view('admin.employee-detail', ['users' => $users]);
+    }
+
+    public function EmployeeDetail(Request $request)
+    {
+        
+        $date = Carbon::now()->format('d-m-y');
+        $user = User::role('employee')->get()->count();
+        $project = Project::count();
+        $timeSum = DB::table('timelogs')->where('user_id', $request->route('id'))->whereMonth('date',Carbon::now()->month)->sum('time');
+        $customer = Customer::count();
+        $projects = User::get()->where('id', $request->route('id'))->first()->projects;
+        $projects = User::get()->where('id', $request->route('id'))->first()->projects;
+        $projectCount = User::get()->where('id', $request->route('id'))->first()->projects->count();
+
+       
+        return view('admin.employee-detail', ['date' => $date, 'projectCount' => $projectCount, 'project' => $project, 'customer' => $customer, 'user' => $user,'projects' => $projects,'timeSum'=>$timeSum],compact('projects'));
+    
+
+
+    }
     public function getEdit(Request $request)
     {
 
@@ -61,6 +90,7 @@ class AdminController extends Controller
 
         return view('admin.edit-user', ['users' => $users]);
     }
+
 
     public function editUsers(Request $request): \Illuminate\Http\RedirectResponse
     {
@@ -300,5 +330,9 @@ class AdminController extends Controller
         return view('admin.vertical-menu');
     }
 
+  
+    
 
+    
 }
+

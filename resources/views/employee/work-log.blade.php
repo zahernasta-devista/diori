@@ -44,6 +44,7 @@
                                 <i class="zmdi zmdi-eye" aria-hidden="true"></i>
                             </span>
                         </div>
+                        
                         <div class="wrap-input100 validate-input" data-validate="Project is required">
                             <select class="input100" type="text" id="mySelect" name="project_id"
                                 onchange="getProject(this)">
@@ -61,7 +62,7 @@
 
 
                             <input placeholder="Starting date " id="date" class="input100"
-                                min="{{ $project->start_date }}" name="date" type="text" onfocus="(this.type='date')">
+                            min="{{ $project->start_date }}" name="date" type="text" onfocus="(this.type='date')">
 
 
                             <span class="focus-input100"></span>

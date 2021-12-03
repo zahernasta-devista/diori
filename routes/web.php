@@ -72,6 +72,18 @@ Route::group(['middleware' => ['role:admin', 'first.time.login']], function () {
     route::post('users/edit/{id}', [AdminController::class, 'editUsers'])
         ->name('edit-user');
 
+    route::get('/users/detail/{id}', [AdminController::class, 'getEmployeeDetail'])
+        ->name('employee-detail');
+
+        
+    route::get('/users/detail/{id}', [AdminController::class, 'EmployeeDetail'])
+        ->name('employee-detail');
+    
+   
+
+       
+        
+
 //admin
     route::get('/admin/delete/{id}', [AdminController::class, 'deleteAdmin'])
         ->name('delete-admin');
@@ -89,6 +101,12 @@ Route::group(['middleware' => ['role:admin', 'first.time.login']], function () {
     route::get('/user/change/admin/{id}', [AdminController::class, 'makeAdmin'])
         ->name('change-to-admin');
 
+    route::get('/calendar', [AdminController::class, 'calendar'])
+        ->name('calendar');
+        route::get('/timesheet-response', [AdminController::class, 'timeSheetResponse'])
+        ->name('timesheet-response');
+
+   
 //checkbox
     route::post('/projects/delete/checkbox', [AdminController::class, 'deleteUsingCheckBoxesProjects'])
         ->name('delete-checkbox-project');
@@ -181,6 +199,8 @@ Route::group(['middleware' => ['role:employee', 'first.time.login']], function (
     ->name('get-one-project');
     
     Route::post('/worklog/add', [EmployeeController::class, 'worklogstore'])->name('worklog-add');
+
+    
 
 });
 
