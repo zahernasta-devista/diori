@@ -27,7 +27,7 @@
                             <div class="counter-icon bg-primary mb-0 box-primary-shadow">
                                 <i class="fe fe-trending-up text-white"></i>
                             </div>
-                            <h6 class="mt-4 mb-1">You Worked </h6>
+                            <h3 class="mt-4 mb-1">You Worked </h3>
                             <h2 class="mb-2 number-font">{{$timeSum}}</h2>
                             <h5 class="text-muted">Hours This month</h5>
                         </div>
@@ -36,14 +36,15 @@
                 <div class="col-lg-6 ">
                     <div class="card">
                         <div class="card-body text-center statistics-info">
-                            <div class="counter-icon bg-primary mb-0 box-primary-shadow">
+                            <div class="counter-icon bg-success mb-0 box-primary-shadow">
                                 <i class="fe fe-trending-up text-white"></i>
                             </div>
-                            <h6 class="mt-4 mb-1">is Part Of {{$projectCount}} Projects</h6>
+                            <h4 class="mt-4 mb-1">{{$users->name}} is Part Of {{$projectCount}} Projects:</h4>
                             <h2 class="mb-2 number-font">
                                 @foreach ($projects->slice(0, 3) as $project)
                                     <h6> {{ $project['name'] }}</h6>
-                                @endforeach</h2>
+                                @endforeach
+                            </h2>
                         </div>
                     </div>
                 </div>
