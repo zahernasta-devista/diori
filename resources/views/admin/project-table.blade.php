@@ -23,9 +23,10 @@
                         <div class="card-options">
                             <a type="button" href="{{ route('add-project-page') }}" class="btn btn-md btn-primary "><i
                                         class="fa fa-plus"></i> Add a New Project</a>
-                            <button type="submit" class="btn btn-md btn-secondary "><i class="fa fa-minus"></i> Delete
-                                Projects
-                            </button>
+                                        &emsp;
+                                        <button type="submit" class="btn btn-md btn-danger " onclick="return confirm('Are you sure you want to delete the selected project ?')"><i class="fa fa-minus"></i> Delete
+                                            Projects
+                                        </button>
 
 
                         </div>
