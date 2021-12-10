@@ -50,14 +50,10 @@
                     <ul class="side-menu">
                         <li><h3>Main</h3></li>
 
-                        <li class="slide">
-                            <a class="side-menu__item" data-toggle="slide" href="#"><i class="side-menu__icon ti-panel"></i><span class="side-menu__label">Components</span><i class="angle fa fa-angle-right"></i></a>
-                            <ul class="slide-menu">
-                                <li><a href="{{route('dashboard') }}" class="slide-item"> Dashboard</a></li>
-                                <li><a href="{{ route('empty') }}" class="slide-item"> Search by Date</a></li>
+                        <a class="side-menu__item" data-toggle="slide" href="{{route('dashboard') }}"><i class="side-menu__icon ti-dashboard"></i><span class="side-menu__label">Dashboard</span></a>
+                        <a class="side-menu__item" data-toggle="slide" href="{{ route('empty') }}" class="slide-item"><i class="side-menu__icon ti-search"></i><span class="side-menu__label">Search By Date</span></a>
 
-                            </ul>
-                        </li>
+
                         <li><h3>Elements</h3></li>
 
                         <li class="slide">

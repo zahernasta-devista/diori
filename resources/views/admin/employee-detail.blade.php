@@ -24,12 +24,12 @@
                 <div class="col-lg-6 ">
                     <div class="card">
                         <div class="card-body text-center statistics-info">
-                            <div class="counter-icon bg-primary mb-0 box-primary-shadow">
+                            <div class="counter-icon bg-secondary-gradient mb-0 box-primary-shadow">
                                 <i class="fe fe-trending-up text-white"></i>
                             </div>
-                            <h3 class="mt-4 mb-1">You Worked </h3>
-                            <h2 class="mb-2 number-font">{{$timeSum}}</h2>
-                            <h5 class="text-muted">Hours This month</h5>
+                            <h3 class="mt-4 mb-1">•{{$users->name}} Worked: </h3>
+                            <h2 class="mb-2">{{$timeSum}} Hours</h2>
+                            <h6  class="mt-4 mb-1">This month</h6>
                         </div>
                     </div>
                 </div>
@@ -37,12 +37,12 @@
                     <div class="card">
                         <div class="card-body text-center statistics-info">
                             <div class="counter-icon bg-success mb-0 box-primary-shadow">
-                                <i class="fe fe-trending-up text-white"></i>
+                                <i class="fe fe-clock text-white"></i>
                             </div>
                             <h4 class="mt-4 mb-1">{{$users->name}} is Part Of {{$projectCount}} Projects:</h4>
                             <h2 class="mb-2 number-font">
                                 @foreach ($projects->slice(0, 3) as $project)
-                                    <h6> {{ $project['name'] }}</h6>
+                                    <h6> <strong>•{{ $project['name'] }}</strong></h6>
                                 @endforeach
                             </h2>
                         </div>
@@ -71,7 +71,7 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title">Edit or Delete Time Log</h5>
+                    <h5 class="modal-title">Details:</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times</span>
                     </button>
@@ -128,7 +128,6 @@
                 url: url,
                 success: function(response) {
                     let responseData = response.response;
-                    console.log(response);
                     let events = [];
                     let time = {
                         endHour: 9,
@@ -139,7 +138,6 @@
                         let object = createCalendarElements(responseData, element, time);
 
                         events.push(object);
-                        // console.log(events);
 
                     });
 
@@ -157,7 +155,7 @@
                                 buttonText: 'Weekly'
                             },
                             month:{
-                                buttonText: 'Calendar'
+                                buttonText: 'Monthly'
                             }
                         },
                         defaultView: 'listWeek',
@@ -280,7 +278,7 @@
 
         function createCalendarObject(element, startHourString, endHourString, availableHours) {
             let object = {};
-                console.log(element);
+
             object.id = element.id;
             object.comment = element.comment;
             object.title = element.project + " • " + element.time + " hours." + " • " + element.comment + ".";
