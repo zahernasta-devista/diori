@@ -48,12 +48,20 @@ class User extends Authenticatable
     ];
 
 
-    public function projects() {
+    public function projects()
+    {
         return $this->belongsToMany(Project::class, 'users_projects');
     }
 
-    public function timelogs() {
+    public function timelogs()
+    {
         return $this->hasMany(Timelog::class, 'user_id');
+    }
+
+    public function timelogsFromMonthAndYear($month, $year)
+    {
+        return $this->hasMany(Timelog::class, 'user_id')
+            ->whereMonth('created_at', $month)->whereYear('created_at', $year)->get();
     }
 
 }

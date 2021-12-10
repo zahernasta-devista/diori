@@ -23,4 +23,16 @@ class Project extends Model
     public function users() {
         return $this->belongsToMany(User::class, 'users_projects');
     }
+
+    public function timelogs() {
+        return $this->hasMany(Timelog::class, 'project_id');
+    }
+
+    public function timelogsFromMonthAndYear($month, $year, $userId) {
+        return $this->hasMany(Timelog::class, 'project_id')
+            ->whereMonth('created_at', $month)
+            ->whereYear('created_at', $year)
+            ->where('user_id', $userId)
+            ->get();
+    }
 }

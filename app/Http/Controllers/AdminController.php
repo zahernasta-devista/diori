@@ -80,19 +80,17 @@ class AdminController extends Controller
         $users = User::get()->where('id', $request->route('id'))->first();
         $timeLogs = Timelog::get()->where('user_id', $request->route('id'))->all();
         $project = [];
-        foreach($timeLogs as $timeLog){
+        foreach ($timeLogs as $timeLog) {
             $object = new \stdClass();
 
             $object->time = $timeLog->time;
             $object->date = $timeLog->date;
             $object->comment = $timeLog->comment;
             $object->project = $timeLog->project->name;
-                $project[] = $object;
-//                dd($timeLog->project->name);
+            $project[] = $object;
         }
-        return response()->json(['response' => $project, 'users'=> $users]);
+        return response()->json(['response' => $project, 'users' => $users]);
     }
-
 
 
     public function getEdit(Request $request)
@@ -327,6 +325,43 @@ class AdminController extends Controller
         return redirect('/users');
     }
 
+    public function monthlySummary(Request $request)
+    {
+
+        $query = $request->query();
+        $userDetails = [];
+        if (!isset($query['month'])) {
+            return view('admin.monthly-summary', compact('userDetails'));
+        }
+
+        $month = $query['month'];
+        $year = Carbon::now()->year;
+        $users = User::get();
+
+        foreach ($users as $user) {
+            $object = new \stdClass();
+            $object->user = $user;
+            $object->projects = [];
+            foreach ($user->projects as $project) {
+                $object->projects[$project->name] = $this->calculateTotalClockedHoursPerMonth($project->timelogsFromMonthAndYear($month, $year, $user->id));
+
+
+            }
+            $object->hoursWorkedPerMonth = $this->calculateTotalClockedHoursPerMonth($user->timelogsFromMonthAndYear($month, $year));
+            $userDetails[] = $object;
+        }
+
+
+
+        return view('admin.monthly-summary', compact('userDetails', 'users'));
+    }
+
+    public function filterByMonth(Request $request){
+        $query = $request->query();
+        $query['month'] = $request;
+
+    }
+
     public function adminProfile()
     {
         return view('admin.admin-profile');
@@ -341,6 +376,16 @@ class AdminController extends Controller
     public function verticalMenu()
     {
         return view('admin.vertical-menu');
+    }
+
+    private function calculateTotalClockedHoursPerMonth($timelogs)
+    {
+        $sumOfHoursWorked = 0;
+        foreach ($timelogs as $timelog) {
+            $sumOfHoursWorked += $timelog->time;
+        }
+
+        return $sumOfHoursWorked;
     }
 
 

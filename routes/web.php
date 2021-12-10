@@ -169,6 +169,13 @@ Route::group(['middleware' => ['role:admin', 'first.time.login']], function () {
     route::get('/response/detail/{id}', [AdminController::class, 'responseDetail'])
         ->name('response-detail');
 
+//summary
+    route::get('/summary', [AdminController::class, 'monthlySummary'])->name('monthly-summary');
+
+//Filters
+    route::get('/filters', [AdminController::class, 'filterByMonth'])->name('filter-by-month');
+
+
 });
 
 //middleware role employee
