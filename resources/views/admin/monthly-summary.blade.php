@@ -11,6 +11,7 @@
         <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="#">Hours & Projects</a></li>
             <li class="breadcrumb-item active" aria-current="page">Summary of All The Work for The Current Month!</li>
+
         </ol>
     </div>
     <!-- PAGE-HEADER END -->
@@ -24,27 +25,40 @@
             <div class="card">
                 <form method="GET" action="{{route('filter-by-month')}}">
                     <div class="card-header">
-                        <h3 class="card-title">The Monthly Summary!</h3>
+                        <h3 class="card-title">The Monthly Summary!
+                        </h3>
                         <div class="card-options">
-                            <select type="submit" name="filter" class="btn btn-md btn-purple-gradient rounded-pill"><i class="fa fa-dropbox"></i>
-                                <option value="" selected disabled hidden>Select The Month</option>
-                                <option class="btn btn-purple" value="1">January</option>
-                                <option class="btn btn-purple" value="2">February</option>
-                                <option class="btn btn-purple" value="3">March</option>
-                                <option class="btn btn-purple" value="4">April</option>
-                                <option class="btn btn-purple" value="5">May</option>
-                                <option class="btn btn-purple" value="6">June</option>
-                                <option class="btn btn-purple" value="7">July</option>
-                                <option class="btn btn-purple" value="8">August</option>
-                                <option class="btn btn-purple" value="9">September</option>
-                                <option class="btn btn-purple" value="10">October</option>
-                                <option class="btn btn-purple" value="11">November</option>
-                                <option class="btn btn-purple" value="12">December</option>
-                            </select>
+{{--                            <select name="month"  class="btn btn-md btn-purple-gradient rounded-pill"><i class="fa fa-dropbox" required></i>--}}
+{{--                                <option value="" selected disabled hidden>Select The Month</option>--}}
+{{--                                <option class="btn btn-purple" value="1">January</option>--}}
+{{--                                <option class="btn btn-purple" value="2">February</option>--}}
+{{--                                <option class="btn btn-purple" value="3">March</option>--}}
+{{--                                <option class="btn btn-purple" value="4">April</option>--}}
+{{--                                <option class="btn btn-purple" value="5">May</option>--}}
+{{--                                <option class="btn btn-purple" value="6">June</option>--}}
+{{--                                <option class="btn btn-purple" value="7">July</option>--}}
+{{--                                <option class="btn btn-purple" value="8">August</option>--}}
+{{--                                <option class="btn btn-purple" value="9">September</option>--}}
+{{--                                <option class="btn btn-purple" value="10">October</option>--}}
+{{--                                <option class="btn btn-purple" value="11">November</option>--}}
+{{--                                <option class="btn btn-purple" value="12">December</option>--}}
+{{--                            </select>--}}
+{{--                            <select  name="year"  class="btn btn-md btn-purple-gradient rounded-pill"><i class="fa fa-dropbox" ></i>--}}
+{{--                                <option value="" selected disabled hidden>Select The Year</option>--}}
+{{--                                @foreach(range(2021, date('Y')+15) as $y)--}}
+{{--                                    <option value ="{{$y}}" class="btn btn-purple">{{$y}}</option>--}}
+{{--                                @endforeach--}}
+{{--                            </select>--}}
+{{--                            <button type="submit" class="btn btn-md btn-purple-gradient rounded-pill">Search</button>--}}
                         </div>
                     </div>
                     <div class="card-body">
                         <div class="table-responsive">
+{{--                            @if($errors->any())--}}
+{{--                                <div class="alert alert-danger">--}}
+{{--                                    {{$errors->first()}}--}}
+{{--                                </div>--}}
+{{--                            @endif--}}
                             <table id="example" class="table table-striped table-bordered text-nowrap w-100">
                                 <thead>
                                 <tr>
@@ -62,7 +76,7 @@
                                             <td>{{$userDetail->hoursWorkedPerMonth}} Hours</td>
                                             <td>
                                                 @foreach($userDetail->projects as $key => $value)
-                                                    <li>{{$key}} -> {{$value}}</li>
+                                                    <h6>•{{$key}} -> {{$value}}</h6>
                                                 @endforeach
                                             </td>
                                             @endif

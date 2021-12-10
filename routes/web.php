@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\ChangePasswordProfileController;
+use App\Mail\ReportsMail;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\AdminController;
@@ -173,9 +175,13 @@ Route::group(['middleware' => ['role:admin', 'first.time.login']], function () {
     route::get('/summary', [AdminController::class, 'monthlySummary'])->name('monthly-summary');
 
 //Filters
-    route::get('/filters', [AdminController::class, 'filterByMonth'])->name('filter-by-month');
+    route::get('/summary?', [AdminController::class, 'filterByMonth'])->name('filter-by-month');
 
-
+//emails
+    Route::get('/mail', function () {
+        Mail::to(auth()->user())->send(new reportsMail);
+        return new reportsMail();
+    });
 });
 
 //middleware role employee

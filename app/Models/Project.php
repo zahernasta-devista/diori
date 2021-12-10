@@ -30,8 +30,8 @@ class Project extends Model
 
     public function timelogsFromMonthAndYear($month, $year, $userId) {
         return $this->hasMany(Timelog::class, 'project_id')
-            ->whereMonth('created_at', $month)
-            ->whereYear('created_at', $year)
+            ->whereMonth('date', $month)
+            ->whereYear('date', $year)
             ->where('user_id', $userId)
             ->get();
     }

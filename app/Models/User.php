@@ -61,7 +61,7 @@ class User extends Authenticatable
     public function timelogsFromMonthAndYear($month, $year)
     {
         return $this->hasMany(Timelog::class, 'user_id')
-            ->whereMonth('created_at', $month)->whereYear('created_at', $year)->get();
+            ->whereMonth('date', $month)->whereYear('date', $year)->get();
     }
 
 }

@@ -331,11 +331,15 @@ class AdminController extends Controller
         $query = $request->query();
         $userDetails = [];
         if (!isset($query['month'])) {
-            return view('admin.monthly-summary', compact('userDetails'));
+            return view('admin.monthly-summary', compact('userDetails'))->withErrors('Select Month And Year Together!');
+        }
+
+        elseif(!isset($query['year'])) {
+            return view('admin.monthly-summary', compact('userDetails'))->withErrors('Select Month And Year Together!');
         }
 
         $month = $query['month'];
-        $year = Carbon::now()->year;
+        $year = $query['year'];
         $users = User::get();
 
         foreach ($users as $user) {
@@ -357,8 +361,9 @@ class AdminController extends Controller
     }
 
     public function filterByMonth(Request $request){
-        $query = $request->query();
-        $query['month'] = $request;
+        $m = request()->input('month');
+        $y = request()->input('year');
+
 
     }
 
