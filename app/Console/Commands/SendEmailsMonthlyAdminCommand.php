@@ -2,7 +2,7 @@
 
 namespace App\Console\Commands;
 
-use App\Mail\ReportsMail;
+use App\Mail\ReportsMailAdminMonth;
 use App\Models\User;
 use Illuminate\Console\Command;
 use Illuminate\Console\Scheduling\Schedule;
@@ -10,14 +10,14 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
 use Symfony\Component\Console\Command\Command as CommandAlias;
 
-class SendEmailsAdminCommand extends Command
+class SendEmailsMonthlyAdminCommand extends Command
 {
     /**
      * The name and signature of the console command.
      *
      * @var string
      */
-    protected $signature = 'command:mails';
+    protected $signature = 'command:send-emails-monthly-admin';
 
     /**
      * The console command description.
@@ -28,7 +28,7 @@ class SendEmailsAdminCommand extends Command
 
     /**
      * Create a new command instance.
-     *
+     *-
      * @return void
      */
     public function __construct()
@@ -42,16 +42,10 @@ class SendEmailsAdminCommand extends Command
     public function handle(Schedule $schedule)
     {
         $users = User::get();
-        foreach($users as $user){
-            if($user->getRoleNames()[0] !== "employee") {
-                Mail::to($user->email)->send(new reportsMail);
-                Log:info('command mails', [
-                    'command' => "test for auth/user",
-                    'user' => $user,
-                ]);
+        foreach ($users as $user) {
+            if ($user->getRoleNames()[0] !== "employee") {
+                Mail::to($user->email)->send(new ReportsMailAdminMonth);
             }
         }
-
-
     }
 }

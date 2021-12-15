@@ -9,6 +9,7 @@ use Illuminate\Notifications\Notifiable;
 use Spatie\Permission\Traits\HasRoles;
 
 
+
 class User extends Authenticatable
 {
     use HasFactory, Notifiable, HasRoles;
@@ -64,4 +65,9 @@ class User extends Authenticatable
             ->whereMonth('date', $month)->whereYear('date', $year)->get();
     }
 
+    public function timelogsFromWeek($startWeek, $endWeek)
+    {
+        return $this->hasMany(Timelog::class, 'user_id')
+            ->whereBetween('date', [$startWeek, $endWeek])->get();
+    }
 }

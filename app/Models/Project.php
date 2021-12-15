@@ -35,4 +35,11 @@ class Project extends Model
             ->where('user_id', $userId)
             ->get();
     }
+
+    public function timelogsFromWeek($startWeek, $endWeek, $userId) {
+        return $this->hasMany(Timelog::class, 'project_id')
+        ->whereBetween('date', [$startWeek, $endWeek])
+        ->where('user_id', $userId)
+        ->get();
+    }
 }

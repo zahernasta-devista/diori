@@ -344,11 +344,11 @@ class AdminController extends Controller
             $object->user = $user;
             $object->projects = [];
             foreach ($user->projects as $project) {
-                $object->projects[$project->name] = $this->calculateTotalClockedHoursPerMonth($project->timelogsFromMonthAndYear($month, $year, $user->id));
+                $object->projects[$project->name] = $this->calculateTotalHoursWorked($project->timelogsFromMonthAndYear($month, $year, $user->id));
 
 
             }
-            $object->hoursWorkedPerMonth = $this->calculateTotalClockedHoursPerMonth($user->timelogsFromMonthAndYear($month, $year));
+            $object->hoursWorkedPerMonth = $this->calculateTotalHoursWorked($user->timelogsFromMonthAndYear($month, $year));
             $userDetails[] = $object;
         }
 
@@ -357,13 +357,34 @@ class AdminController extends Controller
         return view('admin.monthly-summary', compact('userDetails', 'users'));
     }
 
-    public function filterByMonth(){
+    public function weeklySummary(Request $request)
+    {
 
-        $date = Carbon::now();
+        $query = $request->query();
+        $userDetails = [];
+       
+        if (!isset($query['startWeek']) || !isset($query['endWeek'])) {
+            return view('admin.weekly-summary', compact('userDetails'))->withErrors('Select Month And Year Together!');
+        }
 
-        $month =  $date->subMonth()->format('m');
-        $year = Carbon::now()->format('Y');
+        $startWeek = $query['startWeek'];
+        $endWeek = $query['endWeek'];
+        $users = User::get();
 
+        foreach ($users as $user) {
+            $object = new \stdClass();
+            $object->user = $user;
+            $object->projects = [];
+            foreach ($user->projects as $project) {
+                $object->projects[$project->name] = $this->calculateTotalHoursWorked($project->timelogsFromWeek($startWeek, $endWeek, $user->id));
+
+
+            }
+            $object->hoursWorkedPerWeek = $this->calculateTotalHoursWorked($user->timelogsFromWeek($startWeek, $endWeek));
+            $userDetails[] = $object;
+        }
+
+        return view('admin.weekly-summary', compact('userDetails', 'users'));
     }
 
     public function adminProfile()
@@ -382,7 +403,7 @@ class AdminController extends Controller
         return view('admin.vertical-menu');
     }
 
-    private function calculateTotalClockedHoursPerMonth($timelogs)
+    private function calculateTotalHoursWorked($timelogs)
     {
         $sumOfHoursWorked = 0;
         foreach ($timelogs as $timelog) {

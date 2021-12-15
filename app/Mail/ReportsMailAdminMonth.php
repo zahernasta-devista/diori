@@ -8,7 +8,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 
-class ReportsMail extends Mailable
+class ReportsMailAdminMonth extends Mailable
 {
     use Queueable, SerializesModels;
 
@@ -29,9 +29,7 @@ class ReportsMail extends Mailable
      */
     public function build()
     {
-        $date = Carbon::now();
-
-        $month =  $date->subMonth()->format('m');
+        $month =  Carbon::now()->subMonth()->format('m');
         $year = Carbon::now()->format('Y');
 
         return $this->markdown('emails.reports',['month'=>$month,'year'=>$year]);
