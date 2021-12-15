@@ -72,8 +72,10 @@ class Kernel extends HttpKernel
 
     protected function schedule(Schedule $schedule)
     {
-        require base_path('routes/console.php');
+        log:info('I AM ENTERING');
         $schedule->command('command:mails')
-            ->everyMinute();
+            ->evenInMaintenanceMode()
+            ->everyFiveMinutes();
+
     }
 }

@@ -15,6 +15,7 @@ use App\Models\Timelog;
 
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\DB as FacadesDB;
+use Illuminate\Support\Facades\Log;
 
 class AdminController extends Controller
 {
@@ -334,10 +335,6 @@ class AdminController extends Controller
             return view('admin.monthly-summary', compact('userDetails'))->withErrors('Select Month And Year Together!');
         }
 
-        elseif(!isset($query['year'])) {
-            return view('admin.monthly-summary', compact('userDetails'))->withErrors('Select Month And Year Together!');
-        }
-
         $month = $query['month'];
         $year = $query['year'];
         $users = User::get();
@@ -360,10 +357,12 @@ class AdminController extends Controller
         return view('admin.monthly-summary', compact('userDetails', 'users'));
     }
 
-    public function filterByMonth(Request $request){
-        $m = request()->input('month');
-        $y = request()->input('year');
+    public function filterByMonth(){
 
+        $date = Carbon::now();
+
+        $month =  $date->subMonth()->format('m');
+        $year = Carbon::now()->format('Y');
 
     }
 

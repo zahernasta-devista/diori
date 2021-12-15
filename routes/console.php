@@ -20,7 +20,3 @@ Artisan::command('inspire', function () {
     $this->comment(Inspiring::quote());
 })->purpose('Display an inspiring quote');
 
-Artisan::command('command:mails', function () {
-    Mail::to(auth()->user())->send(new reportsMail);
-    return new reportsMail();
-});

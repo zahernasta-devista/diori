@@ -2,6 +2,7 @@
 
 namespace App\Mail;
 
+use Carbon\Carbon;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
@@ -28,6 +29,11 @@ class ReportsMail extends Mailable
      */
     public function build()
     {
-        return $this->markdown('emails.reports');
+        $date = Carbon::now();
+
+        $month =  $date->subMonth()->format('m');
+        $year = Carbon::now()->format('Y');
+
+        return $this->markdown('emails.reports',['month'=>$month,'year'=>$year]);
     }
 }

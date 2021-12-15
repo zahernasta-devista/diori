@@ -3,9 +3,10 @@
 namespace App\Console\Commands;
 
 use App\Mail\ReportsMail;
+use App\Models\User;
 use Illuminate\Console\Command;
-
 use Illuminate\Console\Scheduling\Schedule;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
 use Symfony\Component\Console\Command\Command as CommandAlias;
 
@@ -37,12 +38,20 @@ class SendEmailsAdminCommand extends Command
 
     /**
      * Execute the console command.
-     *
-     * @return ReportsMail
      */
-    public function sendReport()
+    public function handle(Schedule $schedule)
     {
-        Mail::to(auth()->user())->send(new reportsMail);
-        return new reportsMail();
+        $users = User::get();
+        foreach($users as $user){
+            if($user->getRoleNames()[0] !== "employee") {
+                Mail::to($user->email)->send(new reportsMail);
+                Log:info('command mails', [
+                    'command' => "test for auth/user",
+                    'user' => $user,
+                ]);
+            }
+        }
+
+
     }
 }

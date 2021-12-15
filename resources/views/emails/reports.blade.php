@@ -1,7 +1,7 @@
 @component('mail::message')
 # Reports For This Current Month!<br>
 Click The Button Down Below To Access The Reports Of This Month!
-@component('mail::button', ['url' => 'http://127.0.0.1:8000/summary?month=12&year=2021&example_length=10'])
+@component('mail::button', ['url' => route('filter-by-month').'month='.$month.'&year='.$year])
     Reports
 @endcomponent
 
