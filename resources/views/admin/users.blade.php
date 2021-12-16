@@ -52,10 +52,10 @@
 										<td>{{$user->position}}</td>
 										<td>{{$user->email}}</td>
 										<td class="text-center align-middle">
-											<a class="btn btn-sm btn-secondary" href="{{route('edit-user',$user->id)}}" type="button"><i class="fa fa-edit"></i>Edit</a>
-											<a class="btn btn-sm btn-success" href="{{route('employee-project-page',$user->id)}}" type="button"><i class="fa fa-edit"></i>Assign</a>
-											<a class="btn btn-sm btn-azure" href="{{route('change-to-admin',$user->id)}}" type="button"><i class="fa fa-dashboard"></i>Admin</a>
-											<a class="btn btn-sm btn-blue" href="{{route('employee-detail',$user->id)}}" type="button"><i class="fa fa-dashboard"></i>Detail</a>
+											<a class="btn btn-sm btn-primary" href="{{route('edit-user',$user->id)}}" type="button"><i class="fa fa-edit"></i>Edit</a>
+											<a class="btn btn-sm btn-primary" href="{{route('employee-project-page',$user->id)}}" type="button"><i class="fa fa-edit"></i>Assign</a>
+											<a class="btn btn-sm btn-primary" href="{{route('change-to-admin',$user->id)}}" type="button"><i class="fa fa-dashboard"></i>Set to Admin</a>
+											<a class="btn btn-sm btn-primary" href="{{route('employee-detail',$user->id)}}" type="button"><i class="fa fa-dashboard"></i>Detail</a>
 										</td>
 								</tr>
 							    @endif
