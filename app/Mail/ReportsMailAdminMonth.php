@@ -30,7 +30,7 @@ class ReportsMailAdminMonth extends Mailable
     public function build()
     {
         $month =  Carbon::now()->subMonth()->format('m');
-        $year = Carbon::now()->format('Y');
+        $year = Carbon::now()->subMonth()->format('Y');
 
         return $this->markdown('emails.reports',['month'=>$month,'year'=>$year]);
     }

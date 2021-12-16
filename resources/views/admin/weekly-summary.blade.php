@@ -23,13 +23,10 @@
     <div class="row">
         <div class="col-md-12 col-lg-12">
             <div class="card">
-                <form method="GET" action="{{route('weekly-summary')}}">
+                <form method="GET">
                     <div class="card-header">
                         <h3 class="card-title">The Monthly Summary!
                         </h3>
-                        <div class="card-options">
-                           <button type="submit" class="btn btn-md btn-purple-gradient rounded-pill">Search</button>--}}
-                        </div>
                     </div>
                     <div class="card-body">
                         <div class="table-responsive">
