@@ -37,7 +37,7 @@
                 <div class="card-body">
                     <div class="d-flex">
                         <div class="text-white">
-                            <h2 class="mb-0 number-font">{{ $timedaySum }} Clocked Today</h2>
+                            <h2 class="mb-0 number-font">{{ $timedaySum }} Hours Clocked in Today</h2>
                             <p class="text-white mb-0"> @foreach ($timelogs as $timelog)
                                     • {{ $timelog->project->name }} -> {{ $timelog->time }} Hours
                                 @endforeach</p>

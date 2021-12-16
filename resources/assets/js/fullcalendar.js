@@ -33,7 +33,7 @@ $(function(e) {
                         buttonText: 'Weekly'
                     },
                     month:{
-                        buttonText: 'Calendar'
+                        buttonText: 'Monthly'
                     }
                 },
                 defaultView: 'listWeek',
