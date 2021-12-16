@@ -10,7 +10,6 @@ $(function (e) {
     type: 'GET',
     url: url,
     success: function success(response) {
-      console.log('Done');
       var responseData = response.response;
       var events = [];
       var time = {
