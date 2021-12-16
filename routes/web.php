@@ -92,6 +92,9 @@ Route::group(['middleware' => ['role:admin', 'first.time.login']], function () {
     route::get('/user/change/admin/{id}', [AdminController::class, 'makeAdmin'])
         ->name('change-to-admin');
 
+    route::get('/user/change/employee/{id}', [AdminController::class, 'makeEmployee'])
+        ->name('change-to-employee');
+
     route::get('/calendar', [AdminController::class, 'calendar'])
         ->name('calendar');
     route::get('/timesheet-response', [AdminController::class, 'timeSheetResponse'])

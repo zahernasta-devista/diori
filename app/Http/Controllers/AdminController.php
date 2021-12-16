@@ -12,7 +12,7 @@ use App\Models\User;
 use App\Models\Customer;
 use Carbon\Carbon;
 use App\Models\Timelog;
-
+use Spatie\Permission\Models\Role;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\DB as FacadesDB;
 use Illuminate\Support\Facades\Log;
@@ -323,8 +323,9 @@ class AdminController extends Controller
         $user = User::findorfail($request->route('id'));
 
         $user->assignRole([1]);
+        $user->removeRole(2);
 
-        return redirect('/users');
+        return redirect('/admin/list');
     }
 
 
@@ -416,6 +417,16 @@ class AdminController extends Controller
         return $sumOfHoursWorked;
     }
 
+    public function makeEmployee(Request $request)
+    {
+        $user = User::findorfail($request->route('id'));
+
+
+        $user->assignRole([2]);
+        $user->removeRole(1);
+
+        return redirect('/users');
+    }
 
 }
 
