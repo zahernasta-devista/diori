@@ -29,7 +29,7 @@
                             </div>
                             <h3 class="mt-4 mb-1">•{{$users->name}} Worked: </h3>
                             <h2 class="mb-2">{{$timeSum}} Hours</h2>
-                            <h6  class="mt-4 mb-1">This month</h6>
+                            <h6  class="mt-2 mb-1">This Month</h6>
                         </div>
                     </div>
                 </div>
@@ -127,6 +127,19 @@
                 type: 'GET',
                 url: url,
                 success: function(response) {
+                    var today = new Date();
+                    var dd = today.getDate();
+                    var mm = today.getMonth()+1; //January is 0!
+
+                    var yyyy = today.getFullYear();
+                    if(dd < 10){
+                        dd='0'+dd;
+                    }
+                    if(mm < 10){
+                        mm="0"+mm;
+                    }
+                    today = yyyy+'-'+mm+'-'+dd;
+
                     let responseData = response.response;
                     let events = [];
                     let time = {
@@ -159,7 +172,7 @@
                             }
                         },
                         defaultView: 'listWeek',
-                        defaultDate: '2021-11-22',
+                        defaultDate: today,
                         navLinks: false, // can click day/week names to navigate views
                         editable: true,
                         eventLimit: true, // allow "more" link when too many events

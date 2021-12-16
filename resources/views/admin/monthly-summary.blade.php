@@ -31,6 +31,11 @@
                     <div class="card-body">
                         <div class="table-responsive">
                             <table id="example" class="table table-striped table-bordered text-nowrap w-100">
+                                @if($errors->any())
+                                    <div class="alert alert-primary">
+                                        {{$errors->first()}}
+                                    </div>
+                                @endif
                                 <thead>
                                 <tr>
                                     <th class="wd-15p">Name</th>

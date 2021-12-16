@@ -10,7 +10,19 @@ $(function (e) {
     type: 'GET',
     url: url,
     success: function success(response) {
-      console.log('Done');
+      var today = new Date();
+      var dd = today.getDate();
+      var mm = today.getMonth()+1; //January is 0!
+
+      var yyyy = today.getFullYear();
+      if(dd < 10){
+        dd='0'+dd;
+      }
+      if(mm < 10){
+        mm="0"+mm;
+      }
+      today = yyyy+'-'+mm+'-'+dd;
+
       var responseData = response.response;
       var events = [];
       var time = {
@@ -39,7 +51,7 @@ $(function (e) {
           }
         },
         defaultView: 'listWeek',
-        defaultDate: '2021-11-22',
+        defaultDate: today,
         navLinks: false,
         // can click day/week names to navigate views
         editable: true,

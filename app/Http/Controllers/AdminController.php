@@ -335,8 +335,16 @@ class AdminController extends Controller
 
         $query = $request->query();
         $userDetails = [];
+
+        $validMonth =  Carbon::now()->subMonth()->format('m');
+        $validYear = Carbon::now()->subMonth()->format('Y');
+        if($query['month'] !== $validMonth || $query['year'] !== $validYear){
+            return view('admin.monthly-summary', compact('userDetails'))->withErrors('You Cannot Change The URL!');
+        }
+
+
         if (!isset($query['month'])) {
-            return view('admin.monthly-summary', compact('userDetails'))->withErrors('Select Month And Year Together!');
+            return view('admin.monthly-summary', compact('userDetails'));
         }
 
         $month = $query['month'];
@@ -363,12 +371,19 @@ class AdminController extends Controller
 
     public function weeklySummary(Request $request)
     {
-
         $query = $request->query();
         $userDetails = [];
 
+        $start = Carbon::now()->startOfWeek()->format('Y-m-d');
+        $end= Carbon::now()->endOfWeek()->format('Y-m-d');
+
+        if ($query['startWeek'] !== $start || $query['endWeek']  !== $end ){
+            return view('admin.weekly-summary', compact('userDetails'))->withErrors('You Cannot Change The URL!');
+        }
+
+
         if (!isset($query['startWeek']) || !isset($query['endWeek'])) {
-            return view('admin.weekly-summary', compact('userDetails'))->withErrors('Select Month And Year Together!');
+            return view('admin.weekly-summary', compact('userDetails'));
         }
 
         $startWeek = $query['startWeek'];

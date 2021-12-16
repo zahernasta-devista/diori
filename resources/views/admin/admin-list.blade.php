@@ -59,7 +59,7 @@
                                                             class="fa fa-edit"></i>Edit</a>
                                                 <a class="btn btn-sm btn-primary badge"
                                                    href="{{route('change-to-employee',$user->id)}}" type="button"><i
-                                                            class="fa fa-edit"></i>Set to Employee</a>
+                                                            class="fa fa-edit" onclick="return confirm('Are you sure you want to change the role?')"></i>Set to Employee</a>
                                             </td>
                                         </tr>
                                     @endif

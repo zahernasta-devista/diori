@@ -30,7 +30,11 @@
                     </div>
                     <div class="card-body">
                         <div class="table-responsive">
-
+                            @if($errors->any())
+                                <div class="alert alert-primary">
+                                    {{$errors->first()}}
+                                </div>
+                            @endif
                             <table id="example" class="table table-striped table-bordered text-nowrap w-100">
                                 <thead>
                                 <tr>

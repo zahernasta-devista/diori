@@ -30,7 +30,7 @@
 							<thead>
 							<tr>
 								<th class="wd-15p">Name</th>
-								<th class="wd-15p">Backend</th>
+								<th class="wd-15p">Technology</th>
 								<th class="wd-10p">Start Date</th>
                                 
 							</tr>

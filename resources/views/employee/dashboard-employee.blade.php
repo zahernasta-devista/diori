@@ -54,7 +54,7 @@
             <div class="card-body">
                 <div class="d-flex">
                     <div class="text-white">
-                        <h2 class="mb-0 number-font">You Can Work On {{$projectCount}} Projects</h2>
+                        <h2 class="mb-0 number-font">You Have These {{$projectCount}} Projects On The Pipeline:</h2>
                         <p class="text-white mb-0">
                             Just To Name A Few:<br>
                             • @foreach ($projects->slice(0, 3) as $project){{ $project['name'] }} / @endforeach
