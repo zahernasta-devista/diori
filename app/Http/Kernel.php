@@ -73,9 +73,9 @@ class Kernel extends HttpKernel
     protected function schedule(Schedule $schedule)
     {
         log:info('I AM ENTERING');
-        $schedule->command('command:mails')
-            ->evenInMaintenanceMode()
-            ->everyFiveMinutes();
-
-    }
+        $schedule->command('command:send-emails-monthly-admin')->everyFiveMinutes()->when(function () {
+            return true;
+        });
+    
+}
 }
