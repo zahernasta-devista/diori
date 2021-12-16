@@ -2,6 +2,8 @@
 
 namespace App\Console;
 
+use App\Console\Commands\SendEmailsMonthlyAdminCommand;
+use App\Console\Commands\SendEmailsWeeklyAdminCommand;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 
@@ -13,7 +15,8 @@ class Kernel extends ConsoleKernel
      * @var array
      */
     protected $commands = [
-        //
+        SendEmailsMonthlyAdminCommand::class,
+        SendEmailsWeeklyAdminCommand::class,
     ];
 
     /**
@@ -24,7 +27,9 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        // $schedule->command('inspire')->hourly();
+        $schedule->command('command:send-emails-monthly-admin')->monthlyOn(2,'7:00');
+        $schedule->command('command:send-emails-weekly-admin')->weeklyOn(5,'19:00');
+
     }
 
     /**

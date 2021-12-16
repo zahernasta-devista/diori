@@ -332,7 +332,7 @@ class AdminController extends Controller
         $query = $request->query();
         $userDetails = [];
         if (!isset($query['month'])) {
-            return view('admin.monthly-summary', compact('userDetails'))->withErrors('Select Month And Year Together!');
+            return view('admin.monthly-summary', compact('userDetails'));
         }
 
         $month = $query['month'];
@@ -364,7 +364,7 @@ class AdminController extends Controller
         $userDetails = [];
        
         if (!isset($query['startWeek']) || !isset($query['endWeek'])) {
-            return view('admin.weekly-summary', compact('userDetails'))->withErrors('Select Month And Year Together!');
+            return view('admin.weekly-summary', compact('userDetails'));
         }
 
         $startWeek = $query['startWeek'];
