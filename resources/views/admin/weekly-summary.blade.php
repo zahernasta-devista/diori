@@ -10,7 +10,7 @@
         <h1 class="page-title">Employees</h1>
         <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="#">Hours & Projects</a></li>
-            <li class="breadcrumb-item active" aria-current="page">Summary of All The Work for The Current Month!</li>
+            <li class="breadcrumb-item active" aria-current="page">Summary of All The Work for The Week!</li>
 
         </ol>
     </div>
@@ -25,7 +25,7 @@
             <div class="card">
                 <form method="GET">
                     <div class="card-header">
-                        <h3 class="card-title">The Monthly Summary!
+                        <h3 class="card-title">The Weekly Summary!
                         </h3>
                     </div>
                     <div class="card-body">
