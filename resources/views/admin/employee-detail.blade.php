@@ -19,44 +19,44 @@
 @endsection
 @section('content')
     <div class="row">
-        <div class="col-lg-12">
-            <div class="row">
-                <div class="col-lg-6 ">
-                    <div class="card">
-                        <div class="card-body text-center statistics-info">
-                            <div class="counter-icon bg-secondary-gradient mb-0 box-primary-shadow">
-                                <i class="fe fe-trending-up text-white"></i>
-                            </div>
-                            <h3 class="mt-4 mb-1">•{{$users->name}} Worked: </h3>
-                            <h2 class="mb-2">{{$timeSum}} Hours</h2>
-                            <h6  class="mt-2 mb-1">This Month</h6>
+        <div class="col-sm-12 col-md-6 ">
+            <div class="card bg-primary img-card box-primary-shadow">
+                <div class="card-body">
+                    <div class="d-flex">
+                        <div class="text-white">
+                            <h2 class="mb-0 number-font">{{$users->name}}'s Clocking</h2>
+                            <p class="text-white mb-0">
+                            He Worked:<br>
+                            {{$timeSum}} Hours Worked So Far!</p>
                         </div>
-                    </div>
-                </div>
-                <div class="col-lg-6 ">
-                    <div class="card">
-                        <div class="card-body text-center statistics-info">
-                            <div class="counter-icon bg-success mb-0 box-primary-shadow">
-                                <i class="fe fe-clock text-white"></i>
-                            </div>
-                            <h4 class="mt-4 mb-1">{{$users->name}} is Part Of {{$projectCount}} Projects:</h4>
-                            <h2 class="mb-2 number-font">
-                                @foreach ($projects->slice(0, 3) as $project)
-                                    <h6> <strong>•{{ $project['name'] }}</strong></h6>
-                                @endforeach
-                            </h2>
-                        </div>
+                        <div class="ml-auto"> <i class="fa fa-send-o text-white fs-30 mr-2 mt-2"></i> </div>
                     </div>
                 </div>
             </div>
-        </div>
+        </div><!-- COL END -->
+        <div class="col-sm-12 col-md-6 ">
+            <div class="card bg-secondary img-card box-secondary-shadow">
+                <div class="card-body">
+                    <div class="d-flex">
+                        <div class="text-white">
+                            <h2 class="mb-0 number-font">{{$users->name}} is Part Of {{$projectCount}} Projects:</h2>
+                            <p class="text-white mb-0">
+                                Just To Name A Few:<br>
+                                • @foreach ($projects->slice(0, 3) as $project){{ $project['name'] }} / @endforeach
+                            </p>
+                        </div>
+                        <div class="ml-auto"> <i class="fa fa-bar-chart text-white fs-30 mr-2 mt-2"></i> </div>
+                    </div>
+                </div>
+            </div>
+        </div><!-- COL END -->
     </div>
 {{--NEW ROW--}}
     <div class="row">
         <div class="col-md-12">
             <div class="card">
                 <div class="card-header">
-                    <h3 class="card-title">{{$users->name}}'s Work Sheet!</h3>
+                    <h3 class="card-title">Work Sheet!</h3>
                 </div>
                 <div class="card-body">
                     <div id='calendar'></div>
