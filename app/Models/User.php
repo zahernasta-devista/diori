@@ -9,6 +9,7 @@ use Illuminate\Notifications\Notifiable;
 use Spatie\Permission\Traits\HasRoles;
 
 
+
 class User extends Authenticatable
 {
     use HasFactory, Notifiable, HasRoles;
@@ -48,12 +49,25 @@ class User extends Authenticatable
     ];
 
 
-    public function projects() {
+    public function projects()
+    {
         return $this->belongsToMany(Project::class, 'users_projects');
     }
 
-    public function timelogs() {
+    public function timelogs()
+    {
         return $this->hasMany(Timelog::class, 'user_id');
     }
 
+    public function timelogsFromMonthAndYear($month, $year)
+    {
+        return $this->hasMany(Timelog::class, 'user_id')
+            ->whereMonth('date', $month)->whereYear('date', $year)->get();
+    }
+
+    public function timelogsFromWeek($startWeek, $endWeek)
+    {
+        return $this->hasMany(Timelog::class, 'user_id')
+            ->whereBetween('date', [$startWeek, $endWeek])->get();
+    }
 }

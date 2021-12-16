@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\ChangePasswordProfileController;
+use App\Mail\ReportsMail;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\AdminController;
@@ -55,7 +57,7 @@ Route::group(['middleware' => ['role:admin', 'first.time.login']], function () {
     route::get('/profile/admin', [AdminController::class, 'adminProfile'])
         ->name('admin-profile');
 
-//employees
+    //employees
     route::get('/users', [AdminController::class, 'showUsersList']);
 
     Route::post('/users/add', [AdminController::class, 'store']);
@@ -73,7 +75,7 @@ Route::group(['middleware' => ['role:admin', 'first.time.login']], function () {
         ->name('edit-user');
 
 
-//admin
+    //admin
     route::get('/admin/delete/{id}', [AdminController::class, 'deleteAdmin'])
         ->name('delete-admin');
 
@@ -96,7 +98,7 @@ Route::group(['middleware' => ['role:admin', 'first.time.login']], function () {
         ->name('timesheet-response');
 
 
-//checkbox
+    //checkbox
     route::post('/projects/delete/checkbox', [AdminController::class, 'deleteUsingCheckBoxesProjects'])
         ->name('delete-checkbox-project');
 
@@ -110,7 +112,7 @@ Route::group(['middleware' => ['role:admin', 'first.time.login']], function () {
         ->name('delete-checkbox-admin');
 
 
-//project side
+    //project side
     route::get('/projects/add', [ProjectController::class, 'addProjectPage'])
         ->name('add-project-page');
 
@@ -135,7 +137,7 @@ Route::group(['middleware' => ['role:admin', 'first.time.login']], function () {
     route::post('/projects/assgin/{user_id}', [AdminController::class, 'assignEmployeeToProject'])
         ->name('assign-employee-project');
 
-//customer
+    //customer
     route::get('/customers', [AdminController::class, 'showCostumersList'])
         ->name('customers');
 
@@ -153,7 +155,7 @@ Route::group(['middleware' => ['role:admin', 'first.time.login']], function () {
     route::get('customers/edit/{id}', [AdminController::class, 'getCustomer'])
         ->name('edit-customer-page');
 
-//assign projects to employees
+    //assign projects to employees
     route::post('/projects/unassign/{user_id}/{project_id}', [AdminController::class, 'unassignProject'])
         ->name('unassign-employee-project');
 
@@ -162,13 +164,18 @@ Route::group(['middleware' => ['role:admin', 'first.time.login']], function () {
 
     route::get('/customers/projects/{id}', [AdminController::class, 'customersProjectsAssignedPage'])
         ->name('customer-projects-page');
-//detail page for employee
+    //detail page for employee
 
     route::get('/users/detail/{id}', [AdminController::class, 'EmployeeDetail'])
         ->name('employee-detail');
     route::get('/response/detail/{id}', [AdminController::class, 'responseDetail'])
         ->name('response-detail');
 
+    //summary
+    Route::group(['prefix' => 'summary'], function () {
+        route::get('/monthly', [AdminController::class, 'monthlySummary'])->name('monthly-summary');
+        route::get('/weekly', [AdminController::class, 'weeklySummary'])->name('weekly-summary');
+    });
 });
 
 //middleware role employee
@@ -195,8 +202,4 @@ Route::group(['middleware' => ['role:employee', 'first.time.login']], function (
         ->name('get-one-project');
 
     Route::post('/worklog/add', [EmployeeController::class, 'worklogstore'])->name('worklog-add');
-
-
 });
-
-

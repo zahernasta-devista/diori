@@ -14,7 +14,9 @@ class Timelog extends Model
         'date',
         'comment',
         'project_id',
-        'user_id'
+        'user_id',
+        'created_at' => 'date'
+
     ];
 
     public function user() {

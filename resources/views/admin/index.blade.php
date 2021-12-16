@@ -16,7 +16,7 @@
 
     <div class="row">
         <div class="col-sm-12 col-md-6 col-lg-6 col-xl-3">
-            <div class="card bg-primary img-card box-primary-shadow">
+            <div class="card bg-purple-gradient img-card box-primary-shadow">
                 <div class="card-body">
                     <div class="d-flex">
                         <div class="text-white">
@@ -29,7 +29,7 @@
             </div>
         </div><!-- COL END -->
         <div class="col-sm-12 col-md-6 col-lg-6 col-xl-3">
-            <div class="card bg-secondary img-card box-secondary-shadow">
+            <div class="card bg-purple-gradient img-card box-secondary-shadow">
                 <div class="card-body">
                     <div class="d-flex">
                         <div class="text-white">
@@ -42,7 +42,7 @@
             </div>
         </div><!-- COL END -->
         <div class="col-sm-12 col-md-6 col-lg-6 col-xl-3">
-            <div class="card  bg-success img-card box-success-shadow">
+            <div class="card  bg-purple-gradient img-card box-success-shadow">
                 <div class="card-body">
                     <div class="d-flex">
                         <div class="text-white">
@@ -55,7 +55,7 @@
             </div>
         </div><!-- COL END -->
         <div class="col-sm-12 col-md-6 col-lg-6 col-xl-3">
-            <div class="card bg-info img-card box-info-shadow">
+            <div class="card bg-purple-gradient img-card box-info-shadow">
                 <div class="card-body">
                     <div class="d-flex">
                         <div class="text-white">
@@ -77,10 +77,10 @@
         <div class="col-md-12 col-lg-6">
             <div class="card">
                 <div class="card-body text-center">
-                    <h4 class=""><span class="text-primary"><i class="fe fe-file-text mr-2 fs-20 text-primary-shadow"></i></span>Total Projects</h4>
+                    <h4 class=""><span class="text-orange"><i class="fe fe-file-text mr-2 fs-20 text-orange-shadow"></i></span>Total Projects</h4>
                     <h3 class="text-dark counter mt-0 mb-3 number-font">{{$project}}</h3>
                     <div class="progress h-1 mt-0 mb-2">
-                        <div class="progress-bar progress-bar-striped bg-primary w-100" role="progressbar"></div>
+                        <div class="progress-bar progress-bar-striped bg-orange w-100" role="progressbar"></div>
                     </div>
                 </div>
             </div>
@@ -88,10 +88,10 @@
         <div class="col-md-12 col-lg-6">
             <div class="card overflow-hidden">
                 <div class="card-body text-center">
-                    <h4 class=""><span class="text-secondary"><i class="fe fe-users mr-2 fs-20 text-secondary-shadow"></i></span>Total Employees</h4>
+                    <h4 class=""><span class="text-orange"><i class="fe fe-users mr-2 fs-20 text-orange-shadow"></i></span>Total Employees</h4>
                     <h3 class="text-dark counter mt-0 mb-3 number-font">{{$user}}</h3>
                     <div class="progress h-1 mt-0 mb-2">
-                        <div class="progress-bar progress-bar-striped  bg-secondary w-100" role="progressbar"></div>
+                        <div class="progress-bar progress-bar-striped  bg-orange w-100" role="progressbar"></div>
                     </div>
                 </div>
             </div>

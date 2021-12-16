@@ -25,8 +25,7 @@ use Facade\FlareClient\Time\Time;
 use Illuminate\Http\Request;
 
 use Illuminate\Support\Facades\Auth;
-
-
+use Illuminate\Support\Facades\Mail;
 
 
 class UserController extends Controller
@@ -80,4 +79,15 @@ class UserController extends Controller
             return view('employee.dashboard-employee', ['date' => $date, 'timelogs' => $timelogs, 'projectCount' => $projectCount, 'timeSum' => $timeSum, 'timedaySum' => $timedaySum, 'projects' => $projects], compact('projects'));
         }
     }
+//    public function sendEmailReminder(Request $request, $id)
+//    {
+//        $user = User::findOrFail($id);
+//
+//        Mail::send('emails.reminder', ['user' => $user], function ($m) use ($user) {
+//            $m->from('hello@app.com', 'Your Application')->everyMinute();
+//
+//            $m->to($user->email, $user->name)->subject('Your Reminder!');
+//        });
+//    }
+
 }

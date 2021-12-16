@@ -15,6 +15,7 @@ use App\Models\Timelog;
 
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\DB as FacadesDB;
+use Illuminate\Support\Facades\Log;
 
 class AdminController extends Controller
 {
@@ -80,19 +81,17 @@ class AdminController extends Controller
         $users = User::get()->where('id', $request->route('id'))->first();
         $timeLogs = Timelog::get()->where('user_id', $request->route('id'))->all();
         $project = [];
-        foreach($timeLogs as $timeLog){
+        foreach ($timeLogs as $timeLog) {
             $object = new \stdClass();
 
             $object->time = $timeLog->time;
             $object->date = $timeLog->date;
             $object->comment = $timeLog->comment;
             $object->project = $timeLog->project->name;
-                $project[] = $object;
-//                dd($timeLog->project->name);
+            $project[] = $object;
         }
-        return response()->json(['response' => $project, 'users'=> $users]);
+        return response()->json(['response' => $project, 'users' => $users]);
     }
-
 
 
     public function getEdit(Request $request)
@@ -327,6 +326,67 @@ class AdminController extends Controller
         return redirect('/users');
     }
 
+    public function monthlySummary(Request $request)
+    {
+
+        $query = $request->query();
+        $userDetails = [];
+        if (!isset($query['month'])) {
+            return view('admin.monthly-summary', compact('userDetails'))->withErrors('Select Month And Year Together!');
+        }
+
+        $month = $query['month'];
+        $year = $query['year'];
+        $users = User::get();
+
+        foreach ($users as $user) {
+            $object = new \stdClass();
+            $object->user = $user;
+            $object->projects = [];
+            foreach ($user->projects as $project) {
+                $object->projects[$project->name] = $this->calculateTotalHoursWorked($project->timelogsFromMonthAndYear($month, $year, $user->id));
+
+
+            }
+            $object->hoursWorkedPerMonth = $this->calculateTotalHoursWorked($user->timelogsFromMonthAndYear($month, $year));
+            $userDetails[] = $object;
+        }
+
+
+
+        return view('admin.monthly-summary', compact('userDetails', 'users'));
+    }
+
+    public function weeklySummary(Request $request)
+    {
+
+        $query = $request->query();
+        $userDetails = [];
+       
+        if (!isset($query['startWeek']) || !isset($query['endWeek'])) {
+            return view('admin.weekly-summary', compact('userDetails'))->withErrors('Select Month And Year Together!');
+        }
+
+        $startWeek = $query['startWeek'];
+        $endWeek = $query['endWeek'];
+        $users = User::get();
+
+        foreach ($users as $user) {
+            $object = new \stdClass();
+            $object->user = $user;
+            $object->projects = [];
+            foreach ($user->projects as $project) {
+                $object->projects[$project->name] = $this->calculateTotalHoursWorked($project->timelogsFromWeek($startWeek, $endWeek, $user->id));
+
+
+            }
+            $object->hoursWorkedPerWeek = $this->calculateTotalHoursWorked($user->timelogsFromWeek($startWeek, $endWeek));
+            $userDetails[] = $object;
+        }
+
+        return view('admin.weekly-summary', compact('userDetails', 'users'));
+    }
+
     public function adminProfile()
     {
         return view('admin.admin-profile');
@@ -341,6 +401,16 @@ class AdminController extends Controller
     public function verticalMenu()
     {
         return view('admin.vertical-menu');
+    }
+
+    private function calculateTotalHoursWorked($timelogs)
+    {
+        $sumOfHoursWorked = 0;
+        foreach ($timelogs as $timelog) {
+            $sumOfHoursWorked += $timelog->time;
+        }
+
+        return $sumOfHoursWorked;
     }
 
 

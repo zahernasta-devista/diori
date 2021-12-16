@@ -28,6 +28,7 @@
                                             Projects
                                         </button>
 
+
                         </div>
                     </div>
                     <div class="card-body">
@@ -56,7 +57,7 @@
                                         <td>{{$project->start_date}}</td>
                                         <td>{{$project->customer->name}}</td>
                                         <td class="text-center">
-                                            <a class="btn btn btn-sm btn-primary"
+                                            <a class="btn btn btn-sm btn-success"
                                                href="{{route('edit-project',$project->id)}}" type="button"><i
                                                         class="fa fa-edit"></i>Edit</a>
                                         </td>

@@ -23,4 +23,23 @@ class Project extends Model
     public function users() {
         return $this->belongsToMany(User::class, 'users_projects');
     }
+
+    public function timelogs() {
+        return $this->hasMany(Timelog::class, 'project_id');
+    }
+
+    public function timelogsFromMonthAndYear($month, $year, $userId) {
+        return $this->hasMany(Timelog::class, 'project_id')
+            ->whereMonth('date', $month)
+            ->whereYear('date', $year)
+            ->where('user_id', $userId)
+            ->get();
+    }
+
+    public function timelogsFromWeek($startWeek, $endWeek, $userId) {
+        return $this->hasMany(Timelog::class, 'project_id')
+        ->whereBetween('date', [$startWeek, $endWeek])
+        ->where('user_id', $userId)
+        ->get();
+    }
 }
