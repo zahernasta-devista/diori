@@ -24,7 +24,7 @@
                             <a type="button" href="{{ route('add-project-page') }}" class="btn btn-md btn-success rounded-pill "><i
                                         class="fa fa-plus"></i> Add a New Project</a>
                                         &emsp;
-                                        <button type="submit" class="btn btn-md btn-danger " onclick="return confirm('Are you sure you want to delete the selected project ?')"><i class="fa fa-minus"></i> Delete
+                                        <button type="submit" class="btn btn-md btn-danger rounded-pill" onclick="return confirm('Are you sure you want to delete the selected project ?')"><i class="fa fa-minus"></i> Delete
                                             Projects
                                         </button>
 
@@ -57,7 +57,7 @@
                                         <td>{{$project->start_date}}</td>
                                         <td>{{$project->customer->name}}</td>
                                         <td class="text-center">
-                                            <a class="btn btn btn-sm btn-success"
+                                            <a class="btn btn btn-sm btn-primary"
                                                href="{{route('edit-project',$project->id)}}" type="button"><i
                                                         class="fa fa-edit"></i>Edit</a>
                                         </td>

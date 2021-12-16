@@ -23,6 +23,8 @@
                         <div class="card-options">
                             <a type="button" href="{{ route('add-customers') }}" class="btn btn-md btn-success rounded-pill "><i
                                         class="fa fa-plus"></i> Add a New Customer</a>
+                            &emsp;
+
                             <button type="submit" class="btn btn-md btn-danger rounded-pill"><i class="fa fa-minus"></i> Delete
                                 Customers
                             </button>

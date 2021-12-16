@@ -24,9 +24,9 @@
 				<div class="card-header">
 					<h3  class="card-title">Your Employees</h3>
 						<div class="card-options">
-							<a type="button" href="{{route('add-user')}}" class="btn btn-md btn-primary " ><i class="fa fa-plus"></i> Add a new Employee</a>
+							<a type="button" href="{{route('add-user')}}" class="btn btn-md btn-success rounded-pill" ><i class="fa fa-plus"></i> Add a new Employee</a>
 							&emsp;
-							<button type="submit" class="btn btn-md btn-danger " onclick="return confirm('Are you sure you want to delete the selected employee ?')"><i class="fa fa-minus"></i> Delete Employees</button>
+							<button type="submit" class="btn btn-md btn-danger rounded-pill " onclick="return confirm('Are you sure you want to delete the selected employee ?')"><i class="fa fa-minus"></i> Delete Employees</button>
 						</div>
 				</div>
 				<div class="card-body">
