@@ -24,9 +24,11 @@
                 <div class="card-header">
                     <h3 class="card-title">Admins</h3>
                     <div class="card-options">
-                        <button type="submit" class="btn btn-md btn-orange rounded-pill "><i class="fa fa-minus"></i> Delete
-                            Admins
-                        </button>
+                        <div class="btn-toolbar">
+                            <button type="submit" class="btn btn-md btn-danger rounded-pill "><i class="fa fa-minus"></i> Delete
+                                Admins
+                            </button>
+                        </div>
                     </div>
                 </div>
                 <div class="card-body">
@@ -52,7 +54,7 @@
                                             <td>{{$user->position}}</td>
                                             <td>{{$user->email}}</td>
                                             <td class="text-center align-middle">
-                                                <a class="btn btn-sm btn-purple-gradient badge"
+                                                <a class="btn btn-sm btn-primary badge"
                                                    href="{{route('edit-admin',$user->id)}}" type="button"><i
                                                             class="fa fa-edit"></i>Edit</a>
                                             </td>

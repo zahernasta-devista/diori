@@ -21,11 +21,12 @@
                     <div class="card-header">
                         <h3 class="card-title">Project Table</h3>
                         <div class="card-options">
-                            <a type="button" href="{{ route('add-project-page') }}" class="btn btn-md btn-orange rounded-pill "><i
+                            <a type="button" href="{{ route('add-project-page') }}" class="btn btn-md btn-success rounded-pill "><i
                                         class="fa fa-plus"></i> Add a New Project</a>
-                            <button type="submit" class="btn btn-md btn-orange rounded-pill "><i class="fa fa-minus"></i> Delete
-                                Projects
-                            </button>
+                                        &emsp;
+                                        <button type="submit" class="btn btn-md btn-danger " onclick="return confirm('Are you sure you want to delete the selected project ?')"><i class="fa fa-minus"></i> Delete
+                                            Projects
+                                        </button>
 
 
                         </div>
@@ -56,7 +57,7 @@
                                         <td>{{$project->start_date}}</td>
                                         <td>{{$project->customer->name}}</td>
                                         <td class="text-center">
-                                            <a class="btn btn btn-sm btn-purple-gradient"
+                                            <a class="btn btn btn-sm btn-success"
                                                href="{{route('edit-project',$project->id)}}" type="button"><i
                                                         class="fa fa-edit"></i>Edit</a>
                                         </td>

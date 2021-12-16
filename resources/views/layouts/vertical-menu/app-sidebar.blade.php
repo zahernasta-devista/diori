@@ -24,7 +24,7 @@
                             <ul class="nav  nav-pills-circle">
 
                                 <li class="nav-item" data-toggle="tooltip" data-placement="top" title="Profile" >
-                                    <a class="nav-link text-center ml-8 mr-5 btn btn-purple-gradient btn-sm rounded-pill" href="{{ route('admin-profile') }}">
+                                    <a class="nav-link text-center ml-8 mr-5 btn btn-primary btn-sm rounded-pill" href="{{ route('admin-profile') }}">
                                         <i class="fe fe-user text-white"></i>
 
                                     </a>
@@ -35,7 +35,7 @@
                                 
                                 <li class="nav-item" data-toggle="tooltip" data-placement="top" title="Logout">
 
-                                    <button  class="nav-link text-center m-2 btn btn-purple-gradient btn-sm rounded-pill py-3 px-3">
+                                    <button  class="nav-link text-center m-2 btn btn-primary btn-sm rounded-pill py-3 px-3">
 
                                         <i class="fe fe-power text-white"></i>
 
@@ -52,7 +52,6 @@
 
                         <li class="slide">
                             <a class="side-menu__item" data-toggle="slide" href="{{route('dashboard') }}"><i class="side-menu__icon ti-dashboard"></i><span class="side-menu__label">Dashboard</span></a>
-{{--                            <a class="side-menu__item"  href="{{ route('monthly-summary') }}"><i class="side-menu__icon ti-anchor"></i><span class="side-menu__label">Summary</span></a>--}}
 
                         </li>
                         <li><h3>Elements</h3></li>
@@ -63,6 +62,9 @@
                         </li>
                             <a class="side-menu__item"  href="{{ route('projects') }}"><i class="side-menu__icon ti-layout-accordion-separated"></i><span class="side-menu__label">Projects</span></a>
                             <a class="side-menu__item"  href="{{ route('customers') }}"><i class="side-menu__icon ti-agenda"></i><span class="side-menu__label">Customers</span></a>
+
+
+
                     </ul>
                 </aside>
 <!--/APP-SIDEBAR-->
