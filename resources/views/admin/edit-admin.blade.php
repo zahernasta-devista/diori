@@ -6,10 +6,10 @@
 @section('page-header')
     <!-- PAGE-HEADER -->
     <div>
-        <h1 class="page-title">Edit Employee's Credentials</h1>
+        <h1 class="page-title">Edit Admin's Credentials</h1>
         <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a href="#">Home</a></li>
-            <li class="breadcrumb-item active" aria-current="page">Edit Credentials</li>
+            <li class="breadcrumb-item"><a href="#">Admin's List</a></li>
+            <li class="breadcrumb-item active text-success" aria-current="page">Edit Credentials</li>
         </ol>
     </div>
 
@@ -24,7 +24,7 @@
                     <form class="login100-form validate-form" action="{{route('edit-admin',$users->id)}}" method="POST">
                         @csrf
                         <span class="login100-form-title">
-									Edit The Credentials of Your Employees
+									Edit The Credentials of This Admin!
 								</span>
                         <div class="wrap-input100 validate-input" >
                             <input class="input100" type="text" name="name" placeholder="Name" value="{{$users->name}}">
@@ -48,7 +48,7 @@
 									</span>
                         </div>
                         <div class="container-login100-form-btn">
-                            <button  class="login100-form-btn btn-primary">
+                            <button  class="login100-form-btn btn-purple-gradient">
                                 {{ __('Sumbit') }}
                             </button>
                         </div>

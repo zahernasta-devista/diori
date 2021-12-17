@@ -9,9 +9,9 @@
         <h1 class="page-title">Dashboard</h1>
         <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="#">Home</a></li>
-            <li class="breadcrumb-item active" aria-current="page">Hello {{ Auth::user()->name }}, Have A Productive Day!
+            <li class="breadcrumb-item active text-success" aria-current="page">Hello {{ Auth::user()->name }}, Have A Productive Day!
             </li>
-            <li class="breadcrumb-item active" aria-current="page">{{ $date }}</li>
+            <li class="breadcrumb-item active text-success" aria-current="page">{{ $date }}</li>
 
         </ol>
     </div>
@@ -20,7 +20,7 @@
 @section('content')
     <div class="row">
         <div class="col-sm-12 col-md-6 ">
-            <div class="card bg-primary img-card box-primary-shadow">
+            <div class="card bg-success img-card box-primary-shadow">
                 <div class="card-body">
                     <div class="d-flex">
                         <div class="text-white">
@@ -33,7 +33,7 @@
             </div>
         </div><!-- COL END -->
         <div class="col-sm-12 col-md-6 ">
-            <div class="card bg-secondary img-card box-secondary-shadow">
+            <div class="card bg-success img-card box-secondary-shadow">
                 <div class="card-body">
                     <div class="d-flex">
                         <div class="text-white">
@@ -50,7 +50,7 @@
     </div>
 <div class="row">
     <div class="col-sm-12 col-md-12 ">
-        <div class="card bg-success img-card box-primary-shadow">
+        <div class="card bg-orange img-card box-primary-shadow">
             <div class="card-body">
                 <div class="d-flex">
                     <div class="text-white">

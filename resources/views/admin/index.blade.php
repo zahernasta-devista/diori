@@ -6,8 +6,8 @@
                             <div>
                                 <h1 class="page-title">Dashboard</h1>
                                 <ol class="breadcrumb">
-                                    <li class="breadcrumb-item"><a href="#">Home</a></li>
-                                    <li class="breadcrumb-item active" aria-current="page">Hello {{Auth::user()->name}}, Have a Great Day!</li>
+                                    <li class="breadcrumb-item"><a href="#">Main</a></li>
+                                    <li class="breadcrumb-item active text-success" aria-current="page">Hello {{Auth::user()->name}}, Have a Great Day!</li>
                                 </ol>
                             </div>
                         <!-- PAGE-HEADER END -->
@@ -77,10 +77,10 @@
         <div class="col-md-12 col-lg-6">
             <div class="card">
                 <div class="card-body text-center">
-                    <h4 class=""><span class="text-orange"><i class="fe fe-file-text mr-2 fs-20 text-orange-shadow"></i></span>Total Projects</h4>
+                    <h4 class=""><span class="text-success"><i class="fe fe-file-text mr-2 fs-20 text-success-shadow"></i></span>Total Projects</h4>
                     <h3 class="text-dark counter mt-0 mb-3 number-font">{{$project}}</h3>
                     <div class="progress h-1 mt-0 mb-2">
-                        <div class="progress-bar progress-bar-striped bg-orange w-100" role="progressbar"></div>
+                        <div class="progress-bar progress-bar-striped bg-success w-100" role="progressbar"></div>
                     </div>
                 </div>
             </div>
@@ -88,10 +88,10 @@
         <div class="col-md-12 col-lg-6">
             <div class="card overflow-hidden">
                 <div class="card-body text-center">
-                    <h4 class=""><span class="text-orange"><i class="fe fe-users mr-2 fs-20 text-orange-shadow"></i></span>Total Employees</h4>
+                    <h4 class=""><span class="text-success"><i class="fe fe-users mr-2 fs-20 text-success-shadow"></i></span>Total Employees</h4>
                     <h3 class="text-dark counter mt-0 mb-3 number-font">{{$user}}</h3>
                     <div class="progress h-1 mt-0 mb-2">
-                        <div class="progress-bar progress-bar-striped  bg-orange w-100" role="progressbar"></div>
+                        <div class="progress-bar progress-bar-striped  bg-success w-100" role="progressbar"></div>
                     </div>
                 </div>
             </div>

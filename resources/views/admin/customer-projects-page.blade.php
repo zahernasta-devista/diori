@@ -6,10 +6,10 @@
 @section('page-header')
 	<!-- PAGE-HEADER -->
 	<div>
-		<h1 class="page-title">Projects</h1>
+		<h1 class="page-title">Customer's Current Projects</h1>
 		<ol class="breadcrumb">
-			<li class="breadcrumb-item"><a href="#">Tables</a></li>
-			<li class="breadcrumb-item active" aria-current="page">Projects</li>
+			<li class="breadcrumb-item"><a href="#">Customer's List</a></li>
+			<li class="breadcrumb-item active text-success" aria-current="page">Projects</li>
 		</ol>
 	</div>
 	<!-- PAGE-HEADER END -->
@@ -20,9 +20,7 @@
 		<div class="col-md-12 col-lg-12">
 			<div class="card">
 				<div class="card-header">
-					<h3  class="col-md-12 col-lg-11 card-title">{{$customers->name}}'s  Projects</h3>
-					
-					
+					<h3  class="col-md-12 col-lg-11 card-title">{{$customers->name}}'s Projects</h3>
 				</div>
 				<div class="card-body">
 					<div class="table-responsive">
@@ -41,7 +39,6 @@
 									<td>{{$project->name}}</td>
 									<td>{{$project->backend}}</td>
 									<td>{{$project->start_date}}</td>
-									
 								</tr>
 							@endforeach
 							</tbody>

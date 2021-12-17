@@ -10,7 +10,7 @@
         <h1 class="page-title">Detail Page Employees</h1>
         <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="#">Hours Clocked For Employees</a></li>
-            <li class="breadcrumb-item active" aria-current="page">This Time Sheet Gives More Information
+            <li class="breadcrumb-item active text-success" aria-current="page">This Time Sheet Gives More Information
                 About {{$users->name}}'s Work!
             </li>
         </ol>
@@ -20,7 +20,7 @@
 @section('content')
     <div class="row">
         <div class="col-sm-12 col-md-6 ">
-            <div class="card bg-primary img-card box-primary-shadow">
+            <div class="card bg-purple-gradient img-card box-primary-shadow">
                 <div class="card-body">
                     <div class="d-flex">
                         <div class="text-white">
@@ -35,7 +35,7 @@
             </div>
         </div><!-- COL END -->
         <div class="col-sm-12 col-md-6 ">
-            <div class="card bg-secondary img-card box-secondary-shadow">
+            <div class="card bg-purple-gradient img-card box-secondary-shadow">
                 <div class="card-body">
                     <div class="d-flex">
                         <div class="text-white">
@@ -162,7 +162,8 @@
                         },
                         views: {
                             listDay: {
-                                buttonText: 'Daily'
+                                buttonText: 'Daily',
+                                buttonColor: ' #00e68a'
                             },
                             listWeek: {
                                 buttonText: 'Weekly'

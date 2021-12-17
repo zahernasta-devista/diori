@@ -2,8 +2,8 @@
                 <div class="app-sidebar__overlay" data-toggle="sidebar"></div>
                 <aside class="app-sidebar" >
                     <div class="side-header">
-                        <a class="header-brand1" href="{{ url('/' . $page='index') }}">
-                            <h2>Diori</h2>
+                        <a class="header-brand1" href="{{ url('/' . $page='dashboard') }}">
+                            <h2 class="text-success">Diori</h2>
                         <a aria-label="Hide Sidebar" class="app-sidebar__toggle ml-auto" data-toggle="sidebar" href="#"></a><!-- sidebar-toggle-->
                     </div>
                     <div class="app-sidebar__user">
@@ -24,7 +24,7 @@
                             <ul class="nav  nav-pills-circle">
 
                                 <li class="nav-item" data-toggle="tooltip" data-placement="top" title="Profile" >
-                                    <a class="nav-link text-center ml-8 mr-5 btn btn-primary btn-sm rounded-pill" href="{{ route('admin-profile') }}">
+                                    <a class="nav-link text-center ml-8 mr-5 btn btn-success btn-sm rounded-pill" href="{{ route('admin-profile') }}">
                                         <i class="fe fe-user text-white"></i>
 
                                     </a>
@@ -35,7 +35,7 @@
                                 
                                 <li class="nav-item" data-toggle="tooltip" data-placement="top" title="Logout">
 
-                                    <button  class="nav-link text-center m-2 btn btn-primary btn-sm rounded-pill py-3 px-3">
+                                    <button  class="nav-link text-center m-2 btn btn-success btn-sm rounded-pill py-3 px-3">
 
                                         <i class="fe fe-power text-white"></i>
 

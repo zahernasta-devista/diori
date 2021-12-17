@@ -11,7 +11,7 @@ const mix = require('laravel-mix');
  |
  */
 
-mix.js('resources/js/app.js', 'public/js').js('resources/assets/js/fullcalendar.js', 'public/assets/js/fullcalendar.js').postCss('resources/css/app.css', 'public/css', [
+mix.js('resources/js/app.js', 'public/js').js('resources/assets/js/fullcalendar.js', 'public/assets/js/fullcalendar.js').js('resources/assets/js/datatable.js', 'public/assets/js/datatable.js').postCss('resources/css/app.css', 'public/css', [
     require('postcss-import'),
     require('tailwindcss'),
     require('autoprefixer'),

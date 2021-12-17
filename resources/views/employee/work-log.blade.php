@@ -10,8 +10,8 @@
     <div>
         <h1 class="page-title">Work log</h1>
         <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a href="#">Home</a></li>
-            <li class="breadcrumb-item active" aria-current="page">Work Log</li>
+            <li class="breadcrumb-item"><a href="#">Menu</a></li>
+            <li class="breadcrumb-item active text-success" aria-current="page">Clock In Your Working Hours For The Day!</li>
         </ol>
     </div>
     <!-- PAGE-HEADER END -->
@@ -79,7 +79,7 @@
                         </div>
 
                         <div class="container-login100-form-btn">
-                            <button class="login100-form-btn btn-primary">
+                            <button class="login100-form-btn btn-purple-gradient">
                                 {{ __('Confirm') }}
                             </button>
                         </div>

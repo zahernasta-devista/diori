@@ -8,8 +8,8 @@
     <div>
         <h1 class="page-title">Edit Your Projects</h1>
         <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a href="#">Home</a></li>
-            <li class="breadcrumb-item active" aria-current="page">Edit Projects</li>
+            <li class="breadcrumb-item"><a href="#">Project's List</a></li>
+            <li class="breadcrumb-item active text-success" aria-current="page">Edit Projects</li>
         </ol>
     </div>
 
@@ -60,7 +60,7 @@
 									</span>
                         </div>
                         <div class="container-login100-form-btn">
-                            <button  class="login100-form-btn btn-primary">
+                            <button  class="login100-form-btn btn-purple-gradient">
                                 {{ __('Sumbit Changes') }}
                             </button>
                         </div>
