@@ -9,7 +9,7 @@
 		<h1 class="page-title">Customers</h1>
 		<ol class="breadcrumb">
 			<li class="breadcrumb-item"><a href="#">Tables</a></li>
-			<li class="breadcrumb-item active" aria-current="page">Customers</li>
+			<li class="breadcrumb-item active text-success" aria-current="page">A List Of Customers!</li>
 		</ol>
 	</div>
 @endsection
@@ -24,8 +24,7 @@
                             <a type="button" href="{{ route('add-customers') }}" class="btn btn-md btn-success rounded-pill "><i
                                         class="fa fa-plus"></i> Add a New Customer</a>
                             &emsp;
-
-                            <button type="submit" class="btn btn-md btn-danger rounded-pill"><i class="fa fa-minus"></i> Delete
+                            <button type="submit" class="btn btn-md btn-orange rounded-pill"><i class="fa fa-minus"></i> Delete
                                 Customers
                             </button>
                         </div>
@@ -51,10 +50,10 @@
                                         <td>{{$customer->email}}</td>
 
                                         <td class="text-center">
-                                            <a class="btn btn btn-sm btn-primary"
+                                            <a class="btn btn btn-sm btn-purple-gradient"
                                                href="{{route('edit-customer-page',$customer->id)}}" type="button"><i
                                                         class="fa fa-edit"></i>Edit</a>
-                                            <a class="btn btn-sm btn-primary"
+                                            <a class="btn btn-sm btn-purple-gradient"
                                                href="{{route('customer-projects-page',$customer->id)}}" type="button"><i
                                                         class="fa fa-edit"></i>Detail</a>
                                         </td>

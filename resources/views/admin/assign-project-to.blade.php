@@ -8,8 +8,9 @@
     <div>
         <h1 class="page-title">Assign</h1>
         <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a href="#">home</a></li>
-            <li class="breadcrumb-item active" aria-current="page">Projects to assign</li>
+            <li class="breadcrumb-item"><a href="#">Employee's List</a></li>
+            <li class="breadcrumb-item"><a href="#">Assign Project To</a></li>
+            <li class="breadcrumb-item active text-success" aria-current="page">Projects to assign</li>
         </ol>
     </div>
 @endsection
@@ -44,7 +45,7 @@
 									</span>
                         </div>
                         <div class="container-login100-form-btn">
-                            <button  class="login100-form-btn btn-primary">
+                            <button  class="login100-form-btn btn-purple-gradient">
                                 {{ __('Assign') }}
                             </button>
                         </div>

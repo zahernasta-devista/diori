@@ -10,7 +10,7 @@
         <h1 class="page-title">Admins</h1>
         <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="#">Tables</a></li>
-            <li class="breadcrumb-item active" aria-current="page">A List of All The Admins!</li>
+            <li class="breadcrumb-item active text-success" aria-current="page">A List of All The Admins!</li>
         </ol>
     </div>
     <!-- PAGE-HEADER END -->
@@ -25,7 +25,7 @@
                     <h3 class="card-title">Admins</h3>
                     <div class="card-options">
                         <div class="btn-toolbar">
-                            <button type="submit" class="btn btn-md btn-danger rounded-pill "><i class="fa fa-minus"></i> Delete
+                            <button type="submit" class="btn btn-md btn-orange rounded-pill "><i class="fa fa-minus"></i> Delete
                                 Admins
                             </button>
                         </div>
@@ -54,10 +54,10 @@
                                             <td>{{$user->position}}</td>
                                             <td>{{$user->email}}</td>
                                             <td class="text-center align-middle">
-                                                <a class="btn btn-sm btn-primary badge"
+                                                <a class="btn btn-sm btn-purple-gradient badge"
                                                    href="{{route('edit-admin',$user->id)}}" type="button"><i
                                                             class="fa fa-edit"></i>Edit</a>
-                                                <a class="btn btn-sm btn-primary badge"
+                                                <a class="btn btn-sm btn-purple-gradient badge"
                                                    href="{{route('change-to-employee',$user->id)}}" type="button"><i
                                                             class="fa fa-edit" onclick="return confirm('Are you sure you want to change the role?')"></i>Set to Employee</a>
                                             </td>

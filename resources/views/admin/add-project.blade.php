@@ -8,8 +8,8 @@
     <div>
         <h1 class="page-title">Add a New Project</h1>
         <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a href="#">Home</a></li>
-            <li class="breadcrumb-item active" aria-current="page">Add Projects</li>
+            <li class="breadcrumb-item"><a href="#">Project's List</a></li>
+            <li class="breadcrumb-item active text-success" aria-current="page">Add Projects</li>
         </ol>
     </div>
 
@@ -60,7 +60,7 @@
 									</span>
                         </div>
                         <div class="container-login100-form-btn">
-                            <button  class="login100-form-btn btn-primary">
+                            <button  class="login100-form-btn btn-purple-gradient">
                                 {{ __('Add a New Project') }}
                             </button>
                         </div>

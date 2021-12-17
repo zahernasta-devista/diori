@@ -8,8 +8,8 @@
     <div>
         <h1 class="page-title">Projects</h1>
         <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a href="#">home</a></li>
-            <li class="breadcrumb-item active" aria-current="page">Projects Assigned</li>
+            <li class="breadcrumb-item"><a href="#">Employee's List</a></li>
+            <li class="breadcrumb-item active text-success" aria-current="page">Projects Assigned</li>
         </ol>
     </div>
 @endsection
@@ -20,7 +20,7 @@
                 <div class="card-header">
                     <h3 class="card-title">{{$user->name}}'s assigned Projects</h3>
                     <div class="card-options">
-                        <a type="button" href="{{ route('assign-project-page',$user->id) }}" class="btn btn-md btn-azure " ><i class="fa fa-plus"></i> Assign a New Project</a>
+                        <a type="button" href="{{ route('assign-project-page',$user->id) }}" class="btn btn-md btn-success " ><i class="fa fa-plus"></i> Assign a New Project</a>
                     </div>
                 </div>
                 <div class="card-body">
@@ -41,7 +41,7 @@
                                     <td>
                                         <form action="{{ route('unassign-employee-project',[$user->id, $project->id]) }}" method="POST">
                                             @csrf
-                                            <button type="submit" class="btn btn-sm btn-secondary"><i class="fa fa-close"></i> Unassign</button>
+                                            <button type="submit" class="btn btn-sm btn-orange"><i class="fa fa-close"></i> Unassign</button>
                                         </form>
                                     </td>
                                 </tr>
