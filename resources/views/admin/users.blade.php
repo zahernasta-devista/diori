@@ -54,7 +54,7 @@
 										<td class="text-center align-middle">
 											<a class="btn btn-sm btn-purple-gradient" href="{{route('edit-user',$user->id)}}" type="button"><i class="fa fa-edit"></i>Edit</a>
 											<a class="btn btn-sm btn-purple-gradient" href="{{route('employee-project-page',$user->id)}}" type="button"><i class="fa fa-edit"></i>Assign</a>
-											<a class="btn btn-sm btn-purple-gradient" href="{{route('change-to-admin',$user->id)}}" type="button"><i class="fa fa-dashboard"></i>Set to Admin</a>
+											<a class="btn btn-sm btn-purple-gradient" href="{{route('change-to-admin',$user->id)}}" type="button" onclick="return confirm('Are you sure you want to Promote the selected employee ?')"><i class="fa fa-dashboard"></i>Set to Admin</a>
 											<a class="btn btn-sm btn-purple-gradient" href="{{route('employee-detail',$user->id)}}" type="button"><i class="fa fa-dashboard"></i>Detail</a>
 										</td>
 								</tr>

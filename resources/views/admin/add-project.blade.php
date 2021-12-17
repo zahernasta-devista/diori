@@ -34,7 +34,7 @@
 									</span>
                         </div>
                         <div class="wrap-input100 validate-input" >
-                            <input class="input100" type="text" name="backend" placeholder="Backend" required>
+                            <input class="input100" type="text" name="backend" placeholder="Technology" required>
                             <span class="focus-input100"></span>
                             <span class="symbol-input100">
 										<i class="zmdi zmdi-directions-run" aria-hidden="true"></i>
@@ -53,7 +53,7 @@
 									</span>
                         </div>
                         <div class="wrap-input100 validate-input" >
-                            <input class="input100" type="date" name="start_date" placeholder="YYYY-MM-DD" required>
+                            <input placeholder="Start Date" class="input100"  name="start_date" onfocus="(this.type='date')" required>
                             <span class="focus-input100"></span>
                             <span class="symbol-input100">
 										<i class="zmdi zmdi-view-day" aria-hidden="true"></i>

@@ -25,7 +25,7 @@
                     <h3 class="card-title">Admins</h3>
                     <div class="card-options">
                         <div class="btn-toolbar">
-                            <button type="submit" class="btn btn-md btn-orange rounded-pill "><i class="fa fa-minus"></i> Delete
+                            <button type="submit" class="btn btn-md btn-orange rounded-pill " onclick="return confirm('Are you sure you want to Delete This Admin?')"><i class="fa fa-minus"></i> Delete
                                 Admins
                             </button>
                         </div>
@@ -58,8 +58,7 @@
                                                    href="{{route('edit-admin',$user->id)}}" type="button"><i
                                                             class="fa fa-edit"></i>Edit</a>
                                                 <a class="btn btn-sm btn-purple-gradient badge"
-                                                   href="{{route('change-to-employee',$user->id)}}" type="button"><i
-                                                            class="fa fa-edit" onclick="return confirm('Are you sure you want to change the role?')"></i>Set to Employee</a>
+                                                   href="{{route('change-to-employee',$user->id)}}" type="button" onclick="return confirm('Are you sure you want to Demote This Admin?')"><i class="fa fa-edit" ></i>Set to Employee</a>
                                             </td>
                                         </tr>
                                     @endif
