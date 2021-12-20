@@ -56,7 +56,7 @@
                         <h3 class="card-title">The Overall Summary!</h3>
                         <div class="card-options">
                             <select name="month"  class="btn btn-md btn-purple-gradient rounded-pill"><i class="fa fa-dropbox" required></i>
-                                <option value="" selected disabled hidden>Select The Month</option>
+                                <option  selected disabled hidden>Select The Month</option>
                                 <option class="btn btn-purple" value="1">January</option>
                                 <option class="btn btn-purple" value="2">February</option>
                                 <option class="btn btn-purple" value="3">March</option>
@@ -79,8 +79,8 @@
                             </select>
                             &emsp;
                             <select  name="project"  class="btn btn-md btn-purple-gradient rounded-pill"><i class="fa fa-dropbox" ></i>
-                                <option value="" selected disabled hidden>Select The Project</option>
                                 @foreach($projectsOptions as $project)
+                                <option selected disabled hidden>Select The Project</option>
                                     <option class="btn btn-purple" value="{{$project->id}}">{{$project->name}}</option>
                                 @endforeach
                             </select>

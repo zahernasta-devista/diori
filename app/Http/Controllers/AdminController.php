@@ -16,6 +16,8 @@ use Spatie\Permission\Models\Role;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\DB as FacadesDB;
 use Illuminate\Support\Facades\Log;
+use Symfony\Component\Console\Input\Input;
+use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\Routing\Generator\UrlGenerator;
 
 class AdminController extends Controller
@@ -417,7 +419,6 @@ class AdminController extends Controller
         $selectedMonth = $request->input('month');
         $selectedYear = $request->input('year');
         $selectedProject = $request->input('project');
-
 
         $projectsOptions = Project::get();
 
