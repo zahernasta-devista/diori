@@ -16,6 +16,9 @@ use Spatie\Permission\Models\Role;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\DB as FacadesDB;
 use Illuminate\Support\Facades\Log;
+use Symfony\Component\Console\Input\Input;
+use Symfony\Component\HttpFoundation\Session\Session;
+use Symfony\Component\Routing\Generator\UrlGenerator;
 
 class AdminController extends Controller
 {
@@ -81,18 +84,17 @@ class AdminController extends Controller
         $users = User::get()->where('id', $request->route('id'))->first();
         $timeLogs = Timelog::get()->where('user_id', $request->route('id'))->all();
         $project = [];
-        foreach($timeLogs as $timeLog){
+        foreach ($timeLogs as $timeLog) {
             $object = new \stdClass();
 
             $object->time = $timeLog->time;
             $object->date = $timeLog->date;
             $object->comment = $timeLog->comment;
             $object->project = $timeLog->project->name;
-                $project[] = $object;
+            $project[] = $object;
         }
-        return response()->json(['response' => $project, 'users'=> $users]);
+        return response()->json(['response' => $project, 'users' => $users]);
     }
-
 
 
     public function getEdit(Request $request)
@@ -329,16 +331,15 @@ class AdminController extends Controller
     }
 
 
-
     public function monthlySummary(Request $request)
     {
 
         $query = $request->query();
         $userDetails = [];
 
-        $validMonth =  Carbon::now()->subMonth()->format('m');
+        $validMonth = Carbon::now()->subMonth()->format('m');
         $validYear = Carbon::now()->subMonth()->format('Y');
-        if($query['month'] !== $validMonth || $query['year'] !== $validYear){
+        if ($query['month'] !== $validMonth || $query['year'] !== $validYear) {
             return view('admin.monthly-summary', compact('userDetails'))->withErrors('You Cannot Change The URL!');
         }
 
@@ -357,13 +358,10 @@ class AdminController extends Controller
             $object->projects = [];
             foreach ($user->projects as $project) {
                 $object->projects[$project->name] = $this->calculateTotalHoursWorked($project->timelogsFromMonthAndYear($month, $year, $user->id));
-
-
             }
             $object->hoursWorkedPerMonth = $this->calculateTotalHoursWorked($user->timelogsFromMonthAndYear($month, $year));
             $userDetails[] = $object;
         }
-
 
 
         return view('admin.monthly-summary', compact('userDetails', 'users'));
@@ -375,15 +373,15 @@ class AdminController extends Controller
         $userDetails = [];
 
         $start = Carbon::now()->startOfWeek()->format('Y-m-d');
-        $end= Carbon::now()->endOfWeek()->format('Y-m-d');
+        $end = Carbon::now()->endOfWeek()->format('Y-m-d');
 
-        if ($query['startWeek'] !== $start || $query['endWeek']  !== $end ){
+        if ($query['startWeek'] !== $start || $query['endWeek'] !== $end) {
             return view('admin.weekly-summary', compact('userDetails'))->withErrors('You Cannot Change The URL!');
         }
 
 
         if (!isset($query['startWeek']) || !isset($query['endWeek'])) {
-            return view('admin.weekly-summary', compact('userDetails'));
+            return view('admin.weekly-summary', compact('userDetails'))->withErrors('You Cannot Change The URL!');
         }
 
         $startWeek = $query['startWeek'];
@@ -396,14 +394,92 @@ class AdminController extends Controller
             $object->projects = [];
             foreach ($user->projects as $project) {
                 $object->projects[$project->name] = $this->calculateTotalHoursWorked($project->timelogsFromWeek($startWeek, $endWeek, $user->id));
-
-
             }
             $object->hoursWorkedPerWeek = $this->calculateTotalHoursWorked($user->timelogsFromWeek($startWeek, $endWeek));
             $userDetails[] = $object;
         }
 
         return view('admin.weekly-summary', compact('userDetails', 'users'));
+    }
+
+    public function makeEmployee(Request $request)
+    {
+        $user = User::findorfail($request->route('id'));
+
+
+        $user->assignRole([2]);
+        $user->removeRole(1);
+
+        return redirect('/users');
+    }
+
+    public function filters(Request $request)
+    {
+
+        $selectedMonth = $request->input('month');
+        $selectedYear = $request->input('year');
+        $selectedProject = $request->input('project');
+
+        $projectsOptions = Project::get();
+
+        $sumPerSelectedProject = Timelog::where('project_id', $request->input('project'))->whereMonth('date', $request->input('month'))->whereYear('date', $request->input('year'))->sum('time');
+        $overallSum = Timelog::whereMonth('date', $request->input('month'))->whereYear('date', $request->input('year'))->sum('time');
+
+        $query = $request->query();
+        $userDetails = [];
+
+        if (!isset($query['month']) || !isset($query['year'])) {
+            return view('admin.summary-filters', compact('userDetails','selectedMonth','selectedYear','selectedProject','sumPerSelectedProject','overallSum','projectsOptions'))->withErrors('Please Select The Month And Year Together');
+        }
+
+
+        if (isset($query['project'])) {
+            $month = $query['month'];
+            $year = $query['year'];
+            $projectSelected = $query['project'];
+            $users = User::get();
+
+            foreach ($users as $user) {
+                $object = new \stdClass();
+                $object->user = $user;
+                $object->projects = [];
+
+                $object->hoursWorkedPerMonth = $this->calculateTotalHoursWorked($user->timelogsFromMonthAndYearForProject($month, $year, $projectSelected));
+                $userDetails[] = $object;
+
+
+            }
+            return view('admin.summary-filters', compact('userDetails', 'users', 'projectsOptions', 'overallSum', 'sumPerSelectedProject','selectedMonth','selectedYear','selectedProject'));
+        }
+        if (isset($query['month']) || isset($query['year'])) {
+            $month = $query['month'];
+            $year = $query['year'];
+            $users = User::get();
+
+
+            foreach ($users as $user) {
+                $object = new \stdClass();
+                $object->user = $user;
+                $object->projects = [];
+                foreach ($user->projects as $project) {
+                    $object->projects[$project->name] = $this->calculateTotalHoursWorked($project->timelogsFromMonthAndYear($month, $year, $user->id));
+                }
+                $object->hoursWorkedPerMonth = $this->calculateTotalHoursWorked($user->timelogsFromMonthAndYear($month, $year));
+                $userDetails[] = $object;
+            }
+
+            return view('admin.summary-filters', compact('userDetails', 'users', 'projectsOptions', 'overallSum', 'sumPerSelectedProject','selectedMonth','selectedYear','selectedProject'))->withErrors('No Project Was Selected!');
+        }
+    }
+
+    private function calculateTotalHoursWorked($timelogs): int
+    {
+        $sumOfHoursWorked = 0;
+        foreach ($timelogs as $timelog) {
+            $sumOfHoursWorked += $timelog->time;
+        }
+
+        return $sumOfHoursWorked;
     }
 
     public function adminProfile()
@@ -420,27 +496,6 @@ class AdminController extends Controller
     public function verticalMenu()
     {
         return view('admin.vertical-menu');
-    }
-
-    private function calculateTotalHoursWorked($timelogs)
-    {
-        $sumOfHoursWorked = 0;
-        foreach ($timelogs as $timelog) {
-            $sumOfHoursWorked += $timelog->time;
-        }
-
-        return $sumOfHoursWorked;
-    }
-
-    public function makeEmployee(Request $request)
-    {
-        $user = User::findorfail($request->route('id'));
-
-
-        $user->assignRole([2]);
-        $user->removeRole(1);
-
-        return redirect('/users');
     }
 
 }

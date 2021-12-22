@@ -50,8 +50,14 @@
                     <ul class="side-menu">
                         <li><h3>Main</h3></li>
 
+                        @php
+                            use Carbon\Carbon;
+                                $currentMonth = Carbon::now()->format('m');
+                                $currentYear = Carbon::now()->format('Y');
+                         @endphp
                         <li class="slide">
                             <a class="side-menu__item" data-toggle="slide" href="{{route('dashboard') }}"><i class="side-menu__icon ti-dashboard"></i><span class="side-menu__label">Dashboard</span></a>
+                            <a class="side-menu__item" data-toggle="slide" href="{{route('filters',['month'=>$currentMonth,'year'=>$currentYear]) }}"><i class="side-menu__icon ti-search"></i><span class="side-menu__label">Summary</span></a>
 
                         </li>
                         <li><h3>Elements</h3></li>

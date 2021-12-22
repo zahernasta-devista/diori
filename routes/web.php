@@ -179,6 +179,8 @@ Route::group(['middleware' => ['role:admin', 'first.time.login']], function () {
         route::get('/monthly', [AdminController::class, 'monthlySummary'])->name('monthly-summary');
         route::get('/weekly', [AdminController::class, 'weeklySummary'])->name('weekly-summary');
     });
+    //filters
+    route::get('/summary', [AdminController::class, 'filters'])->name('filters');
 });
 
 //middleware role employee
