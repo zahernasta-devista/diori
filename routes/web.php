@@ -205,4 +205,7 @@ Route::group(['middleware' => ['role:employee', 'first.time.login']], function (
         ->name('get-one-project');
 
     Route::post('/worklog/add', [EmployeeController::class, 'worklogstore'])->name('worklog-add');
+
+    Route::get('/restriction', [EmployeeController::class, 'worklogRestriction'])->name('worklog-restriction');
+
 });

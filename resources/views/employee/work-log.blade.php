@@ -92,14 +92,10 @@
 @endsection
 @section('js')
     <script src="{{ URL::asset('assets/js/index3.js') }}"></script>
-    <script src="{{ URL::asset('assets/plugins/chart/Chart.bundle.js') }}"></script>
     <script src="{{ URL::asset('assets/plugins/chart/utils.js') }}"></script>
     <script src="{{ URL::asset('assets/plugins/morris/raphael-min.js') }}"></script>
     <script src="{{ URL::asset('assets/plugins/morris/morris.js') }}"></script>
-    <script src="{{ URL::asset('assets/plugins/peitychart/jquery.peity.min.js') }}"></script>
-    <script src="{{ URL::asset('assets/plugins/peitychart/peitychart.init.js') }}"></script>
     <script src="{{ URL::asset('assets/plugins/rating/jquery.barrating.js') }}"></script>
-    <script src="{{ URL::asset('assets/plugins/rating/ratings.js') }}"></script>
     <script>
 
 
@@ -123,5 +119,61 @@
             });
         }
     </script>
-    <script src="{{ URL::asset('assets/js/service.js') }}"></script>
+    <script>
+            let url = "{{ route('worklog-restriction') }}";
+            $(function(e) {
+        "use strict";
+
+        $.ajax({
+            type: 'GET',
+            url: url,
+            success: function(response) {
+                let responseData = response.timeResponse;
+                let events = [];
+                        responseData.forEach(element => {
+                            let object = {};
+
+                                object.id = element.id;
+                                object.time = element.time;
+                                object.date = element.date;
+
+                        });        
+
+                        let maxHours = events.time + availableHours;
+
+        
+                        $("#time").attr({'max': maxHours});
+
+                        $("#time").keydown(function () {
+                            if (!$(this).val() || (parseInt($(this).val()) <= maxHours && parseInt($(this).val()) >= 1))
+                            {
+                                $(this).data("old", $(this).val());
+                            }
+
+                        });
+                        $("#time").keyup(function () {
+                            if (!$(this).val() || (parseInt($(this).val()) <= maxHours && parseInt($(this).val()) >= 1)) ;
+                            else
+                            {
+                                $(this).val($(this).data("old"));
+                            }
+
+                        }); 
+                    }
+                });
+            });
+
+    function getAvailableHours(responseData, element) {
+            let availableHours = 12;
+            let sameDates = responseData.filter(object => object.date === element.date);
+                sameDates.forEach(object => {
+                    availableHours -= object.time;
+                })
+                console.log(availableHours);
+    return availableHours;
+}
+
+
+    </script>
+
 @endsection
