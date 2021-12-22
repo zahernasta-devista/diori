@@ -25,9 +25,7 @@
                     <div class="d-flex">
                         <div class="text-white">
                             <h2 class="mb-0 number-font">{{$users->name}}'s Clocking</h2>
-                            <p class="text-white mb-0">
-                            The User Worked:<br>
-                                •{{$timeSum}} Hours Worked So Far!</p>
+                            <p class="text-white mb-0">The User Worked:<br> •{{$timeSum}} Hours Worked So Far!</p>
                         </div>
                         <div class="ml-auto"> <i class="fa fa-send-o text-white fs-30 mr-2 mt-2"></i> </div>
                     </div>
