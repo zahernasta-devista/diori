@@ -54,7 +54,7 @@
                         {{-- date --}}
                         <div class="wrap-input100 validate-input" data-validate="date is required">
                             <input placeholder="Date Of Timelog" id="date" class="input100" min="{{ $projects }}"
-                                name="date" type="text" onfocus="(this.type='date')" onchange="checkDate(this)">
+                                name="date" type="text" onfocus="(this.type='date')" onchange="checkDateForInput(this)">
                             <span class="focus-input100"></span>
                             <span class="symbol-input100">
                                 <i class="zmdi zmdi-view-day" aria-hidden="true"></i>
@@ -129,9 +129,7 @@
                 success: function(response) {
                     let responseData = response.timeResponse;
                     let events = [];
-                    var currentDate = $("#date").val();
-
-                    console.log(responseData);
+                    
                     responseData.forEach(element => {
                         let object = {};
                         object.id = element.id;
@@ -140,7 +138,8 @@
 
                         let sameDate = responseData.filter(object => object.date === element.date);
                         var availableHours = getAvailableHours(responseData, element);
-                        var checkDate = document.getElementById("date").value;
+
+
                         
                                 $("#time").attr({
                                     'max': availableHours
@@ -176,11 +175,14 @@
             })
             return availableHours;
         }
-        function checkDate() {
-            var checkDate = document.getElementById("date").value;
-            console.log(checkDate);
+
+        function checkDateForInput(e) {
+            let checkDate = document.getElementById("date").value;
+            console.log(checkDate,'the function itself');
+
             return checkDate;
         }
+
     </script>
 
 @endsection
