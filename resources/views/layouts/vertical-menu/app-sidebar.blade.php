@@ -1,4 +1,5 @@
 <!--APP-SIDEBAR-->
+                <a aria-label="Hide Sidebar" class="app-sidebar__toggle ml-auto" data-toggle="sidebar" href="#"></a><!-- sidebar-toggle-->
                 <div class="app-sidebar__overlay" data-toggle="sidebar"></div>
                 <aside class="app-sidebar" >
                     <div class="side-header">
