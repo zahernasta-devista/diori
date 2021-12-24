@@ -97,9 +97,6 @@
     <script src="{{ URL::asset('assets/plugins/morris/morris.js') }}"></script>
     <script src="{{ URL::asset('assets/plugins/rating/jquery.barrating.js') }}"></script>
     <script>
-
-
-
         function getProject(selectedProject) {
             let projectId = selectedProject.value;
             
@@ -119,7 +116,6 @@
             });
         }
     </script>
-
     <script>
             let url = "{{ route('worklog-restriction') }}";
             $(function(e) {
@@ -131,39 +127,33 @@
             
             success: function(response) {
                 let responseData = response.timeResponse;
-                // console.log(responseData);
                 let events = [];
+                console.log(responseData);
                         responseData.forEach(element => {
                             let object = {};
-
                                 object.id = element.id;
                                 object.time = element.time;
                                 object.date = element.date;
                                 var availableHours = getAvailableHours(responseData, element);
 
+                                
+                                $("#time").attr({'max': availableHours});
                                 console.log(availableHours);
+                                $("#time").keydown(function () {
+                                    if (!$(this).val() || (parseInt($(this).val()) <= availableHours && parseInt($(this).val()) >= 1))
+                                    {
+                                        $(this).data("old", $(this).val());
+                                    }
 
-                        });        
+                                });
+                                $("#time").keyup(function () {
+                                    if (!$(this).val() || (parseInt($(this).val()) <= availableHours && parseInt($(this).val()) >= 1)) ;
+                                    else
+                                    {
+                                        $(this).val($(this).data("old"));
+                                    }
 
-                        
-
-        
-                        $("#time").attr({'max': availableHours});
-
-                        $("#time").keydown(function () {
-                            if (!$(this).val() || (parseInt($(this).val()) <= availableHours && parseInt($(this).val()) >= 1))
-                            {
-                                $(this).data("old", $(this).val());
-                            }
-
-                        });
-                        $("#time").keyup(function () {
-                            if (!$(this).val() || (parseInt($(this).val()) <= availableHours && parseInt($(this).val()) >= 1)) ;
-                            else
-                            {
-                                $(this).val($(this).data("old"));
-                            }
-
+                                }); 
                         }); 
                     }
                 });
