@@ -37,14 +37,15 @@
                         <span class="login100-form-title">
                             Add Work Log
                         </span>
-                        <div class="wrap-input100 validate-input">
-                            <input class="input100" id="time" type="number" name="time" placeholder="12 hours max">
+                        <div class="wrap-input100 validate-input" data-validate="date is required">
+                            <input placeholder="Date Of Timelog" id="date" class="input100"
+                                   min="{{ $projects }}" name="date" type="text" onfocus="(this.type='date')">
+
                             <span class="focus-input100"></span>
                             <span class="symbol-input100">
-                                <i class="zmdi zmdi-eye" aria-hidden="true"></i>
+                                <i class="zmdi zmdi-view-day" aria-hidden="true"></i>
                             </span>
                         </div>
-                        
                         <div class="wrap-input100 validate-input" data-validate="Project is required">
                             <select class="input100" type="text" id="mySelect" name="project_id"
                                 onchange="getProject(this)">
@@ -58,16 +59,15 @@
                                 <i class="zmdi zmdi-card" aria-hidden="true"></i>
                             </span>
                         </div>
-                        <div class="wrap-input100 validate-input" data-validate="date is required">
-                            <input placeholder="Date Of Timelog" id="date" class="input100"
-                                   min="{{ $projects }}" name="date" type="text" onfocus="(this.type='date')">
-
+                        <div class="wrap-input100 validate-input">
+                            <input class="input100" id="time" min="1" type="number" name="time" placeholder="12 hours max">
                             <span class="focus-input100"></span>
                             <span class="symbol-input100">
-                                <i class="zmdi zmdi-view-day" aria-hidden="true"></i>
+                                <i class="zmdi zmdi-eye" aria-hidden="true"></i>
                             </span>
-
                         </div>
+                        
+                        
 
                         <div class="wrap-input100 validate-input">
                             <textarea class="input100" type="text" name="comment" placeholder="Insert a Comment!"
@@ -119,6 +119,7 @@
             });
         }
     </script>
+
     <script>
             let url = "{{ route('worklog-restriction') }}";
             $(function(e) {
@@ -127,8 +128,10 @@
         $.ajax({
             type: 'GET',
             url: url,
+            
             success: function(response) {
                 let responseData = response.timeResponse;
+                // console.log(responseData);
                 let events = [];
                         responseData.forEach(element => {
                             let object = {};
@@ -136,23 +139,26 @@
                                 object.id = element.id;
                                 object.time = element.time;
                                 object.date = element.date;
+                                var availableHours = getAvailableHours(responseData, element);
+
+                                console.log(availableHours);
 
                         });        
 
-                        let maxHours = events.time + availableHours;
+                        
 
         
-                        $("#time").attr({'max': maxHours});
+                        $("#time").attr({'max': availableHours});
 
                         $("#time").keydown(function () {
-                            if (!$(this).val() || (parseInt($(this).val()) <= maxHours && parseInt($(this).val()) >= 1))
+                            if (!$(this).val() || (parseInt($(this).val()) <= availableHours && parseInt($(this).val()) >= 1))
                             {
                                 $(this).data("old", $(this).val());
                             }
 
                         });
                         $("#time").keyup(function () {
-                            if (!$(this).val() || (parseInt($(this).val()) <= maxHours && parseInt($(this).val()) >= 1)) ;
+                            if (!$(this).val() || (parseInt($(this).val()) <= availableHours && parseInt($(this).val()) >= 1)) ;
                             else
                             {
                                 $(this).val($(this).data("old"));
@@ -163,16 +169,15 @@
                 });
             });
 
-    function getAvailableHours(responseData, element) {
+
+            function getAvailableHours(responseData, element) {
             let availableHours = 12;
             let sameDates = responseData.filter(object => object.date === element.date);
                 sameDates.forEach(object => {
                     availableHours -= object.time;
                 })
-                console.log(availableHours);
     return availableHours;
 }
-
 
     </script>
 

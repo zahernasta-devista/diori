@@ -28,7 +28,7 @@ class EmployeeController extends Controller
     public function worklogstore(Request $request)
     {
         $validation = $request->validate([
-            'time' => ['required','numeric','between:1, 12'],
+            'time' => ['required','numeric'],
             'project_id' => ['required'],
             'date' => ['required'],
             'comment' => ['required']
