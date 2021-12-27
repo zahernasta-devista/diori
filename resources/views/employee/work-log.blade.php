@@ -1,7 +1,5 @@
 @extends('layouts.vertical-menu-employee.master-employee')
 @section('css')
-    <link href="{{ URL::asset('assets/plugins/morris/morris.css') }}" rel="stylesheet">
-    <link href="{{ URL::asset('assets/plugins/rating/rating.css') }}" rel="stylesheet">
     <link href="{{ URL::asset('assets/plugins/single-page/css/main.css') }}" rel="stylesheet">
 
 @endsection
@@ -62,7 +60,7 @@
                         </div>
                         {{-- time --}}
                         <div class="wrap-input100 validate-input">
-                            <input class="input100" id="time" min="1" max="12" type="number" name="time"
+                            <input class="input100" id="time" min="0" max="12" type="number" name="time"
                                 placeholder="12 hours max">
                             <span class="focus-input100"></span>
                             <span class="symbol-input100">
@@ -119,53 +117,6 @@
     </script>
     <script>
         let url = "{{ route('worklog-restriction') }}";
-        $(function(e) {
-            "use strict";
-
-            $.ajax({
-                type: 'GET',
-                url: url,
-
-                success: function(response) {
-                    let responseData = response.timeResponse;
-                    let events = [];
-                    
-                    responseData.forEach(element => {
-                        let object = {};
-                        object.id = element.id;
-                        object.time = element.time;
-                        object.date = element.date;
-
-                        let sameDate = responseData.filter(object => object.date === element.date);
-                        var availableHours = getAvailableHours(responseData, element);
-
-
-                        
-                                $("#time").attr({
-                                    'max': availableHours
-                                });
-
-                                $("#time").keydown(function() {
-                                    if (!$(this).val() || (parseInt($(this).val()) <=
-                                            availableHours && parseInt($(this).val()) >= 1)) {
-                                        $(this).data("old", $(this).val());
-                                    }
-
-                                });
-                                $("#time").keyup(function() {
-                                    if (!$(this).val() || (parseInt($(this).val()) <=
-                                            availableHours && parseInt($(this).val()) >= 1));
-                                    else {
-                                        $(this).val($(this).data("old"));
-                                    }
-
-                                });
-                                   
-                    });
-                }
-            });
-        });
-
 
         function getAvailableHours(responseData, element) {
             let availableHours = 12;
@@ -177,12 +128,70 @@
         }
 
         function checkDateForInput(e) {
+
             let checkDate = document.getElementById("date").value;
-            console.log(checkDate,'the function itself');
+            console.log(checkDate, 'is the date selected');
 
-            return checkDate;
+            $(function(e) {
+                "use strict";
+
+                $.ajax({
+                    type: 'GET',
+                    url: url,
+
+                    success: function getData(response) {
+                        let responseData = response.timeResponse;
+                        let events = [];
+
+                        responseData.forEach(element => {
+                            let object = {};
+                            object.id = element.id;
+                            object.time = element.time;
+                            object.date = element.date;
+
+                            //getting available horus left
+                            let availableHours = 12;
+                            let sameDates = responseData.filter(object => object.date ===
+                                checkDate);
+                            sameDates.forEach(object => {
+                                availableHours -= object.time;
+                            });
+                            //end 
+
+                            //checking in the data base if there are any similar dates
+                            let sameDate = responseData.filter(object => object.date ===
+                                checkDate);
+                                //end
+                            console.log(sameDate);
+
+
+                            $("#time").attr({
+                                'max': availableHours
+                            });
+
+                            $("#time").keydown(function() {
+                                if (!$(this).val() || (parseInt($(this).val()) <=
+                                        availableHours && parseInt($(this).val()) >= 1
+                                        )) {
+                                    $(this).data("old", $(this).val());
+                                }
+
+                            });
+                            $("#time").keyup(function() {
+                                if (!$(this).val() || (parseInt($(this).val()) <=
+                                        availableHours && parseInt($(this).val()) >= 1))
+                                ;
+                                else {
+                                    $(this).val($(this).data("old"));
+                                }
+
+                            });
+
+                        });
+                    }
+                });
+            });
         }
-
     </script>
 
 @endsection
