@@ -59,9 +59,9 @@ class EmployeeController extends Controller
         $startWeek = Carbon::now()->startOfWeek()->format('Y-m-d');
         $endWeek= Carbon::now()->endOfWeek()->format('Y-m-d');
 
-        $daySum = DB::table('timelogs')->where('user_id', $request->route('id'))->whereDay('date', Carbon::now())->sum('time');
-        $weekSum = DB::table('timelogs')->where('user_id', $request->route('id'))->whereBetween('date', [$startWeek, $endWeek])->sum('time');
-        $monthSum = DB::table('timelogs')->where('user_id', $request->route('id'))->whereMonth('date', Carbon::now()->month)->sum('time');
+        $daySum = DB::table('timelogs')->where('user_id', auth()->user()->id)->whereDay('date', Carbon::now())->sum('time');
+        $weekSum = DB::table('timelogs')->where('user_id', auth()->user()->id)->whereBetween('date', [$startWeek, $endWeek])->sum('time');
+        $monthSum = DB::table('timelogs')->where('user_id', auth()->user()->id)->whereMonth('date', Carbon::now()->month)->sum('time');
 
         $timeLogs = Timelog::get()->where('user_id', auth()->user()->id);
         $timeLogsResponse = [];
