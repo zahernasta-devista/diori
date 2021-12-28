@@ -18,8 +18,9 @@
     <!-- PAGE-HEADER END -->
 @endsection
 @section('content')
-    <!-- ROW OPEN -->
-    <div class="row">
+    <!-- ROW CLOSED -->
+     {{-- NEW ROW --}}
+     <div class="row">
         <div class="col-md-12">
             <div class="card">
                 <div class="card-header">
@@ -27,6 +28,16 @@
                 </div>
                 <div class="card-body">
                     <div id='calendar'></div>
+                    <div class="form-group-addon wrap-input100 validate-input">
+                        <input class="text-center input100 border-white bg-light" type="text" name="total" id="total"
+                            readonly>
+                        <span class="focus-input100"></span>
+
+                        <span class="symbol-input100"><i class="mdi mdi-note-plus" aria-hidden="true">
+                                Total :</i></span>
+                    </div>
+
+
                 </div>
             </div>
         </div>

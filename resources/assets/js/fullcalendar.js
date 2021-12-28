@@ -70,7 +70,17 @@ $(function(e) {
 
                     });
                 }
+                
             });
+            document.getElementsByClassName('fc-listDay-button fc-button fc-state-default fc-corner-left')[0].onclick = function() {
+                $("#total").val(response.hours[0]);
+            };
+            document.getElementsByClassName('fc-listWeek-button fc-button fc-state-default')[0].onclick = function() {
+                $("#total").val(response.hours[1]);
+            };
+            document.getElementsByClassName('fc-month-button fc-button fc-state-default fc-corner-right')[0].onclick = function() {
+                $("#total").val(response.hours[2]);
+            };
         }
     });
 });

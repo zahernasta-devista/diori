@@ -8,6 +8,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\View;
 use Ramsey\Uuid\Type\Time;
+use Illuminate\Support\Facades\DB;
+
 
 class EmployeeController extends Controller
 {
@@ -54,6 +56,13 @@ class EmployeeController extends Controller
     }
 
     public function timeSheetResponse(Request $request){
+        $startWeek = Carbon::now()->startOfWeek()->format('Y-m-d');
+        $endWeek= Carbon::now()->endOfWeek()->format('Y-m-d');
+
+        $daySum = DB::table('timelogs')->where('user_id', $request->route('id'))->whereDay('date', Carbon::now())->sum('time');
+        $weekSum = DB::table('timelogs')->where('user_id', $request->route('id'))->whereBetween('date', [$startWeek, $endWeek])->sum('time');
+        $monthSum = DB::table('timelogs')->where('user_id', $request->route('id'))->whereMonth('date', Carbon::now()->month)->sum('time');
+
         $timeLogs = Timelog::get()->where('user_id', auth()->user()->id);
         $timeLogsResponse = [];
         foreach ($timeLogs as $timeLog) {
@@ -68,7 +77,7 @@ class EmployeeController extends Controller
 
             $timeLogsResponse[] = $timeLogObject;
         }
-        return response()->json(['response' => $timeLogsResponse]);
+        return response()->json(['response' => $timeLogsResponse, 'hours'=>[$daySum,$weekSum,$monthSum]]);
     }
     public function timeSheetUpdate(Request $request)
     {
