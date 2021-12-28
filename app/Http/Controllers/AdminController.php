@@ -64,6 +64,7 @@ class AdminController extends Controller
 
     public function EmployeeDetail(Request $request)
     {
+
         $users = User::get()->where('id', $request->route('id'))->first();
         $date = Carbon::now()->format('d-m-y');
         $user = User::role('employee')->get()->count();
@@ -81,6 +82,12 @@ class AdminController extends Controller
 
     public function responseDetail(Request $request)
     {
+        $startWeek = Carbon::now()->startOfWeek()->format('Y-m-d');
+        $endWeek= Carbon::now()->endOfWeek()->format('Y-m-d');
+
+        $daySum = DB::table('timelogs')->where('user_id', $request->route('id'))->whereDay('date', Carbon::now())->sum('time');
+        $weekSum = DB::table('timelogs')->where('user_id', $request->route('id'))->whereBetween('date', [$startWeek, $endWeek])->sum('time');
+        $monthSum = DB::table('timelogs')->where('user_id', $request->route('id'))->whereMonth('date', Carbon::now()->month)->sum('time');
         $users = User::get()->where('id', $request->route('id'))->first();
         $timeLogs = Timelog::get()->where('user_id', $request->route('id'))->all();
         $project = [];
@@ -93,7 +100,7 @@ class AdminController extends Controller
             $object->project = $timeLog->project->name;
             $project[] = $object;
         }
-        return response()->json(['response' => $project, 'users' => $users]);
+        return response()->json(['response' => $project, 'users' => $users,'hours' =>[$daySum,$weekSum,$monthSum]]);
     }
 
 

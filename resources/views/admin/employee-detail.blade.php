@@ -1,7 +1,8 @@
 @extends('layouts.vertical-menu.master')
 @section('css')
     <link href="{{ URL::asset('assets/plugins/fullcalendar/fullcalendar.css') }}" rel="stylesheet">
-    <link href="{{ URL::asset('assets/plugins/fullcalendar/fullcalendar.print.min.css') }}" rel="stylesheet" media='print'>
+    <link href="{{ URL::asset('assets/plugins/fullcalendar/fullcalendar.print.min.css') }}" rel="stylesheet"
+        media='print'>
     <link href="{{ URL::asset('assets/plugins/single-page/css/main.css') }}" rel="stylesheet">
 @endsection
 @section('page-header')
@@ -11,8 +12,9 @@
         <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="#">Hours Clocked For Employees</a></li>
             <li class="breadcrumb-item active text-success" aria-current="page">This Time Sheet Gives More Information
-                About {{$users->name}}'s Work!
+                About {{ $users->name }}'s Work!
             </li>
+            <button id="testingOnClick">testing</button>
         </ol>
     </div>
     <!-- PAGE-HEADER END -->
@@ -24,8 +26,8 @@
                 <div class="card-body">
                     <div class="d-flex">
                         <div class="text-white">
-                            <h2 class="mb-0 number-font">{{$users->name}}'s Clocking</h2>
-                            <p class="text-white mb-0">The User Worked:<br> •{{$timeSum}} Hours Worked So Far!</p>
+                            <h2 class="mb-0 number-font">{{ $users->name }}'s Clocking</h2>
+                            <p class="text-white mb-0">The User Worked:<br> •{{ $timeSum }} Hours Worked So Far!</p>
                         </div>
                         <div class="ml-auto"> <i class="fa fa-send-o text-white fs-30 mr-2 mt-2"></i> </div>
                     </div>
@@ -37,7 +39,8 @@
                 <div class="card-body">
                     <div class="d-flex">
                         <div class="text-white">
-                            <h2 class="mb-0 number-font">{{$users->name}} is Part Of {{$projectCount}} Projects:</h2>
+                            <h2 class="mb-0 number-font">{{ $users->name }} is Part Of {{ $projectCount }} Projects:
+                            </h2>
                             <p class="text-white mb-0">
                                 Just To Name A Few:<br>
                                 • @foreach ($projects->slice(0, 3) as $project){{ $project['name'] }} / @endforeach
@@ -49,7 +52,7 @@
             </div>
         </div><!-- COL END -->
     </div>
-{{--NEW ROW--}}
+    {{-- NEW ROW --}}
     <div class="row">
         <div class="col-md-12">
             <div class="card">
@@ -58,6 +61,16 @@
                 </div>
                 <div class="card-body">
                     <div id='calendar'></div>
+                    <div class="form-group-addon wrap-input100 validate-input">
+                        <input class="text-center input100 border-white bg-light" type="text" name="total" id="total"
+                            readonly>
+                        <span class="focus-input100"></span>
+
+                        <span class="symbol-input100"><i class="mdi mdi-note-plus" aria-hidden="true">
+                                Total :</i></span>
+                    </div>
+
+
                 </div>
             </div>
         </div>
@@ -65,7 +78,9 @@
     <!-- ROW CLOSED -->
 
     <!-- START MODAL -->
+
     <div id="myModal" class="modal" tabindex="-1" role="dialog">
+
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -82,22 +97,24 @@
                                 {{ $errors->first() }}
                             </div>
                         @endif
+
                         <div class="form-group-addon wrap-input100 validate-input">
                             <input class="text-center input100 border-white bg-light" type="text" name="project"
-                                   id="project" readonly>
+                                id="project" readonly>
                             <span class="focus-input100"></span>
                             <span class="symbol-input100"><i class="mdi mdi-note-plus" aria-hidden="true">Project
                                     Name:</i></span>
                         </div>
                         <div class="form-group-addon wrap-input100 validate-input">
-                            <input class="text-center input100 border-white bg-light" type="number" id="time" min="1" readonly>
+                            <input class="text-center input100 border-white bg-light" type="number" id="time" min="1"
+                                readonly>
                             <span class="focus-input100"></span>
                             <span class="symbol-input100"><i class="mdi mdi-timer" aria-hidden="true">Hours Worked :
                                 </i></span>
                         </div>
                         <div class="form-group-addon wrap-input100 validate-input">
                             <textarea class="input100 border-white bg-light" type="text" name="comment" id="comment"
-                                      rows="4" cols="50" readonly></textarea>
+                                rows="4" cols="50" readonly></textarea>
                             <span class="focus-input100"></span>
                             <span class="symbol-input100"><i class="mdi mdi-comment" aria-hidden="true"></i></span>
                         </div>
@@ -107,6 +124,7 @@
                 </form>
             </div>
         </div>
+
     </div>
     <!-- END MODAL -->
 @endsection
@@ -115,7 +133,7 @@
     <script src="{{ URL::asset('assets/plugins/fullcalendar/jquery-ui.min.js') }}"></script>
     <script src="{{ URL::asset('assets/plugins/fullcalendar/fullcalendar.min.js') }}"></script>
     <script>
-        let url = "{{ route('response-detail',$users->id) }}";
+        let url = "{{ route('response-detail', $users->id) }}";
 
         let csrfToken = "{{ csrf_token() }}";
         $(function(e) {
@@ -127,16 +145,16 @@
                 success: function(response) {
                     var today = new Date();
                     var dd = today.getDate();
-                    var mm = today.getMonth()+1; //January is 0!
+                    var mm = today.getMonth() + 1; //January is 0!
 
                     var yyyy = today.getFullYear();
-                    if(dd < 10){
-                        dd='0'+dd;
+                    if (dd < 10) {
+                        dd = '0' + dd;
                     }
-                    if(mm < 10){
-                        mm="0"+mm;
+                    if (mm < 10) {
+                        mm = "0" + mm;
                     }
-                    today = yyyy+'-'+mm+'-'+dd;
+                    today = yyyy + '-' + mm + '-' + dd;
 
                     let responseData = response.response;
                     let events = [];
@@ -161,12 +179,11 @@
                         views: {
                             listDay: {
                                 buttonText: 'Daily',
-                                buttonColor: ' #00e68a'
                             },
                             listWeek: {
                                 buttonText: 'Weekly'
                             },
-                            month:{
+                            month: {
                                 buttonText: 'Monthly'
                             }
                         },
@@ -179,7 +196,8 @@
                         eventClick: function(info) {
                             //Verify if the time sum is less than 12 hours
                             //Max value will be the difference between both times
-                            let time = (new Date(info.end) - new Date(info.start)) / 1000 / 60 / 60 ;
+                            let time = (new Date(info.end) - new Date(info.start)) / 1000 /
+                                60 / 60;
                             let maxHours = time + info.availableHours;
 
                             $('#myModal').modal('show');
@@ -187,35 +205,48 @@
                             $("#id").val(info.id);
                             $("#comment").val(info.comment);
                             $("#project").val(info.project);
-                            $("#time").attr({'max': maxHours});
+                            $("#time").attr({
+                                'max': maxHours
+                            });
 
-                            $("#time").keydown(function () {
-                                if (!$(this).val() || (parseInt($(this).val()) <= maxHours && parseInt($(this).val()) >= 1))
-                                {
+                            $("#time").keydown(function() {
+                                if (!$(this).val() || (parseInt($(this).val()) <=
+                                        maxHours && parseInt($(this).val()) >= 1)) {
                                     $(this).data("old", $(this).val());
                                 }
 
                             });
-                            $("#time").keyup(function () {
-                                if (!$(this).val() || (parseInt($(this).val()) <= maxHours && parseInt($(this).val()) >= 1)) ;
-                                else
-                                {
+                            $("#time").keyup(function() {
+                                if (!$(this).val() || (parseInt($(this).val()) <=
+                                        maxHours && parseInt($(this).val()) >= 1));
+                                else {
                                     $(this).val($(this).data("old"));
                                 }
 
                             });
-                        }
+                        },
                     });
+                    document.getElementsByClassName('fc-listDay-button fc-button fc-state-default fc-corner-left')[0].onclick = function() {
+                        $("#total").val(response.hours[0]);
+                    };
+                    document.getElementsByClassName('fc-listWeek-button fc-button fc-state-default')[0].onclick = function() {
+                        $("#total").val(response.hours[1]);
+                    };
+                    document.getElementsByClassName('fc-month-button fc-button fc-state-default fc-corner-right')[0].onclick = function() {
+                        $("#total").val(response.hours[2]);
+                    };
+
                 }
             });
+
         });
 
 
         document.querySelector('#editTimeLog').addEventListener('click', function(e) {
             e.preventDefault();
 
-            let time = $('#time').val() ;
-            let comment = $('#comment').val() ;
+            let time = $('#time').val();
+            let comment = $('#comment').val();
             let id = $('#id').val();
 
             $.ajax({
@@ -224,7 +255,11 @@
                 headers: {
                     'X-CSRF-TOKEN': csrfToken
                 },
-                data: {time: time, id: id,comment: comment},
+                data: {
+                    time: time,
+                    id: id,
+                    comment: comment
+                },
                 success: function(response) {
                     location.reload();
                 },
@@ -245,8 +280,10 @@
                 headers: {
                     'X-CSRF-TOKEN': csrfToken
                 },
-                data:{id:id},
-                success:function(response){
+                data: {
+                    id: id
+                },
+                success: function(response) {
                     location.reload();
                 },
                 error: function(error) {
@@ -260,7 +297,7 @@
 
             let availableHours = getAvailableHours(responseData, element);
 
-            if(time.pastDate != null && new Date(time.pastDate) < new Date(element.date)) {
+            if (time.pastDate != null && new Date(time.pastDate) < new Date(element.date)) {
                 time.endHour = 9;
             }
 
@@ -294,8 +331,8 @@
             object.id = element.id;
             object.comment = element.comment;
             object.title = element.project + " • " + element.time + " hours." + " • " + element.comment + ".";
-            object.start = element.date + "T" + startHourString + ":00:00" ;
-            object.end = element.date + "T" + endHourString + ":00:00" ;
+            object.start = element.date + "T" + startHourString + ":00:00";
+            object.end = element.date + "T" + endHourString + ":00:00";
             object.project = element.project;
             object.availableHours = availableHours;
 
@@ -306,6 +343,7 @@
         function generateHourString(hour) {
             return hour < 10 ? "0" + hour : hour;
         }
-
     </script>
+
+
 @endsection
