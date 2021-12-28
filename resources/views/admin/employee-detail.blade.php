@@ -14,7 +14,6 @@
             <li class="breadcrumb-item active text-success" aria-current="page">This Time Sheet Gives More Information
                 About {{ $users->name }}'s Work!
             </li>
-            <button id="testingOnClick">testing</button>
         </ol>
     </div>
     <!-- PAGE-HEADER END -->
@@ -58,6 +57,7 @@
             <div class="card">
                 <div class="card-header">
                     <h3 class="card-title">Work Sheet!</h3>
+                    <input id="datepicker" class="text-center input100 border-white bg-light" type="date" name="datepicker" readonly>
                 </div>
                 <div class="card-body">
                     <div id='calendar'></div>
@@ -192,6 +192,14 @@
                         navLinks: false, // can click day/week names to navigate views
                         editable: true,
                         eventLimit: true, // allow "more" link when too many events
+                        viewRender: function (view, element) {
+                            let currentDate = view.intervalStart;
+                            let changeFormat=JSON.stringify(currentDate);
+                            changeFormat = changeFormat.slice(1,11);
+
+                            let pickedDate =  $('#datepicker').val(changeFormat);
+
+                        },
                         events: events,
                         eventClick: function(info) {
                             //Verify if the time sum is less than 12 hours
@@ -225,17 +233,23 @@
 
                             });
                         },
-                    });
-                    document.getElementsByClassName('fc-listDay-button fc-button fc-state-default fc-corner-left')[0].onclick = function() {
-                        $("#total").val(response.hours[0]);
-                    };
-                    document.getElementsByClassName('fc-listWeek-button fc-button fc-state-default')[0].onclick = function() {
-                        $("#total").val(response.hours[1]);
-                    };
-                    document.getElementsByClassName('fc-month-button fc-button fc-state-default fc-corner-right')[0].onclick = function() {
-                        $("#total").val(response.hours[2]);
-                    };
 
+                    });
+                    document.getElementsByClassName(
+                            'fc-listDay-button fc-button fc-state-default fc-corner-left')[0].onclick =
+                        function() {
+                            $("#total").val(response.hours[0]);
+                        };
+                    document.getElementsByClassName('fc-listWeek-button fc-button fc-state-default')[0]
+                        .onclick = function() {
+                            $("#total").val(response.hours[1]);
+                        };
+                    document.getElementsByClassName(
+                            'fc-month-button fc-button fc-state-default fc-corner-right')[0].onclick =
+                        function() {
+                            $("#total").val(response.hours[2]);
+                        }; 
+                        console.log(pickedDate);
                 }
             });
 

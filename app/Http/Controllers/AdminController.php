@@ -82,12 +82,16 @@ class AdminController extends Controller
 
     public function responseDetail(Request $request)
     {
-        $startWeek = Carbon::now()->startOfWeek()->format('Y-m-d');
-        $endWeek= Carbon::now()->endOfWeek()->format('Y-m-d');
+        $dateSelectedForSumMonth = $request->input('datepicker');
+        $dateSelectedForSumDay = $request->input('datepicker');
+
+        $startWeek = Carbon::now()->startOfWeek();
+        $endWeek= Carbon::now()->endOfWeek();
 
         $daySum = DB::table('timelogs')->where('user_id', $request->route('id'))->whereDay('date', Carbon::now())->sum('time');
         $weekSum = DB::table('timelogs')->where('user_id', $request->route('id'))->whereBetween('date', [$startWeek, $endWeek])->sum('time');
         $monthSum = DB::table('timelogs')->where('user_id', $request->route('id'))->whereMonth('date', Carbon::now()->month)->sum('time');
+
         $users = User::get()->where('id', $request->route('id'))->first();
         $timeLogs = Timelog::get()->where('user_id', $request->route('id'))->all();
         $project = [];

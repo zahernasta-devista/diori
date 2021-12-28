@@ -28,6 +28,7 @@
                 </div>
                 <div class="card-body">
                     <div id='calendar'></div>
+
                     <div class="form-group-addon wrap-input100 validate-input">
                         <input class="text-center input100 border-white bg-light" type="text" name="total" id="total"
                             readonly>

@@ -56,6 +56,8 @@ class EmployeeController extends Controller
     }
 
     public function timeSheetResponse(Request $request){
+        $dateSelectedForSum = $request->input('dateSelected');
+        
         $startWeek = Carbon::now()->startOfWeek()->format('Y-m-d');
         $endWeek= Carbon::now()->endOfWeek()->format('Y-m-d');
 
