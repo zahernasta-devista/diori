@@ -11,7 +11,7 @@
         <h1 class="page-title">Work log</h1>
         <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="#">Menu</a></li>
-            <li class="breadcrumb-item active text-success" aria-current="page">Clock In Your Working Hours For The Day!</li>
+            <li class="breadcrumb-item active text-orange" aria-current="page">Clock In Your Working Hours For The Day!</li>
         </ol>
     </div>
     <!-- PAGE-HEADER END -->

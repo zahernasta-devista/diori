@@ -9,7 +9,7 @@
         <h1 class="page-title">Projects</h1>
         <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="#">Elements</a></li>
-            <li class="breadcrumb-item active text-success" aria-current="page">A List Of Projects!</li>
+            <li class="breadcrumb-item active text-orange" aria-current="page">A List Of Projects!</li>
         </ol>
     </div>
 @endsection
@@ -21,7 +21,7 @@
                     <div class="card-header">
                         <h3 class="card-title">Project Table</h3>
                         <div class="card-options">
-                            <a type="button" href="{{ route('add-project-page') }}" class="btn btn-md btn-success rounded-pill "><i
+                            <a type="button" href="{{ route('add-project-page') }}" class="btn btn-md btn-orange rounded-pill "><i
                                         class="fa fa-plus"></i> Add a New Project</a>
                                         &emsp;
                                         <button type="submit" class="btn btn-md btn-orange rounded-pill" onclick="return confirm('Are you sure you want to delete the selected project ?')"><i class="fa fa-minus"></i> Delete

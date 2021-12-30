@@ -31,7 +31,7 @@ use App\Http\Controllers\ProjectController;
 */
 
 Route::get('/', function () {
-    return view('auth.login');
+return view('auth.login');
 })->middleware('guest');
 
 
