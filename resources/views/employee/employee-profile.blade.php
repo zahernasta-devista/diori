@@ -9,7 +9,7 @@
 								<h1 class="page-title">Profile</h1>
 								<ol class="breadcrumb">
 									<li class="breadcrumb-item"><a href="#">Update & Credentials</a></li>
-									<li class="breadcrumb-item active text-success" aria-current="page">Profile</li>
+									<li class="breadcrumb-item active text-orange" aria-current="page">Profile</li>
 								</ol>
 							</div>
 						<!-- PAGE-HEADER END -->
@@ -33,7 +33,7 @@
 											<div class="d-flex mb-3">
 												<img alt="User Avatar" class="rounded-circle avatar-lg mr-2" src="{{URL::asset('assets/images/users/10.jpg')}}">
 												<div class="ml-auto mt-xl-2 mt-lg-0 ml-lg-2">
-													<a href="#" class="btn btn-orange btn-sm mt-1 mb-1"><i class="fe fe-camera mr-1"></i>Profile</a>
+													<a href="#" class="btn btn-purple-gradient btn-sm mt-1 mb-1"><i class="fe fe-camera mr-1"></i>Profile</a>
 												</div>
 											</div>
 											<div class="form-group">
@@ -50,7 +50,7 @@
 											</div>
 										</div>
 										<div class="card-footer text-right">
-											<button type="submit" class="btn btn-success">Update Password</button>
+											<button type="submit" class="btn btn-orange">Update Password</button>
 										</div>
 									</form>
 								</div>

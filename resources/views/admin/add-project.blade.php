@@ -9,7 +9,7 @@
         <h1 class="page-title">Add a New Project</h1>
         <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="#">Project's List</a></li>
-            <li class="breadcrumb-item active text-success" aria-current="page">Add Projects</li>
+            <li class="breadcrumb-item active text-orange" aria-current="page">Add Projects</li>
         </ol>
     </div>
 
