@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Timelog;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\View;
@@ -20,6 +21,7 @@ class EmployeeController extends Controller
     public function workLog(Request $request)
     {  
         $projects = auth()->user()->projects;
+    
         return view('employee.work-log', compact('projects'));
     }
 
@@ -77,7 +79,13 @@ class EmployeeController extends Controller
     }
     public function timeSheetUpdate(Request $request)
     {
-        $timeLog = Timelog::where('id', intval($request->id))->update(['time' => intval($request->time),'comment'=>$request->comment]);
+        $start = Carbon::now()->startOfMonth()->format('Y-m-d');
+        $end = Carbon::now()->startOfMonth()->addMonth()->format('Y-m-d');
+    
+        $timeLog = Timelog::
+          where('id', intval($request->id))
+        ->whereBetween('date', [$start, $end])
+        ->update(['time' => intval($request->time),'comment'=>$request->comment]);
 
 
          return response()->json(['response' => "Successfully updated the time log"]);

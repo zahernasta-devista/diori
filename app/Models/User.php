@@ -62,12 +62,24 @@ class User extends Authenticatable
     public function timelogsFromMonthAndYear($month, $year)
     {
         return $this->hasMany(Timelog::class, 'user_id')
-            ->whereMonth('date', $month)->whereYear('date', $year)->get();
+            ->whereMonth('date', $month)
+            ->whereYear('date', $year)
+            ->get();
+    }
+
+    public function timelogsFromMonthAndYearForProject($month, $year, $projectSelected)
+    {
+        return $this->hasMany(Timelog::class, 'user_id')
+            ->whereMonth('date', $month)
+            ->whereYear('date', $year)
+            ->where('project_id',$projectSelected)
+            ->get();
     }
 
     public function timelogsFromWeek($startWeek, $endWeek)
     {
         return $this->hasMany(Timelog::class, 'user_id')
-            ->whereBetween('date', [$startWeek, $endWeek])->get();
+            ->whereBetween('date', [$startWeek, $endWeek])
+            ->get();
     }
 }
