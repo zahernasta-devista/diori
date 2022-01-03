@@ -7,18 +7,14 @@ use App\Models\Organization;
 use App\Models\Project;
 use Illuminate\Http\Request;
 use Illuminate\Auth\Events\Registered;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use App\Models\User;
 use App\Models\Customer;
 use Carbon\Carbon;
 use App\Models\Timelog;
-use Spatie\Permission\Models\Role;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\DB as FacadesDB;
 use Illuminate\Support\Facades\Log;
-use Symfony\Component\Console\Input\Input;
-use Symfony\Component\HttpFoundation\Session\Session;
-use Symfony\Component\Routing\Generator\UrlGenerator;
+
 
 class AdminController extends Controller
 {
@@ -82,15 +78,14 @@ class AdminController extends Controller
 
     public function responseDetail(Request $request)
     {
-        $dateSelectedForSumMonth = $request->input('datepicker');
-        $dateSelectedForSumDay = $request->input('datepicker');
+        $sumPerDay = Carbon::parse($request->input('datePicker'));
+        $startWeek = Carbon::parse($request->input('datePicker'))->addDays(1)->startOfWeek();
+        $endWeek= Carbon::parse($request->input('datePicker'))->addDays(1)->endOfWeek();
 
-        $startWeek = Carbon::now()->startOfWeek();
-        $endWeek= Carbon::now()->endOfWeek();
-
-        $daySum = DB::table('timelogs')->where('user_id', $request->route('id'))->whereDay('date', Carbon::now())->sum('time');
+        $daySum = DB::table('timelogs')->where('user_id', $request->route('id'))->whereDay('date', $sumPerDay)->sum('time');
         $weekSum = DB::table('timelogs')->where('user_id', $request->route('id'))->whereBetween('date', [$startWeek, $endWeek])->sum('time');
-        $monthSum = DB::table('timelogs')->where('user_id', $request->route('id'))->whereMonth('date', Carbon::now()->month)->sum('time');
+        $monthSum = DB::table('timelogs')->where('user_id', $request->route('id'))->whereMonth('date', $sumPerDay)->sum('time');
+
 
         $users = User::get()->where('id', $request->route('id'))->first();
         $timeLogs = Timelog::get()->where('user_id', $request->route('id'))->all();
@@ -104,8 +99,10 @@ class AdminController extends Controller
             $object->project = $timeLog->project->name;
             $project[] = $object;
         }
-        return response()->json(['response' => $project, 'users' => $users,'hours' =>[$daySum,$weekSum,$monthSum]]);
+
+        return response()->json(['response' => $project, 'users' => $users,'hours'=>[$daySum,$weekSum,$monthSum]]);
     }
+
 
 
     public function getEdit(Request $request)

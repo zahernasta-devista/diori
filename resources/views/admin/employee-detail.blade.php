@@ -2,7 +2,7 @@
 @section('css')
     <link href="{{ URL::asset('assets/plugins/fullcalendar/fullcalendar.css') }}" rel="stylesheet">
     <link href="{{ URL::asset('assets/plugins/fullcalendar/fullcalendar.print.min.css') }}" rel="stylesheet"
-        media='print'>
+          media='print'>
     <link href="{{ URL::asset('assets/plugins/single-page/css/main.css') }}" rel="stylesheet">
 @endsection
 @section('page-header')
@@ -28,7 +28,7 @@
                             <h2 class="mb-0 number-font">{{ $users->name }}'s Clocking</h2>
                             <p class="text-white mb-0">The User Worked:<br> •{{ $timeSum }} Hours Worked So Far!</p>
                         </div>
-                        <div class="ml-auto"> <i class="fa fa-send-o text-white fs-30 mr-2 mt-2"></i> </div>
+                        <div class="ml-auto"><i class="fa fa-send-o text-white fs-30 mr-2 mt-2"></i></div>
                     </div>
                 </div>
             </div>
@@ -45,7 +45,7 @@
                                 • @foreach ($projects->slice(0, 3) as $project){{ $project['name'] }} / @endforeach
                             </p>
                         </div>
-                        <div class="ml-auto"> <i class="fa fa-bar-chart text-white fs-30 mr-2 mt-2"></i> </div>
+                        <div class="ml-auto"><i class="fa fa-bar-chart text-white fs-30 mr-2 mt-2"></i></div>
                     </div>
                 </div>
             </div>
@@ -57,20 +57,19 @@
             <div class="card">
                 <div class="card-header">
                     <h3 class="card-title">Work Sheet!</h3>
-                    <input id="datepicker" class="text-center input100 border-white bg-light" type="date" name="datepicker" readonly>
+                    <input id="datePicker" class="text-center input100 border-white bg-light" type="date"
+                           name="datePicker" readonly hidden>
                 </div>
                 <div class="card-body">
                     <div id='calendar'></div>
-                    <div class="form-group-addon wrap-input100 validate-input">
-                        <input class="text-center input100 border-white bg-light" type="text" name="total" id="total"
-                            readonly>
-                        <span class="focus-input100"></span>
+                </div>
+                <div class="form-group-addon wrap-input100 validate-input">
+                    <input class="text-center input100 border-white bg-light" type="text" name="total" id="total"
+                           readonly>
+                    <span class="focus-input100"></span>
 
-                        <span class="symbol-input100"><i class="mdi mdi-note-plus" aria-hidden="true">
+                    <span class="symbol-input100"><i class="mdi mdi-note-plus" aria-hidden="true">
                                 Total :</i></span>
-                    </div>
-
-
                 </div>
             </div>
         </div>
@@ -100,26 +99,25 @@
 
                         <div class="form-group-addon wrap-input100 validate-input">
                             <input class="text-center input100 border-white bg-light" type="text" name="project"
-                                id="project" readonly>
+                                   id="project" readonly>
                             <span class="focus-input100"></span>
                             <span class="symbol-input100"><i class="mdi mdi-note-plus" aria-hidden="true">Project
                                     Name:</i></span>
                         </div>
                         <div class="form-group-addon wrap-input100 validate-input">
                             <input class="text-center input100 border-white bg-light" type="number" id="time" min="1"
-                                readonly>
+                                   readonly>
                             <span class="focus-input100"></span>
                             <span class="symbol-input100"><i class="mdi mdi-timer" aria-hidden="true">Hours Worked :
                                 </i></span>
                         </div>
                         <div class="form-group-addon wrap-input100 validate-input">
                             <textarea class="input100 border-white bg-light" type="text" name="comment" id="comment"
-                                rows="4" cols="50" readonly></textarea>
+                                      rows="4" cols="50" readonly></textarea>
                             <span class="focus-input100"></span>
                             <span class="symbol-input100"><i class="mdi mdi-comment" aria-hidden="true"></i></span>
                         </div>
-                        <input id="id" name="id" type="hidden" class="input-lg" />
-
+                        <input id="id" name="id" type="hidden" class="input-lg"/>
                 </div>
                 </form>
             </div>
@@ -136,13 +134,13 @@
         let url = "{{ route('response-detail', $users->id) }}";
 
         let csrfToken = "{{ csrf_token() }}";
-        $(function(e) {
+        $(function (e) {
             "use strict";
 
             $.ajax({
                 type: 'GET',
                 url: url,
-                success: function(response) {
+                success: function (response) {
                     var today = new Date();
                     var dd = today.getDate();
                     var mm = today.getMonth() + 1; //January is 0!
@@ -155,6 +153,8 @@
                         mm = "0" + mm;
                     }
                     today = yyyy + '-' + mm + '-' + dd;
+
+                    let pickedDate = $('#datePicker').val();
 
                     let responseData = response.response;
                     let events = [];
@@ -192,16 +192,8 @@
                         navLinks: false, // can click day/week names to navigate views
                         editable: true,
                         eventLimit: true, // allow "more" link when too many events
-                        viewRender: function (view, element) {
-                            let currentDate = view.intervalStart;
-                            let changeFormat=JSON.stringify(currentDate);
-                            changeFormat = changeFormat.slice(1,11);
-
-                            let pickedDate =  $('#datepicker').val(changeFormat);
-
-                        },
                         events: events,
-                        eventClick: function(info) {
+                        eventClick: function (info) {
                             //Verify if the time sum is less than 12 hours
                             //Max value will be the difference between both times
                             let time = (new Date(info.end) - new Date(info.start)) / 1000 /
@@ -217,94 +209,83 @@
                                 'max': maxHours
                             });
 
-                            $("#time").keydown(function() {
+                            $("#time").keydown(function () {
                                 if (!$(this).val() || (parseInt($(this).val()) <=
-                                        maxHours && parseInt($(this).val()) >= 1)) {
+                                    maxHours && parseInt($(this).val()) >= 1)) {
                                     $(this).data("old", $(this).val());
                                 }
 
                             });
-                            $("#time").keyup(function() {
+                            $("#time").keyup(function () {
                                 if (!$(this).val() || (parseInt($(this).val()) <=
-                                        maxHours && parseInt($(this).val()) >= 1));
+                                    maxHours && parseInt($(this).val()) >= 1)) ;
                                 else {
                                     $(this).val($(this).data("old"));
                                 }
 
                             });
                         },
+                        viewRender: function (view) {
+                            let currentDate = view.intervalStart;
+                            let changeFormat = JSON.stringify(currentDate);
+                            changeFormat = changeFormat.slice(1, 11);
 
+                            pickedDate = $('#datePicker').val(changeFormat).val();
+
+                            let viewCurrentlyOn = view.name;
+                            // next
+                            document.getElementsByClassName('fc-next-button fc-button fc-state-default fc-corner-right')[0].onclick = function () {
+                                pickedDate = $('#datePicker').val();
+                                $.ajax({
+                                    type: 'GET',
+                                    data: {
+                                        datePicker: pickedDate
+                                    },
+                                    url: url,
+                                    success: function (response, view) {
+                                        if ( viewCurrentlyOn === 'listDay' ) {
+                                            $("#total").val(response.hours[0]);
+                                        }
+                                        if ( viewCurrentlyOn === 'listWeek' ) {
+                                            $("#total").val(response.hours[1]);
+                                        }
+                                        if ( viewCurrentlyOn=== 'month' ) {
+                                            $("#total").val(response.hours[2]);
+                                        }
+                                    }
+                                })
+                            };
+
+                            // prev
+                            document.getElementsByClassName('fc-prev-button fc-button fc-state-default fc-corner-left')[0].onclick = function () {
+                                pickedDate = $('#datePicker').val();
+                                $.ajax({
+                                    type: 'GET',
+                                    data: {
+                                        datePicker: pickedDate
+                                    },
+                                    url: url,
+                                    success: function (response, view) {
+                                        if ( viewCurrentlyOn === 'listDay' ) {
+                                            $("#total").val(response.hours[0]);
+                                        }
+                                        if ( viewCurrentlyOn === 'listWeek' ) {
+                                            $("#total").val(response.hours[1]);
+                                        }
+                                        if ( viewCurrentlyOn=== 'month' ) {
+                                            $("#total").val(response.hours[2]);
+                                        }
+                                    }
+                                })
+                            };
+
+
+                        },
                     });
-                    document.getElementsByClassName(
-                            'fc-listDay-button fc-button fc-state-default fc-corner-left')[0].onclick =
-                        function() {
-                            $("#total").val(response.hours[0]);
-                        };
-                    document.getElementsByClassName('fc-listWeek-button fc-button fc-state-default')[0]
-                        .onclick = function() {
-                            $("#total").val(response.hours[1]);
-                        };
-                    document.getElementsByClassName(
-                            'fc-month-button fc-button fc-state-default fc-corner-right')[0].onclick =
-                        function() {
-                            $("#total").val(response.hours[2]);
-                        }; 
-                        console.log(pickedDate);
                 }
             });
 
         });
-
-
-        document.querySelector('#editTimeLog').addEventListener('click', function(e) {
-            e.preventDefault();
-
-            let time = $('#time').val();
-            let comment = $('#comment').val();
-            let id = $('#id').val();
-
-            $.ajax({
-                type: 'POST',
-                url: editUrl,
-                headers: {
-                    'X-CSRF-TOKEN': csrfToken
-                },
-                data: {
-                    time: time,
-                    id: id,
-                    comment: comment
-                },
-                success: function(response) {
-                    location.reload();
-                },
-                error: function(error) {
-                    console.log(error);
-                }
-            });
-        }, false);
-
-        document.querySelector('#deleteTimeLog').addEventListener('click', function(e) {
-            e.preventDefault();
-
-            let id = $('#id').val();
-
-            $.ajax({
-                type: 'POST',
-                url: deleteUrl,
-                headers: {
-                    'X-CSRF-TOKEN': csrfToken
-                },
-                data: {
-                    id: id
-                },
-                success: function(response) {
-                    location.reload();
-                },
-                error: function(error) {
-                    console.log(error);
-                },
-            });
-        }, false);
 
 
         function createCalendarElements(responseData, element, time, date) {
