@@ -85,15 +85,18 @@
                          @endphp
                             <select  name="project"  class="btn btn-md btn-purple-gradient rounded-pill"><i class="fa fa-dropbox" ></i>
                                 <option selected disabled hidden>Select The Project</option>
-                                <option class="btn btn-purple" value="">All Projects</option>
+                                <option class="btn btn-purple" selected value="" >All Projects</option> 
                                 @foreach($projectsOptions as $project)
                                     <option class="btn btn-purple" value="{{$project->id}}" @if(request()->project ==$project->id) selected @endif>{{$project->name}}</option>
                                 @endforeach
                             </select>
                             &emsp;
                             <button type="submit" class="btn btn-md btn-purple-gradient rounded-pill">Search</button>
+                            &emsp;
+                            <a class="btn btn-md btn-purple-gradient rounded-pill" href="{{ route('export', ['month' => $selectedMonth, 'year' => $selectedYear,'project'=>$selectedProject]) }}">Export </a>
                         </div>
                     </div>
+                    
                     <div class="card-body">
                         <div class="table-responsive">
                             @if($errors->any())
@@ -123,6 +126,8 @@
                                             @endif
                                         </tr>
                                         @endforeach
+                                       
+                                       
                                 </tbody>
                             </table>
                         </div>
@@ -130,6 +135,7 @@
                 </form>
             </div>
         </div>
+                      
     </div>
 @endsection
 

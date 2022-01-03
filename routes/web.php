@@ -8,6 +8,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\ProjectController;
+use App\Http\Controllers\ExcelController;
 
 
 /*
@@ -29,6 +30,20 @@ use App\Http\Controllers\ProjectController;
 | Real-life example for updating an employee:
 | /employees/edit/1
 */
+use App\Http\Controllers\MyController;
+  
+/*
+|--------------------------------------------------------------------------
+| Web Routes
+|--------------------------------------------------------------------------
+|
+| Here is where you can register web routes for your application. These
+| routes are loaded by the RouteServiceProvider within a group which
+| contains the "web" middleware group. Now create something great!
+|
+*/
+  
+
 
 Route::get('/', function () {
 return view('auth.login');
@@ -56,8 +71,11 @@ Route::group(['middleware' => ['role:admin', 'first.time.login']], function () {
 
     route::get('/profile/admin', [AdminController::class, 'adminProfile'])
         ->name('admin-profile');
-
-    //employees
+      
+       
+    Route::get('export', [ExcelController::class, 'export'])->name('export');
+    
+        //employees
     route::get('/users', [AdminController::class, 'showUsersList']);
 
     Route::post('/users/add', [AdminController::class, 'store']);
