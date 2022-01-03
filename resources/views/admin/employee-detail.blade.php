@@ -11,8 +11,9 @@
         <h1 class="page-title">Detail Page Employees</h1>
         <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="#">Hours Clocked For Employees</a></li>
-            <li class="breadcrumb-item active text-success" aria-current="page">This Time Sheet Gives More Information
-                About {{ $users->name }}'s Work!
+            <li class="breadcrumb-item active text-orange" aria-current="page">This Time Sheet Gives More Information
+                About {{$users->name}}'s Work!
+
             </li>
         </ol>
     </div>
@@ -25,8 +26,8 @@
                 <div class="card-body">
                     <div class="d-flex">
                         <div class="text-white">
-                            <h2 class="mb-0 number-font">{{ $users->name }}'s Clocking</h2>
-                            <p class="text-white mb-0">The User Worked:<br> •{{ $timeSum }} Hours Worked So Far!</p>
+                            <h2 class="mb-0 number-font">{{$users->name}}'s Clocking</h2>
+                            <p class="text-white mb-0">The User Worked:<br> •{{$timeSum}} Hours Worked So Far This Month!</p>
                         </div>
                         <div class="ml-auto"><i class="fa fa-send-o text-white fs-30 mr-2 mt-2"></i></div>
                     </div>

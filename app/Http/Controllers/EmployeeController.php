@@ -9,7 +9,6 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\View;
 use Ramsey\Uuid\Type\Time;
 use Illuminate\Support\Facades\DB;
-use Carbon\Carbon;
 
 class EmployeeController extends Controller
 {

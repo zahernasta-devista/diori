@@ -50,6 +50,9 @@ class UserController extends Controller
 
         $userId = auth()->user()->id;
         $projects = auth()->user()->projects;
+        $totalHoursWorkedForDashboard = DB::table('timelogs')->whereMonth('date', Carbon::now()->month)->sum('time');
+
+
 
         $timeSum = DB::table('timelogs')->where('user_id', $userId)->whereMonth('date', Carbon::now()->month)->sum('time');
 
@@ -73,21 +76,11 @@ class UserController extends Controller
 
         if (Auth::user()->getRoleNames()[0] == "admin") {
 
-            return view('admin.index', ['project' => $project, 'customer' => $customer, 'user' => $user]);
+            return view('admin.index', ['project' => $project, 'customer' => $customer, 'user' => $user, 'totalHoursWorkedForDashboard'=>$totalHoursWorkedForDashboard]);
         } elseif (Auth::user()->getRoleNames()[0] == "employee") {
 
             return view('employee.dashboard-employee', ['date' => $date, 'timelogs' => $timelogs, 'projectCount' => $projectCount, 'timeSum' => $timeSum, 'timedaySum' => $timedaySum, 'projects' => $projects], compact('projects'));
         }
     }
-//    public function sendEmailReminder(Request $request, $id)
-//    {
-//        $user = User::findOrFail($id);
-//
-//        Mail::send('emails.reminder', ['user' => $user], function ($m) use ($user) {
-//            $m->from('hello@app.com', 'Your Application')->everyMinute();
-//
-//            $m->to($user->email, $user->name)->subject('Your Reminder!');
-//        });
-//    }
 
 }
