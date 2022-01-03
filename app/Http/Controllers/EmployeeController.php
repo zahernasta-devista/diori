@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\View;
 use Ramsey\Uuid\Type\Time;
 use Illuminate\Support\Facades\DB;
-
+use Carbon\Carbon;
 
 class EmployeeController extends Controller
 {
@@ -19,7 +19,7 @@ class EmployeeController extends Controller
     }
 
     public function workLog(Request $request)
-    {
+    {  
         $projects = auth()->user()->projects;
     
         return view('employee.work-log', compact('projects'));
@@ -29,13 +29,17 @@ class EmployeeController extends Controller
 
     public function worklogstore(Request $request)
     {
+        $start = strtotime(Carbon::now()->startOfMonth()->format('Y-m-d'));
+        $end = strtotime(Carbon::now()->startOfMonth()->addMonth()->format('Y-m-d'));
+
         $validation = $request->validate([
-            'time' => ['required','numeric','between:1, 12'],
+            'time' => ['required','numeric'],
             'project_id' => ['required'],
             'date' => ['required'],
             'comment' => ['required']
         ]);
-
+        $selectedDate = strtotime($request->date);
+        if( $selectedDate > $start && $selectedDate < $end){
         $Timelog = Timelog::create([
             'user_id' => auth()->user()->id,
             'time' => $request->time,
@@ -44,9 +48,10 @@ class EmployeeController extends Controller
             'comment' => $request->comment,
 
         ]);
-
-        $Timelog->save();
         return redirect('/calendar');
+
+    }
+        return redirect('/worklog');
     }
 
 
@@ -99,5 +104,21 @@ class EmployeeController extends Controller
 
         return response()->json(['response' => "Successfully deleted the time log"]);
 
+    }
+
+    public function worklogRestriction(Request $request){
+        $timeLogs = Timelog::get()->where('user_id', auth()->user()->id);
+        $timeLogsResponse = [];
+        foreach ($timeLogs as $timeLog) {
+            $timeLogObject = new \stdClass();
+
+            $timeLogObject->id = $timeLog->id;
+            $timeLogObject->time = $timeLog->time;
+            $timeLogObject->date = $timeLog->date;
+
+
+            $timeLogsResponse[] = $timeLogObject;
+        }
+        return response()->json(['timeResponse' => $timeLogsResponse]);
     }
 }

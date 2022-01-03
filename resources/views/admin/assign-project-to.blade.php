@@ -10,7 +10,7 @@
         <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="#">Employee's List</a></li>
             <li class="breadcrumb-item"><a href="#">Assign Project To</a></li>
-            <li class="breadcrumb-item active text-success" aria-current="page">Projects to assign</li>
+            <li class="breadcrumb-item active text-orange" aria-current="page">Projects to assign</li>
         </ol>
     </div>
 @endsection
