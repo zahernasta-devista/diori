@@ -61,6 +61,14 @@ class EmployeeController extends Controller
     }
 
     public function timeSheetResponse(Request $request){
+        $sumPerDay = Carbon::parse($request->input('datePicker'));
+        $startWeek = Carbon::parse($request->input('datePicker'))->addDays(1)->startOfWeek();
+        $endWeek= Carbon::parse($request->input('datePicker'))->addDays(1)->endOfWeek();
+
+        $daySum = DB::table('timelogs')->where('user_id', auth()->user()->id)->whereDay('date', $sumPerDay)->sum('time');
+        $weekSum = DB::table('timelogs')->where('user_id', auth()->user()->id)->whereBetween('date', [$startWeek, $endWeek])->sum('time');
+        $monthSum = DB::table('timelogs')->where('user_id', auth()->user()->id)->whereMonth('date', $sumPerDay)->sum('time');
+
         $timeLogs = Timelog::get()->where('user_id', auth()->user()->id);
         $timeLogsResponse = [];
         foreach ($timeLogs as $timeLog) {
@@ -75,7 +83,7 @@ class EmployeeController extends Controller
 
             $timeLogsResponse[] = $timeLogObject;
         }
-        return response()->json(['response' => $timeLogsResponse]);
+        return response()->json(['response' => $timeLogsResponse, 'hours'=>[$daySum,$weekSum,$monthSum]]);
     }
     public function timeSheetUpdate(Request $request)
     {
