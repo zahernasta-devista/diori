@@ -5,6 +5,19 @@ $(function(e) {
         type: 'GET',
         url: url,
         success: function(response) {
+            var today = new Date();
+            var dd = today.getDate();
+            var mm = today.getMonth() + 1; //January is 0!
+
+            var yyyy = today.getFullYear();
+            if (dd < 10) {
+                dd = '0' + dd;
+            }
+            if (mm < 10) {
+                mm = "0" + mm;
+            }
+            today = yyyy + '-' + mm + '-' + dd;
+
             let responseData = response.response;
             let events = [];
             let time = {
@@ -36,7 +49,7 @@ $(function(e) {
                     }
                 },
                 defaultView: 'listWeek',
-                defaultDate: '2021-11-22',
+                defaultDate: today,
                 navLinks: false, // can click day/week names to navigate views
                 editable: true,
                 eventLimit: true, // allow "more" link when too many events
@@ -70,7 +83,18 @@ $(function(e) {
 
                     });
                 }
+                
             });
+            document.getElementsByClassName('fc-listDay-button fc-button fc-state-default fc-corner-left')[0].onclick = function() {
+                $("#total").val(response.hours[0]);
+            };
+            document.getElementsByClassName('fc-listWeek-button fc-button fc-state-default')[0].onclick = function() {
+                $("#total").val(response.hours[1]);
+            };
+            document.getElementsByClassName('fc-month-button fc-button fc-state-default fc-corner-right')[0].onclick = function() {
+                $("#total").val(response.hours[2]);
+            };
+
         }
     });
 });
