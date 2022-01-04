@@ -8,7 +8,7 @@
 								<h1 class="page-title">Empty</h1>
 								<ol class="breadcrumb">
 									<li class="breadcrumb-item"><a href="#">Pages</a></li>
-									<li class="breadcrumb-item active" aria-current="page">Empty</li>
+									<li class="breadcrumb-item active text-orange" aria-current="page">Empty</li>
 								</ol>
 							</div>
 						<!-- PAGE-HEADER END -->

@@ -9,7 +9,7 @@
         <h1 class="page-title">Edit Your Projects</h1>
         <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="#">Project's List</a></li>
-            <li class="breadcrumb-item active text-success" aria-current="page">Edit Projects</li>
+            <li class="breadcrumb-item active text-orange" aria-current="page">Edit Projects</li>
         </ol>
     </div>
 

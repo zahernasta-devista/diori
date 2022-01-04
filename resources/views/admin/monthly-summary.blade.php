@@ -10,7 +10,7 @@
         <h1 class="page-title">Employees</h1>
         <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="#">Hours & Projects</a></li>
-            <li class="breadcrumb-item active text-success" aria-current="page">Summary of All The Work for The Current Month!</li>
+            <li class="breadcrumb-item active text-orange" aria-current="page">Summary of All The Work for The Current Month!</li>
 
         </ol>
     </div>
@@ -30,13 +30,13 @@
                     </div>
                     <div class="card-body">
                         <div class="table-responsive">
-                            <table id="example" class="table table-striped table-bordered text-nowrap w-100">
+                            <table id="example" class="table table-vcenter  table-bordered text-nowrap w-100">
                                 @if($errors->any())
                                     <div class="alert alert-primary">
                                         {{$errors->first()}}
                                     </div>
                                 @endif
-                                <thead>
+                                <thead class="thead-light">
                                 <tr>
                                     <th class="wd-15p">Name</th>
                                     <th class="wd-10p">Total Clocked Hours</th>
@@ -48,11 +48,11 @@
                                     @if($userDetail->user->getRoleNames()[0] !== "admin")
                                         <tr>
 
-                                            <td>{{$userDetail->user->name}}</td>
-                                            <td>{{$userDetail->hoursWorkedPerMonth}} Hours</td>
-                                            <td>
+                                            <td class="font-italic">• {{$userDetail->user->name}}</td>
+                                            <td class="font-italic">{{$userDetail->hoursWorkedPerMonth}} Hours Worked</td>
+                                            <td class="font-italic">
                                                 @foreach($userDetail->projects as $key => $value)
-                                                    <h6>•{{$key}} -> {{$value}}</h6>
+                                                    <h6>{{$key}} => {{$value}}</h6>
                                                 @endforeach
                                             </td>
                                             @endif

@@ -33,8 +33,8 @@
                         <div class="table-responsive">
 
                             {{ csrf_field() }}
-                            <table id="example" class="table table-striped table-bordered text-nowrap w-100">
-                                <thead>
+                            <table id="example" class="table table-vcenter table-bordered text-nowrap w-100">
+                                <thead class="thead-light">
                                 <tr>
                                     <th scope="col">-</th>
                                     <th scope="col">Name</th>
@@ -46,8 +46,8 @@
                                 @foreach($customers as $customer)
                                     <tr>
                                         <td><input type="checkbox" name="checkboxes[]" value="{{$customer->id}}"></td>
-                                        <td>{{$customer->name}}</td>
-                                        <td>{{$customer->email}}</td>
+                                        <td class="font-italic">{{$customer->name}}</td>
+                                        <td class="font-italic">{{$customer->email}}</td>
 
                                         <td class="text-center">
                                             <a class="btn btn btn-sm btn-purple-gradient"
