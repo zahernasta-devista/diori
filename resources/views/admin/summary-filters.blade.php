@@ -10,7 +10,7 @@
         <h1 class="page-title">Employees And Timelog</h1>
         <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="#">Hours & Projects</a></li>
-            <li class="breadcrumb-item active" aria-current="page">Summary of All The Work for The Selected Month!</li>
+            <li class="breadcrumb-item active text-orange" aria-current="page">Summary of All The Work for The Selected Month!</li>
         </ol>
     </div>
     <!-- PAGE-HEADER END -->
@@ -79,13 +79,13 @@
                             </select>
                             &emsp;
                             @php
-                            use Carbon\Carbon;
-                                $currentMonth = Carbon::now()->format('m');
-                                $currentYear = Carbon::now()->format('Y');
-                         @endphp
+                                use Carbon\Carbon;
+                                    $currentMonth = Carbon::now()->format('m');
+                                    $currentYear = Carbon::now()->format('Y');
+                            @endphp
                             <select  name="project"  class="btn btn-md btn-purple-gradient rounded-pill"><i class="fa fa-dropbox" ></i>
                                 <option selected disabled hidden>Select The Project</option>
-                                <option class="btn btn-purple" selected value="" >All Projects</option> 
+                                <option class="btn btn-purple" selected value="" >All Projects</option>
                                 @foreach($projectsOptions as $project)
                                     <option class="btn btn-purple" value="{{$project->id}}" @if(request()->project ==$project->id) selected @endif>{{$project->name}}</option>
                                 @endforeach
@@ -96,7 +96,7 @@
                             <a class="btn btn-md btn-purple-gradient rounded-pill" href="{{ route('export', ['month' => $selectedMonth, 'year' => $selectedYear,'project'=>$selectedProject]) }}">Export </a>
                         </div>
                     </div>
-                    
+
                     <div class="card-body">
                         <div class="table-responsive">
                             @if($errors->any())
@@ -104,21 +104,23 @@
                                     {{$errors->first()}}
                                 </div>
                             @endif
-                            <table id="example" class="table table-striped table-bordered text-nowrap w-100">
-                                <thead>
+                            {{--table head--}}
+                            <table id="example" class="table table-vcenter table-bordered text-nowrap w-100">
+                                <thead class="thead-light">
                                 <tr>
-                                    <th class="wd-15p">Name</th>
-                                    <th class="wd-10p">Total Clocked Hours</th>
+                                    <th class="wd-15p font-italic">Name</th>
+                                    <th class="wd-10p font-italic">Total Clocked Hours</th>
                                 </tr>
                                 </thead>
+                                {{--table body--}}
                                 <tbody>
                                 @foreach($userDetails as $userDetail)
                                     @if($userDetail->user->getRoleNames()[0] !== "admin")
                                         <tr>
 
-                                            <td><h5>{{$userDetail->user->name}}</h5></td>
-                                            <td>
-                                                <h5>{{$userDetail->hoursWorkedPerMonth}} Hours</h5>
+                                            <td class="font-italic"><h5>• {{$userDetail->user->name}}</h5></td>
+                                            <td class="font-italic">
+                                                <h5> • {{$userDetail->hoursWorkedPerMonth}} Hours</h5>
                                                 @foreach($userDetail->projects as $key => $value)
                                                     <h6>{{$key}} -> {{$value}}</h6>
                                                 @endforeach
@@ -126,8 +128,8 @@
                                             @endif
                                         </tr>
                                         @endforeach
-                                       
-                                       
+
+
                                 </tbody>
                             </table>
                         </div>
@@ -135,7 +137,7 @@
                 </form>
             </div>
         </div>
-                      
+
     </div>
 @endsection
 

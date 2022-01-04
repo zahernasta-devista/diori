@@ -9,7 +9,7 @@
 		<h1 class="page-title">Customer's Current Projects</h1>
 		<ol class="breadcrumb">
 			<li class="breadcrumb-item"><a href="#">Customer's List</a></li>
-			<li class="breadcrumb-item active text-success" aria-current="page">Projects</li>
+			<li class="breadcrumb-item active text-orange" aria-current="page">Projects</li>
 		</ol>
 	</div>
 	<!-- PAGE-HEADER END -->
@@ -24,8 +24,8 @@
 				</div>
 				<div class="card-body">
 					<div class="table-responsive">
-						<table id="example" class="table table-striped table-bordered text-nowrap w-100">
-							<thead>
+						<table id="example" class="table table-vcenter table-bordered text-nowrap w-100">
+							<thead class="thead-light">
 							<tr>
 								<th class="wd-15p">Name</th>
 								<th class="wd-15p">Technology</th>

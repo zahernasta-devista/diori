@@ -25,8 +25,8 @@
                 </div>
                 <div class="card-body">
                     <div class="table-responsive">
-                        <table id="example" class="table table-striped table-bordered text-nowrap w-100">
-                            <thead>
+                        <table id="example" class="table table-vcenter table-bordered text-nowrap w-100">
+                            <thead class="thead-light">
                             <tr>
                                 <th scope="col">Project Name</th>
                                 <th scope="col">Customer</th>
@@ -36,8 +36,8 @@
                             <tbody>
                                 @foreach($projects as $project)
                                 <tr>
-                                    <td>{{$project->name}}</td>
-                                    <td>{{$project->customer->name}}</td>
+                                    <td class="font-italic">{{$project->name}}</td>
+                                    <td class="font-italic">{{$project->customer->name}}</td>
                                     <td>
                                         <form action="{{ route('unassign-employee-project',[$user->id, $project->id]) }}" method="POST">
                                             @csrf

@@ -2,6 +2,18 @@
 @section('css')
 	<link href="{{ URL::asset('assets/plugins/single-page/css/main.css')}}" rel="stylesheet">
 @endsection
+@section('page-header')
+	<!-- PAGE-HEADER -->
+	<div>
+		<h1 class="page-title">Add a New Customer</h1>
+		<ol class="breadcrumb">
+			<li class="breadcrumb-item"><a href="#">Customer's List</a></li>
+			<li class="breadcrumb-item active text-orange" aria-current="page">Add Customers</li>
+		</ol>
+	</div>
+
+	<!-- PAGE-HEADER END -->
+@endsection
 @section('content')
 	<!-- BACKGROUND-IMAGE -->
 	<div >

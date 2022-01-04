@@ -33,10 +33,10 @@
                 </div>
                 <div class="card-body">
                     <div class="table-responsive">
-                            <table id="example" class="table table-striped table-bordered text-nowrap w-100">
+                            <table id="example" class="table table-vcenter table-bordered text-nowrap w-100">
 
                                 {{ csrf_field() }}
-                                <thead>
+                                <thead class="thead-light">
                                 <tr>
                                     <th class="wd-15p">-</th>
                                     <th class="wd-15p">Name</th>
@@ -50,9 +50,9 @@
                                     @if($user->getRoleNames()[0] !== "employee")
                                         <tr>
                                             <td><input type="checkbox" name="checkboxes[]" value="{{$user->id}}"></td>
-                                            <td>{{$user->name}}</td>
-                                            <td>{{$user->position}}</td>
-                                            <td>{{$user->email}}</td>
+                                            <td class="font-italic">{{$user->name}}</td>
+                                            <td class="font-italic">{{$user->position}}</td>
+                                            <td class="font-italic">{{$user->email}}</td>
                                             <td class="text-center align-middle">
                                                 <a class="btn btn-sm btn-purple-gradient badge"
                                                    href="{{route('edit-admin',$user->id)}}" type="button"><i

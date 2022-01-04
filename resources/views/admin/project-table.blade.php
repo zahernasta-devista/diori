@@ -35,8 +35,8 @@
                         <div class="table-responsive">
 
                             {{ csrf_field() }}
-                            <table id="example" class="table table-striped table-bordered text-nowrap w-100">
-                                <thead>
+                            <table id="example" class="table table-vcenter table-bordered text-nowrap w-100">
+                                <thead class="thead-light">
                                 <tr>
                                     <th scope="col">-</th>
                                     <th scope="col">Project Name</th>
@@ -52,10 +52,10 @@
                                     <tr>
 
                                         <td><input type="checkbox" name="checkboxes[]" value="{{$project->id}}"></td>
-                                        <td>{{$project->name}}</td>
-                                        <td>{{$project->backend}}</td>
-                                        <td>{{$project->start_date}}</td>
-                                        <td>{{$project->customer->name}}</td>
+                                        <td class="font-italic">{{$project->name}}</td>
+                                        <td class="font-italic">{{$project->backend}}</td>
+                                        <td class="font-italic">{{$project->start_date}}</td>
+                                        <td class="font-italic">{{$project->customer->name}}</td>
                                         <td class="text-center">
                                             <a class="btn btn btn-sm btn-purple-gradient"
                                                href="{{route('edit-project',$project->id)}}" type="button"><i

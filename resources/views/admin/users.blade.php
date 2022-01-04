@@ -20,7 +20,7 @@
 	<div class="row">
 		<div class="col-md-12 col-lg-12">
 			<div class="card">
-						<form method="POST" action="{{route('delete-checkbox-project')}}">
+						<form method="POST" action="{{route('delete-checkbox-employee')}}">
 				<div class="card-header">
 					<h3  class="card-title">Your Employees</h3>
 						<div class="card-options">
@@ -33,8 +33,8 @@
 					<div class="table-responsive">
 
 							{{ csrf_field() }}
-						<table id="example" class="table table-striped table-bordered text-nowrap w-100">
-							<thead>
+						<table id="example" class="table table-vcenter table-bordered text-nowrap w-100">
+							<thead class="thead-light">
 							<tr>
 								<th class="wd-15p">-</th>
 								<th class="wd-15p">Name</th>
@@ -48,9 +48,9 @@
 								@if($user->getRoleNames()[0] !== "admin")
 									<tr>
 										<td><input type="checkbox" name="checkboxes[]" value="{{$user->id}}"></td>
-										<td>{{$user->name}}</td>
-										<td>{{$user->position}}</td>
-										<td>{{$user->email}}</td>
+										<td class="font-italic"> {{$user->name}}</td>
+										<td class="font-italic">{{$user->position}}</td>
+										<td class="font-italic">{{$user->email}}</td>
 										<td class="text-center align-middle">
 											<a class="btn btn-sm btn-purple-gradient" href="{{route('edit-user',$user->id)}}" type="button"><i class="fa fa-edit"></i>Edit</a>
 											<a class="btn btn-sm btn-purple-gradient" href="{{route('employee-project-page',$user->id)}}" type="button"><i class="fa fa-edit"></i>Assign</a>
