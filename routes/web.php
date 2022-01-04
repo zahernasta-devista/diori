@@ -57,10 +57,10 @@ route::post('profile/password/change', [ChangePasswordProfileController::class, 
 
 Route::get('/dashboard', [UserController::class, 'dashboard'])
     ->name('dashboard')
-    ->middleware('first.time.login');
+    ->middleware(['auth','first.time.login']);
 
 //middleware role admin
-Route::group(['middleware' => ['role:admin', 'first.time.login']], function () {
+Route::group(['middleware' => ['role:admin','auth', 'first.time.login']], function () {
 
     route::get('/vertical-menu', [AdminController::class, 'verticalMenu']);
 
@@ -204,7 +204,7 @@ Route::group(['middleware' => ['role:admin', 'first.time.login']], function () {
 });
 
 //middleware role employee
-Route::group(['middleware' => ['role:employee', 'first.time.login']], function () {
+Route::group(['middleware' => ['role:employee','auth', 'first.time.login']], function () {
     route::get('/calendar', [EmployeeController::class, 'calendar'])
         ->name('calendar');
 
