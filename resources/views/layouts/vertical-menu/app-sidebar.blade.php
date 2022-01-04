@@ -51,7 +51,7 @@
                         <li><h3>Elements</h3></li>
 
                         <li class="slide">
-                            <a class="side-menu__item"  href="{{ route('admins') }}"><i class="side-menu__icon ti-world"></i><span class="side-menu__label">Admins</span></a>
+                            <a class="side-menu__item"  href="{{ route('admins') }}"><i class="side-menu__icon ti-key"></i><span class="side-menu__label">Admins</span></a>
                            <a class="side-menu__item" href="{{ url('/' . $page='users') }}" ><i class="side-menu__icon ti-home"></i><span class="side-menu__label">Employees</span></a>
                             <a class="side-menu__item"  href="{{ route('projects') }}"><i class="side-menu__icon ti-layout-accordion-separated"></i><span class="side-menu__label">Projects</span></a>
                             <a class="side-menu__item"  href="{{ route('customers') }}"><i class="side-menu__icon ti-agenda"></i><span class="side-menu__label">Customers</span></a>
