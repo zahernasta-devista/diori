@@ -30,12 +30,6 @@
 											</div>
 										@endforeach
 									<div class="card-body">
-										<div class="d-flex mb-3">
-											<img alt="User Avatar" class="rounded-circle avatar-lg mr-2" src="{{URL::asset('assets/images/users/10.jpg')}}">
-											<div class="ml-auto mt-xl-2 mt-lg-0 ml-lg-2">
-												<a href="#" class="btn btn-purple-gradient btn-sm mt-1 mb-1"><i class="fe fe-camera mr-1"></i>Profile</a>
-											</div>
-										</div>
 										<div class="form-group">
 											<label class="form-label">Current Password</label>
 											<input type="password" class="form-control"  name="current_password" id="current_password">
@@ -85,104 +79,6 @@
 							</div>
 								</div>
 
-						<!-- ROW-1 CLOSED -->
-
-{{--						<!-- ROW-2 OPEN -->--}}
-{{--						<div class="row">--}}
-{{--							<div class="col-12">--}}
-{{--								<div class="card">--}}
-{{--									<div class="card-header ">--}}
-{{--										<h3 class="card-title ">Projects</h3>--}}
-{{--										<div class="card-options">--}}
-{{--											<button id="add__new__list" type="button" class="btn btn-md btn-primary " data-toggle="modal" data-target=".bd-example-modal-lg"><i class="fa fa-plus"></i> Add a new Project</button>--}}
-{{--										</div>--}}
-{{--									</div>--}}
-{{--									<div class="table-responsive">--}}
-{{--										<table class="table table-hover card-table table-striped table-vcenter table-outline text-nowrap">--}}
-{{--											<thead>--}}
-{{--												<tr>--}}
-{{--													<th scope="col">ID</th>--}}
-{{--													<th scope="col">Project Name</th>--}}
-{{--													<th scope="col">Backend</th>--}}
-{{--													<th scope="col">Deadline</th>--}}
-{{--													<th scope="col">Team Members</th>--}}
-{{--													<th scope="col">Edit Project Details </th>--}}
-{{--													<th scope="col">list info</th>--}}
-{{--												</tr>--}}
-{{--											</thead>--}}
-{{--											<tbody>--}}
-{{--												<tr>--}}
-{{--													<td>1</td>--}}
-{{--													<td>At vero eos et accusamus et iusto odio</td>--}}
-{{--													<td>PHP</td>--}}
-{{--													<td>15/11/2018</td>--}}
-{{--													<td>15 Members</td>--}}
-{{--													<td>--}}
-{{--														<a class="btn btn-sm btn-primary" href="#"><i class="fa fa-edit"></i> Edit</a>--}}
-{{--														<a class="btn btn-sm btn-danger" href="#"><i class="fa fa-trash"></i> Delete</a>--}}
-{{--													</td>--}}
-{{--													<td><a class="btn btn-sm btn-secondary" href="#"><i class="fa fa-info-circle"></i> Details</a> </td>--}}
-{{--												</tr>--}}
-{{--												<tr>--}}
-{{--													<td>2</td>--}}
-{{--													<td>voluptatum deleniti atque corrupti quos</td>--}}
-{{--													<td>Angular js</td>--}}
-{{--													<td>25/11/2018</td>--}}
-{{--													<td>12 Members</td>--}}
-{{--													<td>--}}
-{{--														<a class="btn btn-sm btn-primary" href="#"><i class="fa fa-edit"></i> Edit</a>--}}
-{{--														<a class="btn btn-sm btn-danger" href="#"><i class="fa fa-trash"></i> Delete</a>--}}
-{{--													</td>--}}
-{{--													<td><a class="btn btn-sm btn-secondary" href="#"><i class="fa fa-info-circle"></i> Details</a> </td>--}}
-{{--												</tr>--}}
-{{--												<tr>--}}
-{{--													<td>3</td>--}}
-{{--													<td>dignissimos ducimus qui blanditiis praesentium </td>--}}
-{{--													<td>Java</td>--}}
-{{--													<td>5/12/2018</td>--}}
-{{--													<td>20 Members</td>--}}
-{{--													<td>--}}
-{{--														<a class="btn btn-sm btn-primary" href="#"><i class="fa fa-edit"></i> Edit</a>--}}
-{{--														<a class="btn btn-sm btn-danger" href="#"><i class="fa fa-trash"></i> Delete</a>--}}
-{{--													</td>--}}
-{{--													<td><a class="btn btn-sm btn-secondary" href="#"><i class="fa fa-info-circle"></i> Details</a> </td>--}}
-{{--												</tr>--}}
-{{--												<tr>--}}
-{{--													<td>4</td>--}}
-{{--													<td>deleniti atque corrupti quos dolores  </td>--}}
-{{--													<td>Phython</td>--}}
-{{--													<td>14/12/2018</td>--}}
-{{--													<td>10 Members</td>--}}
-{{--													<td>--}}
-{{--														<a class="btn btn-sm btn-primary" href="#"><i class="fa fa-edit"></i> Edit</a>--}}
-{{--														<a class="btn btn-sm btn-danger" href="#"><i class="fa fa-trash"></i> Delete</a>--}}
-{{--													</td>--}}
-{{--													<td><a class="btn btn-sm btn-secondary" href="#"><i class="fa fa-info-circle"></i> Details</a> </td>--}}
-{{--												</tr>--}}
-{{--												<tr>--}}
-{{--													<td>5</td>--}}
-{{--													<td>et quas molestias excepturi sint occaecati</td>--}}
-{{--													<td>Phython</td>--}}
-{{--													<td>4/12/2018</td>--}}
-{{--													<td>17 Members</td>--}}
-{{--													<td>--}}
-{{--														<a class="btn btn-sm btn-primary" href="#"><i class="fa fa-edit"></i> Edit</a>--}}
-{{--														<a class="btn btn-sm btn-danger" href="#"><i class="fa fa-trash"></i> Delete</a>--}}
-{{--													</td>--}}
-{{--													<td><a class="btn btn-sm btn-secondary" href="#"><i class="fa fa-info-circle"></i> Details</a> </td>--}}
-{{--												</tr>--}}
-{{--											</tbody>--}}
-{{--										</table>--}}
-{{--									</div>--}}
-{{--								</div>--}}
-{{--							</div>--}}
-{{--						</div>--}}
-						<!-- ROW-2 CLOSED -->
-
-					</div>
-				</div>
-				<!--CONTAINER CLOSED -->
-			</div>
 @endsection
 @section('js')
 <script src="{{ URL::asset('assets/plugins/chart/Chart.bundle.js') }}"></script>
