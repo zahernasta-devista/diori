@@ -30,12 +30,6 @@
 											</div>
 										@endforeach
 										<div class="card-body">
-											<div class="d-flex mb-3">
-												<img alt="User Avatar" class="rounded-circle avatar-lg mr-2" src="{{URL::asset('assets/images/users/10.jpg')}}">
-												<div class="ml-auto mt-xl-2 mt-lg-0 ml-lg-2">
-													<a href="#" class="btn btn-purple-gradient btn-sm mt-1 mb-1"><i class="fe fe-camera mr-1"></i>Profile</a>
-												</div>
-											</div>
 											<div class="form-group">
 												<label class="form-label">Current Password</label>
 												<input type="password" class="form-control"  name="current_password" id="current_password">

@@ -9,11 +9,8 @@
                     </div>
                     <div class="app-sidebar__user">
                         <div class="dropdown user-pro-body text-center">
-                            <div class="user-pic">
-                                <img src="{{URL::asset('assets/images/users/10.jpg')}}" alt="user-img" class="avatar-xl rounded-circle">
-                            </div>
                             <div class="user-info">
-                                <h6 class=" mb-0 text-dark">{{Auth::User()->name}}</h6>
+                                <h6 class=" mb-0 text-dark"><i class="fa fa-user-circle-o fa-sm text-black fs-30 mr-2 mt-2"></i>{{Auth::User()->name}} </h6>
                                 <span class="text-muted app-sidebar__user-name text-sm">{{Auth::user()->position}}</span>
                             </div>
                         </div>
