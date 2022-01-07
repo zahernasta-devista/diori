@@ -38,7 +38,7 @@ class EmployeeController extends Controller
             'comment' => ['required']
         ]);
         $selectedDate = strtotime($request->date);
-        if( $selectedDate > $start && $selectedDate < $end){
+        if( $selectedDate >= $start && $selectedDate <= $end){
         $Timelog = Timelog::create([
             'user_id' => auth()->user()->id,
             'time' => $request->time,
