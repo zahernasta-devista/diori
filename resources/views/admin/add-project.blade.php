@@ -21,6 +21,15 @@
             <!-- CONTAINER OPEN -->
             <div class="container-login100">
                 <div class="wrap-login100 p-6">
+                    @if ($errors->any())
+                        <div class="alert alert-danger">
+                            <ul>
+                                @foreach ($errors->all() as $error)
+                                    <li>{{ $error }}</li>
+                                @endforeach
+                            </ul>
+                        </div>
+                    @endif
                     <form class="login100-form validate-form" action="{{route('add-project')}}" method="POST">
                         @csrf
                         <span class="login100-form-title">
