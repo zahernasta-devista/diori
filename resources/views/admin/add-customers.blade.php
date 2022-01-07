@@ -23,13 +23,23 @@
 				<!-- CONTAINER OPEN -->
 				<div class="container-login100">
 					<div class="wrap-login100 p-6">
+						@if ($errors->any())
+                        <div class="alert alert-danger">
+                            <ul>
+                                @foreach ($errors->all() as $error)
+                                    <li>{{ $error }}</li>
+                                @endforeach
+                            </ul>
+                        </div>
+                    @endif
 						<form class="login100-form validate-form" action="{{ route('add-customers') }}" method="POST">
 							@csrf
 							<span class="login100-form-title">
 									Add New Customer
 								</span>
+								
 							<div class="wrap-input100 validate-input" data-validate = "Valid email is required: ex@abc.xyz">
-								<input class="input100" type="text" name="name" placeholder="User name">
+								<input class="input100" type="text" name="name" placeholder="Customer name">
 								<span class="focus-input100"></span>
 								<span class="symbol-input100">
 										<i class="mdi mdi-account" aria-hidden="true"></i>
