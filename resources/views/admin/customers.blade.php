@@ -24,7 +24,7 @@
                             <a type="button" href="{{ route('add-customers') }}" class="btn btn-md btn-orange rounded-pill "><i
                                         class="fa fa-plus"></i> Add a New Customer</a>
                             &emsp;
-                            <button type="submit" class="btn btn-md btn-orange rounded-pill" onclick="return confirm('Are you sure you want to Delete This Customer')"><i class="fa fa-minus"></i> Delete
+                            <button disabled id="deleteButton" type="submit" class="btn btn-md btn-orange rounded-pill" onclick="return confirm('Are you sure you want to Delete This Customer')"><i class="fa fa-minus"></i> Delete
                                 Customers
                             </button>
                         </div>
@@ -45,7 +45,7 @@
                                 <tbody>
                                 @foreach($customers as $customer)
                                     <tr>
-                                        <td><input type="checkbox" name="checkboxes[]" value="{{$customer->id}}"></td>
+                                        <td><input id="checkbox" type="checkbox" name="checkboxes[]" value="{{$customer->id}}"></td>
                                         <td class="font-italic">{{$customer->name}}</td>
                                         <td class="font-italic">{{$customer->email}}</td>
 
@@ -74,4 +74,21 @@
 	<script src="{{ URL::asset('assets/plugins/datatable/dataTables.bootstrap4.min.js') }}"></script>
 	<script src="{{ URL::asset('assets/plugins/datatable/datatable.js') }}"></script>
 	<script src="{{ URL::asset('assets/plugins/datatable/dataTables.responsive.min.js') }}"></script>
+    <script>
+        $(document).ready(function () {
+            $('#checkbox').click(function () {
+                if ($(this).is(':checked')) {
+                    $('#deleteButton').removeAttr('disabled');
+                }
+                if (!$(this).is(':checked')) {
+                    $('#deleteButton').attr('disabled','disabled');
+
+                }
+
+            });
+
+        });
+
+    </script>
+
 @endsection
