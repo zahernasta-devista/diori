@@ -2,5 +2,6 @@
     "/js/app.js": "/js/app.js",
     "/assets/js/fullcalendar.js": "/assets/js/fullcalendar.js",
     "/assets/js/datatable.js": "/assets/js/datatable.js",
-    "/css/app.css": "/css/app.css"
+    "/css/app.css": "/css/app.css",
+    "/assets/css/sidemenu.css": "/assets/css/sidemenu.css"
 }

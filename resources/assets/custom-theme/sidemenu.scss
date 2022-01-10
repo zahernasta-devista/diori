@@ -3,6 +3,7 @@
 .app-sidebar .mCSB_draggerContainer {
 	right: -11px !important;
 }
+
 @media (min-width: 768px) {
 	.app.sidenav-toggled {
 		.app-content {
@@ -1021,3 +1022,10 @@
 .sub-slide2.is-expanded .sub-slide-menu2{
     display: block;
 }
+
+@media(max-width: 768px) {
+	.sidebar-mini.sidenav-toggled .sidebar-navs {
+		display: block;
+	}
+}
+
