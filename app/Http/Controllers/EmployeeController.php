@@ -18,12 +18,11 @@ class EmployeeController extends Controller
     }
 
     public function workLog(Request $request)
-    {  
+    {
         $projects = auth()->user()->projects;
-    
+
         return view('employee.work-log', compact('projects'));
     }
-
 
 
     public function worklogstore(Request $request)
@@ -32,24 +31,27 @@ class EmployeeController extends Controller
         $end = strtotime(Carbon::now()->startOfMonth()->addMonth()->format('Y-m-d'));
 
         $validation = $request->validate([
-            'time' => ['required','numeric'],
+            'time' => ['required', 'numeric'],
             'project_id' => ['required'],
             'date' => ['required'],
             'comment' => ['required']
         ]);
         $selectedDate = strtotime($request->date);
-        if( $selectedDate >= $start && $selectedDate <= $end){
-        $Timelog = Timelog::create([
-            'user_id' => auth()->user()->id,
-            'time' => $request->time,
-            'project_id' => $request->project_id,
-            'date' => $request->date,
-            'comment' => $request->comment,
+        $selectedTime = $request->time;
 
-        ]);
-        return redirect('/calendar');
+        if ($selectedDate >= $start && $selectedDate <= $end && $selectedTime != 0)  {
+            $Timelog = Timelog::create([
+                'user_id' => auth()->user()->id,
+                'time' => $request->time,
+                'project_id' => $request->project_id,
+                'date' => $request->date,
+                'comment' => $request->comment,
 
-    }
+            ]);
+            return redirect('/calendar');
+
+        }
+
         return redirect('/worklog');
     }
 
@@ -59,10 +61,11 @@ class EmployeeController extends Controller
         return view('employee.employee-profile');
     }
 
-    public function timeSheetResponse(Request $request){
+    public function timeSheetResponse(Request $request)
+    {
         $sumPerDay = Carbon::parse($request->input('datePicker'));
         $startWeek = Carbon::parse($request->input('datePicker'))->addDays(1)->startOfWeek();
-        $endWeek= Carbon::parse($request->input('datePicker'))->addDays(1)->endOfWeek();
+        $endWeek = Carbon::parse($request->input('datePicker'))->addDays(1)->endOfWeek();
 
         $daySum = DB::table('timelogs')->where('user_id', auth()->user()->id)->whereDay('date', $sumPerDay)->sum('time');
         $weekSum = DB::table('timelogs')->where('user_id', auth()->user()->id)->whereBetween('date', [$startWeek, $endWeek])->sum('time');
@@ -82,30 +85,33 @@ class EmployeeController extends Controller
 
             $timeLogsResponse[] = $timeLogObject;
         }
-        return response()->json(['response' => $timeLogsResponse, 'hours'=>[$daySum,$weekSum,$monthSum]]);
+        return response()->json(['response' => $timeLogsResponse, 'hours' => [$daySum, $weekSum, $monthSum]]);
     }
+
     public function timeSheetUpdate(Request $request)
     {
         $start = Carbon::now()->startOfMonth()->format('Y-m-d');
         $end = Carbon::now()->startOfMonth()->addMonth()->format('Y-m-d');
-    
+
         $timeLog = Timelog::
-          where('id', intval($request->id))
-        ->whereBetween('date', [$start, $end])
-        ->update(['time' => intval($request->time),'comment'=>$request->comment]);
+        where('id', intval($request->id))
+            ->whereBetween('date', [$start, $end])
+            ->update(['time' => intval($request->time), 'comment' => $request->comment]);
 
 
-         return response()->json(['response' => "Successfully updated the time log"]);
+        return response()->json(['response' => "Successfully updated the time log"]);
     }
 
-    public function timeSheetDelete(Request $request){
-        $timeLog = Timelog::where('id',intval($request->id))->delete();
+    public function timeSheetDelete(Request $request)
+    {
+        $timeLog = Timelog::where('id', intval($request->id))->delete();
 
         return response()->json(['response' => "Successfully deleted the time log"]);
 
     }
 
-    public function worklogRestriction(Request $request){
+    public function worklogRestriction(Request $request)
+    {
         $timeLogs = Timelog::get()->where('user_id', auth()->user()->id);
         $timeLogsResponse = [];
         foreach ($timeLogs as $timeLog) {
