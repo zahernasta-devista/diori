@@ -25,7 +25,7 @@
                     <h3 class="card-title">Admins</h3>
                     <div class="card-options">
                         <div class="btn-toolbar">
-                            <button type="submit" class="btn btn-md btn-orange rounded-pill " onclick="return confirm('Are you sure you want to Delete This Admin?')"><i class="fa fa-minus"></i> Delete
+                            <button disabled id="deleteButton" type="submit" class="btn btn-md btn-orange rounded-pill " onclick="return confirm('Are you sure you want to Delete This Admin?')"><i class="fa fa-minus"></i> Delete
                                 Admins
                             </button>
                         </div>
@@ -49,7 +49,7 @@
                                 @foreach($users as $user)
                                     @if($user->getRoleNames()[0] !== "employee")
                                         <tr>
-                                            <td><input type="checkbox" name="checkboxes[]" value="{{$user->id}}"></td>
+                                            <td><input type="checkbox" id="checkbox" name="checkboxes[]" value="{{$user->id}}"></td>
                                             <td class="font-italic">{{$user->name}}</td>
                                             <td class="font-italic">{{$user->position}}</td>
                                             <td class="font-italic">{{$user->email}}</td>
@@ -80,4 +80,20 @@
     <script src="{{ URL::asset('assets/plugins/datatable/dataTables.bootstrap4.min.js') }}"></script>
     <script src="{{ URL::asset('assets/plugins/datatable/datatable.js') }}"></script>
     <script src="{{ URL::asset('assets/plugins/datatable/dataTables.responsive.min.js') }}"></script>
+    <script>
+        $(document).ready(function () {
+            $('#checkbox').click(function () {
+                if ($(this).is(':checked')) {
+                    $('#deleteButton').removeAttr('disabled');
+                }
+                if (!$(this).is(':checked')) {
+                    $('#deleteButton').attr('disabled','disabled');
+
+                }
+
+            });
+
+        });
+
+    </script>
 @endsection

@@ -24,7 +24,7 @@
                             <a type="button" href="{{ route('add-project-page') }}" class="btn btn-md btn-orange rounded-pill "><i
                                         class="fa fa-plus"></i> Add a New Project</a>
                                         &emsp;
-                                        <button type="submit" class="btn btn-md btn-orange rounded-pill" onclick="return confirm('Are you sure you want to delete the selected project ?')"><i class="fa fa-minus"></i> Delete
+                                        <button disabled id="deleteButton" type="submit" class="btn btn-md btn-orange rounded-pill" onclick="return confirm('Are you sure you want to delete the selected project ?')"><i class="fa fa-minus"></i> Delete
                                             Projects
                                         </button>
 
@@ -51,7 +51,7 @@
                                 @foreach($projects as $project)
                                     <tr>
 
-                                        <td><input type="checkbox" name="checkboxes[]" value="{{$project->id}}"></td>
+                                        <td><input id="checkbox" type="checkbox" name="checkboxes[]" value="{{$project->id}}"></td>
                                         <td class="font-italic">{{$project->name}}</td>
                                         <td class="font-italic">{{$project->backend}}</td>
                                         <td class="font-italic">{{$project->start_date}}</td>
@@ -77,4 +77,21 @@
     <script src="{{ URL::asset('assets/plugins/datatable/dataTables.bootstrap4.min.js') }}"></script>
     <script src="{{ URL::asset('assets/plugins/datatable/datatable.js') }}"></script>
     <script src="{{ URL::asset('assets/plugins/datatable/dataTables.responsive.min.js') }}"></script>
+    <script>
+        $(document).ready(function () {
+            $('#checkbox').click(function () {
+                if ($(this).is(':checked')) {
+                    $('#deleteButton').removeAttr('disabled');
+                }
+                if (!$(this).is(':checked')) {
+                    $('#deleteButton').attr('disabled','disabled');
+
+                }
+
+            });
+
+        });
+
+    </script>
+
 @endsection
