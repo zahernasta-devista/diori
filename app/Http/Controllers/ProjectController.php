@@ -31,7 +31,7 @@ class ProjectController extends Controller
         $request->validate([
             'name' => ['required', 'string', 'max:255'],
             'backend' => ['required', 'string', 'max:255'],
-            'customer_name' => ['required'],
+            'customer' => ['required'],
             'start_date' => ['required', 'date']
 
         ]);
