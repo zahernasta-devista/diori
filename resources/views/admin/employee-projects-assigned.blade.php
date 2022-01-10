@@ -41,7 +41,7 @@
                                     <td>
                                         <form action="{{ route('unassign-employee-project',[$user->id, $project->id]) }}" method="POST">
                                             @csrf
-                                            <button type="submit" class="btn btn-sm btn-purple-gradient"><i class="fa fa-close"></i> Unassign</button>
+                                            <button type="submit" onclick="return confirm('Are you sure you want to Unassign This Project?')" class="btn btn-sm btn-purple-gradient"><i class="fa fa-close"></i> Unassign</button>
                                         </form>
                                     </td>
                                 </tr>
