@@ -18,7 +18,7 @@
                     <form method="POST" action="{{ route('logout') }}">
                         {{ csrf_field() }}
                         <div class="sidebar-navs">
-                            <ul class="nav  nav-pills-circle">
+                            <ul class="nav nav-pills-circle">
                                 <li class="nav-item" data-toggle="tooltip" data-placement="top" title="Profile" >
                                     <a class="nav-link text-center ml-8 mr-5 btn btn-purple-gradient btn-sm rounded-pill py-3 px-3" href="{{ route('admin-profile') }}">
                                         <i class="fe fe-user text-white"></i>
