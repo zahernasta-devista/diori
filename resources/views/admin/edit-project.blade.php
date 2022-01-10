@@ -40,18 +40,6 @@
 										<i class="zmdi zmdi-receipt" aria-hidden="true"></i>
 									</span>
                         </div>
-                        <div class="wrap-input100 validate-input">
-                            <select class="input100" type="text" name="customer" placeholder="Customer">
-                                <option value="" selected disabled hidden>Choose Your Customer</option>
-                                @foreach($customers as $customer)
-                                    <option value="{{$customer->id}}">{{$customer->name}}</option>
-                                @endforeach
-                            </select>
-                            <span class="focus-input100"></span>
-                            <span class="symbol-input100">
-										<i class="zmdi zmdi-card" aria-hidden="true"></i>
-									</span>
-                        </div>
                         <div class="wrap-input100 validate-input" data-validate = "Organization is required">
                             <input class="input100" type="date" name="start_date" placeholder="YYYY-MM-DD" value="{{$project->start_date}}">
                             <span class="focus-input100"></span>
@@ -61,7 +49,7 @@
                         </div>
                         <div class="container-login100-form-btn">
                             <button  class="login100-form-btn btn-purple-gradient">
-                                {{ __('Sumbit Changes') }}
+                                {{ __('Submit Changes') }}
                             </button>
                         </div>
                     </form>
