@@ -243,6 +243,70 @@
                                     }
                                 })
                             };
+                            //daily
+                            document.getElementsByClassName('fc-listDay-button fc-button fc-state-default fc-corner-left')[0].onclick = function () {
+                                pickedDate = $('#datePicker').val();
+                                $.ajax({
+                                    type: 'GET',
+                                    data: {
+                                        datePicker: pickedDate
+                                    },
+                                    url: url,
+                                    success: function (response, view) {
+                                        $("#total").val(response.hours[0]);
+                                    }
+                                })
+                            };
+                            //weekly
+                            document.getElementsByClassName('fc-listWeek-button fc-button fc-state-default')[0].onclick = function () {
+                                pickedDate = $('#datePicker').val();
+                                $.ajax({
+                                    type: 'GET',
+                                    data: {
+                                        datePicker: pickedDate
+                                    },
+                                    url: url,
+                                    success: function (response, view) {
+                                        $("#total").val(response.hours[1]);}
+                                })
+                            };
+                            //monthly
+                            document.getElementsByClassName('fc-month-button fc-button fc-state-default fc-corner-right')[0].onclick = function () {
+                                pickedDate = $('#datePicker').val();
+                                $.ajax({
+                                    type: 'GET',
+                                    data: {
+                                        datePicker: pickedDate
+                                    },
+                                    url: url,
+                                    success: function (response, view) {
+                                        $("#total").val(response.hours[2]);
+                                    }
+                                })
+                            };
+                            //today button
+                            document.getElementsByClassName('fc-today-button fc-button fc-state-default fc-corner-left fc-corner-right')[0].onclick = function () {
+                                pickedDate = $('#datePicker').val();
+                                $.ajax({
+                                    type: 'GET',
+                                    data: {
+                                        datePicker: pickedDate
+                                    },
+                                    url: url,
+                                    success: function (response, view) {
+                                        if ( viewCurrentlyOn === 'listDay' ) {
+                                            $("#total").val(response.hours[0]);
+                                        }
+                                        if ( viewCurrentlyOn === 'listWeek' ) {
+                                            $("#total").val(response.hours[1]);
+                                        }
+                                        if ( viewCurrentlyOn=== 'month' ) {
+                                            $("#total").val(response.hours[2]);
+                                        }
+                                    }
+                                })
+                            };
+
 
 
                         },
