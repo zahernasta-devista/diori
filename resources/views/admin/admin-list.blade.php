@@ -47,7 +47,7 @@
                                 </thead>
                                 <tbody>
                                 @foreach($users as $user)
-                                    @if($user->getRoleNames()[0] !== "employee")
+                                    @if($user->getRoleNames()[0] !== "employee" && $user->name !== Auth::User()->name)
                                         <tr>
                                             <td><input type="checkbox" id="checkbox" name="checkboxes[]" value="{{$user->id}}"></td>
                                             <td class="font-italic">{{$user->name}}</td>
