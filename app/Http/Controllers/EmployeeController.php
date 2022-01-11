@@ -39,6 +39,10 @@ class EmployeeController extends Controller
         $selectedDate = strtotime($request->date);
         $selectedTime = $request->time;
 
+        if ($request->project_id == '0'){
+            return redirect()->to('worklog')->withErrors('Please select a project!');
+        }
+
         if ($selectedDate >= $start && $selectedDate <= $end && $selectedTime != 0)  {
             $Timelog = Timelog::create([
                 'user_id' => auth()->user()->id,

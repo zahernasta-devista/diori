@@ -248,7 +248,7 @@ class AdminController extends Controller
         return view('admin.customer-projects-page', ['projects' => $projects], ['customers' => $customers]);
     }
 
-    public function deleteUsingCheckBoxesProjects(Request $request)
+    public function deleteUsingCheckBoxesProjects(Request $request): \Illuminate\Http\RedirectResponse
     {
         if($request->checkboxes == null){
             return redirect()->to('projects')->withErrors('Please select a checkbox!');
@@ -262,7 +262,7 @@ class AdminController extends Controller
 
     }
 
-    public function deleteUsingCheckBoxesEmployees(Request $request)
+    public function deleteUsingCheckBoxesEmployees(Request $request): \Illuminate\Http\RedirectResponse
     {
         if($request->checkboxes == null){
             return redirect()->to('users')->withErrors('Please select a checkbox!');
@@ -276,7 +276,7 @@ class AdminController extends Controller
 
     }
 
-    public function deleteUsingCheckBoxesCustomer(Request $request)
+    public function deleteUsingCheckBoxesCustomer(Request $request): \Illuminate\Http\RedirectResponse
     {
         if($request->checkboxes == null){
             return redirect()->to('customers')->withErrors('Please select a checkbox!');
@@ -290,7 +290,7 @@ class AdminController extends Controller
 
     }
 
-    public function deleteUsingCheckBoxesAdmin(Request $request)
+    public function deleteUsingCheckBoxesAdmin(Request $request): \Illuminate\Http\RedirectResponse
     {
         if($request->checkboxes == null){
             return redirect()->to('admin/list')->withErrors('Please select a checkbox!');

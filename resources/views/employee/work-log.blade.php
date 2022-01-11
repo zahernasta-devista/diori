@@ -39,7 +39,7 @@
                         <div class="wrap-input100 validate-input" data-validate="Project is required">
                             <select class="input100" type="text" id="mySelect" name="project_id"
                                 onchange="getProject(this)">
-                                <option>Choose Your Project</option>
+                                <option value="0">Choose Your Project</option>
                                 @foreach ($projects as $project)
                                     <option value="{{ $project->id }}">{{ $project->name }} </option>
                                 @endforeach
