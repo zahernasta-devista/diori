@@ -250,8 +250,11 @@ class AdminController extends Controller
 
     public function deleteUsingCheckBoxesProjects(Request $request)
     {
-        $checkedIds = $request->checkboxes;
+        if($request->checkboxes == null){
+            return redirect()->to('projects')->withErrors('Please select a checkbox!');
+        }
 
+        $checkedIds = $request->checkboxes;
         foreach ($checkedIds as $id) {
             Project::where('id', intval($id))->delete();
         }
@@ -261,6 +264,9 @@ class AdminController extends Controller
 
     public function deleteUsingCheckBoxesEmployees(Request $request)
     {
+        if($request->checkboxes == null){
+            return redirect()->to('users')->withErrors('Please select a checkbox!');
+        }
         $checkedIds = $request->checkboxes;
 
         foreach ($checkedIds as $id) {
@@ -272,6 +278,9 @@ class AdminController extends Controller
 
     public function deleteUsingCheckBoxesCustomer(Request $request)
     {
+        if($request->checkboxes == null){
+            return redirect()->to('customers')->withErrors('Please select a checkbox!');
+        }
         $checkedIds = $request->checkboxes;
 
         foreach ($checkedIds as $id) {
@@ -283,6 +292,9 @@ class AdminController extends Controller
 
     public function deleteUsingCheckBoxesAdmin(Request $request)
     {
+        if($request->checkboxes == null){
+            return redirect()->to('admin/list')->withErrors('Please select a checkbox!');
+        }
         $checkedIds = $request->checkboxes;
 
         foreach ($checkedIds as $id) {

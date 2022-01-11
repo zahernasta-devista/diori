@@ -35,7 +35,11 @@
                     </div>
                     <div class="card-body">
                         <div class="table-responsive">
-
+                            @foreach ($errors->all() as $error)
+                                <div class="alert alert-danger">
+                                    {{$error}}
+                                </div>
+                            @endforeach
                             {{ csrf_field() }}
                             <table id="example" class="table table-vcenter table-bordered text-nowrap w-100">
                                 <thead class="thead-light">
@@ -51,7 +55,7 @@
                                 @foreach($users as $user)
                                     @if($user->getRoleNames()[0] !== "admin")
                                         <tr>
-                                            <td><input type="checkbox" id="checkbox" name="checkboxes[]"
+                                            <td><input onclick="activeButton()" type="checkbox" id="checkbox" name="checkboxes[]"
                                                        value="{{$user->id}}"></td>
                                             <td class="font-italic"> {{$user->name}}</td>
                                             <td class="font-italic">{{$user->position}}</td>
@@ -91,19 +95,17 @@
     <script src="{{ URL::asset('assets/plugins/datatable/datatable.js') }}"></script>
     <script src="{{ URL::asset('assets/plugins/datatable/dataTables.responsive.min.js') }}"></script>
     <script>
-        $(document).ready(function () {
-            $('#checkbox').click(function () {
-                if ($(this).is(':checked')) {
-                    $('#deleteButton').removeAttr('disabled');
-                }
-                if (!$(this).is(':checked')) {
-					$('#deleteButton').attr('disabled','disabled');
+        function activeButton() {
 
-                }
 
-            });
-
-        });
+            let countChecked = function() {
+                let n = $( "input:checked" ).length;
+                if (n == 0) jQuery('#deleteButton').prop('disabled', true);
+                else jQuery('#deleteButton').prop('disabled', false);
+            };
+            countChecked();
+            $( "#checkbox" ).on( "click", countChecked );
+        }
 
     </script>
 @endsection
