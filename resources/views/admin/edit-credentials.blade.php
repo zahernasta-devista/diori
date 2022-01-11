@@ -6,9 +6,9 @@
 @section('page-header')
     <!-- PAGE-HEADER -->
     <div>
-        <h1 class="page-title">Edit Admin's Credentials</h1>
+        <h1 class="page-title">Edit Your Own Credentials</h1>
         <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a href="#">Admin's List</a></li>
+            <li class="breadcrumb-item"><a href="#">Profile Page</a></li>
             <li class="breadcrumb-item active text-orange" aria-current="page">Edit Credentials</li>
         </ol>
     </div>
@@ -21,7 +21,7 @@
             <!-- CONTAINER OPEN -->
             <div class="container-login100">
                 <div class="wrap-login100 p-6">
-                    <form class="login100-form validate-form" action="{{route('edit-admin',$users->id)}}" method="POST">
+                    <form class="login100-form validate-form" action="{{route('edit-credentials-admin',$users->id)}}" method="POST">
                         @csrf
                         <span class="login100-form-title">
 									Edit The Credentials of This Admin!

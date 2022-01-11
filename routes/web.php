@@ -104,6 +104,12 @@ Route::group(['middleware' => ['role:admin','auth', 'first.time.login']], functi
     route::post('admin/edit/{id}', [AdminController::class, 'editAdmin'])
         ->name('edit-admin');
 
+    route::get('credentials/edit/{id}', [AdminController::class, 'editAdminCredentialsPage'])
+        ->name('edit-credentials-admin');
+
+    route::post('credentials/edit/{id}', [AdminController::class, 'editAdminCredentials'])
+        ->name('edit-credentials-admin');
+
     route::get('/admin/list', [AdminController::class, 'adminList'])
         ->name('admins');
 
