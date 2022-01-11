@@ -27,7 +27,7 @@
 									Edit The Credentials of Customers
 								</span>
                         <div class="wrap-input100 validate-input" >
-                            <input class="input100" type="text" name="name" placeholder="Name" value="{{$customers->name}}">
+                            <input class="input100" type="text" name="name" placeholder="Name" value="{{$customers->name}}" required>
                             <span class="focus-input100"></span>
                             <span class="symbol-input100">
 										<i class="zmdi zmdi-eye" aria-hidden="true"></i>
@@ -35,7 +35,7 @@
                         </div>
 
                         <div class="wrap-input100 validate-input" data-validate = "Organization is required">
-                            <input class="input100" type="text" name="email" placeholder="Email" value="{{$customers->email}}">
+                            <input class="input100" type="text" name="email" placeholder="Email" value="{{$customers->email}}" required>
                             <span class="focus-input100"></span>
                             <span class="symbol-input100">
 										<i class="zmdi zmdi-view-day" aria-hidden="true"></i>

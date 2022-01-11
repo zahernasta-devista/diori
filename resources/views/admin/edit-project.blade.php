@@ -27,21 +27,21 @@
 									Edit The Projects
 								</span>
                         <div class="wrap-input100 validate-input" >
-                            <input class="input100" type="text" name="name" placeholder="Name" value="{{$project->name}}">
+                            <input class="input100" type="text" name="name" placeholder="Name" value="{{$project->name}}" required>
                             <span class="focus-input100"></span>
                             <span class="symbol-input100">
 										<i class="zmdi zmdi-eye" aria-hidden="true"></i>
 									</span>
                         </div>
                         <div class="wrap-input100 validate-input" >
-                            <input class="input100" type="text" name="backend" placeholder="backend" value="{{$project->backend}}">
+                            <input class="input100" type="text" name="backend" placeholder="backend" value="{{$project->backend}}" required>
                             <span class="focus-input100"></span>
                             <span class="symbol-input100">
 										<i class="zmdi zmdi-receipt" aria-hidden="true"></i>
 									</span>
                         </div>
                         <div class="wrap-input100 validate-input" data-validate = "Organization is required">
-                            <input class="input100" type="date" name="start_date" placeholder="YYYY-MM-DD" value="{{$project->start_date}}">
+                            <input class="input100" type="date" name="start_date" placeholder="YYYY-MM-DD" value="{{$project->start_date}}" required>
                             <span class="focus-input100"></span>
                             <span class="symbol-input100">
 										<i class="zmdi zmdi-view-day" aria-hidden="true"></i>
