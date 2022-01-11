@@ -20,6 +20,6 @@ class ChangePasswordProfileController extends Controller
 
 
        $user =  User::findorfail(auth()->user()->id)->update(['password'=> Hash::make($request->new_password)]);
-        return redirect()->back()->withErrors('Password Updated');
+        return redirect()->back()->with(['updatePasswordMessage' => 'Your Password Has Been Saved!']);
     }
 }

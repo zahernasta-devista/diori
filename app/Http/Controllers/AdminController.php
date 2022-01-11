@@ -80,7 +80,7 @@ class AdminController extends Controller
     {
         $sumPerDay = Carbon::parse($request->input('datePicker'));
         $startWeek = Carbon::parse($request->input('datePicker'))->addDays(1)->startOfWeek();
-        $endWeek= Carbon::parse($request->input('datePicker'))->addDays(1)->endOfWeek();
+        $endWeek = Carbon::parse($request->input('datePicker'))->addDays(1)->endOfWeek();
 
         $daySum = DB::table('timelogs')->where('user_id', $request->route('id'))->whereDay('date', $sumPerDay)->sum('time');
         $weekSum = DB::table('timelogs')->where('user_id', $request->route('id'))->whereBetween('date', [$startWeek, $endWeek])->sum('time');
@@ -100,9 +100,8 @@ class AdminController extends Controller
             $project[] = $object;
         }
 
-        return response()->json(['response' => $project, 'users' => $users,'hours'=>[$daySum,$weekSum,$monthSum]]);
+        return response()->json(['response' => $project, 'users' => $users, 'hours' => [$daySum, $weekSum, $monthSum]]);
     }
-
 
 
     public function getEdit(Request $request)
@@ -437,7 +436,7 @@ class AdminController extends Controller
         $userDetails = [];
 
         if (!isset($query['month']) || !isset($query['year'])) {
-            return view('admin.summary-filters', compact('userDetails','selectedMonth','selectedYear','selectedProject','sumPerSelectedProject','overallSum','projectsOptions'))->withErrors('Please Select The Month And Year Together');
+            return view('admin.summary-filters', compact('userDetails', 'selectedMonth', 'selectedYear', 'selectedProject', 'sumPerSelectedProject', 'overallSum', 'projectsOptions'))->withErrors('Please Select The Month And Year Together');
         }
 
 
@@ -457,7 +456,7 @@ class AdminController extends Controller
 
 
             }
-            return view('admin.summary-filters', compact('userDetails', 'users', 'projectsOptions', 'overallSum', 'sumPerSelectedProject','selectedMonth','selectedYear','selectedProject'));
+            return view('admin.summary-filters', compact('userDetails', 'users', 'projectsOptions', 'overallSum', 'sumPerSelectedProject', 'selectedMonth', 'selectedYear', 'selectedProject'));
         }
         if (isset($query['month']) || isset($query['year'])) {
             $month = $query['month'];
@@ -476,7 +475,7 @@ class AdminController extends Controller
                 $userDetails[] = $object;
             }
 
-            return view('admin.summary-filters', compact('userDetails', 'users', 'projectsOptions', 'overallSum', 'sumPerSelectedProject','selectedMonth','selectedYear','selectedProject'))->withErrors('No Project Was Selected!');
+            return view('admin.summary-filters', compact('userDetails', 'users', 'projectsOptions', 'overallSum', 'sumPerSelectedProject', 'selectedMonth', 'selectedYear', 'selectedProject'))->withErrors('No Project Was Selected!');
         }
     }
 
@@ -492,7 +491,28 @@ class AdminController extends Controller
 
     public function adminProfile()
     {
-        return view('admin.admin-profile');
+        $user = auth()->user();
+        return view('admin.admin-profile', compact('user'));
+    }
+
+    public function editAdminCredentialsPage()
+    {
+        $users = auth()->user();
+        return view('admin.edit-credentials', compact('users'));
+    }
+
+    public function editAdminCredentials(Request $request): \Illuminate\Http\RedirectResponse
+    {
+
+        $users = User::findorfail($request->route('id'));
+        $users->name = request()->input('name');
+        $users->position = request()->input('position');
+        $users->email = request()->input('email');
+
+        $users->save();
+
+        return redirect()->to('profile/admin')->with(['updateSuccessMessage' => 'Your Changes Have Been Saved!']);
+
     }
 
     public function empty()

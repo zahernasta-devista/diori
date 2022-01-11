@@ -25,10 +25,15 @@
                 <form method="POST" action="{{route('profile-change-password')}}">
                     @csrf
                     @foreach ($errors->all() as $error)
-                        <div class="alert alert-primary">
-                            {{$errors->first()}}
+                        <div class="alert alert-danger">
+                            {{$error}}
                         </div>
                     @endforeach
+                    @if(Session::get('updatePasswordMessage'))
+                        <div class="alert alert-primary">
+                            {{Session::get('updatePasswordMessage')}}
+                        </div>
+                    @endif
                     <div class="card-body">
                         <div class="form-group">
                             <label class="form-label">Current Password</label>
