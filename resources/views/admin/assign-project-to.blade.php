@@ -33,7 +33,7 @@
 									</span>
                         </div>
                         <div class="wrap-input100 validate-input">
-                            <select class="input100" type="text" name="project" >
+                            <select class="input100" type="text" name="project" required>
                                 <option value="" selected disabled hidden>Choose Your Project</option>
                                 @foreach($projects as $project)
                                     <option value="{{$project->id}}">{{$project->name}}</option>
