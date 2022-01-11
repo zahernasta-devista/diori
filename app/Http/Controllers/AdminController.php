@@ -115,7 +115,9 @@ class AdminController extends Controller
 
     public function editUsers(Request $request): \Illuminate\Http\RedirectResponse
     {
-
+        $validation = $request->validate([
+            'password' => ['required', 'string', 'min:8', 'regex:/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/'],
+        ]);
         $users = User::findorfail($request->route('id'));
         $users->name = request()->input('name');
         $users->position = request()->input('position');
@@ -124,7 +126,6 @@ class AdminController extends Controller
         $users->save();
 
         return redirect()->to('users');
-
     }
 
     public function deleteUser(Request $request): \Illuminate\Http\RedirectResponse

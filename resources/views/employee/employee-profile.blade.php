@@ -51,6 +51,8 @@
                     </div>
                     <div class="card-footer text-right">
                         <button type="submit" class="btn btn-orange">Update Password</button>
+                        <p class="text-muted text-sm"><small>The Password Format:[A-Z],[a-z],[0-9] and [#?!@$%^&*-]</small></p>
+
                     </div>
                 </form>
             </div>

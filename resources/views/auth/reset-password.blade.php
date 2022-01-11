@@ -47,8 +47,11 @@
             <div class="flex items-center justify-end mt-4">
                 <x-button>
                     {{ __('Reset Password') }}
-                </x-button>
+                </x-button><br>
+
             </div>
+            <p class="text-muted text-sm"><small>The Password Format:[A-Z],[a-z],[0-9] and [#?!@$%^&*-]</small></p>
+
         </form>
     </x-auth-card>
 </x-guest-layout>

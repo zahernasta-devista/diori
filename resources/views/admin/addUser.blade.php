@@ -69,8 +69,7 @@
 								<button  class="login100-form-btn btn-purple-gradient">
 									{{ __('Add Employee') }}
 								</button>
-							
-								
+								<p class="text-muted text-sm"><small>The Password Format:[A-Z],[a-z],[0-9] and [#?!@$%^&*-]</small></p>
 							</div>
 						</form>
 					</div>
