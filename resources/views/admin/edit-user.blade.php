@@ -26,6 +26,11 @@
                         <span class="login100-form-title">
 									Edit The Credentials of Your Employees
 								</span>
+                        @foreach ($errors->all() as $error)
+                            <div class="alert alert-danger">
+                                {{$error}}
+                            </div>
+                        @endforeach
                         <div class="wrap-input100 validate-input" >
                             <input class="input100" type="text" name="name" placeholder="Name" value="{{$users->name}}" required>
                             <span class="focus-input100"></span>
@@ -58,6 +63,8 @@
                             <button  class="login100-form-btn btn-purple-gradient">
                                 {{ __('Submit') }}
                             </button>
+                            <p class="text-muted text-sm"><small>The Password Format:[A-Z],[a-z],[0-9] and [#?!@$%^&*-]</small></p>
+
                         </div>
                     </form>
                 </div>
