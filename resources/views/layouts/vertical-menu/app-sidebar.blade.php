@@ -33,8 +33,10 @@
                         </div>
                     </form>
                     <ul class="side-menu">
-                        <li><h3>Main</h3></li>
+                        <li class="slide">
+                            <i><span class="side-menu__label">MAIN</span></i>
 
+                        </li>
                         @php
                             use Carbon\Carbon;
                                 $currentMonth = Carbon::now()->format('m');
@@ -45,7 +47,7 @@
                             <a class="side-menu__item" data-toggle="slide" href="{{route('filters',['month'=>$currentMonth,'year'=>$currentYear]) }}"><i class="side-menu__icon ti-search"></i><span class="side-menu__label">Summary</span></a>
 
                         </li>
-                        <li><h3>Elements</h3></li>
+                        <i ><span class="side-menu__label">ELEMENTS</span></i>
 
                         <li class="slide">
                             <a class="side-menu__item"  href="{{ route('admins') }}"><i class="side-menu__icon ti-key"></i><span class="side-menu__label">Admins</span></a>
