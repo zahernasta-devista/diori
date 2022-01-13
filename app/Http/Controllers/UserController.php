@@ -47,11 +47,13 @@ class UserController extends Controller
 
     public function dashboard(Request $request)
     {
+        $startweek = Carbon::now()->startOfWeek();
+        $endweek = Carbon::now()->endOfWeek();
 
         $userId = auth()->user()->id;
         $projects = auth()->user()->projects;
         $totalHoursWorkedForDashboard = DB::table('timelogs')->whereMonth('date', Carbon::now()->month)->sum('time');
-
+        $totalHoursWorkedWeekly = DB::table('timelogs')->whereBetween('date', [$startweek,$endweek])->sum('time');
 
 
         $timeSum = DB::table('timelogs')->where('user_id', $userId)->whereMonth('date', Carbon::now()->month)->sum('time');
@@ -76,7 +78,7 @@ class UserController extends Controller
 
         if (Auth::user()->getRoleNames()[0] == "admin") {
 
-            return view('admin.index', ['project' => $project, 'customer' => $customer, 'user' => $user, 'totalHoursWorkedForDashboard'=>$totalHoursWorkedForDashboard]);
+            return view('admin.index', ['project' => $project, 'customer' => $customer, 'user' => $user, 'totalHoursWorkedForDashboard'=>$totalHoursWorkedForDashboard, 'weekly'=>$totalHoursWorkedWeekly]);
         } elseif (Auth::user()->getRoleNames()[0] == "employee") {
 
             return view('employee.dashboard-employee', ['date' => $date, 'timelogs' => $timelogs, 'projectCount' => $projectCount, 'timeSum' => $timeSum, 'timedaySum' => $timedaySum, 'projects' => $projects], compact('projects'));
