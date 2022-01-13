@@ -161,6 +161,7 @@
                         defaultDate: today,
                         navLinks: false, // can click day/week names to navigate views
                         editable: true,
+                        displayEventTime:false,
                         eventLimit: true, // allow "more" link when too many events
                         events: events,
                         eventClick: function (info) {
@@ -406,6 +407,7 @@
             object.end = element.date + "T" + endHourString + ":00:00";
             object.projectInput = element.projectName;
             object.availableHours = availableHours;
+
 
             return object;
 
