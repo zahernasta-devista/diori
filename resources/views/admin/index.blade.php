@@ -15,7 +15,7 @@
 @section('content')
 
     <div class="row">
-        <div class="col-sm-12 col-md-6 ">
+        <div class="col-sm-12 col-md-4 ">
             <div class="card bg-purple-gradient img-card box-primary-shadow">
                 <div class="card-body">
                     <div class="d-flex">
@@ -28,7 +28,7 @@
                 </div>
             </div>
         </div><!-- COL END -->
-        <div class="col-sm-12 col-md-6">
+        <div class="col-sm-12 col-md-4">
             <div class="card bg-purple-gradient img-card box-secondary-shadow">
                 <div class="card-body">
                     <div class="d-flex">
@@ -37,6 +37,19 @@
                             <p class="text-white mb-0">Hours Worked This Month!</p>
                         </div>
                         <div class="ml-auto"> <i class="fa fa-bar-chart text-white fs-30 mr-2 mt-2"></i> </div>
+                    </div>
+                </div>
+            </div>
+        </div><!-- COL END -->
+        <div class="col-sm-12 col-md-4">
+            <div class="card bg-purple-gradient img-card box-secondary-shadow">
+                <div class="card-body">
+                    <div class="d-flex">
+                        <div class="text-white">
+                            <h2 class="mb-0 number-font">{{$weekly}}</h2>
+                            <p class="text-white mb-0">Hours Worked This Week!</p>
+                        </div>
+                        <div class="ml-auto"> <i class="fa fa-address-book-o text-white fs-30 mr-2 mt-2"></i> </div>
                     </div>
                 </div>
             </div>
