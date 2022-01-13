@@ -24,7 +24,7 @@
                     <form class="login100-form validate-form" action="{{route('edit-credentials-admin',$users->id)}}" method="POST">
                         @csrf
                         <span class="login100-form-title">
-									Edit The Credentials of This Admin!
+									Edit Your Credentials!
 								</span>
                         <div class="wrap-input100 validate-input" >
                             <input class="input100" type="text" name="name" placeholder="Name" value="{{$users->name}}" required>
