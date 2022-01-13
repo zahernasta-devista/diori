@@ -1,4 +1,5 @@
 <!--APP-SIDEBAR-->
+<a aria-label="Hide Sidebar" class="app-sidebar__toggle ml-auto" data-toggle="sidebar" href="#"></a><!-- sidebar-toggle-->
 <div class="app-sidebar__overlay" data-toggle="sidebar"></div>
 <aside class="app-sidebar">
     <div class="side-header">
@@ -37,7 +38,7 @@
     </form>
     <ul class="side-menu">
         <li>
-            <h3>Menu</h3>
+            <i><span class="side-menu__label">MENU</span></i>
         </li>
         <li class="slide">
             <a class="side-menu__item" href="{{ route('dashboard') }}"><i
