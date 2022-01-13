@@ -53,9 +53,9 @@
             <div class="card">
                 <form method="GET" action="{{route('filters')}}">
                     <div class="card-header">
-                        <h3 class="card-title">The Overall Summary!</h3>
-                        <div class="card-options">
-                            <select name="month"  class="btn btn-md btn-purple-gradient rounded-pill"><i class="fa fa-dropbox" required></i>
+                        
+                        
+                            <select name="month"  class="btn btn-sm btn-purple-gradient rounded-pill"><i class="fa fa-dropbox" required></i>
                                 <option  selected disabled hidden>Select The Month</option>
                                 <option class="btn btn-purple" value="1" @if(request()->month =='1') selected @endif>January</option>
                                 <option class="btn btn-purple" value="2" @if(request()->month =='2') selected @endif>February</option>
@@ -70,34 +70,35 @@
                                 <option class="btn btn-purple" value="11" @if(request()->month =='11') selected @endif>November</option>
                                 <option class="btn btn-purple" value="12" @if(request()->month =='12') selected @endif>December</option>
                             </select>
-                            &emsp;
-                            <select  name="year"  class="btn btn-md btn-purple-gradient rounded-pill"><i class="fa fa-dropbox" ></i>
+                            &nbsp;
+                            <select  name="year"  class="btn btn-sm btn-purple-gradient rounded-pill"><i class="fa fa-dropbox" ></i>
                                 <option value="" selected disabled hidden>Select The Year</option>
                                 @foreach(range(2021, date('Y')+20) as $y)
                                     <option value ="{{$y}}" class="btn btn-purple" @if(request()->year ==$y) selected @endif>{{$y}}</option>
                                 @endforeach
                             </select>
-                            &emsp;
+                            &nbsp;
                             @php
                                 use Carbon\Carbon;
                                     $currentMonth = Carbon::now()->format('m');
                                     $currentYear = Carbon::now()->format('Y');
                             @endphp
-                            <select  name="project"  class="btn btn-md btn-purple-gradient rounded-pill"><i class="fa fa-dropbox" ></i>
+                            <select  name="project"  class="btn btn-sm btn-purple-gradient rounded-pill"><i class="fa fa-dropbox" ></i>
                                 <option selected disabled hidden>Select The Project</option>
                                 <option class="btn btn-purple" selected value="" >All Projects</option>
                                 @foreach($projectsOptions as $project)
                                     <option class="btn btn-purple" value="{{$project->id}}" @if(request()->project ==$project->id) selected @endif>{{$project->name}}</option>
                                 @endforeach
                             </select>
-                            &emsp;
-                            <button type="submit" class="btn btn-md btn-purple-gradient rounded-pill">Search</button>
-                            &emsp;
-                            <a class="btn btn-md btn-purple-gradient rounded-pill" href="{{ route('export', ['month' => $selectedMonth, 'year' => $selectedYear,'project'=>$selectedProject]) }}">Export </a>
-                        </div>
+                            &nbsp;
+                            <button type="submit" class="btn btn-sm btn-purple-gradient rounded-pill"><i class="fa fa-search" aria-hidden="true"></i></button>
+                            
+                            
+                       
                     </div>
 
                     <div class="card-body">
+                        <h3 class="card-title">The Overall Summary!</h3>
                         <div class="table-responsive">
                             @if($errors->any())
                                 <div class="alert alert-primary">
@@ -133,6 +134,7 @@
                                 </tbody>
                             </table>
                         </div>
+                        <a class="btn btn-md btn-purple-gradient rounded-pill" href="{{ route('export', ['month' => $selectedMonth, 'year' => $selectedYear,'project'=>$selectedProject]) }}">Export </a>
                     </div>
                 </form>
             </div>

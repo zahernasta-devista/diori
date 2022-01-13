@@ -19,17 +19,18 @@
             <div class="card">
                 <form method="POST" action="{{route('delete-checkbox-customer')}}">
                     <div class="card-header">
-                        <h3 class="card-title">Customers Table</h3>
-                        <div class="card-options">
+                        
+                        
                             <a type="button" href="{{ route('add-customers') }}" class="btn btn-md btn-orange rounded-pill "><i
                                         class="fa fa-plus"></i> Add a New Customer</a>
                             &emsp;
                             <button disabled id="deleteButton" type="submit" class="btn btn-md btn-orange rounded-pill" onclick="return confirm('Are you sure you want to Delete This Customer')"><i class="fa fa-minus"></i> Delete
                                 Customers
                             </button>
-                        </div>
+                      
                     </div>
                     <div class="card-body">
+                        <h3 class="card-title">Customers Table</h3>
                         <div class="table-responsive">
                             @foreach ($errors->all() as $error)
                                 <div class="alert alert-danger">

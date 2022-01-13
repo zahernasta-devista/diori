@@ -19,17 +19,18 @@
             <div class="card">
                 <form method="POST" action="{{route('delete-checkbox-project')}}">
                     <div class="card-header">
-                        <h3 class="card-title">Project Table</h3>
-                        <div class="card-options">
+                        
+                        
                             <a type="button" href="{{ route('add-project-page') }}" class="btn btn-md btn-orange rounded-pill "><i
                                         class="fa fa-plus"></i> Add a New Project</a>
                                         &emsp;
                                         <button disabled id="deleteButton" type="submit" class="btn btn-md btn-orange rounded-pill" onclick="return confirm('Are you sure you want to delete the selected project ?')"><i class="fa fa-minus"></i> Delete
                                             Projects
                                         </button>
-                        </div>
+                        
                     </div>
                     <div class="card-body">
+                        <h3 class="card-title">Project Table</h3>
                         <div class="table-responsive">
                             @foreach ($errors->all() as $error)
                                 <div class="alert alert-danger">
