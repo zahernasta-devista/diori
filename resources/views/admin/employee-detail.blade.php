@@ -142,6 +142,7 @@
                 type: 'GET',
                 url: url,
                 success: function (response) {
+                    let FirstValueOfTotal = $("#total").val(response.hours[1]).val();
                     var today = new Date();
                     var dd = today.getDate();
                     var mm = today.getMonth() + 1; //January is 0!
@@ -157,7 +158,7 @@
 
                     let pickedDate = $('#datePicker').val();
 
-                    let responseData = response.response;
+                let responseData = response.response;
                     let events = [];
                     let time = {
                         endHour: 9,
