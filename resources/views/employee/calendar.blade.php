@@ -163,6 +163,7 @@
                         navLinks: false, // can click day/week names to navigate views
                         editable: true,
                         displayEventTime:false,
+                        firstDay:1,
                         eventLimit: true, // allow "more" link when too many events
                         events: events,
                         eventClick: function (info) {
@@ -194,6 +195,7 @@
                         },
                         viewRender: function (view) {
                             let currentDate = view.intervalStart;
+
                             let changeFormat = JSON.stringify(currentDate);
                             changeFormat = changeFormat.slice(1, 11);
 
