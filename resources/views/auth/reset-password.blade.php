@@ -32,7 +32,7 @@
             <div class="mt-4">
                 <x-label for="password" :value="__('New Password')"/>
 
-                <x-input id="password" class="block mt-1 w-full" type="password" name="password" required/>
+                <x-input id="password" class="block mt-1 w-full" type="password" name="password" placeholder="Format:[A-Z],[a-z],[0-9],[#?!@$%^&*-]" required/>
             </div>
 
             <!-- Confirm Password -->
@@ -50,7 +50,6 @@
                 </x-button><br>
 
             </div>
-            <p class="text-muted text-sm"><small>The Password Format:[A-Z],[a-z],[0-9] and [#?!@$%^&*-]</small></p>
 
         </form>
     </x-auth-card>
