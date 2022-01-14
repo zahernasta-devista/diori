@@ -34,7 +34,7 @@
                     </form>
                     <ul class="side-menu">
                         <li class="slide">
-                            <i><span class="side-menu__label">MAIN</span></i>
+                            <span class="side-menu__label">MAIN</span>
 
                         </li>
                         @php
@@ -47,8 +47,9 @@
                             <a class="side-menu__item" data-toggle="slide" href="{{route('filters',['month'=>$currentMonth,'year'=>$currentYear]) }}"><i class="side-menu__icon ti-search"></i><span class="side-menu__label">Summary</span></a>
 
                         </li>
-                        <i ><span class="side-menu__label">ELEMENTS</span></i>
-
+                        <li>
+                        <span class="side-menu__label">ELEMENTS</span>
+                        </li>
                         <li class="slide">
                             <a class="side-menu__item"  href="{{ route('admins') }}"><i class="side-menu__icon ti-key"></i><span class="side-menu__label">Admins</span></a>
                            <a class="side-menu__item" href="{{ url('/' . $page='users') }}" ><i class="side-menu__icon ti-home"></i><span class="side-menu__label">Employees</span></a>

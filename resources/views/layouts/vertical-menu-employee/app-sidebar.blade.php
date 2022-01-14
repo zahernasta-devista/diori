@@ -38,7 +38,7 @@
     </form>
     <ul class="side-menu">
         <li>
-            <i><span class="side-menu__label">MENU</span></i>
+            <span class="side-menu__label">MENU</span>
         </li>
         <li class="slide">
             <a class="side-menu__item" href="{{ route('dashboard') }}"><i
