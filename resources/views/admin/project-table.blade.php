@@ -21,10 +21,10 @@
                     <div class="card-header">
                         
                         
-                            <a type="button" href="{{ route('add-project-page') }}" class="btn btn-md btn-orange rounded-pill "><i
+                            <a type="button" href="{{ route('add-project-page') }}" class="btn btn-sm btn-orange rounded-pill "><i
                                         class="fa fa-plus"></i> Add a New Project</a>
                                         &emsp;
-                                        <button disabled id="deleteButton" type="submit" class="btn btn-md btn-orange rounded-pill" onclick="return confirm('Are you sure you want to delete the selected project ?')"><i class="fa fa-minus"></i> Delete
+                                        <button disabled id="deleteButton" type="submit" class="btn btn-sm btn-orange rounded-pill" onclick="return confirm('Are you sure you want to delete the selected project ?')"><i class="fa fa-minus"></i> Delete
                                             Projects
                                         </button>
                         
