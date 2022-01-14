@@ -8,7 +8,7 @@
 
     <x-auth-card>
         <x-slot name="logo">
-            <h3>Reset Your Password!</h3>
+            <h3 class="text-white">Reset Your Password!</h3>
         </x-slot>
 
         <!-- Validation Errors -->
@@ -46,7 +46,7 @@
 
             <div class="flex items-center justify-end mt-4">
                 <x-button>
-                    {{ __('Reset Password') }}
+                    {{ __('Confirm') }}
                 </x-button><br>
 
             </div>
