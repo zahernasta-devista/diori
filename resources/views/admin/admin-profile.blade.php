@@ -41,7 +41,7 @@
                         </div>
                         <div class="form-group">
                             <label class="form-label">New Password</label>
-                            <input type="password" class="form-control" name="new_password" id="new_password">
+                            <input type="password" class="form-control" name="new_password" id="new_password" placeholder= "Format : [A-Z],[a-z],[0-9],[#?!@$%^&*-]">
                         </div>
                         <div class="form-group">
                             <label class="form-label">Confirm Password</label>
@@ -51,7 +51,6 @@
                     </div>
                     <div class="card-footer text-right">
                         <button type="submit" class="btn btn-orange">Update Password</button>
-                        <p class="text-muted text-sm"><small>The Password Format:[A-Z],[a-z],[0-9] and [#?!@$%^&*-]</small></p>
 
                     </div>
                 </form>
