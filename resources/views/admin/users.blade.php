@@ -23,10 +23,10 @@
                 <form method="POST" action="{{route('delete-checkbox-employee')}}">
                     <div class="card-header">
                        
-                            <a type="button" href="{{route('add-user')}}" class="btn btn-md btn-orange rounded-pill"><i
+                            <a type="button" href="{{route('add-user')}}" class="btn btn-sm btn-orange rounded-pill"><i
                                         class="fa fa-plus"></i > Add a new Employee</a>
                             &emsp;
-                            <button disabled id="deleteButton" type="submit" class="btn btn-md btn-orange rounded-pill "
+                            <button disabled id="deleteButton" type="submit" class="btn btn-sm btn-orange rounded-pill "
                                     onclick="return confirm('Are you sure you want to delete the selected employee ?')">
                                 <i class="fa fa-minus"></i> Delete Employees
                             </button>

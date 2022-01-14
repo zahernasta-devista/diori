@@ -21,10 +21,10 @@
                     <div class="card-header">
                         
                         
-                            <a type="button" href="{{ route('add-customers') }}" class="btn btn-md btn-orange rounded-pill "><i
+                            <a type="button" href="{{ route('add-customers') }}" class="btn btn-sm btn-orange rounded-pill "><i
                                         class="fa fa-plus"></i> Add a New Customer</a>
                             &emsp;
-                            <button disabled id="deleteButton" type="submit" class="btn btn-md btn-orange rounded-pill" onclick="return confirm('Are you sure you want to Delete This Customer')"><i class="fa fa-minus"></i> Delete
+                            <button disabled id="deleteButton" type="submit" class="btn btn-sm btn-orange rounded-pill" onclick="return confirm('Are you sure you want to Delete This Customer')"><i class="fa fa-minus"></i> Delete
                                 Customers
                             </button>
                       
