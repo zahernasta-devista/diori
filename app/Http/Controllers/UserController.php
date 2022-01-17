@@ -61,6 +61,7 @@ class UserController extends Controller
         $currentDate = Carbon::now()->year . "-" . Carbon::now()->month . "-" . (Carbon::now()->day < 10 ? "0" . Carbon::now()->day : Carbon::now()->day);
 
         $timelogsDatabase = Timelog::where('user_id', $userId)->whereDate('date', $currentDate);
+        $timeWeekSum = Timelog::where('user_id',$userId)->whereBetween('date', [$startweek,$endweek])->sum('time');
         $timedaySum = $timelogsDatabase->sum('time');
         $timelogs = $timelogsDatabase->get();
 
@@ -81,7 +82,7 @@ class UserController extends Controller
             return view('admin.index', ['project' => $project, 'customer' => $customer, 'user' => $user, 'totalHoursWorkedForDashboard'=>$totalHoursWorkedForDashboard, 'weekly'=>$totalHoursWorkedWeekly]);
         } elseif (Auth::user()->getRoleNames()[0] == "employee") {
 
-            return view('employee.dashboard-employee', ['date' => $date, 'timelogs' => $timelogs, 'projectCount' => $projectCount, 'timeSum' => $timeSum, 'timedaySum' => $timedaySum, 'projects' => $projects], compact('projects'));
+            return view('employee.dashboard-employee', ['date' => $date, 'timelogs' => $timelogs, 'projectCount' => $projectCount, 'timeSum' => $timeSum, 'timedaySum' => $timedaySum, 'projects' => $projects,'weekly'=>$timeWeekSum], compact('projects'));
         }
     }
 
