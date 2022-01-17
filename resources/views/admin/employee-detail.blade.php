@@ -360,7 +360,7 @@
 
             let availableHours = getAvailableHours(responseData, element);
 
-            if (time.pastDate != null && new Date(time.pastDate) < new Date(element.date)) {
+            if (time.pastDate != null &&  responseData.filter(object => object.date === element.date)) {
                 time.endHour = 9;
             }
 
