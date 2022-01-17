@@ -20,7 +20,7 @@
 @section('content')
     <div class="row">
         <div class="col-sm-12 col-md-6 ">
-            <div class="card bg-orange img-card box-primary-shadow">
+            <div class="card bg-purple-gradient img-card box-primary-shadow">
                 <div class="card-body">
                     <div class="d-flex">
                         <div class="text-white">
@@ -32,17 +32,16 @@
                 </div>
             </div>
         </div><!-- COL END -->
+
         <div class="col-sm-12 col-md-6 ">
-            <div class="card bg-orange img-card box-secondary-shadow">
+            <div class="card bg-purple-gradient img-card box-primary-shadow">
                 <div class="card-body">
                     <div class="d-flex">
                         <div class="text-white">
-                            <h2 class="mb-0 number-font">{{ $timedaySum }} Hours Clocked in Today</h2>
-                            <p class="text-white mb-0"> @foreach ($timelogs as $timelog)
-                                    • {{ $timelog->project->name }} -> {{ $timelog->time }} Hours
-                                @endforeach</p>
+                            <h2 class="mb-0 number-font">{{ $weekly }}</h2>
+                            <p class="text-white mb-0">Total Hours Worked This Week!</p>
                         </div>
-                        <div class="ml-auto"> <i class="fa fa-bar-chart text-white fs-30 mr-2 mt-2"></i> </div>
+                        <div class="ml-auto"> <i class="fa fa-indent text-white fs-30 mr-2 mt-2"></i> </div>
                     </div>
                 </div>
             </div>
@@ -50,7 +49,7 @@
     </div>
 <div class="row">
     <div class="col-sm-12 col-md-12 ">
-        <div class="card bg-purple-gradient img-card box-primary-shadow">
+        <div class="card bg-orange img-card box-primary-shadow">
             <div class="card-body">
                 <div class="d-flex">
                     <div class="text-white">
@@ -61,6 +60,21 @@
                         </p>
                     </div>
                     <div class="ml-auto"> <i class="fa fa-address-book text-white fs-30 mr-2 mt-2"></i> </div>
+                </div>
+            </div>
+        </div>
+    </div><!-- COL END -->
+    <div class="col-sm-12 col-md-12 ">
+        <div class="card bg-purple-gradient img-card box-secondary-shadow">
+            <div class="card-body">
+                <div class="d-flex">
+                    <div class="text-white">
+                        <h2 class="mb-0 number-font">{{ $timedaySum }} Hours Clocked in Today</h2>
+                        <p class="text-white mb-0"> @foreach ($timelogs as $timelog)
+                                • {{ $timelog->project->name }} -> {{ $timelog->time }} Hours
+                            @endforeach</p>
+                    </div>
+                    <div class="ml-auto"> <i class="fa fa-bar-chart text-white fs-30 mr-2 mt-2"></i> </div>
                 </div>
             </div>
         </div>
