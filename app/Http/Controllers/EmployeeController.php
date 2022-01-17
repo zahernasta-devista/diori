@@ -86,7 +86,7 @@ class EmployeeController extends Controller
             $timeLogObject->date = $timeLog->date;
             $timeLogObject->comment = $timeLog->comment;
 
-
+            
             $timeLogsResponse[] = $timeLogObject;
         }
         return response()->json(['response' => $timeLogsResponse, 'hours' => [$daySum, $weekSum, $monthSum]]);

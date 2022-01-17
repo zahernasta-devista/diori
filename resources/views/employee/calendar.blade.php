@@ -372,10 +372,10 @@
 
             let availableHours = getAvailableHours(responseData, element);
 
-            if (time.pastDate != null && new Date(time.pastDate) < new Date(element.date)) {
+            if (time.pastDate != null &&  responseData.filter(object => object.date === element.date)) {
                 time.endHour = 9;
             }
-
+            console.log(responseData.filter(object => object.date === element.date));
             let startHour = time.endHour;
             //Passed by reference to keep the modifications inside the function
             time.endHour += element.time;
