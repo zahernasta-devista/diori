@@ -10,7 +10,9 @@
         <h1 class="page-title">Employees And Timelog</h1>
         <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="#">Hours & Projects</a></li>
-            <li class="breadcrumb-item active text-orange" aria-current="page">Summary of All The Work for The Selected Month!</li>
+            <li class="breadcrumb-item active text-orange" aria-current="page">Summary of All The Work for The Selected
+                Month!
+            </li>
         </ol>
     </div>
     <!-- PAGE-HEADER END -->
@@ -26,8 +28,10 @@
                         <div class="text-white">
                             <h3 class="mb-0 number-font">Total Hours Worked On Selected Project:</h3>
                             <h3 class="text-white mb-0">•{{$sumPerSelectedProject}} Hours</h3>
+
+
                         </div>
-                        <div class="ml-auto"> <i class="fa fa-pencil text-white fs-30 mr-2 mt-2"></i> </div>
+                        <div class="ml-auto"><i class="fa fa-pencil text-white fs-30 mr-2 mt-2"></i></div>
                     </div>
                 </div>
             </div>
@@ -41,7 +45,7 @@
                             <h3 class="text-white mb-0">
                                 •{{$overallSum}} Hours</h3>
                         </div>
-                        <div class="ml-auto"> <i class="fa fa-battery text-white fs-30 mr-2 mt-2"></i> </div>
+                        <div class="ml-auto"><i class="fa fa-battery text-white fs-30 mr-2 mt-2"></i></div>
                     </div>
                 </div>
             </div>
@@ -53,48 +57,85 @@
             <div class="card">
                 <form method="GET" action="{{route('filters')}}">
                     <div class="card-header">
-                        
-                        
-                            <select name="month"  class="btn btn-sm btn-purple-gradient rounded-pill"><i class="fa fa-dropbox" required></i>
-                                <option  selected disabled hidden>Select The Month</option>
-                                <option class="btn btn-purple" value="1" @if(request()->month =='1') selected @endif>January</option>
-                                <option class="btn btn-purple" value="2" @if(request()->month =='2') selected @endif>February</option>
-                                <option class="btn btn-purple" value="3" @if(request()->month =='3') selected @endif>March</option>
-                                <option class="btn btn-purple" value="4" @if(request()->month =='4') selected @endif>April</option>
-                                <option class="btn btn-purple" value="5" @if(request()->month =='5') selected @endif>May</option>
-                                <option class="btn btn-purple" value="6" @if(request()->month =='6') selected @endif>June</option>
-                                <option class="btn btn-purple" value="7" @if(request()->month =='7') selected @endif >July</option>
-                                <option class="btn btn-purple" value="8" @if(request()->month =='8') selected @endif>August</option>
-                                <option class="btn btn-purple" value="9" @if(request()->month =='9') selected @endif>September</option>
-                                <option class="btn btn-purple" value="10" @if(request()->month =='10') selected @endif>October</option>
-                                <option class="btn btn-purple" value="11" @if(request()->month =='11') selected @endif>November</option>
-                                <option class="btn btn-purple" value="12" @if(request()->month =='12') selected @endif>December</option>
-                            </select>
-                            &nbsp;
-                            <select  name="year"  class="btn btn-sm btn-purple-gradient rounded-pill"><i class="fa fa-dropbox" ></i>
-                                <option value="" selected disabled hidden>Select The Year</option>
-                                @foreach(range(2021, date('Y')+20) as $y)
-                                    <option value ="{{$y}}" class="btn btn-purple" @if(request()->year ==$y) selected @endif>{{$y}}</option>
-                                @endforeach
-                            </select>
-                            &nbsp;
-                            @php
-                                use Carbon\Carbon;
-                                    $currentMonth = Carbon::now()->format('m');
-                                    $currentYear = Carbon::now()->format('Y');
-                            @endphp
-                            <select  name="project"  class="btn btn-sm btn-purple-gradient rounded-pill"><i class="fa fa-dropbox" ></i>
-                                <option selected disabled hidden>Select The Project</option>
-                                <option class="btn btn-purple" selected value="" >All Projects</option>
-                                @foreach($projectsOptions as $project)
-                                    <option class="btn btn-purple" value="{{$project->id}}" @if(request()->project ==$project->id) selected @endif>{{$project->name}}</option>
-                                @endforeach
-                            </select>
-                            &nbsp;
-                            <button type="submit" class="btn btn-sm btn-purple-gradient rounded-pill"><i class="fa fa-search" aria-hidden="true"></i></button>
-                            
-                            
-                       
+
+
+                        <select name="month" class="btn btn-sm btn-purple-gradient rounded-pill"><i
+                                    class="fa fa-dropbox" required></i>
+                            <option selected disabled hidden>Select The Month</option>
+                            <option class="btn btn-purple" value="1" @if(request()->month =='1') selected @endif>
+                                January
+                            </option>
+                            <option class="btn btn-purple" value="2" @if(request()->month =='2') selected @endif>
+                                February
+                            </option>
+                            <option class="btn btn-purple" value="3" @if(request()->month =='3') selected @endif>March
+                            </option>
+                            <option class="btn btn-purple" value="4" @if(request()->month =='4') selected @endif>April
+                            </option>
+                            <option class="btn btn-purple" value="5" @if(request()->month =='5') selected @endif>May
+                            </option>
+                            <option class="btn btn-purple" value="6" @if(request()->month =='6') selected @endif>June
+                            </option>
+                            <option class="btn btn-purple" value="7" @if(request()->month =='7') selected @endif >July
+                            </option>
+                            <option class="btn btn-purple" value="8" @if(request()->month =='8') selected @endif>
+                                August
+                            </option>
+                            <option class="btn btn-purple" value="9" @if(request()->month =='9') selected @endif>
+                                September
+                            </option>
+                            <option class="btn btn-purple" value="10" @if(request()->month =='10') selected @endif>
+                                October
+                            </option>
+                            <option class="btn btn-purple" value="11" @if(request()->month =='11') selected @endif>
+                                November
+                            </option>
+                            <option class="btn btn-purple" value="12" @if(request()->month =='12') selected @endif>
+                                December
+                            </option>
+                        </select>
+                        &nbsp;
+                        <select name="year" class="btn btn-sm btn-purple-gradient rounded-pill"><i
+                                    class="fa fa-dropbox"></i>
+                            <option value="" selected disabled hidden>Select The Year</option>
+                            @foreach(range(2021, date('Y')+20) as $y)
+                                <option value="{{$y}}" class="btn btn-purple"
+                                        @if(request()->year ==$y) selected @endif>{{$y}}</option>
+                            @endforeach
+                        </select>
+                        &nbsp;
+                        @php
+                            use Carbon\Carbon;
+                                $currentMonth = Carbon::now()->format('m');
+                                $currentYear = Carbon::now()->format('Y');
+                        @endphp
+                        <select name="project" class="btn btn-sm btn-purple-gradient rounded-pill"><i
+                                    class="fa fa-dropbox"></i>
+                            <option selected disabled hidden>Select The Project</option>
+                            <option class="btn btn-purple" selected value="">All Projects</option>
+                            @foreach($projectsOptions as $project)
+
+                                <option class="btn btn-purple" value="{{$project->id}}"
+                                        @if(request()->project ==$project->id) selected @endif>{{$project->name}}</option>
+                            @endforeach
+                        </select>
+                        &nbsp;
+                        <select name="user" class="btn btn-sm btn-purple-gradient rounded-pill"><i
+                                    class="fa fa-dropbox"></i>
+                            <option selected disabled hidden>Select The Employee</option>
+                            <option class="btn btn-purple" selected value="">All Employees</option>
+                            @foreach($usersOptions as $user)
+                                @if($user->getRoleNames()[0] !== "admin")
+                                <option class="btn btn-purple" value="{{$user->id}}"
+                                        @if(request()->user ==$user->id) selected @endif>{{$user->name}}</option>
+                                @endif
+                            @endforeach
+                        </select>
+                        &nbsp;
+                        <button type="submit" class="btn btn-sm btn-purple-gradient rounded-pill"><i
+                                    class="fa fa-search" aria-hidden="true"></i></button>
+
+
                     </div>
 
                     <div class="card-body">
@@ -134,7 +175,8 @@
                                 </tbody>
                             </table>
                         </div>
-                        <a class="btn btn-md btn-purple-gradient rounded-pill" href="{{ route('export', ['month' => $selectedMonth, 'year' => $selectedYear,'project'=>$selectedProject]) }}">Export </a>
+                        <a class="btn btn-md btn-purple-gradient rounded-pill"
+                           href="{{ route('export', ['month' => $selectedMonth, 'year' => $selectedYear,'project'=>$selectedProject,'user'=>$selectedEmployee]) }}">Export </a>
                     </div>
                 </form>
             </div>
