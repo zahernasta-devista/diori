@@ -28,8 +28,7 @@
                         <div class="text-white">
                             <h3 class="mb-0 number-font">Total Hours Worked On Selected Project:</h3>
                             <h3 class="text-white mb-0">•{{$sumPerSelectedProject}} Hours</h3>
-
-
+                            <p class="text-muted text-white text-right text-sm"><small>•For All Employees</small></p>
                         </div>
                         <div class="ml-auto"><i class="fa fa-pencil text-white fs-30 mr-2 mt-2"></i></div>
                     </div>
@@ -44,6 +43,8 @@
                             <h3 class="mb-0 number-font">Overall Hours Worked This Month:</h3>
                             <h3 class="text-white mb-0">
                                 •{{$overallSum}} Hours</h3>
+                            <p class="text-muted text-white text-right text-sm"><small>•For All Employees</small></p>
+
                         </div>
                         <div class="ml-auto"><i class="fa fa-battery text-white fs-30 mr-2 mt-2"></i></div>
                     </div>
