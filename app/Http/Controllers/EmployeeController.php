@@ -56,7 +56,7 @@ class EmployeeController extends Controller
 
         }
 
-        return redirect('/worklog');
+        return redirect('/worklog')->withErrors('Date Must Be From the Current Month!');
     }
 
 
