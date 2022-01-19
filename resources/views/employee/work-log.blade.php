@@ -166,7 +166,8 @@
 
 
                             $("#time").attr({
-                                'max': availableHours
+                                'max': availableHours,
+                                'placeholder' : availableHours +  ' Hours Left',
                             });
 
                             $("#time").keydown(function() {
@@ -186,7 +187,6 @@
                                 }
 
                             });
-
                         });
                     }
                 });
