@@ -527,7 +527,7 @@ class AdminController extends Controller
                 $userDetails[] = $object;
             }
 
-            return view('admin.summary-filters', compact('selectedEmployee','usersOptions','userDetails', 'users', 'projectsOptions', 'overallSum', 'sumPerSelectedProject', 'selectedMonth', 'selectedYear', 'selectedProject'))->withErrors('No Project Was Selected!');
+            return view('admin.summary-filters', compact('selectedEmployee','usersOptions','userDetails', 'users', 'projectsOptions', 'overallSum', 'sumPerSelectedProject', 'selectedMonth', 'selectedYear', 'selectedProject'))->withErrors('All Employees And All Projects Are Shown!');
         }
     }
 
