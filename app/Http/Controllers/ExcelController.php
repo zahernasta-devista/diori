@@ -18,8 +18,9 @@ class ExcelController extends Controller
         $month = $request->input('month');
         $year = $request->input('year');
         $project = $request->input('project');
+        $users = $request->input('user');
 
-        return Excel::download(new UsersExport($year, $month, $project), 'Summary.xlsx');
+        return Excel::download(new UsersExport($year, $month, $project, $users), 'Summary.xlsx');
     }
     
 }

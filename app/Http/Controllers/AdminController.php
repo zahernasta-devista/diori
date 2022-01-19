@@ -439,8 +439,10 @@ class AdminController extends Controller
         $selectedMonth = $request->input('month');
         $selectedYear = $request->input('year');
         $selectedProject = $request->input('project');
+        $selectedEmployee = $request->input('user');
 
         $projectsOptions = Project::get();
+        $usersOptions = User::get();
 
         $sumPerSelectedProject = Timelog::where('project_id', $request->input('project'))->whereMonth('date', $request->input('month'))->whereYear('date', $request->input('year'))->sum('time');
         $overallSum = Timelog::whereMonth('date', $request->input('month'))->whereYear('date', $request->input('year'))->sum('time');
@@ -449,9 +451,26 @@ class AdminController extends Controller
         $userDetails = [];
 
         if (!isset($query['month']) || !isset($query['year'])) {
-            return view('admin.summary-filters', compact('userDetails', 'selectedMonth', 'selectedYear', 'selectedProject', 'sumPerSelectedProject', 'overallSum', 'projectsOptions'))->withErrors('Please Select The Month And Year Together');
+            return view('admin.summary-filters', compact('selectedEmployee','usersOptions','userDetails', 'selectedMonth', 'selectedYear', 'selectedProject', 'sumPerSelectedProject', 'overallSum', 'projectsOptions'))->withErrors('Please Select The Month And Year Together');
         }
 
+        if (isset($query['user']) && isset($query['project'])) {
+            $month = $query['month'];
+            $year = $query['year'];
+            $selectedEmployee = $query['user'];
+            $projectSelected = $query['project'];
+            $user = User::where('id', intval($selectedEmployee))->first();
+
+            $object = new \stdClass();
+            $object->user = $user;
+            $object->projects = [];
+
+            $object->hoursWorkedPerMonth = $this->calculateTotalHoursWorked($user->timelogsFromMonthAndYearForEmployeeAndProject($month, $year, $selectedEmployee, $projectSelected));
+            $userDetails[] = $object;
+
+
+            return view('admin.summary-filters', compact('selectedEmployee','usersOptions','sumPerSelectedProject','userDetails', 'user', 'projectsOptions', 'overallSum', 'selectedMonth', 'selectedYear', 'selectedProject'));
+        }
 
         if (isset($query['project'])) {
             $month = $query['month'];
@@ -469,8 +488,28 @@ class AdminController extends Controller
 
 
             }
-            return view('admin.summary-filters', compact('userDetails', 'users', 'projectsOptions', 'overallSum', 'sumPerSelectedProject', 'selectedMonth', 'selectedYear', 'selectedProject'));
+            return view('admin.summary-filters', compact('selectedEmployee','usersOptions','userDetails', 'users', 'projectsOptions', 'overallSum', 'sumPerSelectedProject', 'selectedMonth', 'selectedYear', 'selectedProject'));
         }
+        if (isset($query['user'])) {
+            $month = $query['month'];
+            $year = $query['year'];
+            $selectedEmployee = $query['user'];
+            $user = User::where('id', intval($selectedEmployee))->first();
+
+                $object = new \stdClass();
+                $object->user = $user;
+                $object->projects = [];
+                foreach ($user->projects as $project) {
+
+                    $object->projects[$project->name] = $this->calculateTotalHoursWorked($project->timelogsFromMonthAndYearForEmployee($month, $year, $selectedEmployee));
+                }
+            $object->hoursWorkedPerMonth = $this->calculateTotalHoursWorked($user->timelogsFromMonthAndYear($month, $year));
+            $userDetails[] = $object;
+
+
+            return view('admin.summary-filters', compact('selectedEmployee','usersOptions','sumPerSelectedProject','userDetails', 'user', 'projectsOptions', 'overallSum', 'selectedMonth', 'selectedYear', 'selectedProject'));
+        }
+
         if (isset($query['month']) || isset($query['year'])) {
             $month = $query['month'];
             $year = $query['year'];
@@ -488,7 +527,7 @@ class AdminController extends Controller
                 $userDetails[] = $object;
             }
 
-            return view('admin.summary-filters', compact('userDetails', 'users', 'projectsOptions', 'overallSum', 'sumPerSelectedProject', 'selectedMonth', 'selectedYear', 'selectedProject'))->withErrors('No Project Was Selected!');
+            return view('admin.summary-filters', compact('selectedEmployee','usersOptions','userDetails', 'users', 'projectsOptions', 'overallSum', 'sumPerSelectedProject', 'selectedMonth', 'selectedYear', 'selectedProject'))->withErrors('No Project Was Selected!');
         }
     }
 

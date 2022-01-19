@@ -35,6 +35,14 @@ class Project extends Model
             ->where('user_id', $userId)
             ->get();
     }
+    public function timelogsFromMonthAndYearForEmployee($month, $year, $selectedEmployee)
+    {
+        return $this->hasMany(Timelog::class, 'project_id')
+            ->whereMonth('date', $month)
+            ->whereYear('date', $year)
+            ->where('user_id', $selectedEmployee)
+            ->get();
+    }
 
     public function timelogsFromWeek($startWeek, $endWeek, $userId) {
         return $this->hasMany(Timelog::class, 'project_id')
