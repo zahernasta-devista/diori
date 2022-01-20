@@ -60,7 +60,7 @@
                     <div class="card-header">
 
 
-                        <select name="month" class="btn btn-sm btn-purple-gradient rounded-pill"><i
+                        <select  id="dropdown" name="month" class="btn btn-sm btn-purple-gradient rounded-pill"><i
                                     class="fa fa-dropbox" required></i>
                             <option selected disabled hidden>Select The Month</option>
                             <option class="btn btn-purple" value="1" @if(request()->month =='1') selected @endif>
@@ -96,7 +96,7 @@
                             </option>
                         </select>
                         &nbsp;
-                        <select name="year" class="btn btn-sm btn-purple-gradient rounded-pill"><i
+                        <select  id="dropdown" name="year" class="btn btn-sm btn-purple-gradient rounded-pill "><i
                                     class="fa fa-dropbox"></i>
                             <option value="" selected disabled hidden>Select The Year</option>
                             @foreach(range(2021, date('Y')+20) as $y)
@@ -110,10 +110,10 @@
                                 $currentMonth = Carbon::now()->format('m');
                                 $currentYear = Carbon::now()->format('Y');
                         @endphp
-                        <select name="project" class="btn btn-sm btn-purple-gradient rounded-pill"><i
+                        <select  id="dropdown" name="project" class="btn btn-sm btn-purple-gradient  rounded-pill"><i
                                     class="fa fa-dropbox"></i>
                             <option selected disabled hidden>Select The Project</option>
-                            <option class="btn btn-purple" selected value="">All Projects</option>
+                            <option class="btn btn-purple" selected value="">Projects</option>
                             @foreach($projectsOptions as $project)
 
                                 <option class="btn btn-purple" value="{{$project->id}}"
@@ -121,13 +121,13 @@
                             @endforeach
                         </select>
                         &nbsp;
-                        <select name="user" class="btn btn-sm btn-purple-gradient rounded-pill"><i
-                                    class="fa fa-dropbox"></i>
-                            <option selected disabled hidden>Select The Employee</option>
-                            <option class="btn btn-purple" selected value="">All Employees</option>
+                        <select  id="dropdown" name="user" class="btn btn-sm btn-purple-gradient rounded-pill " ><i
+                                    class="fe fe-user"></i>
+                            <option     selected disabled hidden>Select The Employee</option>
+                            <option   class="btn btn-purple"   selected value="">employee</option>
                             @foreach($usersOptions as $user)
                                 @if($user->getRoleNames()[0] !== "admin")
-                                <option class="btn btn-purple" value="{{$user->id}}"
+                                <option class="btn btn-purple"   value="{{$user->id}}"
                                         @if(request()->user ==$user->id) selected @endif>{{$user->name}}</option>
                                 @endif
                             @endforeach
@@ -138,6 +138,7 @@
 
 
                     </div>
+                
 
                     <div class="card-body">
                         <h3 class="card-title">The Overall Summary!</h3>
