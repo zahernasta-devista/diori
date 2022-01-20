@@ -1,6 +1,6 @@
 <!--APP-SIDEBAR-->
-                <a aria-label="Hide Sidebar" class="app-sidebar__toggle ml-auto" data-toggle="sidebar" href="#"></a><!-- sidebar-toggle-->
-                <div class="app-sidebar__overlay" data-toggle="sidebar"></div>
+                <a aria-label="Hide Sidebar"  class="app-sidebar__toggle " data-toggle="sidebar"  id="sidebarbutton" href="#"></a><!-- sidebar-toggle-->
+                <div  data-toggle="sidebar"></div>
                 <aside class="app-sidebar" >
                     <div class="side-header">
                         <a class="header-brand1" href="{{ url('/' . $page='dashboard') }}">

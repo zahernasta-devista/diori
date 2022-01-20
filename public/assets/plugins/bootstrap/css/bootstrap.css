@@ -10308,3 +10308,6 @@ a.text-dark:hover, a.text-dark:focus {
 	font-family: inherit;
 	outline: none;
 }
+#sidebarbutton {
+     color:blueviolet;
+}
