@@ -10296,3 +10296,15 @@ a.text-dark:hover, a.text-dark:focus {
   }
 }
 /*# sourceMappingURL=bootstrap.css.map */
+.select::-ms-expand {
+  display: none;
+}
+#dropdown {
+	appearance: none;
+	padding: 5px;
+	background-color: #4834d4;
+	color: white;
+	border: none;
+	font-family: inherit;
+	outline: none;
+}
