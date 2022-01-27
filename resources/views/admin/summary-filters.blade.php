@@ -124,7 +124,7 @@
                         <select  id="dropdown" name="user" class="btn btn-sm btn-purple-gradient rounded-pill " ><i
                                     class="fe fe-user"></i>
                             <option     selected disabled hidden>Select The Employee</option>
-                            <option   class="btn btn-purple"   selected value="">employee</option>
+                            <option   class="btn btn-purple"   selected value="">Employees</option>
                             @foreach($usersOptions as $user)
                                 @if($user->getRoleNames()[0] !== "admin")
                                 <option class="btn btn-purple"   value="{{$user->id}}"
