@@ -7,6 +7,7 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\View;
+use phpDocumentor\Reflection\Types\Null_;
 use Ramsey\Uuid\Type\Time;
 use Illuminate\Support\Facades\DB;
 
@@ -34,16 +35,27 @@ class EmployeeController extends Controller
             'time' => ['required', 'numeric'],
             'project_id' => ['required'],
             'date' => ['required'],
-            'comment' => ['required']
         ]);
         $selectedDate = strtotime($request->date);
         $selectedTime = $request->time;
+        $selectedComment = $request->comment;
 
         if ($request->project_id == '0'){
             return redirect()->to('worklog')->withErrors('Please select a project!');
         }
+        if($selectedDate >= $start && $selectedDate <= $end && $selectedTime != 0 && $selectedComment == Null){
+            $Timelog = Timelog::create([
+                'user_id' => auth()->user()->id,
+                'time' => $request->time,
+                'project_id' => $request->project_id,
+                'date' => $request->date,
+                'comment' => "",
 
-        if ($selectedDate >= $start && $selectedDate <= $end && $selectedTime != 0)  {
+            ]);
+            return redirect('/calendar');
+        }
+
+        if ($selectedDate >= $start && $selectedDate <= $end && $selectedTime != 0 && $selectedComment != NULL)  {
             $Timelog = Timelog::create([
                 'user_id' => auth()->user()->id,
                 'time' => $request->time,
@@ -55,6 +67,7 @@ class EmployeeController extends Controller
             return redirect('/calendar');
 
         }
+
 
         return redirect('/worklog')->withErrors('Date Must Be From the Current Month!');
     }

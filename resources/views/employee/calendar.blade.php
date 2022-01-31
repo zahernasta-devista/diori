@@ -405,7 +405,7 @@
 
             object.id = element.id;
             object.comment = element.comment;
-            object.title = element.projectName + " • " + element.time + " hours." + " • " + element.comment + ".";
+            object.title = element.projectName + " • " + element.time + " hours." + " • " + element.comment;
             object.start = element.date + "T" + startHourString + ":00:00";
             object.end = element.date + "T" + endHourString + ":00:00";
             object.projectInput = element.projectName;
