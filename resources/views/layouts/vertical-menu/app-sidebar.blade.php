@@ -20,7 +20,7 @@
                         <div class="sidebar-navs">
                             <ul class="nav nav-pills-circle">
                                 <li class="nav-item" data-toggle="tooltip" data-placement="top" title="Profile" >
-                                    <a class="nav-link text-center ml-8 mr-5 btn btn-purple-gradient btn-sm rounded-pill py-3 px-3" href="{{ route('admin-profile') }}">
+                                    <a class="nav-link text-center mr-5 ml-8 btn btn-purple-gradient btn-sm rounded-pill py-3 px-3" href="{{ route('admin-profile') }}">
                                         <i class="fe fe-user text-white"></i>
                                     </a>
                                 </li>
@@ -43,7 +43,7 @@
                                 $currentYear = Carbon::now()->format('Y');
                          @endphp
                         <li class="slide">
-                            <a class="side-menu__item" data-toggle="slide" href="{{route('dashboard') }}"><i class="side-menu__icon ti-dashboard"></i><span class="side-menu__label">Dashboard</span></a>
+                            <a class="side-menu__item" data-toggle="slide" href="{{route('dashboard-admin') }}"><i class="side-menu__icon ti-dashboard"></i><span class="side-menu__label">Dashboard</span></a>
                             <a class="side-menu__item" data-toggle="slide" href="{{route('filters',['month'=>$currentMonth,'year'=>$currentYear]) }}"><i class="side-menu__icon ti-search"></i><span class="side-menu__label">Summary</span></a>
 
                         </li>
@@ -56,9 +56,13 @@
                             <a class="side-menu__item"  href="{{ route('projects') }}"><i class="side-menu__icon ti-layout-accordion-separated"></i><span class="side-menu__label">Projects</span></a>
                             <a class="side-menu__item"  href="{{ route('customers') }}"><i class="side-menu__icon ti-agenda"></i><span class="side-menu__label">Customers</span></a>
                         </li>
-
-
-
+                        <li>
+                            <span class="side-menu__label">ACCESS</span>
+                        </li>
+                        <li class="slide">
+                        <a class="side-menu__item" href="{{route('dashboard-employee')}}"><i class="side-menu__icon ti-bookmark"></i><span class="side-menu__label">Switch to Employee</span></a>
+                        <a class="side-menu__item" href="{{route('employee-project-page',Auth::user()->id)}}" ><i class="side-menu__icon ti-file"></i><span class="side-menu__label">Assign</span></a>
+                        </li>
                     </ul>
                 </aside>
 <!--/APP-SIDEBAR-->

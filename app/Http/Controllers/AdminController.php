@@ -345,7 +345,6 @@ class AdminController extends Controller
         $user = User::findorfail($request->route('id'));
 
         $user->assignRole([1]);
-        $user->removeRole(2);
 
         return redirect('/admin/list');
     }

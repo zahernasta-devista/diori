@@ -53,7 +53,7 @@
                                 </thead>
                                 <tbody>
                                 @foreach($users as $user)
-                                    @if($user->getRoleNames()[0] !== "admin")
+                                    @if($user->id !== Auth::User()->id)
                                         <tr>
                                             <td><input onclick="activeButton()" type="checkbox" id="checkbox" name="checkboxes[]"
                                                        value="{{$user->id}}"></td>
@@ -61,6 +61,7 @@
                                             <td class="font-italic">{{$user->position}}</td>
                                             <td class="font-italic">{{$user->email}}</td>
                                             <td class="text-center align-middle">
+                                                @if($user->getRoleNames()[0] !== "admin")
                                                 <a class="btn btn-sm btn-purple-gradient"
                                                    href="{{route('edit-user',$user->id)}}" type="button"><i
                                                             class="fa fa-edit"></i>Edit</a>
@@ -71,7 +72,7 @@
                                                    href="{{route('change-to-admin',$user->id)}}" type="button"
                                                    onclick="return confirm('Are you sure you want to Promote the selected employee ?')"><i
                                                             class="fa fa-dashboard"></i>Set to Admin</a>
-
+                                                @endif
                                                 <a class="btn btn-sm btn-purple-gradient"
                                                    href="{{route('employee-detail',$user->id)}}" type="button"><i
                                                             class="fa fa-dashboard"></i>Detail</a>

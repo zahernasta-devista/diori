@@ -49,12 +49,8 @@ class UserController extends Controller
     {
         $startweek = Carbon::now()->startOfWeek();
         $endweek = Carbon::now()->endOfWeek();
-
         $userId = auth()->user()->id;
         $projects = auth()->user()->projects;
-        $totalHoursWorkedForDashboard = DB::table('timelogs')->whereMonth('date', Carbon::now()->month)->sum('time');
-        $totalHoursWorkedWeekly = DB::table('timelogs')->whereBetween('date', [$startweek,$endweek])->sum('time');
-
 
         $timeSum = DB::table('timelogs')->where('user_id', $userId)->whereMonth('date', Carbon::now()->month)->sum('time');
 
@@ -68,22 +64,52 @@ class UserController extends Controller
 
         $date = carbon::now()->format('d-m-y');
 
-        $user = User::role('employee')->get()->count();
-
-        $project = Project::count();
-
-        $customer = Customer::count();
-
         $projectCount = auth()->user()->projects->count();
 
 
         if (Auth::user()->getRoleNames()[0] == "admin") {
-
-            return view('admin.index', ['project' => $project, 'customer' => $customer, 'user' => $user, 'totalHoursWorkedForDashboard'=>$totalHoursWorkedForDashboard, 'weekly'=>$totalHoursWorkedWeekly]);
+            return view('admin.role-access');
         } elseif (Auth::user()->getRoleNames()[0] == "employee") {
 
             return view('employee.dashboard-employee', ['date' => $date, 'timelogs' => $timelogs, 'projectCount' => $projectCount, 'timeSum' => $timeSum, 'timedaySum' => $timedaySum, 'projects' => $projects,'weekly'=>$timeWeekSum], compact('projects'));
         }
+    }
+    public function multipleAccess(Request $request){
+        $startweek = Carbon::now()->startOfWeek();
+        $endweek = Carbon::now()->endOfWeek();
+
+        $project = Project::count();
+        $customer = Customer::count();
+        $user = User::role('employee')->get()->count();
+        $totalHoursWorkedForDashboard = DB::table('timelogs')->whereMonth('date', Carbon::now()->month)->sum('time');
+        $totalHoursWorkedWeekly = DB::table('timelogs')->whereBetween('date', [$startweek,$endweek])->sum('time');
+
+        return view('admin.index', ['project' => $project, 'customer' => $customer, 'user' => $user, 'totalHoursWorkedForDashboard'=>$totalHoursWorkedForDashboard, 'weekly'=>$totalHoursWorkedWeekly]);
+
+    }
+    public function multipleAccessEmployee(Request $request){
+        $startweek = Carbon::now()->startOfWeek();
+        $endweek = Carbon::now()->endOfWeek();
+        $userId = auth()->user()->id;
+        $projects = auth()->user()->projects;
+
+        $timeSum = DB::table('timelogs')->where('user_id', $userId)->whereMonth('date', Carbon::now()->month)->sum('time');
+
+        $currentDate = Carbon::now()->year . "-" . Carbon::now()->month . "-" . (Carbon::now()->day < 10 ? "0" . Carbon::now()->day : Carbon::now()->day);
+
+        $timelogsDatabase = Timelog::where('user_id', $userId)->whereDate('date', $currentDate);
+        $timeWeekSum = Timelog::where('user_id',$userId)->whereBetween('date', [$startweek,$endweek])->sum('time');
+        $timedaySum = $timelogsDatabase->sum('time');
+        $timelogs = $timelogsDatabase->get();
+
+
+        $date = carbon::now()->format('d-m-y');
+
+        $projectCount = auth()->user()->projects->count();
+
+        return view('employee.dashboard-employee', ['date' => $date, 'timelogs' => $timelogs, 'projectCount' => $projectCount, 'timeSum' => $timeSum, 'timedaySum' => $timedaySum, 'projects' => $projects,'weekly'=>$timeWeekSum], compact('projects'));
+
+
     }
 
 }
