@@ -13,7 +13,9 @@ class Kernel extends ConsoleKernel
      * @var array
      */
     protected $commands = [
-        //
+        Commands\SendEmailsWeeklyEmployee::class,
+        Commands\SendEmailsMonthlyAdminCommand::class,
+        Commands\SendEmailsWeeklyAdminCommand::class,
     ];
 
     /**
@@ -24,7 +26,10 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        // $schedule->command('inspire')->hourly();
+         $schedule->command('command:send-emails-weekly-employee')->weeklyOn(5,'18:00');
+        $schedule->command('command:send-emails-monthly-admin')->monthlyOn(2,'7:00');
+        $schedule->command('command:send-emails-weekly-admin')->weeklyOn(7,'23:59');
+
     }
 
     /**

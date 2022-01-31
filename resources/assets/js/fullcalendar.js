@@ -1,196 +1,204 @@
- $(function(e) {
- 	"use strict";
- 	$('#calendar1').fullCalendar({
- 		header: {
- 			left: 'prev,next today',
- 			center: 'title',
- 			right: 'month,agendaWeek,agendaDay'
- 		},
- 		defaultDate: '2019-11-12',
- 		navLinks: true, // can click day/week names to navigate views
- 		selectable: true,
- 		selectHelper: true,
- 		select: function(start, end) {
- 			var title = prompt('Event Title:');
- 			var eventData;
- 			if (title) {
- 				eventData = {
- 					title: title,
- 					start: start,
- 					end: end
- 				};
- 				$('#calendar1').fullCalendar('renderEvent', eventData, true); // stick? = true
- 			}
- 			$('#calendar1').fullCalendar('unselect');
- 		},
- 		editable: true,
- 		eventLimit: true, // allow "more" link when too many events
- 		events: [{
- 			title: 'All Day Event',
- 			start: '2019-11-01'
- 		}, {
- 			title: 'Long Event',
- 			start: '2019-11-07',
- 			end: '2019-11-10'
- 		}, {
- 			id: 999,
- 			title: 'Repeating Event',
- 			start: '2019-11-09T16:00:00'
- 		}, {
- 			id: 999,
- 			title: 'Repeating Event',
- 			start: '2019-11-16T16:00:00'
- 		}, {
- 			title: 'Conference',
- 			start: '2019-11-11',
- 			end: '2019-11-13'
- 		}, {
- 			title: 'Meeting',
- 			start: '2019-11-12T10:30:00',
- 			end: '2019-11-12T12:30:00'
- 		}, {
- 			title: 'Lunch',
- 			start: '2019-11-12T12:00:00'
- 		}, {
- 			title: 'Meeting',
- 			start: '2019-11-12T14:30:00'
- 		}, {
- 			title: 'Happy Hour',
- 			start: '2019-11-12T17:30:00'
- 		}, {
- 			title: 'Dinner',
- 			start: '2019-11-12T20:00:00'
- 		}, {
- 			title: 'Birthday Party',
- 			start: '2019-11-13T07:00:00'
- 		}, {
- 			title: 'Click for Google',
- 			url: 'http://google.com/',
- 			start: '2019-11-28'
- 		}]
- 	});
- 	$('#calendar').fullCalendar({
- 		header: {
- 			left: 'prev,next today',
- 			center: 'title',
- 			right: 'listDay,listWeek,month'
- 		},
- 		// customize the button names,
- 		// otherwise they'd all just say "list"
- 		views: {
- 			listDay: {
- 				buttonText: 'list day'
- 			},
- 			listWeek: {
- 				buttonText: 'list week'
- 			}
- 		},
- 		defaultView: 'listWeek',
- 		defaultDate: '2019-11-12',
- 		navLinks: true, // can click day/week names to navigate views
- 		editable: true,
- 		eventLimit: true, // allow "more" link when too many events
- 		events: [{
- 			title: 'All Day Event',
- 			start: '2019-11-01'
- 		}, {
- 			title: 'Long Event',
- 			start: '2019-11-07',
- 			end: '2019-03-10'
- 		}, {
- 			id: 999,
- 			title: 'Repeating Event',
- 			start: '2019-11-09T16:00:00'
- 		}, {
- 			id: 999,
- 			title: 'Repeating Event',
- 			start: '2019-11-16T16:00:00'
- 		}, {
- 			title: 'Conference',
- 			start: '2019-11-11',
- 			end: '2019-11-13'
- 		}, {
- 			title: 'Meeting',
- 			start: '2019-11-12T10:30:00',
- 			end: '2019-11-12T12:30:00'
- 		}, {
- 			title: 'Lunch',
- 			start: '2019-11-12T12:00:00'
- 		}, {
- 			title: 'Meeting',
- 			start: '2019-11-12T14:30:00'
- 		}, {
- 			title: 'Happy Hour',
- 			start: '2019-11-12T17:30:00'
- 		}, {
- 			title: 'Dinner',
- 			start: '2019-11-12T20:00:00'
- 		}, {
- 			title: 'Birthday Party',
- 			start: '2019-11-13T07:00:00'
- 		}, {
- 			title: 'Click for Google',
- 			url: 'http://google.com/',
- 			start: '2019-11-28'
- 		}]
- 	});
- 	$('#calendar2').fullCalendar({
- 		header: {
- 			left: 'prev,next today',
- 			center: 'title',
- 			right: 'month,agendaWeek,agendaDay,listMonth'
- 		},
- 		defaultDate: '2019-03-12',
- 		navLinks: true, // can click day/week names to navigate views
- 		businessHours: true, // display business hours
- 		editable: true,
- 		events: [{
- 				title: 'Business Lunch',
- 				start: '2019-03-03T13:00:00',
- 				constraint: 'businessHours'
- 			}, {
- 				title: 'Meeting',
- 				start: '2019-03-13T11:00:00',
- 				constraint: 'availableForMeeting', // defined below
- 				color: '#f35e90'
- 			}, {
- 				title: 'Conference',
- 				start: '2019-03-18',
- 				end: '2019-03-20',
- 				color: '#e67e22'
- 			}, {
- 				title: 'Party',
- 				start: '2019-03-29T20:00:00',
- 				color: '#22c865'
- 			},
- 			// areas where "Meeting" must be dropped
- 			{
- 				id: 'availableForMeeting',
- 				start: '2019-03-11T10:00:00',
- 				end: '2019-03-11T16:00:00',
- 				rendering: 'background',
- 				color: '#5e72e4'
- 			}, {
- 				id: 'availableForMeeting',
- 				start: '2019-03-13T10:00:00',
- 				end: '2019-03-13T16:00:00',
- 				rendering: 'background'
- 			},
- 			// red areas where no events can be dropped
- 			{
- 				start: '2019-03-24',
- 				end: '2019-03-28',
- 				overlap: false,
- 				rendering: 'background',
- 				color: 'rgba(0,0,0,0.1)'
- 			}, {
- 				start: '2019-03-06',
- 				end: '2019-03-11',
- 				overlap: false,
- 				rendering: 'background',
- 				color: 'rgba(0,0,0,0.1)'
- 			}
- 		]
- 	});
- 	
+$(function(e) {
+    "use strict";
+
+    $.ajax({
+        type: 'GET',
+        url: url,
+        success: function(response) {
+            var today = new Date();
+            var dd = today.getDate();
+            var mm = today.getMonth() + 1; //January is 0!
+
+            var yyyy = today.getFullYear();
+            if (dd < 10) {
+                dd = '0' + dd;
+            }
+            if (mm < 10) {
+                mm = "0" + mm;
+            }
+            today = yyyy + '-' + mm + '-' + dd;
+
+            let responseData = response.response;
+            let events = [];
+            let time = {
+                endHour: 9,
+                pastDate: null
+            }
+
+            responseData.forEach(element => {
+                let object = createCalendarElements(responseData, element, time);
+
+                events.push(object);
+            });
+
+            $('#calendar').fullCalendar({
+                header: {
+                    left: 'prev,next today',
+                    center: 'title',
+                    right: 'listDay,listWeek,month'
+                },
+                views: {
+                    listDay: {
+                        buttonText: 'Daily'
+                    },
+                    listWeek: {
+                        buttonText: 'Weekly'
+                    },
+                    month:{
+                        buttonText: 'Monthly'
+                    }
+                },
+                defaultView: 'listWeek',
+                defaultDate: today,
+                navLinks: false, // can click day/week names to navigate views
+                editable: true,
+                eventLimit: true, // allow "more" link when too many events
+                events: events,
+                eventClick: function(info) {
+                    //Verify if the time sum is less than 12 hours
+                    //Max value will be the difference between both times
+                    let time = (new Date(info.end) - new Date(info.start)) / 1000 / 60 / 60 ;
+                    let maxHours = time + info.availableHours;
+
+                    $('#myModal').modal('show');
+                    $("#time").val(time);
+                    $("#id").val(info.id);
+                    $("#comment").val(info.comment);
+                    $("#project").val(info.projectInput);
+                    $("#time").attr({'max': maxHours});
+
+                    $("#time").keydown(function () {
+                        if (!$(this).val() || (parseInt($(this).val()) <= maxHours && parseInt($(this).val()) >= 1))
+                        {
+                            $(this).data("old", $(this).val());
+                        }
+
+                    });
+                    $("#time").keyup(function () {
+                        if (!$(this).val() || (parseInt($(this).val()) <= maxHours && parseInt($(this).val()) >= 1)) ;
+                        else
+                        {
+                            $(this).val($(this).data("old"));
+                        }
+
+                    });
+                }
+                
+            });
+            document.getElementsByClassName('fc-listDay-button fc-button fc-state-default fc-corner-left')[0].onclick = function() {
+                $("#total").val(response.hours[0]);
+            };
+            document.getElementsByClassName('fc-listWeek-button fc-button fc-state-default')[0].onclick = function() {
+                $("#total").val(response.hours[1]);
+            };
+            document.getElementsByClassName('fc-month-button fc-button fc-state-default fc-corner-right')[0].onclick = function() {
+                $("#total").val(response.hours[2]);
+            };
+
+        }
+    });
 });
+
+
+document.querySelector('#editTimeLog').addEventListener('click', function(e) {
+    e.preventDefault();
+
+    let time = $('#time').val() ;
+    let comment = $('#comment').val() ;
+    let id = $('#id').val();
+
+    $.ajax({
+        type: 'POST',
+        url: editUrl,
+        headers: {
+            'X-CSRF-TOKEN': csrfToken
+        },
+        data: {time: time, id: id,comment: comment},
+        success: function(response) {
+            location.reload();
+        },
+        error: function(error) {
+            console.log(error);
+        }
+    });
+}, false);
+
+document.querySelector('#deleteTimeLog').addEventListener('click', function(e) {
+    e.preventDefault();
+
+    let id = $('#id').val();
+
+    $.ajax({
+        type: 'POST',
+        url: deleteUrl,
+        headers: {
+            'X-CSRF-TOKEN': csrfToken
+        },
+        data:{id:id},
+        success:function(response){
+            location.reload();
+        },
+        error: function(error) {
+            console.log(error);
+        },
+    });
+}, false);
+
+
+function createCalendarElements(responseData, element, time, date) {
+
+    let availableHours = getAvailableHours(responseData, element);
+
+    if(time.pastDate != null && new Date(time.pastDate) < new Date(element.date)) {
+        time.endHour = 9;
+    }
+
+    let startHour = time.endHour;
+    //Passed by reference to keep the modifications inside the function
+    time.endHour += element.time;
+
+    let startHourString = generateHourString(startHour);
+    let endHourString = generateHourString(time.endHour);
+
+    //Passed by reference to keep the modifications inside the function
+    time.pastDate = element.date;
+
+    return createCalendarObject(element, startHourString, endHourString, availableHours);
+}
+
+function getAvailableHours(responseData, element) {
+    let availableHours = 12;
+    let sameDates = responseData.filter(object => object.date === element.date);
+    sameDates.forEach(object => {
+        availableHours -= object.time;
+    })
+
+
+    return availableHours;
+}
+
+function createCalendarObject(element, startHourString, endHourString, availableHours) {
+    let object = {};
+
+    object.id = element.id;
+    object.comment = element.comment;
+    object.title = element.projectName + " • " + element.time + " hours." + " • " + element.comment + ".";
+    object.start = element.date + "T" + startHourString + ":00:00" ;
+    object.end = element.date + "T" + endHourString + ":00:00" ;
+    object.projectInput = element.projectName;
+    object.availableHours = availableHours;
+
+    return object;
+
+}
+
+function generateHourString(hour) {
+    return hour < 10 ? "0" + hour : hour;
+}
+
+
+
+
+
+
+

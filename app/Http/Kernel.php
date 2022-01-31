@@ -2,7 +2,11 @@
 
 namespace App\Http;
 
+use App\Console\Commands\SendEmailsAdminCommand;
+use App\Mail\ReportsMail;
+use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
+use Illuminate\Support\Facades\Mail;
 
 class Kernel extends HttpKernel
 {
@@ -54,6 +58,7 @@ class Kernel extends HttpKernel
      */
     protected $routeMiddleware = [
         'auth' => \App\Http\Middleware\Authenticate::class,
+        'first.time.login' => \App\Http\Middleware\FirstTimeLogin::class,
         'auth.basic' => \Illuminate\Auth\Middleware\AuthenticateWithBasicAuth::class,
         'cache.headers' => \Illuminate\Http\Middleware\SetCacheHeaders::class,
         'can' => \Illuminate\Auth\Middleware\Authorize::class,
@@ -62,5 +67,15 @@ class Kernel extends HttpKernel
         'signed' => \Illuminate\Routing\Middleware\ValidateSignature::class,
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
+        'role' => \Spatie\Permission\Middlewares\RoleMiddleware::class
     ];
+
+    protected function schedule(Schedule $schedule)
+    {
+        log:info('I AM ENTERING');
+        $schedule->command('command:send-emails-monthly-admin')->everyFiveMinutes()->when(function () {
+            return true;
+        });
+    
+}
 }

@@ -1,99 +1,89 @@
 <?php
 
+
+
 namespace App\Http\Controllers;
+
+
+
+use App\Models\Customer;
+
+use App\Models\Project;
+
+use App\Models\Timelog;
+
+use App\Models\User;
+
+use Carbon\Carbon;
+
+use Illuminate\Support\Facades\DB;
+
+
+
+use Facade\FlareClient\Time\Time;
 
 use Illuminate\Http\Request;
 
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
+
+
 class UserController extends Controller
+
 {
-    //
-   	public function index()
-	{
-		return view('index');
-    }
 
-
-	public function calendar2()
-	{
-		return view('calendar2');
-    }
-
-	public function datatable()
-	{
-		return view('datatable');
-	}
-
-	public function editprofile()
-	{
-		return view('editprofile');
-	}
-
-
-	public function empty()
-	{
-		return view('empty');
-	}
-
-
-	public function forgotpassword()
-	{
-		return view('forgotpassword');
-    }
-
-
-    public function index2()
-	{
-		return view('index2');
-	}
-
-    public function index3()
-	{
-		return view('index3');
-	}
-
-    public function index4()
-	{
-		return view('index4');
-	}
-
-    public function index5()
-	{
-		return view('index5');
-	}
-
-
-	public function login()
-	{
-		return view('login');
-	}
-
-
-
-    public function register()
-	{
-		return view('register');
-	}
-
-	public function tables()
-	{
-		return view('tables');
-	}
-
-	public function userslist()
-	{
-		return view('userslist');
-    }
-
-
-	public function verticalmenu()
-	{
-		return view('verticalmenu');
-    }
-
-    public function projectAdd()
+    public function changePassword()
     {
-        return view('add-project');
+        return view('auth.change-password');
     }
 
+
+
+    public function login()
+    {
+
+        return view('auth.login');
+    }
+
+    public function dashboard(Request $request)
+    {
+        $startweek = Carbon::now()->startOfWeek();
+        $endweek = Carbon::now()->endOfWeek();
+
+        $userId = auth()->user()->id;
+        $projects = auth()->user()->projects;
+        $totalHoursWorkedForDashboard = DB::table('timelogs')->whereMonth('date', Carbon::now()->month)->sum('time');
+        $totalHoursWorkedWeekly = DB::table('timelogs')->whereBetween('date', [$startweek,$endweek])->sum('time');
+
+
+        $timeSum = DB::table('timelogs')->where('user_id', $userId)->whereMonth('date', Carbon::now()->month)->sum('time');
+
+        $currentDate = Carbon::now()->year . "-" . Carbon::now()->month . "-" . (Carbon::now()->day < 10 ? "0" . Carbon::now()->day : Carbon::now()->day);
+
+        $timelogsDatabase = Timelog::where('user_id', $userId)->whereDate('date', $currentDate);
+        $timeWeekSum = Timelog::where('user_id',$userId)->whereBetween('date', [$startweek,$endweek])->sum('time');
+        $timedaySum = $timelogsDatabase->sum('time');
+        $timelogs = $timelogsDatabase->get();
+
+
+        $date = carbon::now()->format('d-m-y');
+
+        $user = User::role('employee')->get()->count();
+
+        $project = Project::count();
+
+        $customer = Customer::count();
+
+        $projectCount = auth()->user()->projects->count();
+
+
+        if (Auth::user()->getRoleNames()[0] == "admin") {
+
+            return view('admin.index', ['project' => $project, 'customer' => $customer, 'user' => $user, 'totalHoursWorkedForDashboard'=>$totalHoursWorkedForDashboard, 'weekly'=>$totalHoursWorkedWeekly]);
+        } elseif (Auth::user()->getRoleNames()[0] == "employee") {
+
+            return view('employee.dashboard-employee', ['date' => $date, 'timelogs' => $timelogs, 'projectCount' => $projectCount, 'timeSum' => $timeSum, 'timedaySum' => $timedaySum, 'projects' => $projects,'weekly'=>$timeWeekSum], compact('projects'));
+        }
+    }
 
 }
