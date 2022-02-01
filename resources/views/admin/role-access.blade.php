@@ -28,7 +28,7 @@
                                                 <div class="text-white">
                                                     <h4 class="mb-0 number-font">Admin's Access</h4>
                                                 </div>
-                                                <div class="ml-auto"> <i class="fa fa-bar-chart text-white fs-30 mr-2 mt-2"></i> </div>
+                                                <div class="ml-auto"> <i class="fa fa-user-o text-white fs-30 mr-2 mt-2"></i> </div>
                                             </div>
                                         </div>
                                     </div>
@@ -40,7 +40,7 @@
                                         <div class="card-body">
                                             <div class="d-flex">
                                                 <div class="text-white">
-                                                    <h4 class="mb-0 number-font">Employee's Access</h4>
+                                                    <h4 class="mb-0 number-font">Employee's Access ‎</h4>
                                                 </div>
                                                 <div class="ml-auto"> <i class="fa fa-user text-white fs-30 mr-2 mt-2"></i> </div>
                                             </div>
