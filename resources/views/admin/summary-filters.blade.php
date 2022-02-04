@@ -126,10 +126,8 @@
                             <option     selected disabled hidden>Select The Employee</option>
                             <option   class="btn btn-purple"   selected value="">Employees</option>
                             @foreach($usersOptions as $user)
-                                @if($user->getRoleNames()[0] !== "admin")
                                 <option class="btn btn-purple"   value="{{$user->id}}"
                                         @if(request()->user ==$user->id) selected @endif>{{$user->name}}</option>
-                                @endif
                             @endforeach
                         </select>
                         &nbsp;
@@ -159,7 +157,7 @@
                                 {{--table body--}}
                                 <tbody>
                                 @foreach($userDetails as $userDetail)
-                                    @if($userDetail->user->getRoleNames()[0] !== "admin")
+
                                         <tr>
 
                                             <td class="font-italic"><h5>• {{$userDetail->user->name}}</h5></td>
@@ -169,7 +167,6 @@
                                                     <h6>{{$key}} -> {{$value}}</h6>
                                                 @endforeach
                                             </td>
-                                            @endif
                                         </tr>
                                         @endforeach
 

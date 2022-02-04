@@ -20,7 +20,9 @@
                 <div class="card-header">
                     <h3 class="card-title">{{$user->name}}'s assigned Projects</h3>
                     <div class="card-options">
-                        <a type="button" href="{{ route('assign-project-page',$user->id) }}" class="btn btn-md btn-orange " ><i class="fa fa-plus"></i> Assign a New Project</a>
+                        <a type="button" href="{{ route('assign-project-page',$user->id) }}" class="btn btn-sm btn-orange rounded-pill"><i
+                                    class="fa fa-plus"></i > Assign a New Project</a>
+                        &emsp;
                     </div>
                 </div>
                 <div class="card-body">

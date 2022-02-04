@@ -45,14 +45,20 @@ class SendEmailsWeeklyEmployee extends Command
     {
         $users = User::get();
         $startWeek = Carbon::now()->startOfWeek()->format('Y-m-d');
-        $endWeek= Carbon::now()->endOfWeek()->format('Y-m-d');
+        $endWeek = Carbon::now()->endOfWeek()->format('Y-m-d');
         foreach ($users as $user) {
-            if ($user->getRoleNames()[0] !== "admin" ) {
+            if ($user->getRoleNames()[0] !== "admin") {
                 $timeSum = DB::table('timelogs')->where('user_id', $user->id)->whereBetween('date', [$startWeek, $endWeek])->sum('time');
-                if($timeSum < 40){
-                Mail::to($user->email)->send(new ReportsMailEmployeeWeek);
+                if ($timeSum < 40) {
+                    Mail::to($user->email)->send(new ReportsMailEmployeeWeek);
+                }
             }
-        }
+            if ($user->getRoleNames()[0] !== "employee") {
+                $timeSum = DB::table('timelogs')->where('user_id', $user->id)->whereBetween('date', [$startWeek, $endWeek])->sum('time');
+                if ($timeSum < 40) {
+                    Mail::to($user->email)->send(new ReportsMailEmployeeWeek);
+                }
+            }
         }
     }
 }
