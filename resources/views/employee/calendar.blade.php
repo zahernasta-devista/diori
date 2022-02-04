@@ -31,6 +31,10 @@
                     <input id="datePicker" class="text-center input100 border-white bg-light" type="date"
                            name="datePicker" readonly hidden>
                 </div>
+            <div>
+                <a  id="addwork" type="button" href="{{route('work-log')}}" class="btn btn-sm btn-orange "><i
+                    class="fa fa-plus"></i ></a>
+            </div>
                 <div class="card-body">
                     <div id='calendar'></div>
                 </div>

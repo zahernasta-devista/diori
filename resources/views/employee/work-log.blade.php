@@ -38,7 +38,7 @@
                         {{-- project --}}
                         <div class="wrap-input100 validate-input" data-validate="Project is required">
                             <select class="input100" type="text" id="mySelect" name="project_id"
-                                onchange="getProject(this)">
+                                onchange="getProject(this)" >
                                 <option value="0">Choose Your Project</option>
                                 @foreach ($projects as $project)
                                     <option value="{{ $project->id }}">{{ $project->name }} </option>
@@ -51,8 +51,8 @@
                         </div>
                         {{-- date --}}
                         <div class="wrap-input100 validate-input" data-validate="date is required">
-                            <input placeholder="Date Of Timelog" id="date" class="input100" min="{{ $projects }}"
-                                name="date" type="text" onfocus="(this.type='date')" onchange="checkDateForInput(this)">
+                            <input  id="date" class="input100" min="{{ $projects }}"
+                                name="date" type="date" onchange="checkDateForInput(this)"  value='<?php echo date('Y-m-d');?>' onkeyup='saveValue(this);' >
                             <span class="focus-input100"></span>
                             <span class="symbol-input100">
                                 <i class="zmdi zmdi-view-day" aria-hidden="true"></i>
@@ -61,7 +61,7 @@
                         {{-- time --}}
                         <div class="wrap-input100 validate-input">
                             <input class="input100" id="time" min="0" max="12" type="number" name="time"
-                                placeholder="12 hours max">
+                                placeholder="12 hours max" onkeyup='saveValue(this);'>
                             <span class="focus-input100"></span>
                             <span class="symbol-input100">
                                 <i class="zmdi zmdi-eye" aria-hidden="true"></i>
@@ -69,8 +69,8 @@
                         </div>
                         {{-- comment --}}
                         <div class="wrap-input100 validate-input">
-                            <textarea class="input100" type="text" name="comment" placeholder="Insert a Comment!"
-                                rows="4" cols="50"></textarea>
+                            <textarea class="input100" id="comment" type="text" name="comment" placeholder="Insert a Comment!"
+                                rows="4" cols="50" onkeyup='saveValue(this);'></textarea>
                             <span class="focus-input100"></span>
                             <span class="symbol-input100">
                                 <i class="zmdi zmdi-comment" aria-hidden="true"></i>
@@ -127,10 +127,12 @@
             return availableHours;
         }
 
+
         function checkDateForInput(e) {
 
             let checkDate = document.getElementById("date").value;
             console.log(checkDate, 'is the date selected');
+            
 
             $(function(e) {
                 "use strict";
@@ -193,5 +195,33 @@
             });
         }
     </script>
+    <script type="text/javascript">
+        document.getElementById("time").value = getSavedValue("time");    
+        document.getElementById("comment").value = getSavedValue("comment"); 
 
+        //Save the value function - save it to localStorage as (ID, VALUE)
+        function saveValue(e){
+            var id = e.id;  // get the sender's id to save it . 
+            var val = e.value; // get the value. 
+            localStorage.setItem(id, val);// Every time user writing something, the localStorage's value will override . 
+        }
+
+        //get the saved value function - return the value of "v" from localStorage. 
+        function getSavedValue  (v){
+            if (!localStorage.getItem(v)) {
+                return "";// You can change this to your defualt value. 
+            }
+            return localStorage.getItem(v);
+        }
+</script>
+<script>
+    $(function() {
+    $('#mySelect').change(function() {
+        localStorage.setItem('todoData', this.value);
+    });
+    if(localStorage.getItem('todoData')){
+        $('#mySelect').val(localStorage.getItem('todoData'));
+    }
+});
+</script>
 @endsection
