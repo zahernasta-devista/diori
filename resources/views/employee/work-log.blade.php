@@ -127,12 +127,35 @@
             return availableHours;
         }
 
+        //add today's date in the date input
+        var today = new Date();
+        var dd = today.getDate();
+        var mm = today.getMonth() + 1; //January is 0!
+
+        var yyyy = today.getFullYear();
+        if (dd < 10) {
+            dd = '0' + dd;
+        }
+        if (mm < 10) {
+            mm = "0" + mm;
+        }
+        today = yyyy + '-' + mm + '-' + dd;
+        //end
+
+        let selectedDateForToday = $("#date").val(today).val();
+        
+        console.log(selectedDateForToday);
+
+        if (selectedDateForToday === today) {
+                this.checkDateForInput();
+        }
 
         function checkDateForInput(e) {
 
             let checkDate = document.getElementById("date").value;
             console.log(checkDate, 'is the date selected');
-            
+
+
 
             $(function(e) {
                 "use strict";
@@ -142,6 +165,7 @@
                     url: url,
 
                     success: function getData(response) {
+
                         let responseData = response.timeResponse;
                         let events = [];
 
@@ -164,7 +188,8 @@
                             let sameDate = responseData.filter(object => object.date ===
                                 checkDate);
                                 //end
-                            console.log(sameDate);
+
+
 
 
                             $("#time").attr({
@@ -189,6 +214,7 @@
                                 }
 
                             });
+
                         });
                     }
                 });
@@ -196,20 +222,20 @@
         }
     </script>
     <script type="text/javascript">
-        document.getElementById("time").value = getSavedValue("time");    
-        document.getElementById("comment").value = getSavedValue("comment"); 
+        document.getElementById("time").value = getSavedValue("time");
+        document.getElementById("comment").value = getSavedValue("comment");
 
         //Save the value function - save it to localStorage as (ID, VALUE)
         function saveValue(e){
-            var id = e.id;  // get the sender's id to save it . 
-            var val = e.value; // get the value. 
-            localStorage.setItem(id, val);// Every time user writing something, the localStorage's value will override . 
+            var id = e.id;  // get the sender's id to save it .
+            var val = e.value; // get the value.
+            localStorage.setItem(id, val);// Every time user writing something, the localStorage's value will override .
         }
 
-        //get the saved value function - return the value of "v" from localStorage. 
+        //get the saved value function - return the value of "v" from localStorage.
         function getSavedValue  (v){
             if (!localStorage.getItem(v)) {
-                return "";// You can change this to your defualt value. 
+                return "";// You can change this to your defualt value.
             }
             return localStorage.getItem(v);
         }
