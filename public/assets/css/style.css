@@ -17,5 +17,10 @@
     
 color: #FC7303;
 }
+#addwork {
+	float: right;
+	margin-right: 25px;
+	margin-top: 10px;
+}
 
 

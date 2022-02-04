@@ -73,8 +73,10 @@
                         <p class="text-white mb-0"> @foreach ($timelogs as $timelog)
                                 • {{ $timelog->project->name }} -> {{ $timelog->time }} Hours
                             @endforeach</p>
+                            
                     </div>
-                    <div class="ml-auto"> <i class="fa fa-bar-chart text-white fs-30 mr-2 mt-2"></i> </div>
+                    <div class="ml-auto"> <a   type="button" href="{{route('work-log')}}" class="btn btn-sm btn-orange "><i
+                        class="fa fa-plus"></i > </a> </div>
                 </div>
             </div>
         </div>
