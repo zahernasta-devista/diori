@@ -99,14 +99,14 @@
                         @endif
 
                         <div class="form-group-addon wrap-input100 validate-input">
-                            <input class="text-center input100 border-white bg-light" type="text" name="project"
+                            <input class="text-right input100 border-white bg-light" type="text" name="project"
                                    id="project" readonly>
                             <span class="focus-input100"></span>
                             <span class="symbol-input100"><i class="mdi mdi-note-plus" aria-hidden="true">Project
                                     Name:</i></span>
                         </div>
                         <div class="form-group-addon wrap-input100 validate-input">
-                            <input class="text-center input100 border-white bg-light" type="number" id="time" min="1"
+                            <input class="text-right input100 border-white bg-light" type="number" id="time" min="1"
                                    readonly>
                             <span class="focus-input100"></span>
                             <span class="symbol-input100"><i class="mdi mdi-timer" aria-hidden="true">Hours Worked :

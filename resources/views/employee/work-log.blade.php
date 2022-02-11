@@ -38,7 +38,7 @@
                         {{-- project --}}
                         <div class="wrap-input100 validate-input" data-validate="Project is required">
                             <select class="input100" type="text" id="mySelect" name="project_id"
-                                onchange="getProject(this)" >
+                                    onchange="getProject(this)" >
                                 <option value="0">Choose Your Project</option>
                                 @foreach ($projects as $project)
                                     <option value="{{ $project->id }}">{{ $project->name }} </option>
@@ -52,7 +52,7 @@
                         {{-- date --}}
                         <div class="wrap-input100 validate-input" data-validate="date is required">
                             <input  id="date" class="input100" min="{{ $projects }}"
-                                name="date" type="date" onchange="checkDateForInput(this)"  value='<?php echo date('Y-m-d');?>' onkeyup='saveValue(this);' >
+                                    name="date" type="date" onchange="checkDateForInput(this)"  value='<?php echo date('Y-m-d');?>' onkeyup='saveValue(this);' >
                             <span class="focus-input100"></span>
                             <span class="symbol-input100">
                                 <i class="zmdi zmdi-view-day" aria-hidden="true"></i>
@@ -61,7 +61,7 @@
                         {{-- time --}}
                         <div class="wrap-input100 validate-input">
                             <input class="input100" id="time" min="0" max="12" type="number" name="time"
-                                placeholder="12 hours max" onkeyup='saveValue(this);'>
+                                   placeholder="12 hours max" onkeyup='saveValue(this);'>
                             <span class="focus-input100"></span>
                             <span class="symbol-input100">
                                 <i class="zmdi zmdi-eye" aria-hidden="true"></i>
@@ -70,7 +70,7 @@
                         {{-- comment --}}
                         <div class="wrap-input100 validate-input">
                             <textarea class="input100" id="comment" type="text" name="comment" placeholder="Insert a Comment!"
-                                rows="4" cols="50" onkeyup='saveValue(this);'></textarea>
+                                      rows="4" cols="50" onkeyup='saveValue(this);'></textarea>
                             <span class="focus-input100"></span>
                             <span class="symbol-input100">
                                 <i class="zmdi zmdi-comment" aria-hidden="true"></i>
@@ -117,7 +117,6 @@
     </script>
     <script>
         let url = "{{ route('worklog-restriction') }}";
-
         function getAvailableHours(responseData, element) {
             let availableHours = 12;
             let sameDates = responseData.filter(object => object.date === element.date);
@@ -126,49 +125,31 @@
             })
             return availableHours;
         }
+            var today = new Date();
+            var dd = today.getDate();
+            var mm = today.getMonth() + 1; //January is 0!
 
-        //add today's date in the date input
-        var today = new Date();
-        var dd = today.getDate();
-        var mm = today.getMonth() + 1; //January is 0!
-
-        var yyyy = today.getFullYear();
-        if (dd < 10) {
-            dd = '0' + dd;
-        }
-        if (mm < 10) {
-            mm = "0" + mm;
-        }
-        today = yyyy + '-' + mm + '-' + dd;
-        //end
-
-        let selectedDateForToday = $("#date").val(today).val();
-        
-        console.log(selectedDateForToday);
-
-        if (selectedDateForToday === today) {
-                this.checkDateForInput();
-        }
+            var yyyy = today.getFullYear();
+            if (dd < 10) {
+                dd = '0' + dd;
+            }
+            if (mm < 10) {
+                mm = "0" + mm;
+            }
+            today = yyyy + '-' + mm + '-' + dd;
 
         function checkDateForInput(e) {
 
             let checkDate = document.getElementById("date").value;
-            console.log(checkDate, 'is the date selected');
-
-
-
             $(function(e) {
                 "use strict";
 
                 $.ajax({
                     type: 'GET',
                     url: url,
-
                     success: function getData(response) {
-
                         let responseData = response.timeResponse;
                         let events = [];
-
                         responseData.forEach(element => {
                             let object = {};
                             object.id = element.id;
@@ -182,15 +163,12 @@
                             sameDates.forEach(object => {
                                 availableHours -= object.time;
                             });
-                            //end 
+                            //end
 
                             //checking in the data base if there are any similar dates
                             let sameDate = responseData.filter(object => object.date ===
                                 checkDate);
-                                //end
-
-
-
+                            //end
 
                             $("#time").attr({
                                 'max': availableHours,
@@ -199,16 +177,16 @@
 
                             $("#time").keydown(function() {
                                 if (!$(this).val() || (parseInt($(this).val()) <=
-                                        availableHours && parseInt($(this).val()) >= 1
-                                        )) {
+                                    availableHours && parseInt($(this).val()) >= 1
+                                )) {
                                     $(this).data("old", $(this).val());
                                 }
-
+                                console.log(checkDate);
                             });
                             $("#time").keyup(function() {
                                 if (!$(this).val() || (parseInt($(this).val()) <=
-                                        availableHours && parseInt($(this).val()) >= 1))
-                                ;
+                                    availableHours && parseInt($(this).val()) >= 1))
+                                    ;
                                 else {
                                     $(this).val($(this).data("old"));
                                 }
@@ -239,15 +217,15 @@
             }
             return localStorage.getItem(v);
         }
-</script>
-<script>
-    $(function() {
-    $('#mySelect').change(function() {
-        localStorage.setItem('todoData', this.value);
-    });
-    if(localStorage.getItem('todoData')){
-        $('#mySelect').val(localStorage.getItem('todoData'));
-    }
-});
-</script>
+    </script>
+    <script>
+        $(function() {
+            $('#mySelect').change(function() {
+                localStorage.setItem('todoData', this.value);
+            });
+            if(localStorage.getItem('todoData')){
+                $('#mySelect').val(localStorage.getItem('todoData'));
+            }
+        });
+    </script>
 @endsection
