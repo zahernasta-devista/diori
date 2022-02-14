@@ -121,16 +121,6 @@
     </script>
     <script>
         let url = "{{ route('worklog-restriction') }}";
-
-        function getAvailableHours(responseData, element) {
-            let availableHours = 12;
-            let sameDates = responseData.filter(object => object.date === element.date);
-            sameDates.forEach(object => {
-                availableHours -= object.time;
-            })
-            return availableHours;
-        }
-
         var today = new Date();
         var dd = today.getDate();
         var mm = today.getMonth() + 1; //January is 0!
@@ -144,14 +134,9 @@
         }
         today = yyyy + '-' + mm + '-' + dd;
 
-        let isToday = today;
-        let selectedDateForToday = null;
+        let selectedDateForToday = $("#date").val(today);
+        this.checkDateForInput();
 
-        if (isToday === today) {
-            selectedDateForToday = $("#date").val(today).val();
-            this.checkDateForInput();
-        }
-z
         function checkDateForInput(e) {
 
             let checkDate = document.getElementById("date").value;
@@ -187,24 +172,6 @@ z
                             $("#time").attr({
                                 'max': availableHours,
                                 'placeholder': availableHours + ' Hours Left',
-                            });
-
-                            $("#time").keydown(function () {
-                                if (!$(this).val() || (parseInt($(this).val()) <=
-                                    availableHours && parseInt($(this).val()) >= 1
-                                )) {
-                                    $(this).data("old", $(this).val());
-                                }
-                                console.log(checkDate);
-                            });
-                            $("#time").keyup(function () {
-                                if (!$(this).val() || (parseInt($(this).val()) <=
-                                    availableHours && parseInt($(this).val()) >= 1))
-                                    ;
-                                else {
-                                    $(this).val($(this).data("old"));
-                                }
-
                             });
 
                         });
