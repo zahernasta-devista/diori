@@ -10,7 +10,7 @@
         <h1 class="page-title">Employees</h1>
         <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="#">Hours & Projects</a></li>
-            <li class="breadcrumb-item active text-orange" aria-current="page">Summary of All The Work for The Current Month!</li>
+            <li class="breadcrumb-item active text-orange" aria-current="page">Summary of All The Work for The Previous Month!</li>
 
         </ol>
     </div>
