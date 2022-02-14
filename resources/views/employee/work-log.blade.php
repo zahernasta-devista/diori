@@ -9,7 +9,9 @@
         <h1 class="page-title">Work log</h1>
         <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="#">Menu</a></li>
-            <li class="breadcrumb-item active text-orange" aria-current="page">Clock In Your Working Hours For The Day!</li>
+            <li class="breadcrumb-item active text-orange" aria-current="page">Clock In Your Working Hours For The
+                Day!
+            </li>
         </ol>
     </div>
     <!-- PAGE-HEADER END -->
@@ -38,7 +40,7 @@
                         {{-- project --}}
                         <div class="wrap-input100 validate-input" data-validate="Project is required">
                             <select class="input100" type="text" id="mySelect" name="project_id"
-                                    onchange="getProject(this)" >
+                                    onchange="getProject(this)">
                                 <option value="0">Choose Your Project</option>
                                 @foreach ($projects as $project)
                                     <option value="{{ $project->id }}">{{ $project->name }} </option>
@@ -51,8 +53,9 @@
                         </div>
                         {{-- date --}}
                         <div class="wrap-input100 validate-input" data-validate="date is required">
-                            <input  id="date" class="input100" min="{{ $projects }}"
-                                    name="date" type="date" onchange="checkDateForInput(this)"  value='<?php echo date('Y-m-d');?>' onkeyup='saveValue(this);' >
+                            <input id="date" class="input100" min="{{ $projects }}"
+                                   name="date" type="date" onchange="checkDateForInput(this)"
+                                   onkeyup='saveValue(this);'>
                             <span class="focus-input100"></span>
                             <span class="symbol-input100">
                                 <i class="zmdi zmdi-view-day" aria-hidden="true"></i>
@@ -69,7 +72,8 @@
                         </div>
                         {{-- comment --}}
                         <div class="wrap-input100 validate-input">
-                            <textarea class="input100" id="comment" type="text" name="comment" placeholder="Insert a Comment!"
+                            <textarea class="input100" id="comment" type="text" name="comment"
+                                      placeholder="Insert a Comment!"
                                       rows="4" cols="50" onkeyup='saveValue(this);'></textarea>
                             <span class="focus-input100"></span>
                             <span class="symbol-input100">
@@ -104,7 +108,7 @@
 
             $.ajax({
                 url: url,
-                success: function(result) {
+                success: function (result) {
                     let projectStartDate = result.project.start_date;
                     $("#date").attr({
 
@@ -117,6 +121,7 @@
     </script>
     <script>
         let url = "{{ route('worklog-restriction') }}";
+
         function getAvailableHours(responseData, element) {
             let availableHours = 12;
             let sameDates = responseData.filter(object => object.date === element.date);
@@ -125,23 +130,32 @@
             })
             return availableHours;
         }
-            var today = new Date();
-            var dd = today.getDate();
-            var mm = today.getMonth() + 1; //January is 0!
 
-            var yyyy = today.getFullYear();
-            if (dd < 10) {
-                dd = '0' + dd;
-            }
-            if (mm < 10) {
-                mm = "0" + mm;
-            }
-            today = yyyy + '-' + mm + '-' + dd;
+        var today = new Date();
+        var dd = today.getDate();
+        var mm = today.getMonth() + 1; //January is 0!
 
+        var yyyy = today.getFullYear();
+        if (dd < 10) {
+            dd = '0' + dd;
+        }
+        if (mm < 10) {
+            mm = "0" + mm;
+        }
+        today = yyyy + '-' + mm + '-' + dd;
+
+        let isToday = today;
+        let selectedDateForToday = null;
+
+        if (isToday === today) {
+            selectedDateForToday = $("#date").val(today).val();
+            this.checkDateForInput();
+        }
+z
         function checkDateForInput(e) {
 
             let checkDate = document.getElementById("date").value;
-            $(function(e) {
+            $(function (e) {
                 "use strict";
 
                 $.ajax({
@@ -172,10 +186,10 @@
 
                             $("#time").attr({
                                 'max': availableHours,
-                                'placeholder' : availableHours +  ' Hours Left',
+                                'placeholder': availableHours + ' Hours Left',
                             });
 
-                            $("#time").keydown(function() {
+                            $("#time").keydown(function () {
                                 if (!$(this).val() || (parseInt($(this).val()) <=
                                     availableHours && parseInt($(this).val()) >= 1
                                 )) {
@@ -183,7 +197,7 @@
                                 }
                                 console.log(checkDate);
                             });
-                            $("#time").keyup(function() {
+                            $("#time").keyup(function () {
                                 if (!$(this).val() || (parseInt($(this).val()) <=
                                     availableHours && parseInt($(this).val()) >= 1))
                                     ;
@@ -204,14 +218,14 @@
         document.getElementById("comment").value = getSavedValue("comment");
 
         //Save the value function - save it to localStorage as (ID, VALUE)
-        function saveValue(e){
+        function saveValue(e) {
             var id = e.id;  // get the sender's id to save it .
             var val = e.value; // get the value.
             localStorage.setItem(id, val);// Every time user writing something, the localStorage's value will override .
         }
 
         //get the saved value function - return the value of "v" from localStorage.
-        function getSavedValue  (v){
+        function getSavedValue(v) {
             if (!localStorage.getItem(v)) {
                 return "";// You can change this to your defualt value.
             }
@@ -219,11 +233,11 @@
         }
     </script>
     <script>
-        $(function() {
-            $('#mySelect').change(function() {
+        $(function () {
+            $('#mySelect').change(function () {
                 localStorage.setItem('todoData', this.value);
             });
-            if(localStorage.getItem('todoData')){
+            if (localStorage.getItem('todoData')) {
                 $('#mySelect').val(localStorage.getItem('todoData'));
             }
         });
