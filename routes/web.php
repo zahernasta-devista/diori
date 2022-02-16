@@ -58,6 +58,13 @@ route::post('profile/password/change', [ChangePasswordProfileController::class, 
 Route::get('/dashboard', [UserController::class, 'dashboard'])
     ->name('dashboard')
     ->middleware(['auth','first.time.login']);
+//only admin
+route::get('/dashboard/admin-acess',[UserController::class,'multipleAccess'])
+    ->name('dashboard-admin')
+    ->middleware(['auth','first.time.login']);
+route::get('/dashboard/employee-access',[UserController::class,'multipleAccessEmployee'])
+    ->name('dashboard-employee')
+    ->middleware(['auth','first.time.login']);
 
 //middleware role admin
 Route::group(['middleware' => ['role:admin','auth', 'first.time.login']], function () {

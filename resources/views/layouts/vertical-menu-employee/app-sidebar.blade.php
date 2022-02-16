@@ -41,12 +41,23 @@
             <span class="side-menu__label">MENU</span>
         </li>
         <li class="slide">
-            <a class="side-menu__item" href="{{ route('dashboard') }}"><i
+            <a class="side-menu__item" href="{{ route('dashboard-employee') }}"><i
                     class="side-menu__icon ti-dashboard"></i><span class="side-menu__label">Dashboard</span></a>
             <a class="side-menu__item" href="{{ route('work-log') }}"><i class="side-menu__icon ti-timer"></i><span
                     class="side-menu__label">Work Log</span></a>
             <a class="side-menu__item" href="{{ route('calendar') }}"><i class="side-menu__icon ti-calendar"></i><span
                     class="side-menu__label">Calendar</span></a>
+        </li>
+        @if(Auth::user()->getRoleNames()[0] !== "employee")
+        <li>
+            <span class="side-menu__label">ACCESS</span>
+        </li>
+        <li class="slide">
+            <a class="side-menu__item" href="{{ route('dashboard-admin') }}"><i
+                        class="side-menu__icon ti-bookmark"></i><span class="side-menu__label">Switch to Admin</span></a>
+
+        </li>
+        @endif
     </ul>
 </aside>
 <!--/APP-SIDEBAR-->

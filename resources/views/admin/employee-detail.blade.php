@@ -99,7 +99,7 @@
                         @endif
 
                         <div class="form-group-addon wrap-input100 validate-input">
-                            <input class="text-center input100 border-white bg-light" type="text" name="project"
+                            <input class="text-right input100 border-white bg-light" type="text" name="project"
                                    id="project" readonly>
                             <span class="focus-input100"></span>
                             <span class="symbol-input100"><i class="mdi mdi-note-plus" aria-hidden="true">Project
@@ -200,12 +200,10 @@
                         eventClick: function (info) {
                             //Verify if the time sum is less than 12 hours
                             //Max value will be the difference between both times
-                            let time = (new Date(info.end) - new Date(info.start)) / 1000 /
-                                60 / 60;
-                            let maxHours = time + info.availableHours;
+                            let maxHours = info.time + info.availableHours;
 
                             $('#myModal').modal('show');
-                            $("#time").val(time);
+                            $("#time").val(info.time);
                             $("#id").val(info.id);
                             $("#comment").val(info.comment);
                             $("#project").val(info.project);
@@ -398,6 +396,7 @@
             object.end = element.date + "T" + endHourString + ":00:00";
             object.project = element.project;
             object.availableHours = availableHours;
+            object.time = element.time;
 
             return object;
 
