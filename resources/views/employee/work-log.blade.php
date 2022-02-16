@@ -55,7 +55,7 @@
                         <div class="wrap-input100 validate-input" data-validate="date is required">
                             <input id="date" class="input100" min="{{ $projects }}"
                                    name="date" type="date" onchange="checkDateForInput(this)"
-                                   onkeyup='saveValue(this);'>
+                                   onkeyup='saveValue(this);' >
                             <span class="focus-input100"></span>
                             <span class="symbol-input100">
                                 <i class="zmdi zmdi-view-day" aria-hidden="true"></i>
@@ -63,7 +63,7 @@
                         </div>
                         {{-- time --}}
                         <div class="wrap-input100 validate-input">
-                            <input class="input100" id="time" min="0" max="12" type="number" name="time"
+                            <input class="input100" step="0.5" id="time" min="0" max="12" type="number" name="time"
                                    placeholder="12 hours max" onkeyup='saveValue(this);'>
                             <span class="focus-input100"></span>
                             <span class="symbol-input100">

@@ -15,7 +15,7 @@ class CreateTimelogsTable extends Migration
     {
         Schema::create('timelogs', function (Blueprint $table) {
             $table->id();
-            $table->integer('time');
+            $table->float('time');
             $table->date('date');
             $table->string('comment');
             $table->timestamps();
