@@ -530,7 +530,7 @@ class AdminController extends Controller
         }
     }
 
-    private function calculateTotalHoursWorked($timelogs): int
+    private function calculateTotalHoursWorked($timelogs): float
     {
         $sumOfHoursWorked = 0;
         foreach ($timelogs as $timelog) {

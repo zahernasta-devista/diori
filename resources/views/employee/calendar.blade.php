@@ -76,7 +76,7 @@
                                     Name:</i></span>
                         </div>
                         <div class="form-group-addon wrap-input100 validate-input">
-                            <input class="text-right input100 border-white bg-light" type="number" id="time" min="1">
+                            <input class="text-center input100 border-white bg-light" type="number" step="0.5" id="time" min="1">
                             <span class="focus-input100"></span>
                             <span class="symbol-input100"><i class="mdi mdi-timer" aria-hidden="true">Hours Worked :
                                 </i></span>
@@ -173,24 +173,23 @@
                         eventClick: function (info) {
                             //Verify if the time sum is less than 12 hours
                             //Max value will be the difference between both times
-                            let time = (new Date(info.end) - new Date(info.start)) / 1000 / 60 / 60;
-                            let maxHours = time + info.availableHours;
+                            let maxHours = info.time + info.availableHours;
 
                             $('#myModal').modal('show');
-                            $("#time").val(time);
+                            $("#time").val(info.time);
                             $("#id").val(info.id);
                             $("#comment").val(info.comment);
                             $("#project").val(info.projectInput);
                             $("#time").attr({'max': maxHours});
 
                             $("#time").keydown(function () {
-                                if (!$(this).val() || (parseInt($(this).val()) <= maxHours && parseInt($(this).val()) >= 1)) {
+                                if (!$(this).val() || (parseFloat($(this).val()) <= maxHours && parseFloat($(this).val()) >= 1)) {
                                     $(this).data("old", $(this).val());
                                 }
 
                             });
                             $("#time").keyup(function () {
-                                if (!$(this).val() || (parseInt($(this).val()) <= maxHours && parseInt($(this).val()) >= 1)) ;
+                                if (!$(this).val() || (parseFloat($(this).val()) <= maxHours && parseFloat($(this).val()) >= 1)) ;
                                 else {
                                     $(this).val($(this).data("old"));
                                 }
@@ -379,7 +378,6 @@
             if (time.pastDate != null &&  responseData.filter(object => object.date === element.date)) {
                 time.endHour = 9;
             }
-            console.log(responseData.filter(object => object.date === element.date));
             let startHour = time.endHour;
             //Passed by reference to keep the modifications inside the function
             time.endHour += element.time;
@@ -406,7 +404,6 @@
 
         function createCalendarObject(element, startHourString, endHourString, availableHours) {
             let object = {};
-
             object.id = element.id;
             object.comment = element.comment;
             object.title = element.projectName + " • " + element.time + " hours." + " • " + element.comment;
@@ -414,9 +411,10 @@
             object.end = element.date + "T" + endHourString + ":00:00";
             object.projectInput = element.projectName;
             object.availableHours = availableHours;
-
+            object.time =  element.time;
 
             return object;
+
 
         }
 
