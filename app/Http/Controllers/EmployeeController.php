@@ -5,10 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Timelog;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\View;
-use phpDocumentor\Reflection\Types\Null_;
-use Ramsey\Uuid\Type\Time;
+use Exception;
 use Illuminate\Support\Facades\DB;
 
 class EmployeeController extends Controller
@@ -17,11 +14,12 @@ class EmployeeController extends Controller
     {
         $projects = auth()->user()->projects;
 
-        return view('employee.calendar',compact('projects'));
+        return view('employee.calendar', compact('projects'));
     }
 
     public function workLog(Request $request)
     {
+
         $projects = auth()->user()->projects;
 
         return view('employee.work-log', compact('projects'));
@@ -32,20 +30,20 @@ class EmployeeController extends Controller
     {
         $start = strtotime(Carbon::now()->startOfMonth()->format('Y-m-d'));
         $end = strtotime(Carbon::now()->startOfMonth()->addMonth()->format('Y-m-d'));
+        $selectedDate = strtotime($request->date);
 
         $validation = $request->validate([
             'time' => ['required', 'numeric'],
             'project_id' => ['required'],
             'date' => ['required'],
         ]);
-        $selectedDate = strtotime($request->date);
         $selectedTime = $request->time;
         $selectedComment = $request->comment;
 
-        if ($request->project_id == '0'){
+        if ($request->project_id == '0') {
             return redirect()->to('worklog')->withErrors('Please select a project!');
         }
-        if($selectedDate >= $start && $selectedDate <= $end && $selectedTime != 0 && $selectedComment == Null){
+        if ($selectedDate >= $start && $selectedDate <= $end && $selectedTime != 0 && $selectedComment == Null) {
             $Timelog = Timelog::create([
                 'user_id' => auth()->user()->id,
                 'time' => $request->time,
@@ -57,7 +55,7 @@ class EmployeeController extends Controller
             return redirect('/calendar');
         }
 
-        if ($selectedDate >= $start && $selectedDate <= $end && $selectedTime != 0 && $selectedComment != NULL)  {
+        if ($selectedDate >= $start && $selectedDate <= $end && $selectedTime != 0 && $selectedComment != NULL) {
             $Timelog = Timelog::create([
                 'user_id' => auth()->user()->id,
                 'time' => $request->time,
@@ -97,23 +95,35 @@ class EmployeeController extends Controller
 
             $timeLogObject->id = $timeLog->id;
             $timeLogObject->projectName = $timeLog->project->name;
+            $timeLogObject->projectId = $timeLog->project->id;
             $timeLogObject->time = $timeLog->time;
             $timeLogObject->date = $timeLog->date;
             $timeLogObject->comment = $timeLog->comment;
 
-            
+
             $timeLogsResponse[] = $timeLogObject;
         }
         return response()->json(['response' => $timeLogsResponse, 'hours' => [$daySum, $weekSum, $monthSum]]);
     }
-    public function timeSheetAdd(Request $request){
+
+    public function timeSheetAdd(Request $request)
+    {
+        $start = strtotime(Carbon::now()->startOfMonth()->format('Y-m-d'));
+        $end = strtotime(Carbon::now()->startOfMonth()->addMonth()->format('Y-m-d'));
+        $selectedDate = strtotime($request->addDate);
         $selectedTime = $request->addTime;
         $selectedComment = $request->addComment;
 
-        if ($request->addProject == '0'){
+        $validation = $request->validate([
+            'addTime' => ['required', 'numeric'],
+            'addProject' => ['required'],
+            'addDate' => ['required'],
+        ]);
+
+        if ($request->addProject == '0') {
             return redirect()->back();
         }
-        if($selectedTime != 0 && $selectedComment == Null){
+        if ($selectedDate >= $start && $selectedDate <= $end && $selectedTime != 0 && $selectedComment == Null) {
             $Timelog = Timelog::create([
                 'user_id' => auth()->user()->id,
                 'time' => $request->addTime,
@@ -122,9 +132,9 @@ class EmployeeController extends Controller
                 'comment' => "",
 
             ]);
-            return response()->json(['response' =>'timelog added']);
+            return response()->json(['response' => 'timelog added']);
         }
-        if ($selectedTime != 0 && $selectedComment != NULL)  {
+        if ($selectedDate >= $start && $selectedDate <= $end && $selectedTime != 0 && $selectedComment != Null) {
             $Timelog = Timelog::create([
                 'user_id' => auth()->user()->id,
                 'time' => $request->addTime,
@@ -133,8 +143,9 @@ class EmployeeController extends Controller
                 'comment' => $request->addComment,
 
             ]);
-            return response()->json(['response' =>'timelog added']);
+            return response()->json(['response' => 'timelog added']);
         }
+
     }
 
     public function timeSheetUpdate(Request $request)
@@ -143,13 +154,12 @@ class EmployeeController extends Controller
         $end = Carbon::now()->startOfMonth()->addMonth()->format('Y-m-d');
         $selectedComment = $request->comment;
 
-        if($selectedComment !=NULL){
+        if ($selectedComment != NULL) {
             $timeLog = Timelog::
             where('id', intval($request->id))
                 ->whereBetween('date', [$start, $end])
                 ->update(['time' => floatval($request->time), 'comment' => $request->comment]);
-        }
-        elseif ($selectedComment == NULL){
+        } elseif ($selectedComment == NULL) {
             $timeLog = Timelog::
             where('id', intval($request->id))
                 ->whereBetween('date', [$start, $end])
@@ -158,6 +168,53 @@ class EmployeeController extends Controller
 
 
         return response()->json(['response' => "Successfully updated the time log"]);
+    }
+
+    public function updateDateOfTimeLog(Request $request)
+    {
+
+        $positionOfDrop = $request->calendarDatePosition;
+        $timeLog = Timelog::
+        where('id', intval($request->idOfDrop))
+            ->update(['date' => $positionOfDrop]);
+
+        return response()->json(['response' => "Date modified successfully"]);
+    }
+
+    public function timeSheetClone(Request $request)
+    {
+        $start = strtotime(Carbon::now()->startOfMonth()->format('Y-m-d'));
+        $end = strtotime(Carbon::now()->startOfMonth()->addMonth()->format('Y-m-d'));
+        $selectedDate = strtotime($request->calendarDatePosition);
+        $selectedTime = $request->cloneTime;
+        $selectedComment = $request->cloneComment;
+
+
+        if ($request->addProject == '0') {
+            return redirect()->back();
+        }
+        if ($selectedDate >= $start && $selectedDate <= $end && $selectedTime != 0 && $selectedComment == Null) {
+            $Timelog = Timelog::create([
+                'user_id' => auth()->user()->id,
+                'time' => $request->cloneTime,
+                'project_id' => intval($request->cloneProject),
+                'date' => $request->calendarDatePosition,
+                'comment' => "",
+
+            ]);
+            return response()->json(['response' => 'timelog cloned']);
+        }
+        if ($selectedDate >= $start && $selectedDate <= $end && $selectedTime != 0 && $selectedComment != Null) {
+            $Timelog = Timelog::create([
+                'user_id' => auth()->user()->id,
+                'time' => $request->cloneTime,
+                'project_id' => intval($request->cloneProject),
+                'date' => $request->calendarDatePosition,
+                'comment' => $request->cloneComment,
+
+            ]);
+            return response()->json(['response' => 'timelog cloned']);
+        }
     }
 
     public function timeSheetDelete(Request $request)
