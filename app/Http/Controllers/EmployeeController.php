@@ -15,7 +15,9 @@ class EmployeeController extends Controller
 {
     public function calendar(Request $request)
     {
-        return view('employee.calendar');
+        $projects = auth()->user()->projects;
+
+        return view('employee.calendar',compact('projects'));
     }
 
     public function workLog(Request $request)
@@ -103,6 +105,36 @@ class EmployeeController extends Controller
             $timeLogsResponse[] = $timeLogObject;
         }
         return response()->json(['response' => $timeLogsResponse, 'hours' => [$daySum, $weekSum, $monthSum]]);
+    }
+    public function timeSheetAdd(Request $request){
+        $selectedTime = $request->addTime;
+        $selectedComment = $request->addComment;
+
+        if ($request->addProject == '0'){
+            return redirect()->back();
+        }
+        if($selectedTime != 0 && $selectedComment == Null){
+            $Timelog = Timelog::create([
+                'user_id' => auth()->user()->id,
+                'time' => $request->addTime,
+                'project_id' => $request->addProject,
+                'date' => $request->addDate,
+                'comment' => "",
+
+            ]);
+            return response()->json(['response' =>'timelog added']);
+        }
+        if ($selectedTime != 0 && $selectedComment != NULL)  {
+            $Timelog = Timelog::create([
+                'user_id' => auth()->user()->id,
+                'time' => $request->addTime,
+                'project_id' => $request->addProject,
+                'date' => $request->addDate,
+                'comment' => $request->addComment,
+
+            ]);
+            return response()->json(['response' =>'timelog added']);
+        }
     }
 
     public function timeSheetUpdate(Request $request)
