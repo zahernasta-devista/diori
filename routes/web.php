@@ -232,6 +232,12 @@ Route::group(['middleware' => ['role:employee','auth', 'first.time.login']], fun
     route::post('/timesheet/delete', [EmployeeController::class, 'timeSheetDelete'])
         ->name('timesheet-delete');
 
+    route::post('timesheet/update/date',[EmployeeController::class,'updateDateOfTimeLog'])
+        ->name('timesheet-date-update');
+
+    route::post('timesheet/clone',[EmployeeController::class,'timeSheetClone'])
+        ->name('timesheet-clone');
+
     Route::get('/worklog', [EmployeeController::class, 'workLog'])
         ->name('work-log');
 
