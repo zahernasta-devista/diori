@@ -65,8 +65,13 @@
                             </div>
                         @endif
                         <div class="form-group-addon wrap-input100 validate-input">
-                            <input class="text-right input100 border-white bg-light" type="text" name="project"
-                                   id="project" readonly>
+                            <select class="text-right input100 border-white bg-light" type="text" name="project"
+                                   id="project">
+                                <option value="0">Choose Your Project</option>
+                                @foreach ($projects as $project)
+                                    <option value="{{ $project->id }}">{{ $project->name }} </option>
+                                @endforeach
+                            </select>
                             <span class="focus-input100"></span>
                             <span class="symbol-input100"><i class="mdi mdi-note-plus" aria-hidden="true">Project
                                     Name:</i></span>
@@ -182,7 +187,7 @@
                 <div class="modal-footer">
                     <button id="updateDate" type="button" class="btn btn-purple-gradient">Save TimeLog</button>
                     <button id="CloneTimeLog" type="button" class="btn btn-orange">Clone TimeLog</button>
-                    <button type="button" class="btn btn-purple-gradient" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-purple-gradient" data-dismiss="modal" id="revertToInitial">Close</button>
                 </div>
             </form>
             </div>
@@ -261,10 +266,10 @@
                                 editable: true,
                                 displayEventTime: false,
                                 firstDay: 1,
-                                eventLimit: true, // allow "more" link when too many events
+                                droppable:true,
+                                eventLimit: 2, // allow "more" link when too many events
                                 events: events,
-                                dayClick: function (date, info) {
-                                    console.log(date.format());
+                                dayClick: function (date) {
                                     $('#addTimeLogModal').modal('show');
                                     let modalDate = $('#addDate').val(date.format()).val();
                                     let checkDate = document.getElementById("addDate").value;
@@ -306,6 +311,59 @@
                                         });
                                     });
                                 },
+                                eventDrop: function (info){
+                                    $('#DragAndDrop').modal('show');
+                                    $("#idOfDrop").val(info.id);
+                                    $("#cloneComment").val(info.comment);
+                                    $("#cloneProject").val(info.projectId);
+                                    $("#cloneTime").val(info.time);
+                                    let currentEvent = info.date;
+                                    let positionOfDrop = $('#calendarDatePosition').val(info.start.toISOString().substring(0, 10)).val();
+                                    let checkDate = document.getElementById("calendarDatePosition").value;
+                                    $(function (e) {
+                                        "use strict";
+                                        $.ajax({
+                                            type: 'GET',
+                                            url: restrictionUrl,
+                                            success: function getData(response) {
+                                                let responseData = response.timeResponse;
+                                                let sameDate = [];
+                                                responseData.forEach(element => {
+                                                    let object = {};
+                                                    object.id = element.id;
+                                                    object.time = element.time;
+                                                    object.date = element.date;
+
+                                                    //getting available horus left
+                                                    let availableHours = 12;
+                                                    let sameDates = responseData.filter(object => object.date ===
+                                                        checkDate);
+
+                                                    sameDates.forEach(object => {
+                                                        availableHours -= object.time;
+                                                    });
+                                                    //end
+
+                                                    //checking in the data base if there are any similar dates
+                                                    sameDate = responseData.filter(object => object.date ===
+                                                        checkDate);
+                                                    //end
+                                                });
+                                                let sum = 0;
+                                                let newValidation = responseData.filter(object => object.date === currentEvent);
+                                                let sumOfAllEvents = sameDate.forEach(object=>
+                                                  sum += object.time,
+                                                  sum += sum + newValidation[0].time
+                                                );
+                                                if(sum >12){
+                                                    location.reload(alert('The sum of total hours shoult not over 12'));
+                                                }
+                                            }
+                                        });
+
+                                    });
+
+                                },
                                 eventClick: function (info) {
                                     //Verify if the time sum is less than 12 hours
                                     //Max value will be the difference between both times
@@ -315,7 +373,7 @@
                                     $("#time").val(info.time);
                                     $("#id").val(info.id);
                                     $("#comment").val(info.comment);
-                                    $("#project").val(info.projectInput);
+                                    $("#project").val(info.projectId);
                                     $("#time").attr({'max': maxHours});
 
                                     $("#time").keydown(function () {
@@ -453,16 +511,7 @@
 
 
                                 },
-                                eventDrop: function (info){
-                                    $('#DragAndDrop').modal('show');
-                                    $("#idOfDrop").val(info.id);
-                                    $("#cloneComment").val(info.comment);
-                                    $("#cloneProject").val(info.projectId);
-                                    $("#cloneTime").val(info.time);
 
-                                    let positionOfDrop = $('#calendarDatePosition').val(info.start.toISOString().substring(0, 10)).val();
-
-                                }
 
 
                             });
@@ -518,6 +567,7 @@
 
                     let time = $('#time').val();
                     let comment = $('#comment').val();
+                    let project = $('#project').val();
                     let id = $('#id').val();
 
                     $.ajax({
@@ -526,7 +576,7 @@
                         headers: {
                             'X-CSRF-TOKEN': csrfToken
                         },
-                        data: {time: time, id: id, comment: comment},
+                        data: {time: time, id: id, comment: comment,project:project},
                         success: function (response) {
                             location.reload();
                         },
