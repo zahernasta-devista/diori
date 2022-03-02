@@ -76,7 +76,8 @@
                             
                     </div>
                     <div class="ml-auto"> <a   type="button" href="{{route('work-log')}}" class="btn btn-sm btn-orange "><i
-                        class="fa fa-plus"></i > </a> </div>
+                        class="fa fa-plus"></i > </a>
+                    </div>
                 </div>
             </div>
         </div>
