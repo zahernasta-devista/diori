@@ -153,17 +153,16 @@ class EmployeeController extends Controller
         $start = Carbon::now()->startOfMonth()->format('Y-m-d');
         $end = Carbon::now()->startOfMonth()->addMonth()->format('Y-m-d');
         $selectedComment = $request->comment;
-
         if ($selectedComment != NULL) {
             $timeLog = Timelog::
             where('id', intval($request->id))
                 ->whereBetween('date', [$start, $end])
-                ->update(['time' => floatval($request->time), 'comment' => $request->comment]);
+                ->update(['time' => floatval($request->time), 'comment' => $request->comment, 'project_id' => $request->project]);
         } elseif ($selectedComment == NULL) {
             $timeLog = Timelog::
             where('id', intval($request->id))
                 ->whereBetween('date', [$start, $end])
-                ->update(['time' => floatVal($request->time), 'comment' => ""]);
+                ->update(['time' => floatVal($request->time), 'comment' => "", 'project_id' => $request->project]);
         }
 
 
