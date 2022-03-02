@@ -28,10 +28,6 @@
             <div class="card">
                 <div class="card-header">
                     <h3 class="card-title">{{ Auth::user()->name }}, This is Your Work Sheet!</h3>
-                    <div class="ml-auto">
-                        <a type="button" class="btn btn-sm btn-orange" id="work-log-modal"><i
-                                    class="fa fa-plus"></i> </a>
-                    </div>
                     <input id="datePicker" class="text-center input100 border-white bg-light" type="date"
                            name="datePicker" readonly hidden>
                 </div>
@@ -137,7 +133,7 @@
                         <div class="form-group-addon wrap-input100 validate-input">
                             <!--date-->
                             <input class="text-center input100 border-white bg-light" type="date" id="addDate"
-                                   name="addDate" readonly>
+                                   name="addDate" onchange="checkDateForInput()" readonly>
                             <span class="focus-input100"></span>
                             <span class="symbol-input100"><i class="mdi mdi-calendar" aria-hidden="true">Date:
                                 </i></span>
@@ -251,8 +247,9 @@
                     });
 
                     $('#calendar').fullCalendar({
+
                         header: {
-                            left: 'prev,next today',
+                            left: 'prev,next today CreateTimeLog',
                             center: 'title',
                             right: 'listDay,listWeek,month'
                         },
@@ -283,36 +280,37 @@
                                 $.ajax({
                                     type: 'GET',
                                     url: restrictionUrl,
-                                    success: function getData(response) {
-                                        let responseData = response.timeResponse;
-                                        let events = [];
-                                        responseData.forEach(element => {
-                                            let object = {};
-                                            object.id = element.id;
-                                            object.time = element.time;
-                                            object.date = element.date;
+                                    success:
+                                        function getData(response) {
+                                            let responseData = response.timeResponse;
+                                            let events = [];
+                                            responseData.forEach(element => {
+                                                let object = {};
+                                                object.id = element.id;
+                                                object.time = element.time;
+                                                object.date = element.date;
 
-                                            //getting available horus left
-                                            let availableHours = 12;
-                                            let sameDates = responseData.filter(object => object.date ===
-                                                checkDate);
-                                            sameDates.forEach(object => {
-                                                availableHours -= object.time;
+                                                //getting available horus left
+                                                let availableHours = 12;
+                                                let sameDates = responseData.filter(object => object.date ===
+                                                    checkDate);
+                                                sameDates.forEach(object => {
+                                                    availableHours -= object.time;
+                                                });
+                                                //end
+
+                                                //checking in the data base if there are any similar dates
+                                                let sameDate = responseData.filter(object => object.date ===
+                                                    checkDate);
+                                                //end
+
+                                                $("#addTime").attr({
+                                                    'max': availableHours,
+                                                    'placeholder': availableHours + ' Hours Left',
+                                                });
+
                                             });
-                                            //end
-
-                                            //checking in the data base if there are any similar dates
-                                            let sameDate = responseData.filter(object => object.date ===
-                                                checkDate);
-                                            //end
-
-                                            $("#addTime").attr({
-                                                'max': availableHours,
-                                                'placeholder': availableHours + ' Hours Left',
-                                            });
-
-                                        });
-                                    }
+                                        }
                                 });
                             });
                         },
@@ -516,7 +514,25 @@
 
 
                         },
-
+                        customButtons: {
+                            CreateTimeLog: {
+                                text: 'Create!',
+                                click: function () {
+                                    $('#addTimeLogModal').modal('show');
+                                    $('#addDate').removeAttr('readonly');
+                                    $(function (e) {
+                                        "use strict";
+                                        $.ajax({
+                                            success: function () {
+                                            },
+                                            error: function (error) {
+                                                console.log(error);
+                                            }
+                                        });
+                                    });
+                                }
+                            }
+                        },
 
 
                     });
@@ -524,27 +540,7 @@
                 }
             });
         });
-        document.getElementById('work-log-modal').addEventListener('click', function (e) {
-            $("#addDate").removeAttr("readonly");
-            $('#addTimeLogModal').modal('show');
-                let addProject = $('#addProject').val();
-                let addTime = $('#addTime').val();
-                let addDate = $('#addDate').val();
-                let addComment = $('#addComment').val();
-            $.ajax({
-                type: 'POST',
-                headers: {'X-CSRF-TOKEN': csrfToken},
-                url: addUrl,
-                data: {addProject: addProject, addTime: addTime, addDate: addDate, addComment: addComment},
-                success: function (response) {
-                    location.reload();
-                },
-                error: function (error) {
-                    console.log(error);
-                }
-            });
 
-        }, false);
         document.querySelector('#CloneTimeLog').addEventListener('click', function (e) {
             e.preventDefault();
             let cloneProject = $('#cloneProject').val();
@@ -710,5 +706,43 @@
             return hour < 10 ? "0" + hour : hour;
         }
 
+    </script>
+    <script>
+        function checkDateForInput(e) {
+            let checkDate = document.getElementById("addDate").value;
+            $(function (e) {
+                "use strict";
+                $.ajax({
+                    type: 'GET',
+                    url: restrictionUrl,
+                    success: function getData(response) {
+                        let responseData = response.timeResponse;
+                        let events = [];
+                        responseData.forEach(element => {
+                            let object = {};
+                            object.id = element.id;
+                            object.time = element.time;
+                            object.date = element.date;
+                            //getting available horus left
+                            let availableHours = 12;
+                            let sameDates = responseData.filter(object => object.date ===
+                                checkDate);
+                            sameDates.forEach(object => {
+                                availableHours -= object.time;
+                            });
+                            //end
+                            //checking in the data base if there are any similar dates
+                            let sameDate = responseData.filter(object => object.date ===
+                                checkDate);
+                            //end
+                            $("#addTime").attr({
+                                'max': availableHours,
+                                'placeholder': availableHours + ' Hours Left',
+                            });
+                        });
+                    }
+                });
+            });
+        }
     </script>
 @endsection

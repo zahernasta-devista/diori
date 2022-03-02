@@ -17,62 +17,6 @@ class EmployeeController extends Controller
         return view('employee.calendar', compact('projects'));
     }
 
-    public function workLog(Request $request)
-    {
-
-        $projects = auth()->user()->projects;
-
-        return view('employee.work-log', compact('projects'));
-    }
-
-
-    public function worklogstore(Request $request)
-    {
-        $start = strtotime(Carbon::now()->startOfMonth()->format('Y-m-d'));
-        $end = strtotime(Carbon::now()->startOfMonth()->addMonth()->format('Y-m-d'));
-        $selectedDate = strtotime($request->date);
-
-        $validation = $request->validate([
-            'time' => ['required', 'numeric'],
-            'project_id' => ['required'],
-            'date' => ['required'],
-        ]);
-        $selectedTime = $request->time;
-        $selectedComment = $request->comment;
-
-        if ($request->project_id == '0') {
-            return redirect()->to('worklog')->withErrors('Please select a project!');
-        }
-        if ($selectedDate >= $start && $selectedDate <= $end && $selectedTime != 0 && $selectedComment == Null) {
-            $Timelog = Timelog::create([
-                'user_id' => auth()->user()->id,
-                'time' => $request->time,
-                'project_id' => $request->project_id,
-                'date' => $request->date,
-                'comment' => "",
-
-            ]);
-            return redirect('/calendar');
-        }
-
-        if ($selectedDate >= $start && $selectedDate <= $end && $selectedTime != 0 && $selectedComment != NULL) {
-            $Timelog = Timelog::create([
-                'user_id' => auth()->user()->id,
-                'time' => $request->time,
-                'project_id' => $request->project_id,
-                'date' => $request->date,
-                'comment' => $request->comment,
-
-            ]);
-            return redirect('/calendar');
-
-        }
-
-
-        return redirect('/worklog')->withErrors('Date Must Be From the Current Month!');
-    }
-
-
     public function employeeProfile()
     {
         return view('employee.employee-profile');
@@ -109,7 +53,11 @@ class EmployeeController extends Controller
     public function timeSheetAdd(Request $request)
     {
         $start = strtotime(Carbon::now()->startOfMonth()->format('Y-m-d'));
+        $endOfCurrentMonth = strtotime(Carbon::now()->endOfMonth()->format('Y-m-d'));
+        $startOfLastMonth = strtotime(Carbon::now()->startOfMonth()->subMonth()->format('Y-m-d'));
         $end = strtotime(Carbon::now()->startOfMonth()->addMonth()->format('Y-m-d'));
+        $currentTime = strtotime(Carbon::now()->format("Y-m-d"));
+
         $selectedDate = strtotime($request->addDate);
         $selectedTime = $request->addTime;
         $selectedComment = $request->addComment;
@@ -120,30 +68,54 @@ class EmployeeController extends Controller
             'addDate' => ['required'],
         ]);
 
-        if ($request->addProject == '0') {
-            return redirect()->back();
-        }
-        if ($selectedDate >= $start && $selectedDate <= $end && $selectedTime != 0 && $selectedComment == Null) {
-            $Timelog = Timelog::create([
-                'user_id' => auth()->user()->id,
-                'time' => $request->addTime,
-                'project_id' => $request->addProject,
-                'date' => $request->addDate,
-                'comment' => "",
+        if ($currentTime == $start) {
+            if($selectedDate >= $startOfLastMonth && $selectedDate<=$endOfCurrentMonth && $selectedTime != 0 & $selectedComment == null){
+                $Timelog = Timelog::create([
+                    'user_id' => auth()->user()->id,
+                    'time' => $request->addTime,
+                    'project_id' => $request->addProject,
+                    'date' => $request->addDate,
+                    'comment' => "",
 
-            ]);
-            return response()->json(['response' => 'timelog added']);
-        }
-        if ($selectedDate >= $start && $selectedDate <= $end && $selectedTime != 0 && $selectedComment != Null) {
-            $Timelog = Timelog::create([
-                'user_id' => auth()->user()->id,
-                'time' => $request->addTime,
-                'project_id' => $request->addProject,
-                'date' => $request->addDate,
-                'comment' => $request->addComment,
+                ]);
+                return response()->json(['response' => 'timelog added']);
+            }
+            if($selectedDate >= $startOfLastMonth && $selectedDate<=$endOfCurrentMonth && $selectedTime != 0 & $selectedComment != null){
+                $Timelog = Timelog::create([
+                    'user_id' => auth()->user()->id,
+                    'time' => $request->addTime,
+                    'project_id' => $request->addProject,
+                    'date' => $request->addDate,
+                    'comment' => $request->addComment,
 
-            ]);
-            return response()->json(['response' => 'timelog added']);
+                ]);
+                return response()->json(['response' => 'timelog added']);
+            }
+
+        }
+        else{
+            if ($selectedDate >= $start && $selectedDate <= $end && $selectedTime != 0 && $selectedComment == Null) {
+                $Timelog = Timelog::create([
+                    'user_id' => auth()->user()->id,
+                    'time' => $request->addTime,
+                    'project_id' => $request->addProject,
+                    'date' => $request->addDate,
+                    'comment' => "",
+
+                ]);
+                return response()->json(['response' => 'timelog added']);
+            }
+            if ($selectedDate >= $start && $selectedDate <= $end && $selectedTime != 0 && $selectedComment != Null) {
+                $Timelog = Timelog::create([
+                    'user_id' => auth()->user()->id,
+                    'time' => $request->addTime,
+                    'project_id' => $request->addProject,
+                    'date' => $request->addDate,
+                    'comment' => $request->addComment,
+
+                ]);
+                return response()->json(['response' => 'timelog added']);
+            }
         }
 
     }
