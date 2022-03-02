@@ -141,7 +141,7 @@
                         <div class="form-group-addon wrap-input100 validate-input">
                             <!--time-->
                             <input class="text-center input100 border-white bg-light" type="number" step="0.5"
-                                   id="addTime" name="addTime" min="1" max="12" placeholder="12 hours max">
+                                   id="addTime" name="addTime" min="0" max="12" placeholder="12 hours max">
                             <span class="focus-input100"></span>
                             <span class="symbol-input100"><i class="mdi mdi-timer" aria-hidden="true">Hours Worked :
                                 </i></span>
@@ -262,14 +262,12 @@
                                 },
                                 defaultView: 'month',
                                 defaultDate: today,
-                                navLinks: false, // can click day/week names to navigate views
                                 editable: true,
                                 displayEventTime: false,
                                 firstDay: 1,
-                                droppable:true,
-                                eventLimit: 2, // allow "more" link when too many events
+                                contentHeight: 700,
                                 events: events,
-                                dayClick: function (date) {
+                                dayClick: function (date,resourceObj) {
                                     $('#addTimeLogModal').modal('show');
                                     let modalDate = $('#addDate').val(date.format()).val();
                                     let checkDate = document.getElementById("addDate").value;
@@ -356,7 +354,7 @@
                                                   sum += sum + newValidation[0].time
                                                 );
                                                 if(sum >12){
-                                                    location.reload(alert('The sum of total hours shoult not over 12'));
+                                                    location.reload(alert('The sum of total hours shouldnt be over 12'));
                                                 }
                                             }
                                         });
