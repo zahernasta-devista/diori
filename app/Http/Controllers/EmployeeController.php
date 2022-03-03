@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Project;
 use App\Models\Timelog;
+use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Exception;
@@ -69,7 +71,7 @@ class EmployeeController extends Controller
         ]);
 
         if ($currentTime == $start) {
-            if($selectedDate >= $startOfLastMonth && $selectedDate<=$endOfCurrentMonth && $selectedTime != 0 & $selectedComment == null){
+            if ($selectedDate >= $startOfLastMonth && $selectedDate <= $endOfCurrentMonth && $selectedTime != 0 & $selectedComment == null) {
                 $Timelog = Timelog::create([
                     'user_id' => auth()->user()->id,
                     'time' => $request->addTime,
@@ -80,7 +82,7 @@ class EmployeeController extends Controller
                 ]);
                 return response()->json(['response' => 'timelog added']);
             }
-            if($selectedDate >= $startOfLastMonth && $selectedDate<=$endOfCurrentMonth && $selectedTime != 0 & $selectedComment != null){
+            if ($selectedDate >= $startOfLastMonth && $selectedDate <= $endOfCurrentMonth && $selectedTime != 0 & $selectedComment != null) {
                 $Timelog = Timelog::create([
                     'user_id' => auth()->user()->id,
                     'time' => $request->addTime,
@@ -92,8 +94,7 @@ class EmployeeController extends Controller
                 return response()->json(['response' => 'timelog added']);
             }
 
-        }
-        else{
+        } else {
             if ($selectedDate >= $start && $selectedDate <= $end && $selectedTime != 0 && $selectedComment == Null) {
                 $Timelog = Timelog::create([
                     'user_id' => auth()->user()->id,
@@ -211,5 +212,46 @@ class EmployeeController extends Controller
             $timeLogsResponse[] = $timeLogObject;
         }
         return response()->json(['timeResponse' => $timeLogsResponse]);
+    }
+
+    public function extractHistory(Request $request)
+    {
+        $projectsOptions = auth()->user()->projects;
+        $sumPerSelectedProject = Timelog::where('project_id', $request->input('project'))->where('user_id', auth()->user()->id)->whereMonth('date', $request->input('month'))->whereYear('date', $request->input('year'))->sum('time');
+        $overallSum = Timelog::where('user_id', auth()->user()->id)->whereMonth('date', $request->input('month'))->whereYear('date', $request->input('year'))->sum('time');
+
+        $query = $request->query();
+        $userDetails = [];
+        if (!isset($query['month']) || !isset($query['year'])) {
+            return view('employee.extract-history', compact('userDetails','sumPerSelectedProject', 'overallSum', 'projectsOptions'))->withErrors('Please Select The Month And Year Together');
+        }
+        if (isset($query['project'])) {
+            $month = $query['month'];
+            $year = $query['year'];
+            $projectSelected = $query['project'];
+            $selectedEmployee = auth()->user()->id;
+            $user = User::where('id',auth()->user()->id);
+
+            $object = new \stdClass();
+            $object->user = $user;
+            $object->projects = [];
+
+            $object->hoursWorkedPerMonth = $this->calculateTotalHoursWorked($user->timelogsFromMonthAndYearForEmployeeAndProject($month, $year, $selectedEmployee, $projectSelected));
+            $userDetails[] = $object;
+
+
+            return view('employee.extract-history', compact('sumPerSelectedProject','userDetails', 'user', 'projectsOptions', 'overallSum'));
+        }
+
+        return view('employee.extract-history', compact(['projectsOptions', 'sumPerSelectedProject', 'overallSum']));
+    }
+    private function calculateTotalHoursWorked($timelogs): float
+    {
+        $sumOfHoursWorked = 0;
+        foreach ($timelogs as $timelog) {
+            $sumOfHoursWorked += $timelog->time;
+        }
+
+        return $sumOfHoursWorked;
     }
 }

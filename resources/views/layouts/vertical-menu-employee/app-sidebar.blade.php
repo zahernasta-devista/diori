@@ -43,8 +43,13 @@
         <li class="slide">
             <a class="side-menu__item" href="{{ route('dashboard-employee') }}"><i
                     class="side-menu__icon ti-dashboard"></i><span class="side-menu__label">Dashboard</span></a>
-{{--            <a class="side-menu__item" href="{{ route('work-log') }}"><i class="side-menu__icon ti-timer"></i><span--}}
-{{--                    class="side-menu__label">Work Log</span></a>--}}
+            @php
+                use Carbon\Carbon;
+                    $currentMonth = Carbon::now()->format('m');
+                    $currentYear = Carbon::now()->format('Y');
+            @endphp
+            <a class="side-menu__item" href="{{ route('extract-history',['month'=>$currentMonth,'year'=>$currentYear]) }}"><i class="side-menu__icon ti-home"></i><span
+                        class="side-menu__label">History</span></a>
             <a class="side-menu__item" href="{{ route('calendar') }}"><i class="side-menu__icon ti-calendar"></i><span
                     class="side-menu__label">Calendar</span></a>
         </li>

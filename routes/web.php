@@ -251,4 +251,7 @@ Route::group(['middleware' => ['role:employee','auth', 'first.time.login']], fun
 
     Route::get('/restriction', [EmployeeController::class, 'worklogRestriction'])->name('worklog-restriction');
 
+    Route::get('/extract/history', [EmployeeController::class, 'extractHistory'])->name('extract-history');
+
+
 });
