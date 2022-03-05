@@ -228,8 +228,8 @@ class EmployeeController extends Controller
 
         $query = $request->query();
         $userDetails = [];
-        if (!isset($query['month']) && !isset($query['year']) && $query['user'] != Auth::user()->id) {
-            return view('employee.extract-history', compact('userDetails','sumPerSelectedProject', 'overallSum', 'projectsOptions'))->withErrors('Please Select The Month And Year Together And Do Not Change The Query!');
+        if (!isset($query['month']) || !isset($query['year']) || $query['user'] != Auth::user()->id && !isset($query['user'])) {
+            return view('employee.extract-history', compact('userDetails','sumPerSelectedProject', 'overallSum', 'projectsOptions','selectedMonth','selectedYear','selectedEmployee','selectedProject'))->withErrors('Please Select The Month And Year Together And Do Not Change The Query!');
         }
         if (isset($query['project'])) {
             $month = $query['month'];
@@ -267,8 +267,6 @@ class EmployeeController extends Controller
 
             return view('employee.extract-history', compact('sumPerSelectedProject','userDetails', 'user', 'projectsOptions', 'overallSum','selectedMonth','selectedYear','selectedEmployee','selectedProject'));
         }
-
-        return view('employee.extract-history', compact(['projectsOptions', 'sumPerSelectedProject', 'overallSum']));
     }
     private function calculateTotalHoursWorked($timelogs): float
     {
