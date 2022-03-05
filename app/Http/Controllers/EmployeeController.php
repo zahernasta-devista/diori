@@ -8,6 +8,7 @@ use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Exception;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 class EmployeeController extends Controller
@@ -216,21 +217,26 @@ class EmployeeController extends Controller
 
     public function extractHistory(Request $request)
     {
+        $selectedMonth = $request->input('month');
+        $selectedYear = $request->input('year');
+        $selectedProject = $request->input('project');
+        $selectedEmployee = $request->input('user');
+
         $projectsOptions = auth()->user()->projects;
         $sumPerSelectedProject = Timelog::where('project_id', $request->input('project'))->where('user_id', auth()->user()->id)->whereMonth('date', $request->input('month'))->whereYear('date', $request->input('year'))->sum('time');
         $overallSum = Timelog::where('user_id', auth()->user()->id)->whereMonth('date', $request->input('month'))->whereYear('date', $request->input('year'))->sum('time');
 
         $query = $request->query();
         $userDetails = [];
-        if (!isset($query['month']) || !isset($query['year'])) {
-            return view('employee.extract-history', compact('userDetails','sumPerSelectedProject', 'overallSum', 'projectsOptions'))->withErrors('Please Select The Month And Year Together');
+        if (!isset($query['month']) && !isset($query['year']) && $query['user'] != Auth::user()->id) {
+            return view('employee.extract-history', compact('userDetails','sumPerSelectedProject', 'overallSum', 'projectsOptions'))->withErrors('Please Select The Month And Year Together And Do Not Change The Query!');
         }
         if (isset($query['project'])) {
             $month = $query['month'];
             $year = $query['year'];
             $projectSelected = $query['project'];
-            $selectedEmployee = auth()->user()->id;
-            $user = User::where('id',auth()->user()->id);
+            $selectedEmployee = $query['user'];
+            $user = User::where('id',intval($selectedEmployee))->first();
 
             $object = new \stdClass();
             $object->user = $user;
@@ -240,7 +246,26 @@ class EmployeeController extends Controller
             $userDetails[] = $object;
 
 
-            return view('employee.extract-history', compact('sumPerSelectedProject','userDetails', 'user', 'projectsOptions', 'overallSum'));
+            return view('employee.extract-history', compact('sumPerSelectedProject','userDetails', 'user', 'projectsOptions', 'overallSum','selectedMonth','selectedYear','selectedEmployee','selectedProject'));
+        }
+        if (isset($query['user'])) {
+            $month = $query['month'];
+            $year = $query['year'];
+            $selectedEmployee = $query['user'];
+            $user = User::where('id', intval($selectedEmployee))->first();
+
+            $object = new \stdClass();
+            $object->user = $user;
+            $object->projects = [];
+            foreach ($user->projects as $project) {
+
+                $object->projects[$project->name] = $this->calculateTotalHoursWorked($project->timelogsFromMonthAndYearForEmployee($month, $year, $selectedEmployee));
+            }
+            $object->hoursWorkedPerMonth = $this->calculateTotalHoursWorked($user->timelogsFromMonthAndYear($month, $year));
+            $userDetails[] = $object;
+
+
+            return view('employee.extract-history', compact('sumPerSelectedProject','userDetails', 'user', 'projectsOptions', 'overallSum','selectedMonth','selectedYear','selectedEmployee','selectedProject'));
         }
 
         return view('employee.extract-history', compact(['projectsOptions', 'sumPerSelectedProject', 'overallSum']));

@@ -112,6 +112,7 @@
                             @endforeach
                         </select>
                         &nbsp;
+                        <input value="{{Auth::user()->id}}" type="hidden"  id="dropdown" name="user" class="btn btn-sm btn-purple-gradient rounded-pill ">
                         <button type="submit" class="btn btn-sm btn-purple-gradient rounded-pill"><i
                                     class="fa fa-search" aria-hidden="true"></i></button>
                     </div>
@@ -153,8 +154,8 @@
                                 </tbody>
                             </table>
                         </div>
-                        {{--                    <a class="btn btn-md btn-purple-gradient rounded-pill"--}}
-                        {{--                       href="{{ route('export', ['month' => $selectedMonth, 'year' => $selectedYear,'project'=>$selectedProject,'user'=>$selectedEmployee]) }}">Export </a>--}}
+                                            <a class="btn btn-md btn-purple-gradient rounded-pill"
+                                               href="{{ route('export', ['month' => $selectedMonth, 'year' => $selectedYear,'project'=>$selectedProject,'user'=>$selectedEmployee]) }}">Export </a>
                     </div>
                 </form>
             </div>
