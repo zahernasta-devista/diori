@@ -566,6 +566,19 @@
             });
         }, false);
 
+        document.querySelector('#revertToInitial').addEventListener('click', function (e) {
+            e.preventDefault();
+            $.ajax({
+                type: 'get',
+                success: function () {
+                    location.reload();
+                },
+                error: function (error) {
+                    console.log(error);
+                }
+            });
+        }, false);
+
         document.querySelector('#saveTimeLog').addEventListener('click', function (e) {
             e.preventDefault();
             let addProject = $('#addProject').val();
