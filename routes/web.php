@@ -55,6 +55,9 @@ require __DIR__ . '/auth.php';
 route::post('profile/password/change', [ChangePasswordProfileController::class, 'store'])
     ->name('profile-change-password');
 
+Route::get('export', [ExcelController::class, 'export'])->name('export');
+
+
 Route::get('/dashboard', [UserController::class, 'dashboard'])
     ->name('dashboard')
     ->middleware(['auth','first.time.login']);
@@ -80,8 +83,7 @@ Route::group(['middleware' => ['role:admin','auth', 'first.time.login']], functi
         ->name('admin-profile');
       
        
-    Route::get('export', [ExcelController::class, 'export'])->name('export');
-    
+
         //employees
     route::get('/users', [AdminController::class, 'showUsersList']);
 
