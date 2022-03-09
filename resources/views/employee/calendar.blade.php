@@ -354,10 +354,8 @@
                                         });
                                         let sum = 0;
                                         let newValidation = responseData.filter(object => object.date === currentEvent);
-                                        let sumOfAllEvents = sameDate.forEach(object =>
-                                                sum += object.time,
-                                            sum += sum + newValidation[0].time
-                                        );
+                                        let sumOfAllEvents = sameDate.forEach(object => sum += object.time, sum += sum + newValidation.find(x => x.id === info.id).time);
+                                        console.log(sum);
                                         if (sum > 12) {
                                             location.reload(alert('The sum of total hours shouldnt be over 12'));
                                         }
