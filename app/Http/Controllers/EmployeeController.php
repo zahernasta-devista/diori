@@ -34,6 +34,7 @@ class EmployeeController extends Controller
         $daySum = DB::table('timelogs')->where('user_id', auth()->user()->id)->whereDay('date', $sumPerDay)->sum('time');
         $weekSum = DB::table('timelogs')->where('user_id', auth()->user()->id)->whereBetween('date', [$startWeek, $endWeek])->sum('time');
         $monthSum = DB::table('timelogs')->where('user_id', auth()->user()->id)->whereMonth('date', $sumPerDay)->sum('time');
+        $allProjects = auth()->user()->projects;
 
         $timeLogs = Timelog::get()->where('user_id', auth()->user()->id);
         $timeLogsResponse = [];
@@ -50,7 +51,7 @@ class EmployeeController extends Controller
 
             $timeLogsResponse[] = $timeLogObject;
         }
-        return response()->json(['response' => $timeLogsResponse, 'hours' => [$daySum, $weekSum, $monthSum]]);
+        return response()->json(['response' => $timeLogsResponse, 'hours' => [$daySum, $weekSum, $monthSum],'projects'=>$allProjects]);
     }
 
     public function timeSheetAdd(Request $request)

@@ -138,7 +138,7 @@
                             <span class="symbol-input100"><i class="mdi mdi-calendar" aria-hidden="true">Date:
                                 </i></span>
                         </div>
-                        <div class="form-group-addon wrap-input100 validate-input">
+                        <div id="addTimeDiv" class="form-group-addon wrap-input100 validate-input">
                             <!--time-->
                             <input class="text-center input100 border-white bg-light" type="number" step="0.5"
                                    id="addTime" name="addTime" min="0" max="12" placeholder="12 hours max">
@@ -147,12 +147,12 @@
                                 </i></span>
                         </div>
 
-                        <div class="form-group-addon wrap-input100 validate-input">
+                        <div id="addCommentDiv" class="form-group-addon wrap-input100 validate-input">
                             <!--comment-->
                             <textarea class="input100 border-white bg-light" type="text" name="addComment"
                                       id="addComment"
                                       rows="4" cols="50"></textarea>
-                            <span class="focus-input100"></span>
+                            <span  class="focus-input100"></span>
                             <span class="symbol-input100"><i class="mdi mdi-comment" aria-hidden="true"></i></span>
                         </div>
                 </div>
@@ -245,7 +245,23 @@
 
                         events.push(object);
                     });
+                    $('#addProject').change(function (e) {
+                        let projectsData = response.projects;
+                        let projectInputId = $('#addProject').val();
 
+                        if(projectsData.find(x=>x.id == projectInputId).name == 'Holidays'){
+                            $('#addTime').val(12);
+                            $('#addTimeDiv').attr('hidden',true);
+                            $('#addCommentDiv').attr('hidden',true);
+
+                        }
+                        else{
+                            $('#addTimeDiv').attr('hidden',false);
+                            $('#addCommentDiv').attr('hidden',false);
+
+                        }
+
+                    });
                     $('#calendar').fullCalendar({
 
                         header: {
@@ -355,7 +371,7 @@
                                         let sum = 0;
                                         let newValidation = responseData.filter(object => object.date === currentEvent);
                                         let sumOfAllEvents = sameDate.forEach(object => sum += object.time, sum += sum + newValidation.find(x => x.id === info.id).time);
-                                        console.log(sum);
+                                        console.log(newValidation);
                                         if (sum > 12) {
                                             location.reload(alert('The sum of total hours shouldnt be over 12'));
                                         }
