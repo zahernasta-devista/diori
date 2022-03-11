@@ -23,8 +23,8 @@
                 <div class="card-body">
                     <div class="d-flex">
                         <div class="text-white">
-                            <h3 class="mb-0 number-font">Total Hours Worked On Selected Project:</h3>
-                            <h3 class="text-white mb-0">•{{$sumPerSelectedProject}} Hours</h3>
+                            <h3 class="mb-0 number-font">Holidays you took this year:</h3>
+                            <h3 class="text-white mb-0">•{{$holidaysTaken}}/21 Days</h3>
                         </div>
                         <div class="ml-auto"><i class="fa fa-pencil text-white fs-30 mr-2 mt-2"></i></div>
                     </div>

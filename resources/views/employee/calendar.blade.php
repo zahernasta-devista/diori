@@ -64,6 +64,7 @@
                                 {{ $errors->first() }}
                             </div>
                         @endif
+                        <input type="date" id="date" readonly hidden>
                         <div class="form-group-addon wrap-input100 validate-input">
                             <select class="text-right input100 border-white bg-light" type="text" name="project"
                                     id="project">
@@ -83,7 +84,7 @@
                             <span class="symbol-input100"><i class="mdi mdi-timer" aria-hidden="true">Hours Worked :
                                 </i></span>
                         </div>
-                        <div class="form-group-addon wrap-input100 validate-input">
+                        <div id="commentDivForEdit" class="form-group-addon wrap-input100 validate-input">
                             <textarea class="input100 border-white bg-light" type="text" name="comment" id="comment"
                                       rows="4" cols="50"></textarea>
                             <span class="focus-input100"></span>
@@ -175,9 +176,6 @@
                 <input id="idOfDrop" name="idOfDrop" class="input-lg" hidden>
                 <div class="modal-header">
                     <h5 class="modal-title"><strong>Update Date</strong></h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times</span>
-                    </button>
                 </div>
                 <div class="modal-body">
                     <form>
@@ -250,20 +248,17 @@
                         let projectInputId = $('#addProject').val();
 
                         if(projectsData.find(x=>x.id == projectInputId).name == 'Holidays'){
-                            $('#addTime').val(12);
+                            $('#addTime').val(0);
                             $('#addTimeDiv').attr('hidden',true);
                             $('#addCommentDiv').attr('hidden',true);
-
                         }
                         else{
                             $('#addTimeDiv').attr('hidden',false);
                             $('#addCommentDiv').attr('hidden',false);
-
                         }
 
                     });
                     $('#calendar').fullCalendar({
-
                         header: {
                             left: 'prev,next today CreateTimeLog',
                             center: 'title',
@@ -282,53 +277,69 @@
                         },
                         defaultView: 'month',
                         defaultDate: today,
+                        eventColor:'#FFFFFF',
                         editable: true,
                         displayEventTime: false,
                         firstDay: 1,
                         contentHeight: 700,
                         events: events,
-                        dayClick: function (date, resourceObj) {
-                            $('#addTimeLogModal').modal('show');
+                        eventRender: function(event,element) {
+                            if(event.projectInput === 'Holidays') {
+                                element.css('background-color', '#ffa500');
+                            }
+                            else{
+                                element.css('background-color', '#8A2BE2');
+
+                            }
+                        },
+                        dayClick: function (date) {
                             let modalDate = $('#addDate').val(date.format()).val();
-                            let checkDate = document.getElementById("addDate").value;
-                            $(function (e) {
-                                "use strict";
-                                $.ajax({
-                                    type: 'GET',
-                                    url: restrictionUrl,
-                                    success:
-                                        function getData(response) {
-                                            let responseData = response.timeResponse;
-                                            let events = [];
-                                            responseData.forEach(element => {
-                                                let object = {};
-                                                object.id = element.id;
-                                                object.time = element.time;
-                                                object.date = element.date;
+                            let holidayDays = responseData.filter(object => object.projectName == 'Holidays');
+                            console.log(holidayDays.find(x=>x.date == modalDate));
+                            if (!holidayDays.find(x=>x.date == modalDate)) {
+                                $('#addTimeLogModal').modal('show');
+                                let checkDate = document.getElementById("addDate").value;
+                                $(function (e) {
+                                    "use strict";
+                                    $.ajax({
+                                        type: 'GET',
+                                        url: restrictionUrl,
+                                        success:
+                                            function getData(response) {
+                                                let responseData = response.timeResponse;
+                                                let events = [];
+                                                responseData.forEach(element => {
+                                                    let object = {};
+                                                    object.id = element.id;
+                                                    object.time = element.time;
+                                                    object.date = element.date;
 
-                                                //getting available horus left
-                                                let availableHours = 12;
-                                                let sameDates = responseData.filter(object => object.date ===
-                                                    checkDate);
-                                                sameDates.forEach(object => {
-                                                    availableHours -= object.time;
+                                                    //getting available horus left
+                                                    let availableHours = 12;
+                                                    let sameDates = responseData.filter(object => object.date ===
+                                                        checkDate);
+                                                    sameDates.forEach(object => {
+                                                        availableHours -= object.time;
+                                                    });
+                                                    //end
+
+                                                    //checking in the data base if there are any similar dates
+                                                    let sameDate = responseData.filter(object => object.date ===
+                                                        checkDate);
+                                                    //end
+
+                                                    $("#addTime").attr({
+                                                        'max': availableHours,
+                                                        'placeholder': availableHours + ' Hours Left',
+                                                    });
+
                                                 });
-                                                //end
-
-                                                //checking in the data base if there are any similar dates
-                                                let sameDate = responseData.filter(object => object.date ===
-                                                    checkDate);
-                                                //end
-
-                                                $("#addTime").attr({
-                                                    'max': availableHours,
-                                                    'placeholder': availableHours + ' Hours Left',
-                                                });
-
-                                            });
-                                        }
+                                            }
+                                    });
                                 });
-                            });
+                            }else{
+                                alert('You cannot add a worklog on holidays!');
+                            }
                         },
                         eventDrop: function (info) {
                             $('#DragAndDrop').modal('show');
@@ -382,30 +393,52 @@
 
                         },
                         eventClick: function (info) {
-                            //Verify if the time sum is less than 12 hours
-                            //Max value will be the difference between both times
-                            let maxHours = info.time + info.availableHours;
+                            let holidayProjectId = '12' ;
+                            //this id is taken directly from the database
+                            let selectedDateForValidation = $("#project").val(info.projectId).val();
+                            if(selectedDateForValidation !== holidayProjectId){
+                                $('#time').attr('readonly',false);
+                                $('#commentDivForEdit').attr('hidden',false);
+                                $("#project").attr('disabled',false);
+                                $("#editTimeLog").attr('hidden',false);
 
-                            $('#myModal').modal('show');
-                            $("#time").val(info.time);
-                            $("#id").val(info.id);
-                            $("#comment").val(info.comment);
-                            $("#project").val(info.projectId);
-                            $("#time").attr({'max': maxHours});
+                                //Verify if the time sum is less than 12 hours
+                                //Max value will be the difference between both times
+                                let maxHours = info.time + info.availableHours;
+                                $('#myModal').modal('show');
+                                $("#time").val(info.time);
+                                $("#id").val(info.id);
+                                $("#date").val(info.date);
+                                $("#comment").val(info.comment);
+                                $("#project").val(info.projectId);
+                                $("#time").attr({'max': maxHours});
 
-                            $("#time").keydown(function () {
-                                if (!$(this).val() || (parseFloat($(this).val()) <= maxHours && parseFloat($(this).val()) >= 1)) {
-                                    $(this).data("old", $(this).val());
-                                }
+                                $("#time").keydown(function () {
+                                    if (!$(this).val() || (parseFloat($(this).val()) <= maxHours && parseFloat($(this).val()) >= 1)) {
+                                        $(this).data("old", $(this).val());
+                                    }
 
-                            });
-                            $("#time").keyup(function () {
-                                if (!$(this).val() || (parseFloat($(this).val()) <= maxHours && parseFloat($(this).val()) >= 1)) ;
-                                else {
-                                    $(this).val($(this).data("old"));
-                                }
+                                });
+                                $("#time").keyup(function () {
+                                    if (!$(this).val() || (parseFloat($(this).val()) <= maxHours && parseFloat($(this).val()) >= 1)) ;
+                                    else {
+                                        $(this).val($(this).data("old"));
+                                    }
 
-                            });
+                                });
+                            }else{
+                                $('#time').attr('readonly',true);
+                                $('#commentDivForEdit').attr('hidden',true);
+                                $('#myModal').modal('show');
+                                $("#project").val(info.projectId);
+                                $("#project").attr('disabled',true);
+                                $("#time").val(info.time);
+                                $("#editTimeLog").attr('hidden',true);
+                                $("#id").val(info.id);
+
+
+                            }
+
                         },
                         viewRender: function (view) {
                             let currentDate = view.intervalStart;
@@ -547,10 +580,7 @@
                                 }
                             }
                         },
-
-
                     });
-
                 }
             });
         });
@@ -593,7 +623,7 @@
             });
         }, false);
 
-        document.querySelector('#saveTimeLog').addEventListener('click', function (e) {
+        document.querySelector('#saveTimeLog').addEventListener('click', function (e)   {
             e.preventDefault();
             let addProject = $('#addProject').val();
             let addTime = $('#addTime').val();

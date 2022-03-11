@@ -31,9 +31,9 @@ class EmployeeController extends Controller
         $startWeek = Carbon::parse($request->input('datePicker'))->addDays(1)->startOfWeek();
         $endWeek = Carbon::parse($request->input('datePicker'))->addDays(1)->endOfWeek();
 
-        $daySum = DB::table('timelogs')->where('user_id', auth()->user()->id)->whereDay('date', $sumPerDay)->sum('time');
+        $daySum = DB::table('timelogs')->where('user_id', auth()->user()->id)->whereDay('date', $sumPerDay)->whereYear('date',$sumPerDay)->sum('time');
         $weekSum = DB::table('timelogs')->where('user_id', auth()->user()->id)->whereBetween('date', [$startWeek, $endWeek])->sum('time');
-        $monthSum = DB::table('timelogs')->where('user_id', auth()->user()->id)->whereMonth('date', $sumPerDay)->sum('time');
+        $monthSum = DB::table('timelogs')->where('user_id', auth()->user()->id)->whereMonth('date', $sumPerDay)->whereYear('date',$sumPerDay)->sum('time');
         $allProjects = auth()->user()->projects;
 
         $timeLogs = Timelog::get()->where('user_id', auth()->user()->id);
@@ -65,6 +65,7 @@ class EmployeeController extends Controller
         $selectedDate = strtotime($request->addDate);
         $selectedTime = $request->addTime;
         $selectedComment = $request->addComment;
+        $selectedProject = $request->addProject;
 
         $validation = $request->validate([
             'addTime' => ['required', 'numeric'],
@@ -73,6 +74,16 @@ class EmployeeController extends Controller
         ]);
 
         if ($currentTime == $start) {
+            if($selectedProject == 12 && $selectedDate >= $startOfLastMonth && $selectedDate <= $endOfCurrentMonth && $selectedComment == null){
+                $Timelog = Timelog::create([
+                    'user_id' => auth()->user()->id,
+                    'time' => $request->addTime,
+                    'project_id' => 12,
+                    'date' => $request->addDate,
+                    'comment' => "",
+
+                ]);
+            }
             if ($selectedDate >= $startOfLastMonth && $selectedDate <= $endOfCurrentMonth && $selectedTime != 0 & $selectedComment == null) {
                 $Timelog = Timelog::create([
                     'user_id' => auth()->user()->id,
@@ -97,6 +108,16 @@ class EmployeeController extends Controller
             }
 
         } else {
+            if($selectedProject == 12 && $selectedDate >= $startOfLastMonth && $selectedDate <= $endOfCurrentMonth && $selectedComment == null){
+                $Timelog = Timelog::create([
+                    'user_id' => auth()->user()->id,
+                    'time' => $request->addTime,
+                    'project_id' => 12,
+                    'date' => $request->addDate,
+                    'comment' => "",
+
+                ]);
+            }
             if ($selectedDate >= $start && $selectedDate <= $end && $selectedTime != 0 && $selectedComment == Null) {
                 $Timelog = Timelog::create([
                     'user_id' => auth()->user()->id,
@@ -224,13 +245,13 @@ class EmployeeController extends Controller
         $selectedEmployee = $request->input('user');
 
         $projectsOptions = auth()->user()->projects;
-        $sumPerSelectedProject = Timelog::where('project_id', $request->input('project'))->where('user_id', auth()->user()->id)->whereMonth('date', $request->input('month'))->whereYear('date', $request->input('year'))->sum('time');
+        $holidaysTaken = Timelog::where('project_id', 12)->where('user_id',auth()->user()->id)->whereYear('date',Carbon::now()->year)->count();
         $overallSum = Timelog::where('user_id', auth()->user()->id)->whereMonth('date', $request->input('month'))->whereYear('date', $request->input('year'))->sum('time');
 
         $query = $request->query();
         $userDetails = [];
         if (!isset($query['month']) || !isset($query['year']) || $query['user'] != Auth::user()->id && !isset($query['user'])) {
-            return view('employee.extract-history', compact('userDetails','sumPerSelectedProject', 'overallSum', 'projectsOptions','selectedMonth','selectedYear','selectedEmployee','selectedProject'))->withErrors('Please Select The Month And Year Together And Do Not Change The Query!');
+            return view('employee.extract-history', compact('userDetails','holidaysTaken', 'overallSum', 'projectsOptions','selectedMonth','selectedYear','selectedEmployee','selectedProject'))->withErrors('Please Select The Month And Year Together And Do Not Change The Query!');
         }
         if (isset($query['project'])) {
             $month = $query['month'];
@@ -247,7 +268,7 @@ class EmployeeController extends Controller
             $userDetails[] = $object;
 
 
-            return view('employee.extract-history', compact('sumPerSelectedProject','userDetails', 'user', 'projectsOptions', 'overallSum','selectedMonth','selectedYear','selectedEmployee','selectedProject'));
+            return view('employee.extract-history', compact('holidaysTaken','userDetails', 'user', 'projectsOptions', 'overallSum','selectedMonth','selectedYear','selectedEmployee','selectedProject'));
         }
         if (isset($query['user'])) {
             $month = $query['month'];
@@ -266,7 +287,7 @@ class EmployeeController extends Controller
             $userDetails[] = $object;
 
 
-            return view('employee.extract-history', compact('sumPerSelectedProject','userDetails', 'user', 'projectsOptions', 'overallSum','selectedMonth','selectedYear','selectedEmployee','selectedProject'));
+            return view('employee.extract-history', compact('holidaysTaken','userDetails', 'user', 'projectsOptions', 'overallSum','selectedMonth','selectedYear','selectedEmployee','selectedProject'));
         }
     }
     private function calculateTotalHoursWorked($timelogs): float
