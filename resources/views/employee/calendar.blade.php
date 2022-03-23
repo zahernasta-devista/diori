@@ -118,6 +118,7 @@
                                 {{ $errors->first() }}
                             </div>
                         @endif
+                        <input name="worklogIds" id="worklogIds" type="text" class="input100" hidden>
                         <div class="form-group-addon wrap-input100 validate-input">
                             <!--project-->
                             <select class="text-center input100 border-white bg-light" type="text" name="addProject"
@@ -153,7 +154,7 @@
                             <textarea class="input100 border-white bg-light" type="text" name="addComment"
                                       id="addComment"
                                       rows="4" cols="50"></textarea>
-                            <span  class="focus-input100"></span>
+                            <span class="focus-input100"></span>
                             <span class="symbol-input100"><i class="mdi mdi-comment" aria-hidden="true"></i></span>
                         </div>
                 </div>
@@ -174,6 +175,7 @@
                 <input name="cloneTime" id="cloneTime" type="number" class="input100" hidden>
                 <input name="cloneComment" id="cloneComment" type="text" class="input100" hidden>
                 <input id="idOfDrop" name="idOfDrop" class="input-lg" hidden>
+                <input name="worklogIdsForDragging" id="worklogIdsForDragging" type="text" class="input100" hidden>
                 <div class="modal-header">
                     <h5 class="modal-title"><strong>Update Date</strong></h5>
                 </div>
@@ -247,14 +249,13 @@
                         let projectsData = response.projects;
                         let projectInputId = $('#addProject').val();
 
-                        if(projectsData.find(x=>x.id == projectInputId).name == 'Holidays'){
+                        if (projectsData.find(x => x.id == projectInputId).name == 'Holidays') {
                             $('#addTime').val(0);
-                            $('#addTimeDiv').attr('hidden',true);
-                            $('#addCommentDiv').attr('hidden',true);
-                        }
-                        else{
-                            $('#addTimeDiv').attr('hidden',false);
-                            $('#addCommentDiv').attr('hidden',false);
+                            $('#addTimeDiv').attr('hidden', true);
+                            $('#addCommentDiv').attr('hidden', true);
+                        } else {
+                            $('#addTimeDiv').attr('hidden', false);
+                            $('#addCommentDiv').attr('hidden', false);
                         }
 
                     });
@@ -277,26 +278,26 @@
                         },
                         defaultView: 'month',
                         defaultDate: today,
-                        eventColor:'#FFFFFF',
+                        eventColor: '#FFFFFF',
                         editable: true,
                         displayEventTime: false,
                         firstDay: 1,
                         contentHeight: 700,
                         events: events,
-                        eventRender: function(event,element) {
-                            if(event.projectInput === 'Holidays') {
+                        eventRender: function (event, element) {
+                            if (event.projectInput === 'Holidays') {
                                 element.css('background-color', '#ffa500');
-                            }
-                            else{
+                            } else {
                                 element.css('background-color', '#8A2BE2');
 
                             }
                         },
                         dayClick: function (date) {
                             let modalDate = $('#addDate').val(date.format()).val();
+                            let holidayRestriction = responseData.filter(object => object.date === modalDate && object.projectName !== 'Holidays').map(object => object.id);
+                            let worklogIds = $('#worklogIds').val(holidayRestriction).val();
                             let holidayDays = responseData.filter(object => object.projectName == 'Holidays');
-                            console.log(holidayDays.find(x=>x.date == modalDate));
-                            if (!holidayDays.find(x=>x.date == modalDate)) {
+                            if (!holidayDays.find(x => x.date == modalDate)) {
                                 $('#addTimeLogModal').modal('show');
                                 let checkDate = document.getElementById("addDate").value;
                                 $(function (e) {
@@ -314,7 +315,7 @@
                                                     object.time = element.time;
                                                     object.date = element.date;
 
-                                                    //getting available horus left
+                                                    //getting available hours left
                                                     let availableHours = 12;
                                                     let sameDates = responseData.filter(object => object.date ===
                                                         checkDate);
@@ -323,7 +324,7 @@
                                                     });
                                                     //end
 
-                                                    //checking in the data base if there are any similar dates
+                                                    //checking in the database if there are any similar dates
                                                     let sameDate = responseData.filter(object => object.date ===
                                                         checkDate);
                                                     //end
@@ -337,7 +338,7 @@
                                             }
                                     });
                                 });
-                            }else{
+                            } else {
                                 alert('You cannot add a worklog on holidays!');
                             }
                         },
@@ -347,60 +348,74 @@
                             $("#cloneComment").val(info.comment);
                             $("#cloneProject").val(info.projectId);
                             $("#cloneTime").val(info.time);
+                            //values necessary for dropping an event
                             let currentEvent = info.date;
                             let positionOfDrop = $('#calendarDatePosition').val(info.start.toISOString().substring(0, 10)).val();
                             let checkDate = document.getElementById("calendarDatePosition").value;
-                            $(function (e) {
-                                "use strict";
-                                $.ajax({
-                                    type: 'GET',
-                                    url: restrictionUrl,
-                                    success: function getData(response) {
-                                        let responseData = response.timeResponse;
-                                        let sameDate = [];
-                                        responseData.forEach(element => {
-                                            let object = {};
-                                            object.id = element.id;
-                                            object.time = element.time;
-                                            object.date = element.date;
+                            console.log(currentEvent);
+                            console.log(positionOfDrop);console.log(checkDate);
+                            //values for creating a new log
+                            let holidayRestriction = responseData.filter(object => object.date === positionOfDrop && object.projectName !== 'Holidays').map(object => object.id);
+                            let worklogIdsForDragging = $('#worklogIdsForDragging').val(holidayRestriction).val();
+                            let holidayDays = responseData.filter(object => object.projectName == 'Holidays');
+                            console.log(holidayRestriction);
+                            //validation for work logs and holiday logs
+                            if (!holidayDays.find(x => x.date === positionOfDrop)) {
+                                $(function (e) {
+                                    "use strict";
+                                    $.ajax({
+                                        type: 'GET',
+                                        url: restrictionUrl,
+                                        success: function getData(response) {
+                                            let responseData = response.timeResponse;
+                                            let sameDate = [];
+                                            responseData.forEach(element => {
+                                                let object = {};
+                                                object.id = element.id;
+                                                object.time = element.time;
+                                                object.date = element.date;
 
-                                            //getting available horus left
-                                            let availableHours = 12;
-                                            let sameDates = responseData.filter(object => object.date ===
-                                                checkDate);
+                                                //getting available horus left
+                                                let availableHours = 12;
+                                                let sameDates = responseData.filter(object => object.date ===
+                                                    checkDate);
 
-                                            sameDates.forEach(object => {
-                                                availableHours -= object.time;
+                                                sameDates.forEach(object => {
+                                                    availableHours -= object.time;
+                                                });
+                                                //end
+
+                                                //checking in the data base if there are any similar dates
+                                                sameDate = responseData.filter(object => object.date ===
+                                                    checkDate);
+                                                //end
                                             });
-                                            //end
-
-                                            //checking in the data base if there are any similar dates
-                                            sameDate = responseData.filter(object => object.date ===
-                                                checkDate);
-                                            //end
-                                        });
-                                        let sum = 0;
-                                        let newValidation = responseData.filter(object => object.date === currentEvent);
-                                        let sumOfAllEvents = sameDate.forEach(object => sum += object.time, sum += sum + newValidation.find(x => x.id === info.id).time);
-                                        console.log(newValidation);
-                                        if (sum > 12) {
-                                            location.reload(alert('The sum of total hours shouldnt be over 12'));
+                                            let sum = 0;
+                                            let newValidation = responseData.filter(object => object.date === currentEvent);
+                                            let eventInformation = newValidation.find(x => x.id === info.id);
+                                            let sumOfAllEvents = sameDate.forEach(object => sum += object.time, sum += sum + newValidation.find(x => x.id === info.id).time);
+                                            if (sum > 12) {
+                                                location.reload(alert('The sum of total hours shouldnt be over 12'));
+                                            }
                                         }
-                                    }
-                                });
+                                    });
 
-                            });
+                                });
+                            } else {
+                                location.reload(alert('You cannot clone/move here!'));
+                            }
+
 
                         },
                         eventClick: function (info) {
-                            let holidayProjectId = '12' ;
+                            let holidayProjectId = '12';
                             //this id is taken directly from the database
                             let selectedDateForValidation = $("#project").val(info.projectId).val();
-                            if(selectedDateForValidation !== holidayProjectId){
-                                $('#time').attr('readonly',false);
-                                $('#commentDivForEdit').attr('hidden',false);
-                                $("#project").attr('disabled',false);
-                                $("#editTimeLog").attr('hidden',false);
+                            if (selectedDateForValidation !== holidayProjectId) {
+                                $('#time').attr('readonly', false);
+                                $('#commentDivForEdit').attr('hidden', false);
+                                $("#project").attr('disabled', false);
+                                $("#editTimeLog").attr('hidden', false);
 
                                 //Verify if the time sum is less than 12 hours
                                 //Max value will be the difference between both times
@@ -426,14 +441,14 @@
                                     }
 
                                 });
-                            }else{
-                                $('#time').attr('readonly',true);
-                                $('#commentDivForEdit').attr('hidden',true);
+                            } else {
+                                $('#time').attr('readonly', true);
+                                $('#commentDivForEdit').attr('hidden', true);
                                 $('#myModal').modal('show');
                                 $("#project").val(info.projectId);
-                                $("#project").attr('disabled',true);
+                                $("#project").attr('disabled', true);
                                 $("#time").val(info.time);
-                                $("#editTimeLog").attr('hidden',true);
+                                $("#editTimeLog").attr('hidden', true);
                                 $("#id").val(info.id);
 
 
@@ -591,6 +606,8 @@
             let cloneTime = $('#cloneTime').val();
             let cloneComment = $('#cloneComment').val();
             let calendarDatePosition = $('#calendarDatePosition').val();
+            let worklogIdsForDragging = $('#worklogIdsForDragging').val();
+
             $.ajax({
                 type: 'POST',
                 headers: {'X-CSRF-TOKEN': csrfToken},
@@ -599,7 +616,8 @@
                     cloneProject: cloneProject,
                     cloneTime: cloneTime,
                     cloneComment: cloneComment,
-                    calendarDatePosition: calendarDatePosition
+                    calendarDatePosition: calendarDatePosition,
+                    worklogIdsForDragging: worklogIdsForDragging
                 },
                 success: function (response) {
                     location.reload();
@@ -623,8 +641,9 @@
             });
         }, false);
 
-        document.querySelector('#saveTimeLog').addEventListener('click', function (e)   {
+        document.querySelector('#saveTimeLog').addEventListener('click', function (e, responseData) {
             e.preventDefault();
+            let worklogIds = $('#worklogIds').val();
             let addProject = $('#addProject').val();
             let addTime = $('#addTime').val();
             let addDate = $('#addDate').val();
@@ -633,7 +652,13 @@
                 type: 'POST',
                 headers: {'X-CSRF-TOKEN': csrfToken},
                 url: addUrl,
-                data: {addProject: addProject, addTime: addTime, addDate: addDate, addComment: addComment},
+                data: {
+                    addProject: addProject,
+                    addTime: addTime,
+                    addDate: addDate,
+                    addComment: addComment,
+                    worklogIds: worklogIds
+                },
                 success: function (response) {
                     location.reload();
                 },
@@ -672,6 +697,8 @@
 
             let idOfDrop = $('#idOfDrop').val();
             let calendarDatePosition = $('#calendarDatePosition').val();
+            let cloneProject = $('#cloneProject').val();
+            let worklogIdsForDragging = $('#worklogIdsForDragging').val();
 
             $.ajax({
                 type: 'POST',
@@ -679,7 +706,7 @@
                 headers: {
                     'X-CSRF-TOKEN': csrfToken
                 },
-                data: {idOfDrop: idOfDrop, calendarDatePosition: calendarDatePosition},
+                data: {idOfDrop: idOfDrop, calendarDatePosition: calendarDatePosition,cloneProject:cloneProject,worklogIdsForDragging:worklogIdsForDragging},
                 success: function (response) {
                     location.reload();
                 },

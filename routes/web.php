@@ -240,9 +240,6 @@ Route::group(['middleware' => ['role:employee','auth', 'first.time.login']], fun
     route::post('timesheet/clone',[EmployeeController::class,'timeSheetClone'])
         ->name('timesheet-clone');
 
-    Route::get('/worklog', [EmployeeController::class, 'workLog'])
-        ->name('work-log');
-
     Route::get('profile/employee', [EmployeeController::class, 'employeeProfile'])
         ->name('employee-profile');
 
