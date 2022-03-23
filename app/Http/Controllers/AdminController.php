@@ -70,9 +70,11 @@ class AdminController extends Controller
         $projects = User::get()->where('id', $request->route('id'))->first()->projects;
         $projectCount = User::get()->where('id', $request->route('id'))->first()->projects->count();
         $timeLogs = Timelog::get()->where('user_id', $request->route('id'))->all();
+        $holidaysTaken = Timelog::where('project_id', 12)->where('user_id', $request->route('id'))->whereYear('date', Carbon::now()->year)->count();
 
 
-        return view('admin.employee-detail', ['users' => $users, 'date' => $date, 'projectCount' => $projectCount, 'project' => $project, 'customer' => $customer, 'user' => $user, 'projects' => $projects, 'timeSum' => $timeSum], compact('projects'));
+
+        return view('admin.employee-detail', ['holidaysTaken'=>$holidaysTaken,'users' => $users, 'date' => $date, 'projectCount' => $projectCount, 'project' => $project, 'customer' => $customer, 'user' => $user, 'projects' => $projects, 'timeSum' => $timeSum], compact('projects'));
 
     }
 

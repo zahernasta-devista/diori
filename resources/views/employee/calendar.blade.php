@@ -64,6 +64,7 @@
                                 {{ $errors->first() }}
                             </div>
                         @endif
+                        <input type="date" id="date" readonly hidden>
                         <div class="form-group-addon wrap-input100 validate-input">
                             <select class="text-right input100 border-white bg-light" type="text" name="project"
                                     id="project">
@@ -83,7 +84,7 @@
                             <span class="symbol-input100"><i class="mdi mdi-timer" aria-hidden="true">Hours Worked :
                                 </i></span>
                         </div>
-                        <div class="form-group-addon wrap-input100 validate-input">
+                        <div id="commentDivForEdit" class="form-group-addon wrap-input100 validate-input">
                             <textarea class="input100 border-white bg-light" type="text" name="comment" id="comment"
                                       rows="4" cols="50"></textarea>
                             <span class="focus-input100"></span>
@@ -117,6 +118,7 @@
                                 {{ $errors->first() }}
                             </div>
                         @endif
+                        <input name="worklogIds" id="worklogIds" type="text" class="input100" hidden>
                         <div class="form-group-addon wrap-input100 validate-input">
                             <!--project-->
                             <select class="text-center input100 border-white bg-light" type="text" name="addProject"
@@ -138,7 +140,7 @@
                             <span class="symbol-input100"><i class="mdi mdi-calendar" aria-hidden="true">Date:
                                 </i></span>
                         </div>
-                        <div class="form-group-addon wrap-input100 validate-input">
+                        <div id="addTimeDiv" class="form-group-addon wrap-input100 validate-input">
                             <!--time-->
                             <input class="text-center input100 border-white bg-light" type="number" step="0.5"
                                    id="addTime" name="addTime" min="0" max="12" placeholder="12 hours max">
@@ -147,7 +149,7 @@
                                 </i></span>
                         </div>
 
-                        <div class="form-group-addon wrap-input100 validate-input">
+                        <div id="addCommentDiv" class="form-group-addon wrap-input100 validate-input">
                             <!--comment-->
                             <textarea class="input100 border-white bg-light" type="text" name="addComment"
                                       id="addComment"
@@ -173,11 +175,9 @@
                 <input name="cloneTime" id="cloneTime" type="number" class="input100" hidden>
                 <input name="cloneComment" id="cloneComment" type="text" class="input100" hidden>
                 <input id="idOfDrop" name="idOfDrop" class="input-lg" hidden>
+                <input name="worklogIdsForDragging" id="worklogIdsForDragging" type="text" class="input100" hidden>
                 <div class="modal-header">
                     <h5 class="modal-title"><strong>Update Date</strong></h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times</span>
-                    </button>
                 </div>
                 <div class="modal-body">
                     <form>
@@ -245,9 +245,21 @@
 
                         events.push(object);
                     });
+                    $('#addProject').change(function (e) {
+                        let projectsData = response.projects;
+                        let projectInputId = $('#addProject').val();
 
+                        if (projectsData.find(x => x.id == projectInputId).name == 'Holidays') {
+                            $('#addTime').val(0);
+                            $('#addTimeDiv').attr('hidden', true);
+                            $('#addCommentDiv').attr('hidden', true);
+                        } else {
+                            $('#addTimeDiv').attr('hidden', false);
+                            $('#addCommentDiv').attr('hidden', false);
+                        }
+
+                    });
                     $('#calendar').fullCalendar({
-
                         header: {
                             left: 'prev,next today CreateTimeLog',
                             center: 'title',
@@ -266,24 +278,97 @@
                         },
                         defaultView: 'month',
                         defaultDate: today,
+                        eventColor: '#FFFFFF',
                         editable: true,
                         displayEventTime: false,
                         firstDay: 1,
                         contentHeight: 700,
                         events: events,
-                        dayClick: function (date, resourceObj) {
-                            $('#addTimeLogModal').modal('show');
+                        eventRender: function (event, element) {
+                            if (event.projectInput === 'Holidays') {
+                                element.css('background-color', '#ffa500');
+                            } else {
+                                element.css('background-color', '#8A2BE2');
+
+                            }
+                        },
+                        dayClick: function (date) {
                             let modalDate = $('#addDate').val(date.format()).val();
-                            let checkDate = document.getElementById("addDate").value;
-                            $(function (e) {
-                                "use strict";
-                                $.ajax({
-                                    type: 'GET',
-                                    url: restrictionUrl,
-                                    success:
-                                        function getData(response) {
+                            let holidayRestriction = responseData.filter(object => object.date === modalDate && object.projectName !== 'Holidays').map(object => object.id);
+                            let worklogIds = $('#worklogIds').val(holidayRestriction).val();
+                            let holidayDays = responseData.filter(object => object.projectName == 'Holidays');
+                            if (!holidayDays.find(x => x.date == modalDate)) {
+                                $('#addTimeLogModal').modal('show');
+                                let checkDate = document.getElementById("addDate").value;
+                                $(function (e) {
+                                    "use strict";
+                                    $.ajax({
+                                        type: 'GET',
+                                        url: restrictionUrl,
+                                        success:
+                                            function getData(response) {
+                                                let responseData = response.timeResponse;
+                                                let events = [];
+                                                responseData.forEach(element => {
+                                                    let object = {};
+                                                    object.id = element.id;
+                                                    object.time = element.time;
+                                                    object.date = element.date;
+
+                                                    //getting available hours left
+                                                    let availableHours = 12;
+                                                    let sameDates = responseData.filter(object => object.date ===
+                                                        checkDate);
+                                                    sameDates.forEach(object => {
+                                                        availableHours -= object.time;
+                                                    });
+                                                    //end
+
+                                                    //checking in the database if there are any similar dates
+                                                    let sameDate = responseData.filter(object => object.date ===
+                                                        checkDate);
+                                                    //end
+
+                                                    $("#addTime").attr({
+                                                        'max': availableHours,
+                                                        'placeholder': availableHours + ' Hours Left',
+                                                    });
+
+                                                });
+                                            }
+                                    });
+                                });
+                            } else {
+                                alert('You cannot add a worklog on holidays!');
+                            }
+                        },
+                        eventDrop: function (info) {
+                            $('#DragAndDrop').modal('show');
+                            $("#idOfDrop").val(info.id);
+                            $("#cloneComment").val(info.comment);
+                            $("#cloneProject").val(info.projectId);
+                            $("#cloneTime").val(info.time);
+                            //values necessary for dropping an event
+                            let currentEvent = info.date;
+                            let positionOfDrop = $('#calendarDatePosition').val(info.start.toISOString().substring(0, 10)).val();
+                            let checkDate = document.getElementById("calendarDatePosition").value;
+                            console.log(currentEvent);
+                            console.log(positionOfDrop);console.log(checkDate);
+                            //values for creating a new log
+                            let holidayRestriction = responseData.filter(object => object.date === positionOfDrop && object.projectName !== 'Holidays').map(object => object.id);
+                            let worklogIdsForDragging = $('#worklogIdsForDragging').val(holidayRestriction).val();
+                            let holidayDays = responseData.filter(object => object.projectName == 'Holidays');
+                            console.log(holidayRestriction);
+                            //validation for work logs and holiday logs
+                            if (!holidayDays.find(x => x.date === positionOfDrop)) {
+                                $(function (e) {
+                                    "use strict";
+                                    $.ajax({
+                                        type: 'GET',
+                                        url: restrictionUrl,
+                                        success: function getData(response) {
                                             let responseData = response.timeResponse;
-                                            let events = [];
+                                            let sameDate = [];
                                             responseData.forEach(element => {
                                                 let object = {};
                                                 object.id = element.id;
@@ -294,102 +379,81 @@
                                                 let availableHours = 12;
                                                 let sameDates = responseData.filter(object => object.date ===
                                                     checkDate);
+
                                                 sameDates.forEach(object => {
                                                     availableHours -= object.time;
                                                 });
                                                 //end
 
                                                 //checking in the data base if there are any similar dates
-                                                let sameDate = responseData.filter(object => object.date ===
+                                                sameDate = responseData.filter(object => object.date ===
                                                     checkDate);
                                                 //end
-
-                                                $("#addTime").attr({
-                                                    'max': availableHours,
-                                                    'placeholder': availableHours + ' Hours Left',
-                                                });
-
                                             });
+                                            let sum = 0;
+                                            let newValidation = responseData.filter(object => object.date === currentEvent);
+                                            let eventInformation = newValidation.find(x => x.id === info.id);
+                                            let sumOfAllEvents = sameDate.forEach(object => sum += object.time, sum += sum + newValidation.find(x => x.id === info.id).time);
+                                            if (sum > 12) {
+                                                location.reload(alert('The sum of total hours shouldnt be over 12'));
+                                            }
                                         }
+                                    });
+
                                 });
-                            });
-                        },
-                        eventDrop: function (info) {
-                            $('#DragAndDrop').modal('show');
-                            $("#idOfDrop").val(info.id);
-                            $("#cloneComment").val(info.comment);
-                            $("#cloneProject").val(info.projectId);
-                            $("#cloneTime").val(info.time);
-                            let currentEvent = info.date;
-                            let positionOfDrop = $('#calendarDatePosition').val(info.start.toISOString().substring(0, 10)).val();
-                            let checkDate = document.getElementById("calendarDatePosition").value;
-                            $(function (e) {
-                                "use strict";
-                                $.ajax({
-                                    type: 'GET',
-                                    url: restrictionUrl,
-                                    success: function getData(response) {
-                                        let responseData = response.timeResponse;
-                                        let sameDate = [];
-                                        responseData.forEach(element => {
-                                            let object = {};
-                                            object.id = element.id;
-                                            object.time = element.time;
-                                            object.date = element.date;
+                            } else {
+                                location.reload(alert('You cannot clone/move here!'));
+                            }
 
-                                            //getting available horus left
-                                            let availableHours = 12;
-                                            let sameDates = responseData.filter(object => object.date ===
-                                                checkDate);
-
-                                            sameDates.forEach(object => {
-                                                availableHours -= object.time;
-                                            });
-                                            //end
-
-                                            //checking in the data base if there are any similar dates
-                                            sameDate = responseData.filter(object => object.date ===
-                                                checkDate);
-                                            //end
-                                        });
-                                        let sum = 0;
-                                        let newValidation = responseData.filter(object => object.date === currentEvent);
-                                        let sumOfAllEvents = sameDate.forEach(object => sum += object.time, sum += sum + newValidation.find(x => x.id === info.id).time);
-                                        console.log(sum);
-                                        if (sum > 12) {
-                                            location.reload(alert('The sum of total hours shouldnt be over 12'));
-                                        }
-                                    }
-                                });
-
-                            });
 
                         },
                         eventClick: function (info) {
-                            //Verify if the time sum is less than 12 hours
-                            //Max value will be the difference between both times
-                            let maxHours = info.time + info.availableHours;
+                            let holidayProjectId = '12';
+                            //this id is taken directly from the database
+                            let selectedDateForValidation = $("#project").val(info.projectId).val();
+                            if (selectedDateForValidation !== holidayProjectId) {
+                                $('#time').attr('readonly', false);
+                                $('#commentDivForEdit').attr('hidden', false);
+                                $("#project").attr('disabled', false);
+                                $("#editTimeLog").attr('hidden', false);
 
-                            $('#myModal').modal('show');
-                            $("#time").val(info.time);
-                            $("#id").val(info.id);
-                            $("#comment").val(info.comment);
-                            $("#project").val(info.projectId);
-                            $("#time").attr({'max': maxHours});
+                                //Verify if the time sum is less than 12 hours
+                                //Max value will be the difference between both times
+                                let maxHours = info.time + info.availableHours;
+                                $('#myModal').modal('show');
+                                $("#time").val(info.time);
+                                $("#id").val(info.id);
+                                $("#date").val(info.date);
+                                $("#comment").val(info.comment);
+                                $("#project").val(info.projectId);
+                                $("#time").attr({'max': maxHours});
 
-                            $("#time").keydown(function () {
-                                if (!$(this).val() || (parseFloat($(this).val()) <= maxHours && parseFloat($(this).val()) >= 1)) {
-                                    $(this).data("old", $(this).val());
-                                }
+                                $("#time").keydown(function () {
+                                    if (!$(this).val() || (parseFloat($(this).val()) <= maxHours && parseFloat($(this).val()) >= 1)) {
+                                        $(this).data("old", $(this).val());
+                                    }
 
-                            });
-                            $("#time").keyup(function () {
-                                if (!$(this).val() || (parseFloat($(this).val()) <= maxHours && parseFloat($(this).val()) >= 1)) ;
-                                else {
-                                    $(this).val($(this).data("old"));
-                                }
+                                });
+                                $("#time").keyup(function () {
+                                    if (!$(this).val() || (parseFloat($(this).val()) <= maxHours && parseFloat($(this).val()) >= 1)) ;
+                                    else {
+                                        $(this).val($(this).data("old"));
+                                    }
 
-                            });
+                                });
+                            } else {
+                                $('#time').attr('readonly', true);
+                                $('#commentDivForEdit').attr('hidden', true);
+                                $('#myModal').modal('show');
+                                $("#project").val(info.projectId);
+                                $("#project").attr('disabled', true);
+                                $("#time").val(info.time);
+                                $("#editTimeLog").attr('hidden', true);
+                                $("#id").val(info.id);
+
+
+                            }
+
                         },
                         viewRender: function (view) {
                             let currentDate = view.intervalStart;
@@ -531,10 +595,7 @@
                                 }
                             }
                         },
-
-
                     });
-
                 }
             });
         });
@@ -545,6 +606,8 @@
             let cloneTime = $('#cloneTime').val();
             let cloneComment = $('#cloneComment').val();
             let calendarDatePosition = $('#calendarDatePosition').val();
+            let worklogIdsForDragging = $('#worklogIdsForDragging').val();
+
             $.ajax({
                 type: 'POST',
                 headers: {'X-CSRF-TOKEN': csrfToken},
@@ -553,7 +616,8 @@
                     cloneProject: cloneProject,
                     cloneTime: cloneTime,
                     cloneComment: cloneComment,
-                    calendarDatePosition: calendarDatePosition
+                    calendarDatePosition: calendarDatePosition,
+                    worklogIdsForDragging: worklogIdsForDragging
                 },
                 success: function (response) {
                     location.reload();
@@ -577,8 +641,9 @@
             });
         }, false);
 
-        document.querySelector('#saveTimeLog').addEventListener('click', function (e) {
+        document.querySelector('#saveTimeLog').addEventListener('click', function (e, responseData) {
             e.preventDefault();
+            let worklogIds = $('#worklogIds').val();
             let addProject = $('#addProject').val();
             let addTime = $('#addTime').val();
             let addDate = $('#addDate').val();
@@ -587,7 +652,13 @@
                 type: 'POST',
                 headers: {'X-CSRF-TOKEN': csrfToken},
                 url: addUrl,
-                data: {addProject: addProject, addTime: addTime, addDate: addDate, addComment: addComment},
+                data: {
+                    addProject: addProject,
+                    addTime: addTime,
+                    addDate: addDate,
+                    addComment: addComment,
+                    worklogIds: worklogIds
+                },
                 success: function (response) {
                     location.reload();
                 },
@@ -626,6 +697,8 @@
 
             let idOfDrop = $('#idOfDrop').val();
             let calendarDatePosition = $('#calendarDatePosition').val();
+            let cloneProject = $('#cloneProject').val();
+            let worklogIdsForDragging = $('#worklogIdsForDragging').val();
 
             $.ajax({
                 type: 'POST',
@@ -633,7 +706,7 @@
                 headers: {
                     'X-CSRF-TOKEN': csrfToken
                 },
-                data: {idOfDrop: idOfDrop, calendarDatePosition: calendarDatePosition},
+                data: {idOfDrop: idOfDrop, calendarDatePosition: calendarDatePosition,cloneProject:cloneProject,worklogIdsForDragging:worklogIdsForDragging},
                 success: function (response) {
                     location.reload();
                 },
