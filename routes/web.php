@@ -55,6 +55,9 @@ require __DIR__ . '/auth.php';
 route::post('profile/password/change', [ChangePasswordProfileController::class, 'store'])
     ->name('profile-change-password');
 
+Route::get('export', [ExcelController::class, 'export'])->name('export');
+
+
 Route::get('/dashboard', [UserController::class, 'dashboard'])
     ->name('dashboard')
     ->middleware(['auth','first.time.login']);
@@ -80,8 +83,7 @@ Route::group(['middleware' => ['role:admin','auth', 'first.time.login']], functi
         ->name('admin-profile');
       
        
-    Route::get('export', [ExcelController::class, 'export'])->name('export');
-    
+
         //employees
     route::get('/users', [AdminController::class, 'showUsersList']);
 
@@ -215,7 +217,6 @@ Route::group(['middleware' => ['role:admin','auth', 'first.time.login']], functi
     route::get('/summary', [AdminController::class, 'filters'])->name('filters');
 
 });
-
 //middleware role employee
 Route::group(['middleware' => ['role:employee','auth', 'first.time.login']], function () {
     route::get('/calendar', [EmployeeController::class, 'calendar'])
@@ -227,11 +228,17 @@ Route::group(['middleware' => ['role:employee','auth', 'first.time.login']], fun
     route::post('/timesheet/update', [EmployeeController::class, 'timeSheetUpdate'])
         ->name('timesheet-update');
 
+    route::post('timesheet/add',[EmployeeController::class,'timeSheetAdd'])
+        ->name('timesheet-add');
+
     route::post('/timesheet/delete', [EmployeeController::class, 'timeSheetDelete'])
         ->name('timesheet-delete');
 
-    Route::get('/worklog', [EmployeeController::class, 'workLog'])
-        ->name('work-log');
+    route::post('timesheet/update/date',[EmployeeController::class,'updateDateOfTimeLog'])
+        ->name('timesheet-date-update');
+
+    route::post('timesheet/clone',[EmployeeController::class,'timeSheetClone'])
+        ->name('timesheet-clone');
 
     Route::get('profile/employee', [EmployeeController::class, 'employeeProfile'])
         ->name('employee-profile');
@@ -242,5 +249,8 @@ Route::group(['middleware' => ['role:employee','auth', 'first.time.login']], fun
     Route::post('/worklog/add', [EmployeeController::class, 'worklogstore'])->name('worklog-add');
 
     Route::get('/restriction', [EmployeeController::class, 'worklogRestriction'])->name('worklog-restriction');
+
+    Route::get('/extract/history', [EmployeeController::class, 'extractHistory'])->name('extract-history');
+
 
 });

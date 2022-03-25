@@ -21,7 +21,7 @@
 @endsection
 @section('content')
     <div class="row">
-        <div class="col-sm-12 col-md-6 ">
+        <div class="col-sm-12 col-md-4">
             <div class="card bg-purple-gradient img-card box-primary-shadow">
                 <div class="card-body">
                     <div class="d-flex">
@@ -34,7 +34,7 @@
                 </div>
             </div>
         </div><!-- COL END -->
-        <div class="col-sm-12 col-md-6 ">
+        <div class="col-sm-12 col-md-4 ">
             <div class="card bg-purple-gradient img-card box-secondary-shadow">
                 <div class="card-body">
                     <div class="d-flex">
@@ -50,9 +50,22 @@
                     </div>
                 </div>
             </div>
-        </div><!-- COL END -->
+        </div>
+        <div class="col-sm-12 col-md-4">
+            <div class="card bg-purple-gradient img-card box-primary-shadow">
+                <div class="card-body">
+                    <div class="d-flex">
+                        <div class="text-white">
+                            <h3 class="mb-0 number-font">Holidays {{$users->name}} took this year:</h3>
+                            <h3 class="text-white mb-0">•{{$holidaysTaken}} Days</h3>
+                        </div>
+                        <div class="ml-auto"><i class="fa fa-pencil text-white fs-30 mr-2 mt-2"></i></div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-    {{-- NEW ROW --}}
+    <!-- COL END -->
     <div class="row">
         <div class="col-md-12">
             <div class="card">
