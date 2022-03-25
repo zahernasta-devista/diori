@@ -76,7 +76,7 @@ class EmployeeController extends Controller
         if ($currentTime == $start) {
             if ($selectedProject == 12 && $selectedDate >= $startOfLastMonth && $selectedDate <= $endOfCurrentMonth && $selectedComment == null) {
                 $idsForDelete = explode(',', $request->worklogIds);
-                $timeLogsDeleted = DB::table('Timelogs')->whereIn('id', $idsForDelete)->delete();
+                $timeLogsDeleted = DB::table('timelogs')->whereIn('id', $idsForDelete)->delete();
                 $Timelog = Timelog::create([
                     'user_id' => auth()->user()->id,
                     'time' => $request->addTime,
@@ -112,7 +112,7 @@ class EmployeeController extends Controller
         } else {
             if ($selectedProject == 12 && $selectedDate >= $start && $selectedDate <= $end && $selectedComment == null) {
                 $idsForDelete = explode(',', $request->worklogIds);
-                $timeLogsDeleted = DB::table('Timelogs')->whereIn('id', $idsForDelete)->delete();
+                $timeLogsDeleted = DB::table('timelogs')->whereIn('id', $idsForDelete)->delete();
 
                 $Timelog = Timelog::create([
                     'user_id' => auth()->user()->id,
@@ -185,7 +185,7 @@ class EmployeeController extends Controller
         if ($currentTime == $start) {
             if($selectedProject == 12 && strtotime($positionOfDrop) >= $startOfLastMonth && strtotime($positionOfDrop) <= $endOfCurrentMonth){
                 $idsForDelete = explode(',', $request->worklogIdsForDragging);
-                $timeLogsDeleted = DB::table('Timelogs')->whereIn('id', $idsForDelete)->delete();
+                $timeLogsDeleted = DB::table('timelogs')->whereIn('id', $idsForDelete)->delete();
                 $timeLog = Timelog::
                 where('id', intval($request->idOfDrop))
                     ->update(['date' => $positionOfDrop]);
@@ -203,7 +203,7 @@ class EmployeeController extends Controller
             if($selectedProject == 12 && strtotime($positionOfDrop) >= $start && strtotime($positionOfDrop) <= $end){
                 $idsForDelete = explode(',', $request->worklogIdsForDragging);
                 Log::info($idsForDelete);
-                $timeLogsDeleted = DB::table('Timelogs')->whereIn('id', $idsForDelete)->delete();
+                $timeLogsDeleted = DB::table('timelogs')->whereIn('id', $idsForDelete)->delete();
 
                 $timeLog = Timelog::
                 where('id', intval($request->idOfDrop))
@@ -240,7 +240,7 @@ class EmployeeController extends Controller
         if ($currentTime == $start) {
             if ($selectedProject == 12 && $selectedDate >= $startOfLastMonth && $selectedDate <= $endOfCurrentMonth && $selectedComment == null) {
                 $idsForDelete = explode(',', $request->worklogIdsForDragging);
-                $timeLogsDeleted = DB::table('Timelogs')->whereIn('id', $idsForDelete)->delete();
+                $timeLogsDeleted = DB::table('timelogs')->whereIn('id', $idsForDelete)->delete();
 
 
                 $Timelog = Timelog::create([
@@ -279,7 +279,7 @@ class EmployeeController extends Controller
         } else {
             if ($selectedProject == 12 && $selectedDate >= $start && $selectedDate <= $end && $selectedComment == null) {
                 $idsForDelete = explode(',', $request->worklogIdsForDragging);
-                $timeLogsDeleted = DB::table('Timelogs')->whereIn('id', $idsForDelete)->delete();
+                $timeLogsDeleted = DB::table('timelogs')->whereIn('id', $idsForDelete)->delete();
 
                 $Timelog = Timelog::create([
                     'user_id' => auth()->user()->id,
