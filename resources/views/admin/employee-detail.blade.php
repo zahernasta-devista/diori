@@ -57,7 +57,8 @@
                     <div class="d-flex">
                         <div class="text-white">
                             <h3 class="mb-0 number-font">Holidays {{$users->name}} took this year:</h3>
-                            <h3 class="text-white mb-0">•{{$holidaysTaken}} Days</h3>
+                            <p class="text-white mb-0">Part time => 11.5 / Full Time => 21 </p>
+                            <p class="text-white mb-0">•{{$holidaysTaken}} Days</p>
                         </div>
                         <div class="ml-auto"><i class="fa fa-pencil text-white fs-30 mr-2 mt-2"></i></div>
                     </div>

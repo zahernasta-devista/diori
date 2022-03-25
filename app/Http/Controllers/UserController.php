@@ -83,8 +83,9 @@ class UserController extends Controller
         $user = User::role('employee')->get()->count();
         $totalHoursWorkedForDashboard = DB::table('timelogs')->whereMonth('date', Carbon::now()->month)->sum('time');
         $totalHoursWorkedWeekly = DB::table('timelogs')->whereBetween('date', [$startweek,$endweek])->sum('time');
+        $holidaysPerTotal = Timelog::where('project_id',12)->whereYear('date',Carbon::now()->year)->count();
 
-        return view('admin.index', ['project' => $project, 'customer' => $customer, 'user' => $user, 'totalHoursWorkedForDashboard'=>$totalHoursWorkedForDashboard, 'weekly'=>$totalHoursWorkedWeekly]);
+        return view('admin.index', ['holidaysPerTotal' =>$holidaysPerTotal,'project' => $project, 'customer' => $customer, 'user' => $user, 'totalHoursWorkedForDashboard'=>$totalHoursWorkedForDashboard, 'weekly'=>$totalHoursWorkedWeekly]);
 
     }
     public function multipleAccessEmployee(Request $request){

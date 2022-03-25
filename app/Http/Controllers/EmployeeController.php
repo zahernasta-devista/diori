@@ -6,6 +6,7 @@ use App\Models\Project;
 use App\Models\Timelog;
 use App\Models\User;
 use Carbon\Carbon;
+use Carbon\CarbonPeriod;
 use Illuminate\Http\Request;
 use Exception;
 use Illuminate\Support\Facades\Auth;
@@ -35,6 +36,27 @@ class EmployeeController extends Controller
         $weekSum = DB::table('timelogs')->where('user_id', auth()->user()->id)->whereBetween('date', [$startWeek, $endWeek])->sum('time');
         $monthSum = DB::table('timelogs')->where('user_id', auth()->user()->id)->whereMonth('date', $sumPerDay)->whereYear('date', $sumPerDay)->sum('time');
         $allProjects = auth()->user()->projects;
+
+
+
+        $startOfMonth = Carbon::parse($request->input('datePicker'))->startOfMonth()->format("Y-m-d");
+        $endOfMonth = Carbon::parse($request->input('datePicker'))->endOfMonth()->format("Y-m-d");
+        $countWorkingDays = CarbonPeriod::create($startOfMonth, $endOfMonth)->count();
+        $myTime = strtotime(Carbon::now()->format("Y-m-d"));  // Use whatever date format you want
+        $workDays = 0;
+
+        while($countWorkingDays > 0)
+        {
+            $day = date("D", $myTime); // Sun - Sat
+            if($day != "Sat" && $day != "Sun")
+                $workDays++;
+            Log::info($workDays);
+
+            $countWorkingDays--;
+            $myTime += 86400; // 86,400 seconds = 24 hrs.
+        }
+
+
 
         $timeLogs = Timelog::get()->where('user_id', auth()->user()->id);
         $timeLogsResponse = [];
