@@ -62,7 +62,7 @@ Route::get('/dashboard', [UserController::class, 'dashboard'])
     ->name('dashboard')
     ->middleware(['auth','first.time.login']);
 //only admin
-route::get('/dashboard/admin-acess',[UserController::class,'multipleAccess'])
+route::get('/dashboard/admin-access',[UserController::class,'multipleAccess'])
     ->name('dashboard-admin')
     ->middleware(['auth','first.time.login']);
 route::get('/dashboard/employee-access',[UserController::class,'multipleAccessEmployee'])
