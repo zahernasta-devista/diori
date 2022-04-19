@@ -29,7 +29,9 @@
                 <div class="card-header">
                     <h3 class="card-title">{{ Auth::user()->name }}, This is Your Work Sheet!</h3>
                     <input id="datePicker" class="text-center input100 border-white bg-light" type="date"
-                           name="datePicker" readonly hidden>
+                           name="datePicker" readonly >
+                    <input id="availableHours" name="availableHours" class="text-center input100 border-white bg-light"
+                           type="number" readonly hidden>
                 </div>
                 <div class="card-body">
                     <div id='calendar'></div>
@@ -118,7 +120,7 @@
                                 {{ $errors->first() }}
                             </div>
                         @endif
-                        <input name="worklogIds" id="worklogIds" type="text" class="input100" hidden>
+                        <input name="worklogIds" id="worklogIds" type="text" class="input100" readonly hidden>
                         <div class="form-group-addon wrap-input100 validate-input">
                             <!--project-->
                             <select class="text-center input100 border-white bg-light" type="text" name="addProject"
@@ -143,7 +145,7 @@
                         <div id="addTimeDiv" class="form-group-addon wrap-input100 validate-input">
                             <!--time-->
                             <input class="text-center input100 border-white bg-light" type="number" step="0.5"
-                                   id="addTime" name="addTime" min="0" max="12" placeholder="12 hours max">
+                                   id="addTime" name="addTime" min="0" placeholder="12 hours max">
                             <span class="focus-input100"></span>
                             <span class="symbol-input100"><i class="mdi mdi-timer" aria-hidden="true">Hours Worked :
                                 </i></span>
@@ -282,7 +284,7 @@
                         editable: true,
                         displayEventTime: false,
                         firstDay: 1,
-                        contentHeight: 700,
+                        contentHeight: 500,
                         events: events,
                         eventRender: function (event, element) {
                             if (event.projectInput === 'Holidays') {
@@ -294,8 +296,7 @@
                         },
                         dayClick: function (date) {
                             let modalDate = $('#addDate').val(date.format()).val();
-                            let holidayRestriction = responseData.filter(object => object.date === modalDate && object.projectName !== 'Holidays').map(object => object.id);
-                            let worklogIds = $('#worklogIds').val(holidayRestriction).val();
+                            let worklogIds = $('#worklogIds').val(responseData.filter(object => object.date === modalDate && object.projectName !== 'Holidays').map(object => object.id)).val();
                             let holidayDays = responseData.filter(object => object.projectName == 'Holidays');
                             if (!holidayDays.find(x => x.date == modalDate)) {
                                 $('#addTimeLogModal').modal('show');
@@ -323,17 +324,14 @@
                                                         availableHours -= object.time;
                                                     });
                                                     //end
-
                                                     //checking in the database if there are any similar dates
                                                     let sameDate = responseData.filter(object => object.date ===
                                                         checkDate);
                                                     //end
-
                                                     $("#addTime").attr({
-                                                        'max': availableHours,
                                                         'placeholder': availableHours + ' Hours Left',
                                                     });
-
+                                                    $("#availableHours").val(availableHours);
                                                 });
                                             }
                                     });
@@ -352,13 +350,10 @@
                             let currentEvent = info.date;
                             let positionOfDrop = $('#calendarDatePosition').val(info.start.toISOString().substring(0, 10)).val();
                             let checkDate = document.getElementById("calendarDatePosition").value;
-                            console.log(currentEvent);
-                            console.log(positionOfDrop);console.log(checkDate);
                             //values for creating a new log
                             let holidayRestriction = responseData.filter(object => object.date === positionOfDrop && object.projectName !== 'Holidays').map(object => object.id);
                             let worklogIdsForDragging = $('#worklogIdsForDragging').val(holidayRestriction).val();
                             let holidayDays = responseData.filter(object => object.projectName == 'Holidays');
-                            console.log(holidayRestriction);
                             //validation for work logs and holiday logs
                             if (!holidayDays.find(x => x.date === positionOfDrop)) {
                                 $(function (e) {
@@ -475,6 +470,8 @@
                                     url: url,
                                     success: function (response, view) {
                                         if (viewCurrentlyOn === 'listDay') {
+                                            console.log(response.hours[0]);
+
                                             $("#total").val(response.hours[0]);
                                         }
                                         if (viewCurrentlyOn === 'listWeek') {
@@ -576,25 +573,25 @@
 
 
                         },
-                        customButtons: {
-                            CreateTimeLog: {
-                                text: 'Create!',
-                                click: function () {
-                                    $('#addTimeLogModal').modal('show');
-                                    $('#addDate').removeAttr('readonly');
-                                    $(function (e) {
-                                        "use strict";
-                                        $.ajax({
-                                            success: function () {
-                                            },
-                                            error: function (error) {
-                                                console.log(error);
-                                            }
-                                        });
-                                    });
-                                }
-                            }
-                        },
+                        // customButtons: {
+                        //     CreateTimeLog: {
+                        //         text: 'Create!',
+                        //         click: function () {
+                        //             $('#addTimeLogModal').modal('show');
+                        //             $('#addDate').removeAttr('readonly');
+                        //             $(function (e) {
+                        //                 "use strict";
+                        //                 $.ajax({
+                        //                     success: function () {
+                        //                     },
+                        //                     error: function (error) {
+                        //                         console.log(error);
+                        //                     }
+                        //                 });
+                        //             });
+                        //         }
+                        //     }
+                        // },
                     });
                 }
             });
@@ -641,8 +638,9 @@
             });
         }, false);
 
-        document.querySelector('#saveTimeLog').addEventListener('click', function (e, responseData) {
+        document.querySelector('#saveTimeLog').addEventListener('click', function (e, response) {
             e.preventDefault();
+            let availableHours = $("#availableHours").val();
             let worklogIds = $('#worklogIds').val();
             let addProject = $('#addProject').val();
             let addTime = $('#addTime').val();
@@ -657,7 +655,8 @@
                     addTime: addTime,
                     addDate: addDate,
                     addComment: addComment,
-                    worklogIds: worklogIds
+                    worklogIds: worklogIds,
+                    availableHours: availableHours
                 },
                 success: function (response) {
                     location.reload();
@@ -706,7 +705,12 @@
                 headers: {
                     'X-CSRF-TOKEN': csrfToken
                 },
-                data: {idOfDrop: idOfDrop, calendarDatePosition: calendarDatePosition,cloneProject:cloneProject,worklogIdsForDragging:worklogIdsForDragging},
+                data: {
+                    idOfDrop: idOfDrop,
+                    calendarDatePosition: calendarDatePosition,
+                    cloneProject: cloneProject,
+                    worklogIdsForDragging: worklogIdsForDragging
+                },
                 success: function (response) {
                     location.reload();
                 },
@@ -819,6 +823,7 @@
                             let sameDate = responseData.filter(object => object.date ===
                                 checkDate);
                             //end
+                            console.log(availableHours);
                             $("#addTime").attr({
                                 'max': availableHours,
                                 'placeholder': availableHours + ' Hours Left',

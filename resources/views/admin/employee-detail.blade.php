@@ -202,14 +202,24 @@
                                 buttonText: 'Monthly'
                             }
                         },
-                        defaultView: 'listWeek',
+                        defaultView: 'month',
                         defaultDate: today,
                         navLinks: false, // can click day/week names to navigate views
                         editable: true,
                         displayEventTime:false,
+                        eventColor: '#FFFFFF',
                         firstDay:1,
                         eventLimit: true, // allow "more" link when too many events
                         events: events,
+                        eventRender: function (event, element) {
+                            console.log(event);
+                            if (event.project === 'Holidays') {
+                                element.css('background-color', '#ffa500');
+                            } else {
+                                element.css('background-color', '#8A2BE2');
+
+                            }
+                        },
                         eventClick: function (info) {
                             //Verify if the time sum is less than 12 hours
                             //Max value will be the difference between both times

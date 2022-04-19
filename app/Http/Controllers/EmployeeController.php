@@ -62,6 +62,7 @@ class EmployeeController extends Controller
         $end = strtotime(Carbon::now()->startOfMonth()->addMonth()->format('Y-m-d'));
         $currentTime = strtotime(Carbon::now()->format("Y-m-d"));
 
+        $availableHours = $request->availableHours;
         $selectedDate = strtotime($request->addDate);
         $selectedTime = $request->addTime;
         $selectedComment = $request->addComment;
@@ -86,7 +87,7 @@ class EmployeeController extends Controller
 
                 ]);
             }
-            if ($selectedDate >= $startOfLastMonth && $selectedDate <= $endOfCurrentMonth && $selectedTime != 0 & $selectedComment == null) {
+            if ($selectedDate >= $startOfLastMonth && $selectedDate <= $endOfCurrentMonth && $selectedTime != 0 & $selectedComment == null && $selectedTime <= $availableHours) {
                 $Timelog = Timelog::create([
                     'user_id' => auth()->user()->id,
                     'time' => $request->addTime,
@@ -97,7 +98,7 @@ class EmployeeController extends Controller
                 ]);
                 return response()->json(['response' => 'timelog added']);
             }
-            if ($selectedDate >= $startOfLastMonth && $selectedDate <= $endOfCurrentMonth && $selectedTime != 0 & $selectedComment != null) {
+            if ($selectedDate >= $startOfLastMonth && $selectedDate <= $endOfCurrentMonth && $selectedTime != 0 & $selectedComment != null && $selectedTime <= $availableHours) {
                 $Timelog = Timelog::create([
                     'user_id' => auth()->user()->id,
                     'time' => $request->addTime,
@@ -110,7 +111,7 @@ class EmployeeController extends Controller
             }
 
         } else {
-            if ($selectedProject == 12 && $selectedDate >= $start && $selectedDate <= $end && $selectedComment == null) {
+            if ($selectedProject == 12 && $selectedDate >= $start && $selectedDate <= $end && $selectedComment == null ) {
                 $idsForDelete = explode(',', $request->worklogIds);
                 $timeLogsDeleted = DB::table('timelogs')->whereIn('id', $idsForDelete)->delete();
 
@@ -124,7 +125,7 @@ class EmployeeController extends Controller
                 ]);
 
             }
-            if ($selectedDate >= $start && $selectedDate <= $end && $selectedTime != 0 && $selectedComment == Null) {
+            if ($selectedDate >= $start && $selectedDate <= $end && $selectedTime != 0 && $selectedComment == Null && $selectedTime <= $availableHours) {
                 $Timelog = Timelog::create([
                     'user_id' => auth()->user()->id,
                     'time' => $request->addTime,
@@ -135,7 +136,7 @@ class EmployeeController extends Controller
                 ]);
                 return response()->json(['response' => 'timelog added']);
             }
-            if ($selectedDate >= $start && $selectedDate <= $end && $selectedTime != 0 && $selectedComment != Null) {
+            if ($selectedDate >= $start && $selectedDate <= $end && $selectedTime != 0 && $selectedComment != Null && $selectedTime <= $availableHours) {
                 $Timelog = Timelog::create([
                     'user_id' => auth()->user()->id,
                     'time' => $request->addTime,
