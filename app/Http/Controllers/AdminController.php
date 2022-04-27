@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Middleware\Admin;
+use App\Mail\NewProjectAssignedNotification;
 use App\Models\Organization;
 use App\Models\Project;
 use Illuminate\Http\Request;
@@ -14,6 +15,7 @@ use App\Models\Customer;
 use Carbon\Carbon;
 use App\Models\Timelog;
 use Illuminate\Support\Facades\Log;
+use Mail;
 
 
 class AdminController extends Controller
@@ -200,7 +202,6 @@ class AdminController extends Controller
 
     public function employeeProjectsAssignedPage(Request $request)
     {
-
         $user = User::get()->where('id', $request->route('id'))->first();
         $projects = $user->projects()->get();
 
@@ -209,12 +210,13 @@ class AdminController extends Controller
 
     public function assignEmployeeToProject(Request $request)
     {
-
         $user = User::findorfail($request->route('user_id'));
         $project = Project::findorfail($request->project);
         $user->projects()->syncWithoutDetaching($project);
 
         $user->save();
+        $usersMail = User::get()->where('id', $request->route('user_id'))->first();
+        Mail::to($usersMail->email)->send(new NewProjectAssignedNotification());
 
         return redirect('/employee/projects/' . $request->route('user_id'));
     }

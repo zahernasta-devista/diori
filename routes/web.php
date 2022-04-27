@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ChangePasswordProfileController;
 use App\Mail\ReportsMail;
+use App\Models\User;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
@@ -62,7 +63,7 @@ Route::get('/dashboard', [UserController::class, 'dashboard'])
     ->name('dashboard')
     ->middleware(['auth','first.time.login']);
 //only admin
-route::get('/dashboard/admin-acess',[UserController::class,'multipleAccess'])
+route::get('/dashboard/admin-access',[UserController::class,'multipleAccess'])
     ->name('dashboard-admin')
     ->middleware(['auth','first.time.login']);
 route::get('/dashboard/employee-access',[UserController::class,'multipleAccessEmployee'])
@@ -170,7 +171,7 @@ Route::group(['middleware' => ['role:admin','auth', 'first.time.login']], functi
     route::get('/projects/assign/{id}', [AdminController::class, 'assignProjectToPage'])
         ->name('assign-project-page');
 
-    route::post('/projects/assgin/{user_id}', [AdminController::class, 'assignEmployeeToProject'])
+    route::post('/projects/assgin/{user_id}',[AdminController::class, 'assignEmployeeToProject'])
         ->name('assign-employee-project');
 
     //customer
