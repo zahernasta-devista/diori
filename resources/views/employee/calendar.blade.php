@@ -29,7 +29,7 @@
                 <div class="card-header">
                     <h3 class="card-title">{{ Auth::user()->name }}, This is Your Work Sheet!</h3>
                     <input id="datePicker" class="text-center input100 border-white bg-light" type="date"
-                           name="datePicker" readonly >
+                           name="datePicker" readonly hidden>
                     <input id="availableHours" name="availableHours" class="text-center input100 border-white bg-light"
                            type="number" readonly hidden>
                 </div>
