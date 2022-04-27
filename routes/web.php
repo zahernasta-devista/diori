@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ChangePasswordProfileController;
 use App\Mail\ReportsMail;
+use App\Models\User;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
@@ -170,7 +171,7 @@ Route::group(['middleware' => ['role:admin','auth', 'first.time.login']], functi
     route::get('/projects/assign/{id}', [AdminController::class, 'assignProjectToPage'])
         ->name('assign-project-page');
 
-    route::post('/projects/assgin/{user_id}', [AdminController::class, 'assignEmployeeToProject'])
+    route::post('/projects/assgin/{user_id}',[AdminController::class, 'assignEmployeeToProject'])
         ->name('assign-employee-project');
 
     //customer
