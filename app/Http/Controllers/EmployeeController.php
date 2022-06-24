@@ -11,6 +11,7 @@ use Exception;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
+use function PHPUnit\Framework\isEmpty;
 
 class EmployeeController extends Controller
 {
@@ -62,7 +63,17 @@ class EmployeeController extends Controller
         $end = strtotime(Carbon::now()->startOfMonth()->addMonth()->format('Y-m-d'));
         $currentTime = strtotime(Carbon::now()->format("Y-m-d"));
 
-        $availableHours = $request->availableHours;
+        $availableHours = 0;
+        $timelogsInformation = Timelog::where('user_id',Auth()->user()->id)->get();
+        if ($timelogsInformation->isEmpty()){
+            $availableHours = 12;
+
+        }else{
+           $availableHours = $request->availableHours;
+        }
+        Log:
+        info($availableHours);
+
         $selectedDate = strtotime($request->addDate);
         $selectedTime = $request->addTime;
         $selectedComment = $request->addComment;
@@ -111,7 +122,7 @@ class EmployeeController extends Controller
             }
 
         } else {
-            if ($selectedProject == 12 && $selectedDate >= $start && $selectedDate <= $end && $selectedComment == null ) {
+            if ($selectedProject == 12 && $selectedDate >= $start && $selectedDate <= $end && $selectedComment == null) {
                 $idsForDelete = explode(',', $request->worklogIds);
                 $timeLogsDeleted = DB::table('timelogs')->whereIn('id', $idsForDelete)->delete();
 
@@ -184,7 +195,7 @@ class EmployeeController extends Controller
         $currentTime = strtotime(Carbon::now()->format("Y-m-d"));
 
         if ($currentTime == $start) {
-            if($selectedProject == 12 && strtotime($positionOfDrop) >= $startOfLastMonth && strtotime($positionOfDrop) <= $endOfCurrentMonth){
+            if ($selectedProject == 12 && strtotime($positionOfDrop) >= $startOfLastMonth && strtotime($positionOfDrop) <= $endOfCurrentMonth) {
                 $idsForDelete = explode(',', $request->worklogIdsForDragging);
                 $timeLogsDeleted = DB::table('timelogs')->whereIn('id', $idsForDelete)->delete();
                 $timeLog = Timelog::
@@ -201,7 +212,7 @@ class EmployeeController extends Controller
                 return response()->json(['response' => "Date modified successfully"]);
             }
         } else {
-            if($selectedProject == 12 && strtotime($positionOfDrop) >= $start && strtotime($positionOfDrop) <= $end){
+            if ($selectedProject == 12 && strtotime($positionOfDrop) >= $start && strtotime($positionOfDrop) <= $end) {
                 $idsForDelete = explode(',', $request->worklogIdsForDragging);
                 Log::info($idsForDelete);
                 $timeLogsDeleted = DB::table('timelogs')->whereIn('id', $idsForDelete)->delete();
