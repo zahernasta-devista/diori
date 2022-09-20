@@ -123,8 +123,11 @@ class EmployeeController extends Controller
 
         } else {
             if ($selectedProject == 12 && $selectedDate >= $start && $selectedDate <= $end && $selectedComment == null) {
+
                 $idsForDelete = explode(',', $request->worklogIds);
-                $timeLogsDeleted = DB::table('timelogs')->whereIn('id', $idsForDelete)->delete();
+                if(sizeof($idsForDelete) > 0 && $idsForDelete[0] != "") {
+                    $timeLogsDeleted = DB::table('timelogs')->whereIn('id', $idsForDelete)->delete();
+                }
 
                 $Timelog = Timelog::create([
                     'user_id' => auth()->user()->id,
@@ -290,8 +293,11 @@ class EmployeeController extends Controller
             }
         } else {
             if ($selectedProject == 12 && $selectedDate >= $start && $selectedDate <= $end && $selectedComment == null) {
+
                 $idsForDelete = explode(',', $request->worklogIdsForDragging);
-                $timeLogsDeleted = DB::table('timelogs')->whereIn('id', $idsForDelete)->delete();
+                if(sizeof($idsForDelete) > 0 && $idsForDelete[0] != "") {
+                    $timeLogsDeleted = DB::table('timelogs')->whereIn('id', $idsForDelete)->delete();
+                }
 
                 $Timelog = Timelog::create([
                     'user_id' => auth()->user()->id,
