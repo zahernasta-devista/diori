@@ -1,0 +1,15 @@
+version: '3'
+
+services:
+  mysql-db:
+    image: mysql:latest
+    container_name: mysql-container
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: diori
+      MYSQL_USER: diori_user
+      MYSQL_PASSWORD: diori_password
+    ports:
+      - "3306:3306"
+    volumes:
+      - ./mysql-data:/var/lib/mysql

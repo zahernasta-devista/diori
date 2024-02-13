@@ -80,7 +80,7 @@
                                     Name:</i></span>
                         </div>
                         <div class="form-group-addon wrap-input100 validate-input">
-                            <input class="text-center input100 border-white bg-light" type="number" step="0.5" id="time"
+                            <input class="text-center input100 border-white bg-light" type="number" step="1" id="time"
                                    min="1">
                             <span class="focus-input100"></span>
                             <span class="symbol-input100"><i class="mdi mdi-timer" aria-hidden="true">Hours Worked :
@@ -144,7 +144,7 @@
                         </div>
                         <div id="addTimeDiv" class="form-group-addon wrap-input100 validate-input">
                             <!--time-->
-                            <input class="text-center input100 border-white bg-light" type="number" step="0.5"
+                            <input class="text-center input100 border-white bg-light" type="number" step="1"
                                    id="addTime" name="addTime" min="0" placeholder="12 hours max">
                             <span class="focus-input100"></span>
                             <span class="symbol-input100"><i class="mdi mdi-timer" aria-hidden="true">Hours Worked :
