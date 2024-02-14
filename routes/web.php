@@ -1,15 +1,15 @@
 <?php
 
-use App\Http\Controllers\ChangePasswordProfileController;
-use App\Mail\ReportsMail;
-use App\Models\User;
-use Illuminate\Support\Facades\Mail;
-use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\UserController;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\ChangePasswordProfileController;
+use App\Http\Controllers\ChartController;
 use App\Http\Controllers\EmployeeController;
-use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\ExcelController;
+use App\Http\Controllers\MyController;
+use App\Http\Controllers\ProjectController;
+use App\Http\Controllers\UserController;
+use App\Mail\ReportsMail;
+use Illuminate\Support\Facades\Route;
 
 
 /*
@@ -31,8 +31,7 @@ use App\Http\Controllers\ExcelController;
 | Real-life example for updating an employee:
 | /employees/edit/1
 */
-use App\Http\Controllers\MyController;
-  
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -253,5 +252,6 @@ Route::group(['middleware' => ['role:employee','auth', 'first.time.login']], fun
 
     Route::get('/extract/history', [EmployeeController::class, 'extractHistory'])->name('extract-history');
 
+    Route::get('/hours-per-project', [ChartController::class, 'barChart'])->name('hours-per-project');
 
 });

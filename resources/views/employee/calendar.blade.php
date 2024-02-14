@@ -573,25 +573,6 @@
 
 
                         },
-                        // customButtons: {
-                        //     CreateTimeLog: {
-                        //         text: 'Create!',
-                        //         click: function () {
-                        //             $('#addTimeLogModal').modal('show');
-                        //             $('#addDate').removeAttr('readonly');
-                        //             $(function (e) {
-                        //                 "use strict";
-                        //                 $.ajax({
-                        //                     success: function () {
-                        //                     },
-                        //                     error: function (error) {
-                        //                         console.log(error);
-                        //                     }
-                        //                 });
-                        //             });
-                        //         }
-                        //     }
-                        // },
                     });
                 }
             });
@@ -776,7 +757,11 @@
             let object = {};
             object.id = element.id;
             object.comment = element.comment;
-            object.title = element.projectName + " • " + element.time + " hours." + " • " + element.comment;
+            if(element.projectName == 'Holidays'){
+                object.title = element.projectName + " • ";
+            }else{
+                object.title = element.projectName + " • " + element.time + " hours." + " • " + element.comment;
+            }
             object.start = element.date + "T" + startHourString + ":00:00";
             object.end = element.date + "T" + endHourString + ":00:00";
             object.date = element.date;
