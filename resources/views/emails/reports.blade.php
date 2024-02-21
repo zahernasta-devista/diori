@@ -7,5 +7,5 @@ Click The Button Down Below To Access The Reports Of This Month!
 @endcomponent
 
 Thanks,<br>
-Devista Team!
+Diori Team!
 @endcomponent

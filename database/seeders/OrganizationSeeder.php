@@ -15,8 +15,8 @@ class OrganizationSeeder extends Seeder
     public function run()
     {
         DB::table('organizations')->insert([
-            'name' => 'Devista',
-            'address' => 'Bld. Dacia Nr.20',
+            'name' => 'Diori',
+            'address' => 'Bld. Cutare Nr.20',
             'phone_number' => '0767555444',
         ]);
     }

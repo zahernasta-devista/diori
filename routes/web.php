@@ -252,6 +252,14 @@ Route::group(['middleware' => ['role:employee','auth', 'first.time.login']], fun
 
     Route::get('/extract/history', [EmployeeController::class, 'extractHistory'])->name('extract-history');
 
-    Route::get('/hours-per-project', [ChartController::class, 'barChart'])->name('hours-per-project');
+    Route::get('/hours-per-project', [ChartController::class, 'EmployeeHoursPerProjectChart'])->name('hours-per-project');
+
+    Route::get('/hours-per-month', [ChartController::class, 'EmployeeHoursPerMonthChart'])->name('hours-per-month');
+
+    Route::get('/admin-total-hours-per-month', [ChartController::class, 'AdminTotalHoursPerMonthChart'])->name('admin-total-hours-per-month');
+
+    Route::get('/admin-total-hours-per-project', [ChartController::class, 'AdminTotalHoursPerProjectChart'])->name('admin-total-hours-per-project');
+
+
 
 });

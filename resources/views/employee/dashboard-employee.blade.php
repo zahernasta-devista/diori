@@ -184,56 +184,73 @@
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
 <script>
-    // Sample Data for Hours Per Project (Line Chart)
-    var hoursPerProjectData = [82, 0, 82, 0];
+    let employeeHoursPerProjectChartUrl = "{{ route('hours-per-project') }}";
 
-    // Sample Data for Overall Hours Per Month (Bar Chart)
-    var overallHoursPerMonthData = [150, 120, 200, 180, 220, 170, 190, 200, 180, 160, 210, 250];
+    fetch(employeeHoursPerProjectChartUrl)
+        .then(response => response.json())
+        .then(data => {
+            let projectsHours = data.projects.projectHours;
+            let projectNames = data.projects.projectName;
 
-    // Doughnut Chart
-    var ctxDoughnut = document.getElementById('doughnutChart').getContext('2d');
-    var doughnutChart = new Chart(ctxDoughnut, {
-        type: 'line',
-        data: {
-            labels: ['Project 1', 'Project 2', 'Project 3', 'Project 4'], // Update project labels
-            datasets: [{
-                label: 'Hours Per Project',
-                data: hoursPerProjectData,
-                backgroundColor: ['rgba(255,165,0,0.5)'],
-                borderColor: ['rgba(255,165,0,0.5)'],
-                borderWidth: 5
-            }]
-        },
-        options: {
-            responsive: false, // Ensure both charts have the same size
-            maintainAspectRatio: false,
-        }
-    });
-
-    // Bar Chart
-    var ctxBar = document.getElementById('barChart').getContext('2d');
-    var barChart = new Chart(ctxBar, {
-        type: 'bar',
-        data: {
-            labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'], // Update month labels
-            datasets: [{
-                label: 'Overall Hours Per Month',
-                data: overallHoursPerMonthData,
-                backgroundColor: ['rgba(138,43,226,0.5)'],
-                borderColor: ['rgba(138,43,226,0.5)'],
-                borderWidth: 1
-            }]
-        },
-        options: {
-            responsive: false, // Ensure both charts have the same size
-            maintainAspectRatio: false,
-            scales: {
-                y: {
-                    beginAtZero: true
+            var ctxDoughnut = document.getElementById('doughnutChart').getContext('2d');
+            var lineChart = new Chart(ctxDoughnut, {
+                type: 'line',
+                data: {
+                    labels: projectNames,
+                    datasets: [{
+                        label: 'Hours Per Project',
+                        data: projectsHours,
+                        backgroundColor: ['rgba(255,165,0,0.5)'],
+                        borderColor: ['rgba(255,165,0,0.5)'],
+                        borderWidth: 5
+                    }]
+                },
+                options: {
+                    responsive: false,
+                    maintainAspectRatio: false,
                 }
-            }
-        }
-    });
+            });
+        })
+        .catch(error => {
+            console.error('Error fetching projects data:', error);
+        });
+
+    let employeeHoursPerMonthChartUrl = "{{ route('hours-per-month') }}";
+
+    fetch(employeeHoursPerMonthChartUrl)
+        .then(response => response.json())
+        .then(data => {
+            let overallHoursPerMonthData = data.overallHoursPerMonthData;
+            console.log(data);
+
+            var ctxBar = document.getElementById('barChart').getContext('2d');
+            var barChart = new Chart(ctxBar, {
+                type: 'bar',
+                data: {
+                    labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
+                    datasets: [{
+                        label: 'Overall Hours Per Month',
+                        data: overallHoursPerMonthData,
+                        backgroundColor: ['rgba(138,43,226,0.5)'],
+                        borderColor: ['rgba(138,43,226,0.5)'],
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: false,
+                    maintainAspectRatio: false,
+                    scales: {
+                        y: {
+                            beginAtZero: true
+                        }
+                    }
+                }
+            });
+        })
+        .catch(error => {
+            console.error('Error fetching overall hours per month data:', error);
+        });
+
 </script>
 
 

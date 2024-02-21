@@ -23,7 +23,7 @@
                 <div class="d-flex">
                     <div class="text-white">
                         <h2 class="mb-0 number-font">{{$customer}}</h2>
-                        <p class="text-white mb-0">Total Customers At Devista!</p>
+                        <p class="text-white mb-0">Total Customers At Diori!</p>
                     </div>
                     <div class="ml-auto"><i class="fa fa-send-o text-white fs-30 mr-2 mt-2"></i></div>
                 </div>
@@ -117,55 +117,129 @@
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
 <script>
-    var totalHoursPerProjectData = [150, 120, 200, 180]; // Update with actual data
 
-    // Sample Data for All Hours on Each Month for All Employees (Line Chart)
-    var allHoursPerMonthData = [400, 500, 650, 700, 550, 600, 450, 800, 700, 550, 600, 750];
+    var adminTotalHoursPerProjectChartUrl = "{{ route('admin-total-hours-per-project') }}";
 
-    // Bar Chart - Total Hours Worked on Each Project
-    var ctxBarTotalHoursPerProject = document.getElementById('barChartAllHours').getContext('2d');
-    var barChartTotalHoursPerProject = new Chart(ctxBarTotalHoursPerProject, {
-        type: 'bar',
-        data: {
-            labels: ['Project 1', 'Project 2', 'Project 3', 'Project 4'], // Update project labels
-            datasets: [{
-                label: 'Total Hours Worked on Each Project For The Current Month',
-                data: totalHoursPerProjectData,
-                backgroundColor: ['rgba(138,43,226,0.5)'],
-                borderColor: ['rgba(138,43,226,0.5)'],
-                borderWidth: 1
-            }]
-        },
-        options: {
-            responsive: false, // Ensure both charts have the same size
-            maintainAspectRatio: false,
-            scales: {
-                y: {
-                    beginAtZero: true
+    fetch(adminTotalHoursPerProjectChartUrl)
+        .then(response => response.json())
+        .then(data => {
+            let projectsAndHours = data.projectsAndHours;
+            console.log(data);
+
+            let projectLabels = projectsAndHours.map(project => project.name);
+            let totalHoursPerProjectData = projectsAndHours.map(project => project.totalHours);
+
+            var ctxBarTotalHoursPerProject = document.getElementById('barChartAllHours').getContext('2d');
+            var barChartTotalHoursPerProject = new Chart(ctxBarTotalHoursPerProject, {
+                type: 'bar',
+                data: {
+                    labels: projectLabels,
+                    datasets: [{
+                        label: 'Total Hours Worked on Each Project For The Current Month',
+                        data: totalHoursPerProjectData,
+                        backgroundColor: ['rgba(138,43,226,0.5)'],
+                        borderColor: ['rgba(138,43,226,0.5)'],
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: false,
+                    maintainAspectRatio: false,
+                    scales: {
+                        y: {
+                            beginAtZero: true
+                        }
+                    }
                 }
-            }
-        }
-    });
+            });
+        })
+        .catch(error => {
+            console.error('Error fetching admin total hours per project data:', error);
+        });
 
-    // Line Chart - All Hours on Each Month for All Employees
-    var ctxLineAllHoursPerMonth = document.getElementById('lineChartAllHoursPerMonth').getContext('2d');
-    var lineChartAllHoursPerMonth = new Chart(ctxLineAllHoursPerMonth, {
-        type: 'line',
-        data: {
-            labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'], // Update month labels
-            datasets: [{
-                label: 'All Hours on Each Month for All Employees',
-                data: allHoursPerMonthData,
-                backgroundColor: 'rgba(255,165,0,0.5)',
-                borderColor: 'rgba(255,165,0,0.5)',
-                borderWidth: 5
-            }]
-        },
-        options: {
-            responsive: false, // Ensure both charts have the same size
-            maintainAspectRatio: false,
+
+    function fetchAdminTotalHoursPerprojectData() {
+        let adminTotalHoursPerMonthChartUrl = "{{ route('admin-total-hours-per-month') }}";
+
+        return fetch(adminTotalHoursPerMonthChartUrl)
+            .then(response => response.json())
+            .then(data => data.overallHoursPerMonthData)
+            .catch(error => {
+                console.error('Error fetching admin total hours per month data:', error);
+                return [];
+            });
+    }
+
+    async function updateAdminTotalHoursPerProjectChart() {
+        try {
+            let allHoursPerMonthData = await fetchAdminTotalHoursPerMonthData();
+
+            var ctxLineAllHoursPerMonth = document.getElementById('lineChartAllHoursPerMonth').getContext('2d');
+            var lineChartAllHoursPerMonth = new Chart(ctxLineAllHoursPerMonth, {
+                type: 'line',
+                data: {
+                    labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
+                    datasets: [{
+                        label: 'All Hours on Each Month for All Employees',
+                        data: allHoursPerMonthData,
+                        backgroundColor: 'rgba(255,165,0,0.5)',
+                        borderColor: 'rgba(255,165,0,0.5)',
+                        borderWidth: 5
+                    }]
+                },
+                options: {
+                    responsive: false,
+                    maintainAspectRatio: false,
+                }
+            });
+        } catch (error) {
+            console.error('Error updating admin total hours per month chart:', error);
         }
-    });
+    }
+
+    updateAdminTotalHoursPerMonthChart();
+
+    function fetchAdminTotalHoursPerMonthData() {
+        let adminTotalHoursPerMonthChartUrl = "{{ route('admin-total-hours-per-month') }}";
+
+        return fetch(adminTotalHoursPerMonthChartUrl)
+            .then(response => response.json())
+            .then(data => data.overallHoursPerMonthData)
+            .catch(error => {
+                console.error('Error fetching admin total hours per month data:', error);
+                return [];
+            });
+    }
+
+    async function updateAdminTotalHoursPerMonthChart() {
+        try {
+            let allHoursPerMonthData = await fetchAdminTotalHoursPerMonthData();
+
+            var ctxLineAllHoursPerMonth = document.getElementById('lineChartAllHoursPerMonth').getContext('2d');
+            var lineChartAllHoursPerMonth = new Chart(ctxLineAllHoursPerMonth, {
+                type: 'line',
+                data: {
+                    labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
+                    datasets: [{
+                        label: 'All Hours on Each Month for All Employees',
+                        data: allHoursPerMonthData,
+                        backgroundColor: 'rgba(255,165,0,0.5)',
+                        borderColor: 'rgba(255,165,0,0.5)',
+                        borderWidth: 5
+                    }]
+                },
+                options: {
+                    responsive: false,
+                    maintainAspectRatio: false,
+                }
+            });
+        } catch (error) {
+            console.error('Error updating admin total hours per month chart:', error);
+        }
+    }
+
+    updateAdminTotalHoursPerMonthChart();
+
 </script>
 
 @endsection

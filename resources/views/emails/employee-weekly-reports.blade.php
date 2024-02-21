@@ -5,5 +5,5 @@ Please Reach The Minimum Hours Until The End Of The Month!
     
 
 Thanks,<br>
-Devista Team!
+Diori Team!
 @endcomponent
